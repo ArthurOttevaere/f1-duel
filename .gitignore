@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Cache 
+cache/
+fastf1_cache/
+
+.DS_Store

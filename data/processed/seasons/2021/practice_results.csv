@@ -1,0 +1,1237 @@
+Season,Round,EventName,Circuit,SessionType,EventDate,Driver,BestLapTime,AvgLapTime,LapCount,GapToFastest,DriverId,TeamName,FirstName,LastName,AirTemp_mean,TrackTemp_mean,Humidity_mean,WindSpeed_mean,Rainfall
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,ALO,93.872,103.449615384,13,2.478,alonso,Alpine,Fernando,Alonso,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,BOT,91.692,105.441545454,11,0.298,bottas,Mercedes,Valtteri,Bottas,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,GAS,92.195,107.123588235,17,0.801,gasly,AlphaTauri,Pierre,Gasly,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,GIO,92.786,108.310444444,9,1.392,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,HAM,91.921,98.466375,8,0.527,hamilton,Mercedes,Lewis,Hamilton,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,LAT,94.34,108.794611111,18,2.946,latifi,Williams,Nicholas,Latifi,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,LEC,91.993,113.2707,10,0.599,leclerc,Ferrari,Charles,Leclerc,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,MAZ,94.975,117.632833333,12,3.581,mazepin,Haas F1 Team,Nikita,Mazepin,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,MSC,94.501,108.829444444,9,3.107,mick_schumacher,Haas F1 Team,Mick,Schumacher,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,NOR,91.897,110.451466666,15,0.503,norris,McLaren,Lando,Norris,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,OCO,93.528,106.7355625,16,2.134,ocon,Alpine,Esteban,Ocon,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,PER,92.071,113.144583333,12,0.677,perez,Red Bull Racing,Sergio,Perez,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,RAI,93.134,106.601818181,11,1.74,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,RIC,92.434,107.5268125,16,1.04,ricciardo,McLaren,Daniel,Ricciardo,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,RUS,94.127,106.913,18,2.733,russell,Williams,George,Russell,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,SAI,92.366,115.114444444,9,0.972,sainz,Ferrari,Carlos,Sainz,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,STR,93.233,100.74575,12,1.839,stroll,Aston Martin,Lance,Stroll,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,TSU,93.329,114.57717647,17,1.935,tsunoda,AlphaTauri,Yuki,Tsunoda,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,VER,91.394,106.961625,8,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP1,2021-03-28,VET,93.157,108.587352941,17,1.763,vettel,Aston Martin,Sebastian,Vettel,35.6,46.8,24.6,0.3,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,ALO,91.77,103.8095,20,0.923,alonso,Alpine,Fernando,Alonso,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,BOT,91.218,107.145055555,18,0.371,bottas,Mercedes,Valtteri,Bottas,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,GAS,91.483,105.255869565,23,0.636,gasly,AlphaTauri,Pierre,Gasly,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,GIO,91.74,105.515791666,24,0.893,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,HAM,91.082,102.732352941,17,0.235,hamilton,Mercedes,Lewis,Hamilton,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,LAT,93.4,105.41324,25,2.553,latifi,Williams,Nicholas,Latifi,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,LEC,91.612,107.45990909,22,0.765,leclerc,Ferrari,Charles,Leclerc,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,MAZ,93.449,112.159133333,15,2.602,mazepin,Haas F1 Team,Nikita,Mazepin,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,MSC,93.297,106.0958,20,2.45,mick_schumacher,Haas F1 Team,Mick,Schumacher,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,NOR,90.942,107.333772727,22,0.095,norris,McLaren,Lando,Norris,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,OCO,91.601,106.82395,20,0.754,ocon,Alpine,Esteban,Ocon,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,PER,91.503,107.4217,20,0.656,perez,Red Bull Racing,Sergio,Perez,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,RAI,91.862,105.96725,8,1.015,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,RIC,91.23,106.488052631,19,0.383,ricciardo,McLaren,Daniel,Ricciardo,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,RUS,92.331,104.79784,25,1.484,russell,Williams,George,Russell,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,SAI,91.127,104.072095238,21,0.28,sainz,Ferrari,Carlos,Sainz,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,STR,91.393,102.1759,20,0.546,stroll,Aston Martin,Lance,Stroll,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,TSU,91.294,109.1715,20,0.447,tsunoda,AlphaTauri,Yuki,Tsunoda,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,VER,90.847,103.749736842,19,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP2,2021-03-28,VET,91.769,106.375043478,23,0.922,vettel,Aston Martin,Sebastian,Vettel,28.3,32.6,43.2,0.8,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,ALO,92.82,115.476363636,11,2.243,alonso,Alpine,Fernando,Alonso,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,BOT,91.855,109.528307692,13,1.278,bottas,Mercedes,Valtteri,Bottas,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,GAS,91.583,109.327125,8,1.006,gasly,AlphaTauri,Pierre,Gasly,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,GIO,92.5,115.096428571,7,1.923,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,HAM,91.316,106.837857142,7,0.739,hamilton,Mercedes,Lewis,Hamilton,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,LAT,93.959,118.29425,8,3.382,latifi,Williams,Nicholas,Latifi,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,LEC,92.482,117.37776923,13,1.905,leclerc,Ferrari,Charles,Leclerc,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,MAZ,93.622,108.0054,5,3.045,mazepin,Haas F1 Team,Nikita,Mazepin,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,MSC,93.422,110.756142857,7,2.845,mick_schumacher,Haas F1 Team,Mick,Schumacher,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,NOR,92.86,119.615,7,2.283,norris,McLaren,Lando,Norris,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,OCO,92.423,119.142285714,7,1.846,ocon,Alpine,Esteban,Ocon,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,PER,91.908,114.465428571,7,1.331,perez,Red Bull Racing,Sergio,Perez,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,RAI,92.224,111.2812,10,1.647,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,RIC,92.477,113.874333333,9,1.9,ricciardo,McLaren,Daniel,Ricciardo,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,RUS,93.323,119.903333333,9,2.746,russell,Williams,George,Russell,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,SAI,92.108,114.216,10,1.531,sainz,Ferrari,Carlos,Sainz,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,STR,92.431,114.852444444,9,1.854,stroll,Aston Martin,Lance,Stroll,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,TSU,92.677,122.668363636,11,2.1,tsunoda,AlphaTauri,Yuki,Tsunoda,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,VER,90.577,112.516875,8,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,38.0,46.9,10.5,0.4,False
+2021,1,Bahrain Grand Prix,Sakhir,FP3,2021-03-28,VET,92.755,113.269454545,11,2.178,vettel,Aston Martin,Sebastian,Vettel,38.0,46.9,10.5,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,ALO,77.457,94.121789473,19,0.893,alonso,Alpine,Fernando,Alonso,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,BOT,76.564,88.057,20,0.0,bottas,Mercedes,Valtteri,Bottas,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,GAS,76.888,89.515611111,18,0.324,gasly,AlphaTauri,Pierre,Gasly,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,GIO,78.058,91.30575,20,1.494,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,HAM,76.605,88.584318181,22,0.041,hamilton,Mercedes,Lewis,Hamilton,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,LAT,77.739,88.91935,20,1.175,latifi,Williams,Nicholas,Latifi,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,LEC,76.796,95.050666666,9,0.232,leclerc,Ferrari,Charles,Leclerc,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,MAZ,78.823,94.2913125,16,2.259,mazepin,Haas F1 Team,Nikita,Mazepin,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,MSC,79.48,89.6815,16,2.916,mick_schumacher,Haas F1 Team,Mick,Schumacher,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,NOR,77.935,86.673916666,12,1.371,norris,McLaren,Lando,Norris,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,OCO,78.36,81.258411764,17,1.796,ocon,Alpine,Esteban,Ocon,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,PER,78.228,88.730583333,12,1.664,perez,Red Bull Racing,Sergio,Perez,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,RAI,77.883,94.2045,12,1.319,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,RIC,77.769,87.338157894,19,1.205,ricciardo,McLaren,Daniel,Ricciardo,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,RUS,77.866,90.385571428,21,1.302,russell,Williams,George,Russell,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,SAI,76.888,88.94,21,0.324,sainz,Ferrari,Carlos,Sainz,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,STR,77.489,87.223533333,15,0.925,stroll,Aston Martin,Lance,Stroll,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,TSU,79.781,91.603625,8,3.217,tsunoda,AlphaTauri,Yuki,Tsunoda,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,VER,76.622,87.211058823,17,0.058,max_verstappen,Red Bull Racing,Max,Verstappen,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP1,2021-04-18,VET,77.984,84.022736842,19,1.42,vettel,Aston Martin,Sebastian,Vettel,11.9,22.8,51.7,0.6,True
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,ALO,76.835,87.660565217,23,1.468,alonso,Alpine,Fernando,Alonso,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,BOT,75.551,85.778142857,21,0.184,bottas,Mercedes,Valtteri,Bottas,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,GAS,75.629,85.388576923,26,0.262,gasly,AlphaTauri,Pierre,Gasly,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,GIO,76.513,90.853095238,21,1.146,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,HAM,75.561,87.983,22,0.194,hamilton,Mercedes,Lewis,Hamilton,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,LAT,76.823,88.18092,25,1.456,latifi,Williams,Nicholas,Latifi,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,LEC,75.367,88.855565217,23,0.0,leclerc,Ferrari,Charles,Leclerc,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,MAZ,77.857,93.363666666,12,2.49,mazepin,Haas F1 Team,Nikita,Mazepin,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,MSC,77.35,85.420708333,24,1.983,mick_schumacher,Haas F1 Team,Mick,Schumacher,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,NOR,76.485,87.210157894,19,1.118,norris,McLaren,Lando,Norris,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,OCO,76.817,86.369956521,23,1.45,ocon,Alpine,Esteban,Ocon,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,PER,76.411,86.309,21,1.044,perez,Red Bull Racing,Sergio,Perez,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,RAI,77.273,89.082130434,23,1.906,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,RIC,76.782,90.47955,20,1.415,ricciardo,McLaren,Daniel,Ricciardo,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,RUS,77.179,87.603592592,27,1.812,russell,Williams,George,Russell,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,SAI,75.834,90.478692307,26,0.467,sainz,Ferrari,Carlos,Sainz,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,STR,76.737,86.254761904,21,1.37,stroll,Aston Martin,Lance,Stroll,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,TSU,76.419,87.679826086,23,1.052,tsunoda,AlphaTauri,Yuki,Tsunoda,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,VER,76.999,82.8575,4,1.632,max_verstappen,Red Bull Racing,Max,Verstappen,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP2,2021-04-18,VET,77.092,85.794782608,23,1.725,vettel,Aston Martin,Sebastian,Vettel,13.5,24.1,37.8,1.0,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,ALO,76.186,95.282470588,17,1.228,alonso,Alpine,Fernando,Alonso,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,BOT,75.908,96.958642857,14,0.95,bottas,Mercedes,Valtteri,Bottas,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,GAS,75.89,91.487277777,18,0.932,gasly,AlphaTauri,Pierre,Gasly,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,GIO,76.612,92.341722222,18,1.654,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,HAM,75.515,93.679076923,13,0.557,hamilton,Mercedes,Lewis,Hamilton,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,LAT,76.537,96.180363636,11,1.579,latifi,Williams,Nicholas,Latifi,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,LEC,75.738,97.464470588,17,0.78,leclerc,Ferrari,Charles,Leclerc,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,MAZ,76.793,90.675842105,19,1.835,mazepin,Haas F1 Team,Nikita,Mazepin,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,MSC,76.448,93.48068421,19,1.49,mick_schumacher,Haas F1 Team,Mick,Schumacher,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,NOR,75.414,93.229833333,12,0.456,norris,McLaren,Lando,Norris,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,OCO,76.228,94.2993125,16,1.27,ocon,Alpine,Esteban,Ocon,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,PER,75.551,94.905071428,14,0.593,perez,Red Bull Racing,Sergio,Perez,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,RAI,76.775,88.716,18,1.817,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,RIC,76.253,93.128307692,13,1.295,ricciardo,McLaren,Daniel,Ricciardo,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,RUS,76.427,98.545533333,15,1.469,russell,Williams,George,Russell,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,SAI,75.908,98.267294117,17,0.95,sainz,Ferrari,Carlos,Sainz,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,STR,76.245,95.618666666,15,1.287,stroll,Aston Martin,Lance,Stroll,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,TSU,76.23,95.03875,16,1.272,tsunoda,AlphaTauri,Yuki,Tsunoda,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,VER,74.958,95.825153846,13,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,11.6,21.7,51.4,0.4,False
+2021,2,Emilia Romagna Grand Prix,Imola,FP3,2021-04-18,VET,76.389,95.47,15,1.431,vettel,Aston Martin,Sebastian,Vettel,11.6,21.7,51.4,0.4,False
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,ALO,81.303,87.390071428,28,1.655,alonso,Alpine,Fernando,Alonso,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,BOT,79.648,88.256148148,27,0.0,bottas,Mercedes,Valtteri,Bottas,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,GAS,80.444,89.026777777,27,0.796,gasly,AlphaTauri,Pierre,Gasly,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,HAM,79.967,87.17137931,29,0.319,hamilton,Mercedes,Lewis,Hamilton,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,ILO,81.806,89.152666666,18,2.158,nan,Alfa Romeo Racing,Callum,Ilott,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,LAT,82.293,96.78726923,26,2.645,latifi,Williams,Nicholas,Latifi,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,LEC,79.884,90.497086956,23,0.236,leclerc,Ferrari,Charles,Leclerc,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,MAZ,83.52,94.812076923,26,3.872,mazepin,Haas F1 Team,Nikita,Mazepin,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,MSC,81.939,90.30284,25,2.291,mick_schumacher,Haas F1 Team,Mick,Schumacher,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,NOR,80.635,92.701086956,23,0.987,norris,McLaren,Lando,Norris,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,OCO,80.8,90.836913043,23,1.152,ocon,Alpine,Esteban,Ocon,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,PER,79.846,93.565444444,18,0.198,perez,Red Bull Racing,Sergio,Perez,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,RAI,81.381,93.020863636,22,1.733,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,RIC,80.995,90.730214285,28,1.347,ricciardo,McLaren,Daniel,Ricciardo,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,RUS,80.529,92.85516,25,0.881,russell,Williams,George,Russell,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,SAI,80.68,90.632130434,23,1.032,sainz,Ferrari,Carlos,Sainz,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,STR,80.894,89.27026923,26,1.246,stroll,Aston Martin,Lance,Stroll,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,TSU,81.09,90.247826086,23,1.442,tsunoda,AlphaTauri,Yuki,Tsunoda,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,VER,79.673,89.670157894,19,0.025,max_verstappen,Red Bull Racing,Max,Verstappen,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP1,2021-05-02,VET,81.405,89.7165,28,1.757,vettel,Aston Martin,Sebastian,Vettel,17.7,33.0,45.0,0.7,True
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,ALO,80.22,89.547103448,29,0.383,alonso,Alpine,Fernando,Alonso,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,BOT,80.181,87.01232,25,0.344,bottas,Mercedes,Valtteri,Bottas,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,GAS,80.558,90.482774193,31,0.721,gasly,AlphaTauri,Pierre,Gasly,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,GIO,81.238,92.168482758,29,1.401,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,HAM,79.837,89.843566666,30,0.0,hamilton,Mercedes,Lewis,Hamilton,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,LAT,81.855,94.573321428,28,2.018,latifi,Williams,Nicholas,Latifi,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,LEC,80.36,93.7148,30,0.523,leclerc,Ferrari,Charles,Leclerc,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,MAZ,82.638,94.03084,25,2.801,mazepin,Haas F1 Team,Nikita,Mazepin,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,MSC,81.232,92.971307692,26,1.395,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,NOR,80.757,92.24068,25,0.92,norris,McLaren,Lando,Norris,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,OCO,80.235,88.809892857,28,0.398,ocon,Alpine,Esteban,Ocon,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,PER,80.516,90.56124,25,0.679,perez,Red Bull Racing,Sergio,Perez,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,RAI,81.225,91.584736842,19,1.388,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,RIC,80.418,91.401035714,28,0.581,ricciardo,McLaren,Daniel,Ricciardo,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,RUS,80.976,93.994,29,1.139,russell,Williams,George,Russell,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,SAI,80.197,93.2375,30,0.36,sainz,Ferrari,Carlos,Sainz,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,STR,80.427,93.115785714,28,0.59,stroll,Aston Martin,Lance,Stroll,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,TSU,81.053,90.897333333,30,1.216,tsunoda,AlphaTauri,Yuki,Tsunoda,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,VER,79.98,88.934636363,22,0.143,max_verstappen,Red Bull Racing,Max,Verstappen,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP2,2021-05-02,VET,81.074,91.069034482,29,1.237,vettel,Aston Martin,Sebastian,Vettel,19.0,38.9,44.8,0.8,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,ALO,78.735,93.901941176,17,0.246,alonso,Alpine,Fernando,Alonso,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,BOT,78.82,96.298,15,0.331,bottas,Mercedes,Valtteri,Bottas,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,GAS,79.374,92.266260869,23,0.885,gasly,AlphaTauri,Pierre,Gasly,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,GIO,79.588,94.93195,20,1.099,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,HAM,78.725,93.169470588,17,0.236,hamilton,Mercedes,Lewis,Hamilton,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,LAT,80.681,105.5823125,16,2.192,latifi,Williams,Nicholas,Latifi,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,LEC,79.001,97.734095238,21,0.512,leclerc,Ferrari,Charles,Leclerc,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,MAZ,80.64,94.460294117,17,2.151,mazepin,Haas F1 Team,Nikita,Mazepin,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,MSC,80.033,93.858315789,19,1.544,mick_schumacher,Haas F1 Team,Mick,Schumacher,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,NOR,79.272,96.512266666,15,0.783,norris,McLaren,Lando,Norris,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,OCO,78.86,94.4433125,16,0.371,ocon,Alpine,Esteban,Ocon,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,PER,78.84,97.667695652,23,0.351,perez,Red Bull Racing,Sergio,Perez,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,RAI,79.415,95.672136363,22,0.926,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,RIC,79.582,96.201125,16,1.093,ricciardo,McLaren,Daniel,Ricciardo,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,RUS,80.127,100.103733333,15,1.638,russell,Williams,George,Russell,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,SAI,79.05,96.549590909,22,0.561,sainz,Ferrari,Carlos,Sainz,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,STR,80.007,98.679428571,14,1.518,stroll,Aston Martin,Lance,Stroll,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,TSU,79.485,95.376,22,0.996,tsunoda,AlphaTauri,Yuki,Tsunoda,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,VER,78.489,94.654666666,18,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,17.1,31.0,46.2,0.6,False
+2021,3,Portuguese Grand Prix,Portimão,FP3,2021-05-02,VET,80.129,95.2745,18,1.64,vettel,Aston Martin,Sebastian,Vettel,17.1,31.0,46.2,0.6,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,ALO,79.95,87.2054,20,1.446,alonso,Alpine,Fernando,Alonso,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,BOT,78.504,92.8215,22,0.0,bottas,Mercedes,Valtteri,Bottas,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,GAS,79.062,92.131380952,21,0.558,gasly,AlphaTauri,Pierre,Gasly,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,GIO,79.694,95.08385,20,1.19,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,HAM,78.627,94.447631578,19,0.123,hamilton,Mercedes,Lewis,Hamilton,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,KUB,81.887,97.836555555,9,3.383,nan,Alfa Romeo Racing,Robert,Kubica,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,LAT,80.27,96.217818181,22,1.766,latifi,Williams,Nicholas,Latifi,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,LEC,78.996,88.3667,20,0.492,leclerc,Ferrari,Charles,Leclerc,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,MAZ,81.976,98.359736842,19,3.472,mazepin,Haas F1 Team,Nikita,Mazepin,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,MSC,80.766,93.3927,20,2.262,mick_schumacher,Haas F1 Team,Mick,Schumacher,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,NIS,80.7,92.58675,20,2.196,nan,Williams,Roy,Nissany,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,NOR,78.944,99.04845,20,0.44,norris,McLaren,Lando,Norris,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,OCO,79.681,92.225545454,22,1.177,ocon,Alpine,Esteban,Ocon,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,PER,79.349,99.306214285,14,0.845,perez,Red Bull Racing,Sergio,Perez,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,RIC,79.732,91.5655,18,1.228,ricciardo,McLaren,Daniel,Ricciardo,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,SAI,79.02,98.321473684,19,0.516,sainz,Ferrari,Carlos,Sainz,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,STR,79.429,91.439818181,22,0.925,stroll,Aston Martin,Lance,Stroll,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,TSU,79.669,91.41975,16,1.165,tsunoda,AlphaTauri,Yuki,Tsunoda,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,VER,78.537,92.746125,16,0.033,max_verstappen,Red Bull Racing,Max,Verstappen,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP1,2021-05-09,VET,79.234,89.44795,20,0.73,vettel,Aston Martin,Sebastian,Vettel,21.9,35.7,55.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,ALO,78.518,89.978,27,0.348,alonso,Alpine,Fernando,Alonso,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,BOT,78.309,93.397555555,27,0.139,bottas,Mercedes,Valtteri,Bottas,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,GAS,78.593,91.024206896,29,0.423,gasly,AlphaTauri,Pierre,Gasly,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,GIO,79.122,95.229538461,26,0.952,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,HAM,78.17,92.299896551,29,0.0,hamilton,Mercedes,Lewis,Hamilton,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,LAT,80.046,93.62073913,23,1.876,latifi,Williams,Nicholas,Latifi,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,LEC,78.335,93.013333333,24,0.165,leclerc,Ferrari,Charles,Leclerc,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,MAZ,80.753,94.780291666,24,2.583,mazepin,Haas F1 Team,Nikita,Mazepin,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,MSC,80.326,94.052185185,27,2.156,mick_schumacher,Haas F1 Team,Mick,Schumacher,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,NOR,79.092,90.83892,25,0.922,norris,McLaren,Lando,Norris,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,OCO,78.466,91.176346153,26,0.296,ocon,Alpine,Esteban,Ocon,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,PER,78.918,92.7978,20,0.748,perez,Red Bull Racing,Sergio,Perez,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,RAI,79.213,93.38576,25,1.043,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,RIC,79.195,93.1258,25,1.025,ricciardo,McLaren,Daniel,Ricciardo,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,RUS,79.957,93.968384615,26,1.787,russell,Williams,George,Russell,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,SAI,78.674,94.046703703,27,0.504,sainz,Ferrari,Carlos,Sainz,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,STR,79.134,90.216615384,26,0.964,stroll,Aston Martin,Lance,Stroll,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,TSU,78.619,92.425222222,27,0.449,tsunoda,AlphaTauri,Yuki,Tsunoda,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,VER,78.785,92.734826086,23,0.615,max_verstappen,Red Bull Racing,Max,Verstappen,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP2,2021-05-09,VET,78.947,89.352888888,27,0.777,vettel,Aston Martin,Sebastian,Vettel,21.0,41.0,62.2,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,ALO,78.662,96.484866666,15,0.827,alonso,Alpine,Fernando,Alonso,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,BOT,78.423,109.629833333,12,0.588,bottas,Mercedes,Valtteri,Bottas,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,GAS,78.535,105.536066666,15,0.7,gasly,AlphaTauri,Pierre,Gasly,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,GIO,79.214,100.246733333,15,1.379,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,HAM,78.07,101.272333333,9,0.235,hamilton,Mercedes,Lewis,Hamilton,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,LAT,79.392,112.423307692,13,1.557,latifi,Williams,Nicholas,Latifi,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,LEC,78.308,97.645214285,14,0.473,leclerc,Ferrari,Charles,Leclerc,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,MAZ,80.237,103.618333333,12,2.402,mazepin,Haas F1 Team,Nikita,Mazepin,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,MSC,79.999,106.068266666,15,2.164,mick_schumacher,Haas F1 Team,Mick,Schumacher,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,NOR,78.494,103.640636363,11,0.659,norris,McLaren,Lando,Norris,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,OCO,78.7,102.899461538,13,0.865,ocon,Alpine,Esteban,Ocon,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,PER,78.606,103.718615384,13,0.771,perez,Red Bull Racing,Sergio,Perez,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,RAI,78.597,100.885142857,14,0.762,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,RIC,78.582,99.296888888,18,0.747,ricciardo,McLaren,Daniel,Ricciardo,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,RUS,79.005,108.155692307,13,1.17,russell,Williams,George,Russell,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,SAI,78.41,100.024933333,15,0.575,sainz,Ferrari,Carlos,Sainz,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,STR,78.877,105.2936,15,1.042,stroll,Aston Martin,Lance,Stroll,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,TSU,78.673,103.593736842,19,0.838,tsunoda,AlphaTauri,Yuki,Tsunoda,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,VER,77.835,104.791444444,9,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,24.0,39.5,51.8,0.4,False
+2021,4,Spanish Grand Prix,Barcelona,FP3,2021-05-09,VET,79.363,104.122375,16,1.528,vettel,Aston Martin,Sebastian,Vettel,24.0,39.5,51.8,0.4,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,ALO,74.205,83.103371428,35,1.718,alonso,Alpine,Fernando,Alonso,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,BOT,73.131,85.424484848,33,0.644,bottas,Mercedes,Valtteri,Bottas,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,GAS,72.929,83.232323529,34,0.442,gasly,AlphaTauri,Pierre,Gasly,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,GIO,74.106,82.153375,24,1.619,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,HAM,72.995,84.930633333,30,0.508,hamilton,Mercedes,Lewis,Hamilton,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,LAT,74.268,87.576025641,39,1.781,latifi,Williams,Nicholas,Latifi,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,LEC,79.618,88.936666666,3,7.131,leclerc,Ferrari,Charles,Leclerc,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,MAZ,74.616,87.042,30,2.129,mazepin,Haas F1 Team,Nikita,Mazepin,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,MSC,74.801,86.128375,32,2.314,mick_schumacher,Haas F1 Team,Mick,Schumacher,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,NOR,73.236,83.495107142,28,0.749,norris,McLaren,Lando,Norris,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,OCO,74.32,81.754083333,36,1.833,ocon,Alpine,Esteban,Ocon,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,PER,72.487,85.767823529,34,0.0,perez,Red Bull Racing,Sergio,Perez,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,RAI,74.081,84.371321428,28,1.594,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,RIC,74.281,82.550181818,33,1.794,ricciardo,McLaren,Daniel,Ricciardo,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,RUS,74.84,83.177242424,33,2.353,russell,Williams,George,Russell,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,SAI,72.606,87.37,29,0.119,sainz,Ferrari,Carlos,Sainz,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,STR,74.09,84.242733333,30,1.603,stroll,Aston Martin,Lance,Stroll,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,TSU,73.746,82.452388888,36,1.259,tsunoda,AlphaTauri,Yuki,Tsunoda,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,VER,72.648,84.926054054,37,0.161,max_verstappen,Red Bull Racing,Max,Verstappen,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP1,2021-05-23,VET,73.732,84.058233333,30,1.245,vettel,Aston Martin,Sebastian,Vettel,20.2,39.1,54.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,ALO,73.175,86.060875,24,1.491,alonso,Alpine,Fernando,Alonso,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,BOT,72.107,82.809517241,29,0.423,bottas,Mercedes,Valtteri,Bottas,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,GAS,72.498,85.3246,25,0.814,gasly,AlphaTauri,Pierre,Gasly,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,GIO,72.746,83.70256,25,1.062,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,HAM,72.074,86.42152,25,0.39,hamilton,Mercedes,Lewis,Hamilton,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,LAT,73.593,84.974821428,28,1.909,latifi,Williams,Nicholas,Latifi,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,LEC,71.684,86.22874074,27,0.0,leclerc,Ferrari,Charles,Leclerc,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,MAZ,74.407,86.730608695,23,2.723,mazepin,Haas F1 Team,Nikita,Mazepin,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,MSC,74.416,87.948590909,22,2.732,mick_schumacher,Haas F1 Team,Mick,Schumacher,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,NOR,72.379,84.030904761,21,0.695,norris,McLaren,Lando,Norris,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,OCO,73.199,82.3652,25,1.515,ocon,Alpine,Esteban,Ocon,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,PER,72.708,85.321238095,21,1.024,perez,Red Bull Racing,Sergio,Perez,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,RAI,73.065,82.424285714,28,1.381,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,RIC,73.257,86.589,23,1.573,ricciardo,McLaren,Daniel,Ricciardo,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,RUS,73.509,83.416655172,29,1.825,russell,Williams,George,Russell,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,SAI,71.796,86.148928571,28,0.112,sainz,Ferrari,Carlos,Sainz,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,STR,73.195,88.127130434,23,1.511,stroll,Aston Martin,Lance,Stroll,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,TSU,74.829,85.4081,10,3.145,tsunoda,AlphaTauri,Yuki,Tsunoda,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,VER,72.081,84.839791666,24,0.397,max_verstappen,Red Bull Racing,Max,Verstappen,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP2,2021-05-23,VET,72.982,86.582,23,1.298,vettel,Aston Martin,Sebastian,Vettel,22.2,48.0,34.4,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,ALO,73.329,83.01125,16,2.035,alonso,Alpine,Fernando,Alonso,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,BOT,71.765,82.019388888,18,0.471,bottas,Mercedes,Valtteri,Bottas,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,GAS,72.357,84.06432,25,1.063,gasly,AlphaTauri,Pierre,Gasly,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,GIO,72.539,83.004111111,18,1.245,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,HAM,72.02,82.739352941,17,0.726,hamilton,Mercedes,Lewis,Hamilton,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,LAT,73.475,81.8438,20,2.181,latifi,Williams,Nicholas,Latifi,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,LEC,71.552,87.949291666,24,0.258,leclerc,Ferrari,Charles,Leclerc,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,MAZ,73.39,86.297,17,2.096,mazepin,Haas F1 Team,Nikita,Mazepin,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,MSC,73.139,86.256277777,18,1.845,mick_schumacher,Haas F1 Team,Mick,Schumacher,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,NOR,71.988,85.892764705,17,0.694,norris,McLaren,Lando,Norris,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,OCO,73.614,84.8055,16,2.32,ocon,Alpine,Esteban,Ocon,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,PER,71.817,85.9191875,16,0.523,perez,Red Bull Racing,Sergio,Perez,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,RAI,72.298,82.657681818,22,1.004,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,RIC,72.959,82.967636363,22,1.665,ricciardo,McLaren,Daniel,Ricciardo,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,RUS,73.447,84.023730769,26,2.153,russell,Williams,George,Russell,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,SAI,71.341,86.914,25,0.047,sainz,Ferrari,Carlos,Sainz,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,STR,72.7,86.160421052,19,1.406,stroll,Aston Martin,Lance,Stroll,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,TSU,73.522,83.752592592,27,2.228,tsunoda,AlphaTauri,Yuki,Tsunoda,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,VER,71.294,86.405529411,17,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,18.5,28.5,70.6,0.2,False
+2021,5,Monaco Grand Prix,Monte Carlo,FP3,2021-05-23,VET,72.537,84.022047619,21,1.243,vettel,Aston Martin,Sebastian,Vettel,18.5,28.5,70.6,0.2,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,ALO,104.777,116.462272727,22,1.593,alonso,Alpine,Fernando,Alonso,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,BOT,104.891,117.345588235,17,1.707,bottas,Mercedes,Valtteri,Bottas,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,GAS,103.757,120.701388888,18,0.573,gasly,AlphaTauri,Pierre,Gasly,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,GIO,105.092,120.371333333,15,1.908,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,HAM,103.893,115.843294117,17,0.709,hamilton,Mercedes,Lewis,Hamilton,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,LAT,105.774,122.834222222,18,2.59,latifi,Williams,Nicholas,Latifi,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,LEC,103.227,117.743142857,14,0.043,leclerc,Ferrari,Charles,Leclerc,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,MAZ,106.945,118.120142857,14,3.761,mazepin,Haas F1 Team,Nikita,Mazepin,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,MSC,106.899,119.9341875,16,3.715,mick_schumacher,Haas F1 Team,Mick,Schumacher,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,NOR,103.996,119.630764705,17,0.812,norris,McLaren,Lando,Norris,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,OCO,105.446,118.0889,20,2.262,ocon,Alpine,Esteban,Ocon,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,PER,103.63,118.092153846,13,0.446,perez,Red Bull Racing,Sergio,Perez,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,RAI,104.943,120.550166666,12,1.759,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,RIC,103.732,114.984727272,22,0.548,ricciardo,McLaren,Daniel,Ricciardo,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,RUS,105.452,120.29505,20,2.268,russell,Williams,George,Russell,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,SAI,103.521,116.732230769,13,0.337,sainz,Ferrari,Carlos,Sainz,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,STR,105.234,119.16815,20,2.05,stroll,Aston Martin,Lance,Stroll,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,TSU,105.384,118.932272727,22,2.2,tsunoda,AlphaTauri,Yuki,Tsunoda,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,VER,103.184,119.8334375,16,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP1,2021-06-06,VET,105.415,114.897047619,21,2.231,vettel,Aston Martin,Sebastian,Vettel,26.9,49.2,41.3,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,ALO,102.693,115.20335,20,0.578,alonso,Alpine,Fernando,Alonso,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,BOT,104.184,118.510578947,19,2.069,bottas,Mercedes,Valtteri,Bottas,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,GAS,102.534,113.56325,20,0.419,gasly,AlphaTauri,Pierre,Gasly,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,GIO,102.941,116.984285714,21,0.826,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,HAM,103.156,114.23635,20,1.041,hamilton,Mercedes,Lewis,Hamilton,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,LAT,106.983,128.697666666,3,4.868,latifi,Williams,Nicholas,Latifi,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,LEC,102.436,117.11875,16,0.321,leclerc,Ferrari,Charles,Leclerc,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,MAZ,105.563,117.278888888,18,3.448,mazepin,Haas F1 Team,Nikita,Mazepin,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,MSC,106.095,116.619875,8,3.98,mick_schumacher,Haas F1 Team,Mick,Schumacher,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,NOR,103.018,114.4071,20,0.903,norris,McLaren,Lando,Norris,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,OCO,103.02,113.010894736,19,0.905,ocon,Alpine,Esteban,Ocon,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,PER,102.115,112.640647058,17,0.0,perez,Red Bull Racing,Sergio,Perez,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,RAI,103.22,114.668764705,17,1.105,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,RIC,103.298,116.170611111,18,1.183,ricciardo,McLaren,Daniel,Ricciardo,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,RUS,104.557,116.10825,20,2.442,russell,Williams,George,Russell,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,SAI,102.243,114.8319375,16,0.128,sainz,Ferrari,Carlos,Sainz,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,STR,103.812,115.1053125,16,1.697,stroll,Aston Martin,Lance,Stroll,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,TSU,103.13,118.582333333,21,1.015,tsunoda,AlphaTauri,Yuki,Tsunoda,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,VER,102.216,115.410315789,19,0.101,max_verstappen,Red Bull Racing,Max,Verstappen,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP2,2021-06-06,VET,103.881,118.696823529,17,1.766,vettel,Aston Martin,Sebastian,Vettel,27.4,46.9,47.4,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,ALO,103.08,118.286333333,9,0.829,alonso,Alpine,Fernando,Alonso,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,BOT,103.745,121.596916666,12,1.494,bottas,Mercedes,Valtteri,Bottas,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,GAS,102.251,119.706636363,11,0.0,gasly,AlphaTauri,Pierre,Gasly,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,GIO,104.113,124.5395,6,1.862,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,HAM,102.697,112.945153846,13,0.446,hamilton,Mercedes,Lewis,Hamilton,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,LAT,104.054,127.39076923,13,1.803,latifi,Williams,Nicholas,Latifi,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,LEC,102.778,122.641545454,11,0.527,leclerc,Ferrari,Charles,Leclerc,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,MAZ,105.711,118.817,7,3.46,mazepin,Haas F1 Team,Nikita,Mazepin,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,MSC,105.282,120.4596,10,3.031,mick_schumacher,Haas F1 Team,Mick,Schumacher,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,NOR,103.011,117.33275,12,0.76,norris,McLaren,Lando,Norris,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,OCO,103.294,121.3635,10,1.043,ocon,Alpine,Esteban,Ocon,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,PER,102.595,121.916066666,15,0.344,perez,Red Bull Racing,Sergio,Perez,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,RAI,103.826,127.037833333,12,1.575,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,RIC,103.557,118.886916666,12,1.306,ricciardo,McLaren,Daniel,Ricciardo,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,RUS,104.434,122.111857142,7,2.183,russell,Williams,George,Russell,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,SAI,103.006,122.208818181,11,0.755,sainz,Ferrari,Carlos,Sainz,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,STR,103.682,119.294625,8,1.431,stroll,Aston Martin,Lance,Stroll,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,TSU,103.244,119.850928571,14,0.993,tsunoda,AlphaTauri,Yuki,Tsunoda,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,VER,103.984,117.6365,4,1.733,max_verstappen,Red Bull Racing,Max,Verstappen,28.2,53.9,37.5,0.3,False
+2021,6,Azerbaijan Grand Prix,Baku,FP3,2021-06-06,VET,103.585,120.9975,8,1.334,vettel,Aston Martin,Sebastian,Vettel,28.2,53.9,37.5,0.3,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,ALO,94.693,109.640066666,15,1.245,alonso,Alpine,Fernando,Alonso,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,BOT,93.448,109.15595,20,0.0,bottas,Mercedes,Valtteri,Bottas,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,GAS,94.699,114.105611111,18,1.251,gasly,AlphaTauri,Pierre,Gasly,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,GIO,95.116,113.538222222,18,1.668,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,HAM,93.783,111.056055555,18,0.335,hamilton,Mercedes,Lewis,Hamilton,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,LAT,95.612,115.054263157,19,2.164,latifi,Williams,Nicholas,Latifi,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,LEC,94.95,111.686789473,19,1.502,leclerc,Ferrari,Charles,Leclerc,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,MAZ,96.651,110.824714285,21,3.203,mazepin,Haas F1 Team,Nikita,Mazepin,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,MSC,97.329,110.460181818,11,3.881,mick_schumacher,Haas F1 Team,Mick,Schumacher,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,NIS,97.881,115.508,13,4.433,nan,Williams,Roy,Nissany,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,NOR,94.707,116.587823529,17,1.259,norris,McLaren,Lando,Norris,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,OCO,94.329,115.229619047,21,0.881,ocon,Alpine,Esteban,Ocon,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,PER,94.193,110.484904761,21,0.745,perez,Red Bull Racing,Sergio,Perez,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,RAI,95.135,118.347071428,14,1.687,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,RIC,94.644,114.564714285,21,1.196,ricciardo,McLaren,Daniel,Ricciardo,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,SAI,95.342,111.76065,20,1.894,sainz,Ferrari,Carlos,Sainz,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,STR,95.275,113.628058823,17,1.827,stroll,Aston Martin,Lance,Stroll,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,TSU,94.847,116.256411764,17,1.399,tsunoda,AlphaTauri,Yuki,Tsunoda,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,VER,93.88,112.46605,20,0.432,max_verstappen,Red Bull Racing,Max,Verstappen,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP1,2021-06-20,VET,95.289,117.312166666,12,1.841,vettel,Aston Martin,Sebastian,Vettel,26.0,40.9,52.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,ALO,93.34,107.697833333,18,0.468,alonso,Alpine,Fernando,Alonso,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,BOT,92.88,108.939,22,0.008,bottas,Mercedes,Valtteri,Bottas,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,GAS,93.696,109.668277777,18,0.824,gasly,AlphaTauri,Pierre,Gasly,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,GIO,93.831,109.983235294,17,0.959,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,HAM,93.125,106.738294117,17,0.253,hamilton,Mercedes,Lewis,Hamilton,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,LAT,95.331,108.37145,20,2.459,latifi,Williams,Nicholas,Latifi,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,LEC,93.55,106.7260625,16,0.678,leclerc,Ferrari,Charles,Leclerc,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,MAZ,95.551,112.256294117,17,2.679,mazepin,Haas F1 Team,Nikita,Mazepin,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,MSC,95.512,111.462526315,19,2.64,mick_schumacher,Haas F1 Team,Mick,Schumacher,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,NOR,93.822,111.059,19,0.95,norris,McLaren,Lando,Norris,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,OCO,93.685,102.226666666,15,0.813,ocon,Alpine,Esteban,Ocon,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,PER,93.921,106.84317647,17,1.049,perez,Red Bull Racing,Sergio,Perez,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,RAI,93.786,105.643529411,17,0.914,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,RIC,94.079,110.404055555,18,1.207,ricciardo,McLaren,Daniel,Ricciardo,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,RUS,95.266,106.642631578,19,2.394,russell,Williams,George,Russell,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,SAI,93.698,111.081352941,17,0.826,sainz,Ferrari,Carlos,Sainz,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,STR,94.632,105.331666666,18,1.76,stroll,Aston Martin,Lance,Stroll,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,TSU,93.955,114.56565,20,1.083,tsunoda,AlphaTauri,Yuki,Tsunoda,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,VER,92.872,109.495277777,18,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP2,2021-06-20,VET,94.447,105.259,18,1.575,vettel,Aston Martin,Sebastian,Vettel,27.3,47.3,43.7,1.0,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,ALO,92.624,111.914111111,9,1.324,alonso,Alpine,Fernando,Alonso,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,BOT,92.047,109.734142857,7,0.747,bottas,Mercedes,Valtteri,Bottas,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,GAS,92.707,115.1058,10,1.407,gasly,AlphaTauri,Pierre,Gasly,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,GIO,93.017,101.666285714,7,1.717,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,HAM,92.266,105.355125,8,0.966,hamilton,Mercedes,Lewis,Hamilton,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,LAT,93.584,116.498363636,11,2.284,latifi,Williams,Nicholas,Latifi,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,LEC,92.82,110.672,7,1.52,leclerc,Ferrari,Charles,Leclerc,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,MAZ,94.642,120.8145,8,3.342,mazepin,Haas F1 Team,Nikita,Mazepin,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,MSC,94.143,118.7695,8,2.843,mick_schumacher,Haas F1 Team,Mick,Schumacher,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,NOR,92.336,115.2331,10,1.036,norris,McLaren,Lando,Norris,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,OCO,92.681,114.395888888,9,1.381,ocon,Alpine,Esteban,Ocon,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,PER,92.238,120.031583333,12,0.938,perez,Red Bull Racing,Sergio,Perez,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,RAI,93.328,105.835142857,7,2.028,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,RIC,92.759,116.001555555,9,1.459,ricciardo,McLaren,Daniel,Ricciardo,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,RUS,93.364,118.481916666,12,2.064,russell,Williams,George,Russell,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,SAI,92.195,106.483125,8,0.895,sainz,Ferrari,Carlos,Sainz,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,STR,93.051,119.331615384,13,1.751,stroll,Aston Martin,Lance,Stroll,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,TSU,92.9,118.091538461,13,1.6,tsunoda,AlphaTauri,Yuki,Tsunoda,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,VER,91.3,114.740125,8,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,25.5,36.9,53.4,0.7,False
+2021,7,French Grand Prix,Le Castellet,FP3,2021-06-20,VET,93.2,115.197266666,15,1.9,vettel,Aston Martin,Sebastian,Vettel,25.5,36.9,53.4,0.7,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,ALO,66.475,78.013125,32,0.565,alonso,Alpine,Fernando,Alonso,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,BOT,66.155,79.108566666,30,0.245,bottas,Mercedes,Valtteri,Bottas,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,GAS,66.166,81.452344827,29,0.256,gasly,AlphaTauri,Pierre,Gasly,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,GIO,66.614,85.440307692,26,0.704,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,HAM,66.332,85.621892857,28,0.422,hamilton,Mercedes,Lewis,Hamilton,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,KUB,67.823,88.532333333,27,1.913,nan,Alfa Romeo Racing,Robert,Kubica,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,LAT,67.18,82.170666666,27,1.27,latifi,Williams,Nicholas,Latifi,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,LEC,66.629,80.37930303,33,0.719,leclerc,Ferrari,Charles,Leclerc,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,MAZ,68.081,81.693214285,28,2.171,mazepin,Haas F1 Team,Nikita,Mazepin,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,MSC,67.473,81.024074074,27,1.563,mick_schumacher,Haas F1 Team,Mick,Schumacher,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,NOR,66.861,80.47046875,32,0.951,norris,McLaren,Lando,Norris,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,OCO,66.551,85.92771875,32,0.641,ocon,Alpine,Esteban,Ocon,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,PER,66.696,81.328633333,30,0.786,perez,Red Bull Racing,Sergio,Perez,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,RIC,66.669,79.756457142,35,0.759,ricciardo,McLaren,Daniel,Ricciardo,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,RUS,66.848,81.480678571,28,0.938,russell,Williams,George,Russell,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,SAI,66.63,80.435620689,29,0.72,sainz,Ferrari,Carlos,Sainz,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,STR,66.584,78.987103448,29,0.674,stroll,Aston Martin,Lance,Stroll,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,TSU,66.397,81.370545454,33,0.487,tsunoda,AlphaTauri,Yuki,Tsunoda,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,VER,65.91,80.27248387,31,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP1,2021-06-27,VET,66.708,78.544607142,28,0.798,vettel,Aston Martin,Sebastian,Vettel,23.9,47.7,44.9,0.6,False
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,ALO,65.827,78.496555555,36,0.492,alonso,Alpine,Fernando,Alonso,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,BOT,66.251,78.089827586,29,0.916,bottas,Mercedes,Valtteri,Bottas,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,GIO,66.145,82.304529411,34,0.81,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,HAM,65.335,80.43032258,31,0.0,hamilton,Mercedes,Lewis,Hamilton,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,LAT,67.669,76.311666666,27,2.334,latifi,Williams,Nicholas,Latifi,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,LEC,66.27,79.897666666,36,0.935,leclerc,Ferrari,Charles,Leclerc,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,MAZ,67.315,82.348153846,26,1.98,mazepin,Haas F1 Team,Nikita,Mazepin,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,MSC,66.886,83.1398,25,1.551,mick_schumacher,Haas F1 Team,Mick,Schumacher,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,NOR,65.994,76.449444444,36,0.659,norris,McLaren,Lando,Norris,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,OCO,65.79,78.79028125,32,0.455,ocon,Alpine,Esteban,Ocon,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,PER,66.089,78.333969696,33,0.754,perez,Red Bull Racing,Sergio,Perez,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,RAI,66.297,79.09968421,38,0.962,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,RIC,65.748,77.4945625,32,0.413,ricciardo,McLaren,Daniel,Ricciardo,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,RUS,66.628,78.446916666,36,1.293,russell,Williams,George,Russell,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,SAI,66.147,81.35875,36,0.812,sainz,Ferrari,Carlos,Sainz,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,STR,66.079,76.485848484,33,0.744,stroll,Aston Martin,Lance,Stroll,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,TSU,66.451,78.972444444,36,1.116,tsunoda,AlphaTauri,Yuki,Tsunoda,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,VER,65.412,77.562205882,34,0.077,max_verstappen,Red Bull Racing,Max,Verstappen,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP2,2021-06-27,VET,65.934,76.909885714,35,0.599,vettel,Aston Martin,Sebastian,Vettel,22.0,43.9,55.3,0.7,True
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,ALO,65.4,87.47495238,21,1.031,alonso,Alpine,Fernando,Alonso,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,BOT,64.832,86.653227272,22,0.463,bottas,Mercedes,Valtteri,Bottas,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,GAS,65.298,90.541894736,19,0.929,gasly,AlphaTauri,Pierre,Gasly,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,GIO,65.556,93.72940909,22,1.187,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,HAM,64.369,96.9483125,16,0.0,hamilton,Mercedes,Lewis,Hamilton,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,LAT,66.119,85.92968421,19,1.75,latifi,Williams,Nicholas,Latifi,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,LEC,65.34,94.497222222,18,0.971,leclerc,Ferrari,Charles,Leclerc,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,MAZ,66.692,88.403833333,18,2.323,mazepin,Haas F1 Team,Nikita,Mazepin,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,MSC,65.992,87.09815,20,1.623,mick_schumacher,Haas F1 Team,Mick,Schumacher,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,NOR,65.228,87.2944375,16,0.859,norris,McLaren,Lando,Norris,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,OCO,65.676,87.612,19,1.307,ocon,Alpine,Esteban,Ocon,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,PER,65.026,89.333222222,18,0.657,perez,Red Bull Racing,Sergio,Perez,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,RAI,65.942,91.826727272,22,1.573,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,RIC,66.116,87.612823529,17,1.747,ricciardo,McLaren,Daniel,Ricciardo,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,RUS,65.863,88.51665,20,1.494,russell,Williams,George,Russell,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,SAI,65.698,92.964842105,19,1.329,sainz,Ferrari,Carlos,Sainz,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,STR,65.445,87.442642857,14,1.076,stroll,Aston Martin,Lance,Stroll,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,TSU,65.15,88.03645,20,0.781,tsunoda,AlphaTauri,Yuki,Tsunoda,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,VER,64.57,88.982214285,14,0.201,max_verstappen,Red Bull Racing,Max,Verstappen,22.3,48.5,43.8,0.3,False
+2021,8,Styrian Grand Prix,Spielberg,FP3,2021-06-27,VET,65.492,86.0110625,16,1.123,vettel,Aston Martin,Sebastian,Vettel,22.3,48.5,43.8,0.3,False
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,BOT,65.445,80.124111111,27,0.302,bottas,Mercedes,Valtteri,Bottas,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,GAS,65.726,82.17090625,32,0.583,gasly,AlphaTauri,Pierre,Gasly,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,HAM,65.709,84.505642857,28,0.566,hamilton,Mercedes,Lewis,Hamilton,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,ILO,66.564,86.4693,20,1.421,nan,Alfa Romeo Racing,Callum,Ilott,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,LAT,66.978,77.71732258,31,1.835,latifi,Williams,Nicholas,Latifi,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,LEC,65.409,79.952931034,29,0.266,leclerc,Ferrari,Charles,Leclerc,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,MAZ,67.284,91.344888888,27,2.141,mazepin,Haas F1 Team,Nikita,Mazepin,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,MSC,66.583,91.162961538,26,1.44,mick_schumacher,Haas F1 Team,Mick,Schumacher,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,NIS,66.683,87.646,31,1.54,nan,Williams,Roy,Nissany,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,NOR,65.88,81.246416666,24,0.737,norris,McLaren,Lando,Norris,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,OCO,65.98,89.467814814,27,0.837,ocon,Alpine,Esteban,Ocon,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,PER,65.726,84.1745,28,0.583,perez,Red Bull Racing,Sergio,Perez,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,RAI,65.586,90.34548,25,0.443,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,RIC,66.181,79.294259259,27,1.038,ricciardo,McLaren,Daniel,Ricciardo,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,SAI,65.431,81.017,29,0.288,sainz,Ferrari,Carlos,Sainz,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,STR,66.203,82.33308,25,1.06,stroll,Aston Martin,Lance,Stroll,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,TSU,65.474,81.269258064,31,0.331,tsunoda,AlphaTauri,Yuki,Tsunoda,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,VER,65.143,81.22117647,34,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,VET,66.205,85.085782608,23,1.062,vettel,Aston Martin,Sebastian,Vettel,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP1,2021-07-04,ZHO,66.414,86.458653846,26,1.271,nan,Alpine,Guanyu,Zhou,18.5,31.7,50.3,0.3,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,ALO,65.393,82.137266666,30,0.87,alonso,Alpine,Fernando,Alonso,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,BOT,64.712,77.901533333,30,0.189,bottas,Mercedes,Valtteri,Bottas,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,GAS,65.379,78.863428571,35,0.856,gasly,AlphaTauri,Pierre,Gasly,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,GIO,65.511,80.801392857,28,0.988,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,HAM,64.523,85.825153846,26,0.0,hamilton,Mercedes,Lewis,Hamilton,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,LAT,66.014,77.434088235,34,1.491,latifi,Williams,Nicholas,Latifi,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,LEC,65.708,80.404137931,29,1.185,leclerc,Ferrari,Charles,Leclerc,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,MAZ,66.173,80.534875,32,1.65,mazepin,Haas F1 Team,Nikita,Mazepin,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,MSC,65.636,81.05725,32,1.113,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,NOR,65.466,78.684833333,30,0.943,norris,McLaren,Lando,Norris,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,OCO,65.527,79.345848484,33,1.004,ocon,Alpine,Esteban,Ocon,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,PER,65.516,76.6545,36,0.993,perez,Red Bull Racing,Sergio,Perez,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,RAI,65.405,79.388034482,29,0.882,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,RIC,65.698,80.042321428,28,1.175,ricciardo,McLaren,Daniel,Ricciardo,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,RUS,65.819,77.834625,32,1.296,russell,Williams,George,Russell,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,SAI,65.62,83.330727272,33,1.097,sainz,Ferrari,Carlos,Sainz,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,STR,65.139,78.459344827,29,0.616,stroll,Aston Martin,Lance,Stroll,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,TSU,65.356,79.930352941,34,0.833,tsunoda,AlphaTauri,Yuki,Tsunoda,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,VER,64.74,76.093451612,31,0.217,max_verstappen,Red Bull Racing,Max,Verstappen,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP2,2021-07-04,VET,65.268,76.478470588,34,0.745,vettel,Aston Martin,Sebastian,Vettel,19.6,31.3,42.0,0.4,True
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,ALO,65.434,80.7884,20,0.843,alonso,Alpine,Fernando,Alonso,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,BOT,65.129,88.029888888,18,0.538,bottas,Mercedes,Valtteri,Bottas,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,GAS,65.28,88.76990909,22,0.689,gasly,AlphaTauri,Pierre,Gasly,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,GIO,65.345,90.372,24,0.754,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,HAM,64.994,88.118375,16,0.403,hamilton,Mercedes,Lewis,Hamilton,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,LAT,66.105,96.1675,14,1.514,latifi,Williams,Nicholas,Latifi,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,LEC,65.484,90.59484375,32,0.893,leclerc,Ferrari,Charles,Leclerc,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,MAZ,66.289,85.066333333,24,1.698,mazepin,Haas F1 Team,Nikita,Mazepin,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,MSC,66.078,82.433727272,22,1.487,mick_schumacher,Haas F1 Team,Mick,Schumacher,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,NOR,65.7,83.552736842,19,1.109,norris,McLaren,Lando,Norris,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,OCO,65.674,80.711444444,18,1.083,ocon,Alpine,Esteban,Ocon,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,PER,65.396,91.562277777,18,0.805,perez,Red Bull Racing,Sergio,Perez,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,RAI,65.747,88.645892857,28,1.156,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,RIC,65.725,84.982764705,17,1.134,ricciardo,McLaren,Daniel,Ricciardo,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,RUS,65.694,97.853842105,19,1.103,russell,Williams,George,Russell,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,SAI,65.347,94.142,25,0.756,sainz,Ferrari,Carlos,Sainz,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,STR,65.546,88.930333333,15,0.955,stroll,Aston Martin,Lance,Stroll,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,TSU,65.561,92.242789473,19,0.97,tsunoda,AlphaTauri,Yuki,Tsunoda,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,VER,64.591,90.849076923,13,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,23.0,47.6,32.9,0.4,False
+2021,9,Austrian Grand Prix,Spielberg,FP3,2021-07-04,VET,65.542,88.918555555,18,0.951,vettel,Aston Martin,Sebastian,Vettel,23.0,47.6,32.9,0.4,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,ALO,88.873,101.966095238,21,1.838,alonso,Alpine,Fernando,Alonso,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,BOT,87.897,99.958692307,26,0.862,bottas,Mercedes,Valtteri,Bottas,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,GAS,88.449,106.84036,25,1.414,gasly,AlphaTauri,Pierre,Gasly,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,GIO,88.827,104.74095238,21,1.792,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,HAM,87.815,103.152962962,27,0.78,hamilton,Mercedes,Lewis,Hamilton,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,LAT,89.227,106.143130434,23,2.192,latifi,Williams,Nicholas,Latifi,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,LEC,87.828,100.288052631,19,0.793,leclerc,Ferrari,Charles,Leclerc,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,MAZ,89.808,107.343125,16,2.773,mazepin,Haas F1 Team,Nikita,Mazepin,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,MSC,89.227,110.879,20,2.192,mick_schumacher,Haas F1 Team,Mick,Schumacher,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,NOR,87.814,104.924636363,22,0.779,norris,McLaren,Lando,Norris,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,OCO,88.415,103.07765,20,1.38,ocon,Alpine,Esteban,Ocon,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,PER,88.163,101.790190476,21,1.128,perez,Red Bull Racing,Sergio,Perez,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,RAI,89.22,106.947565217,23,2.185,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,RIC,88.211,104.004916666,24,1.176,ricciardo,McLaren,Daniel,Ricciardo,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,RUS,89.665,104.219375,24,2.63,russell,Williams,George,Russell,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,SAI,87.923,105.69885,20,0.888,sainz,Ferrari,Carlos,Sainz,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,STR,89.597,107.4524375,16,2.562,stroll,Aston Martin,Lance,Stroll,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,TSU,88.6,104.867307692,26,1.565,tsunoda,AlphaTauri,Yuki,Tsunoda,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,VER,87.035,100.091157894,19,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP1,2021-07-18,VET,88.062,106.513055555,18,1.027,vettel,Aston Martin,Sebastian,Vettel,25.2,45.7,51.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,ALO,91.289,96.91876,25,1.387,alonso,Alpine,Fernando,Alonso,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,BOT,91.18,95.531333333,24,1.278,bottas,Mercedes,Valtteri,Bottas,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,GAS,91.188,96.207107142,28,1.286,gasly,AlphaTauri,Pierre,Gasly,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,GIO,91.263,96.976592592,27,1.361,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,HAM,91.131,96.5052,25,1.229,hamilton,Mercedes,Lewis,Hamilton,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,LAT,91.337,99.488538461,26,1.435,latifi,Williams,Nicholas,Latifi,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,LEC,90.277,99.795148148,27,0.375,leclerc,Ferrari,Charles,Leclerc,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,MAZ,92.474,98.016296296,27,2.572,mazepin,Haas F1 Team,Nikita,Mazepin,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,MSC,94.017,98.40392,25,4.115,mick_schumacher,Haas F1 Team,Mick,Schumacher,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,NOR,90.67,99.21747619,21,0.768,norris,McLaren,Lando,Norris,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,OCO,90.707,95.950642857,28,0.805,ocon,Alpine,Esteban,Ocon,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,PER,90.8,95.32225,24,0.898,perez,Red Bull Racing,Sergio,Perez,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,RAI,91.328,95.521086956,23,1.426,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,RIC,90.825,98.19425,20,0.923,ricciardo,McLaren,Daniel,Ricciardo,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,RUS,91.237,101.309380952,21,1.335,russell,Williams,George,Russell,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,SAI,90.507,99.635538461,26,0.605,sainz,Ferrari,Carlos,Sainz,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,STR,92.041,98.207107142,28,2.139,stroll,Aston Martin,Lance,Stroll,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,TSU,91.404,96.194482758,29,1.502,tsunoda,AlphaTauri,Yuki,Tsunoda,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,VER,89.902,94.355619047,21,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,25.0,43.5,50.6,0.5,False
+2021,10,British Grand Prix,Silverstone,FP2,2021-07-18,VET,91.224,96.3335,30,1.322,vettel,Aston Martin,Sebastian,Vettel,25.0,43.5,50.6,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,ALO,78.385,94.775869565,23,0.83,alonso,Alpine,Fernando,Alonso,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,BOT,77.616,92.435095238,21,0.061,bottas,Mercedes,Valtteri,Bottas,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,GAS,78.181,98.762782608,23,0.626,gasly,AlphaTauri,Pierre,Gasly,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,GIO,81.889,94.41225,4,4.334,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,HAM,77.722,93.6242,20,0.167,hamilton,Mercedes,Lewis,Hamilton,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,KUB,80.639,98.07385,20,3.084,nan,Alfa Romeo Racing,Robert,Kubica,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,LAT,79.824,96.25595,20,2.269,latifi,Williams,Nicholas,Latifi,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,LEC,78.391,97.291722222,18,0.836,leclerc,Ferrari,Charles,Leclerc,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,MAZ,80.992,96.529210526,19,3.437,mazepin,Haas F1 Team,Nikita,Mazepin,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,MSC,80.383,97.992954545,22,2.828,mick_schumacher,Haas F1 Team,Mick,Schumacher,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,NOR,78.649,92.488086956,23,1.094,norris,McLaren,Lando,Norris,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,OCO,78.765,101.233782608,23,1.21,ocon,Alpine,Esteban,Ocon,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,PER,78.466,99.939647058,17,0.911,perez,Red Bull Racing,Sergio,Perez,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,RIC,79.265,93.732636363,22,1.71,ricciardo,McLaren,Daniel,Ricciardo,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,RUS,79.724,98.266,19,2.169,russell,Williams,George,Russell,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,SAI,78.115,96.683055555,18,0.56,sainz,Ferrari,Carlos,Sainz,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,STR,78.755,90.8216,20,1.2,stroll,Aston Martin,Lance,Stroll,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,TSU,78.77,103.010933333,15,1.215,tsunoda,AlphaTauri,Yuki,Tsunoda,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,VER,77.555,97.103277777,18,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP1,2021-08-01,VET,78.989,89.890117647,17,1.434,vettel,Aston Martin,Sebastian,Vettel,30.8,55.6,36.8,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,ALO,78.169,91.372391304,23,1.157,alonso,Alpine,Fernando,Alonso,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,BOT,77.012,94.449692307,26,0.0,bottas,Mercedes,Valtteri,Bottas,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,GAS,78.113,95.656785714,28,1.101,gasly,AlphaTauri,Pierre,Gasly,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,GIO,79.256,101.0242,25,2.244,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,HAM,77.039,96.049636363,22,0.027,hamilton,Mercedes,Lewis,Hamilton,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,LAT,79.479,93.332629629,27,2.467,latifi,Williams,Nicholas,Latifi,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,LEC,78.37,94.490148148,27,1.358,leclerc,Ferrari,Charles,Leclerc,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,MAZ,81.881,92.61788,25,4.869,mazepin,Haas F1 Team,Nikita,Mazepin,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,MSC,79.817,94.2085,26,2.805,mick_schumacher,Haas F1 Team,Mick,Schumacher,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,NOR,78.313,94.550863636,22,1.301,norris,McLaren,Lando,Norris,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,OCO,77.759,96.209692307,26,0.747,ocon,Alpine,Esteban,Ocon,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,PER,77.824,93.6286,20,0.812,perez,Red Bull Racing,Sergio,Perez,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,RAI,79.277,91.119647058,17,2.265,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,RIC,78.737,93.081272727,22,1.725,ricciardo,McLaren,Daniel,Ricciardo,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,RUS,79.292,91.34752,25,2.28,russell,Williams,George,Russell,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,SAI,78.441,96.104965517,29,1.429,sainz,Ferrari,Carlos,Sainz,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,STR,78.32,89.640962962,27,1.308,stroll,Aston Martin,Lance,Stroll,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,TSU,79.671,86.5965,2,2.659,tsunoda,AlphaTauri,Yuki,Tsunoda,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,VER,77.31,93.209238095,21,0.298,max_verstappen,Red Bull Racing,Max,Verstappen,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP2,2021-08-01,VET,78.228,88.478178571,28,1.216,vettel,Aston Martin,Sebastian,Vettel,32.4,61.5,33.3,0.4,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,ALO,77.992,96.522692307,13,1.166,alonso,Alpine,Fernando,Alonso,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,BOT,77.055,99.813818181,11,0.229,bottas,Mercedes,Valtteri,Bottas,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,GAS,78.115,100.008357142,14,1.289,gasly,AlphaTauri,Pierre,Gasly,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,GIO,79.113,99.660818181,11,2.287,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,HAM,76.826,97.097,16,0.0,hamilton,Mercedes,Lewis,Hamilton,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,LAT,78.821,107.212416666,12,1.995,latifi,Williams,Nicholas,Latifi,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,LEC,77.52,101.044,13,0.694,leclerc,Ferrari,Charles,Leclerc,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,MAZ,79.933,98.375818181,11,3.107,mazepin,Haas F1 Team,Nikita,Mazepin,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,MSC,79.406,89.789636363,11,2.58,mick_schumacher,Haas F1 Team,Mick,Schumacher,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,NOR,77.772,97.052625,8,0.946,norris,McLaren,Lando,Norris,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,OCO,78.174,102.203384615,13,1.348,ocon,Alpine,Esteban,Ocon,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,PER,77.917,99.242333333,9,1.091,perez,Red Bull Racing,Sergio,Perez,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,RAI,78.683,100.947944444,18,1.857,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,RIC,77.942,100.848666666,12,1.116,ricciardo,McLaren,Daniel,Ricciardo,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,RUS,78.794,104.837,11,1.968,russell,Williams,George,Russell,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,SAI,77.497,100.327071428,14,0.671,sainz,Ferrari,Carlos,Sainz,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,STR,78.05,99.154923076,13,1.224,stroll,Aston Martin,Lance,Stroll,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,TSU,78.461,96.349318181,22,1.635,tsunoda,AlphaTauri,Yuki,Tsunoda,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,VER,76.914,98.4788,10,0.088,max_verstappen,Red Bull Racing,Max,Verstappen,27.2,54.1,56.9,0.5,False
+2021,11,Hungarian Grand Prix,Budapest,FP3,2021-08-01,VET,78.235,99.188416666,12,1.409,vettel,Aston Martin,Sebastian,Vettel,27.2,54.1,56.9,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,ALO,106.612,118.717090909,11,1.413,alonso,Alpine,Fernando,Alonso,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,BOT,105.199,116.023692307,13,0.0,bottas,Mercedes,Valtteri,Bottas,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,GAS,105.699,119.983333333,15,0.5,gasly,AlphaTauri,Pierre,Gasly,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,GIO,106.755,117.244272727,11,1.556,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,HAM,108.224,115.193916666,12,3.025,hamilton,Mercedes,Lewis,Hamilton,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,LAT,107.101,117.310533333,15,1.902,latifi,Williams,Nicholas,Latifi,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,LEC,105.818,119.944692307,13,0.619,leclerc,Ferrari,Charles,Leclerc,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,MAZ,108.705,124.538307692,13,3.506,mazepin,Haas F1 Team,Nikita,Mazepin,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,MSC,109.059,123.990363636,11,3.86,mick_schumacher,Haas F1 Team,Mick,Schumacher,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,NOR,106.336,117.094428571,14,1.137,norris,McLaren,Lando,Norris,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,OCO,106.497,117.74,10,1.298,ocon,Alpine,Esteban,Ocon,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,PER,106.127,123.792714285,14,0.928,perez,Red Bull Racing,Sergio,Perez,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,RAI,108.125,117.39490909,11,2.926,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,RIC,106.683,120.0844,15,1.484,ricciardo,McLaren,Daniel,Ricciardo,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,RUS,106.772,116.940071428,14,1.573,russell,Williams,George,Russell,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,SAI,105.935,117.2768,10,0.736,sainz,Ferrari,Carlos,Sainz,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,STR,106.649,122.6918,15,1.45,stroll,Aston Martin,Lance,Stroll,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,TSU,106.928,122.9006,15,1.729,tsunoda,AlphaTauri,Yuki,Tsunoda,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,VER,105.363,115.585125,8,0.164,max_verstappen,Red Bull Racing,Max,Verstappen,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP1,2021-08-29,VET,106.177,114.746928571,14,0.978,vettel,Aston Martin,Sebastian,Vettel,13.5,18.5,85.1,0.6,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,ALO,104.953,111.4625,8,0.481,alonso,Alpine,Fernando,Alonso,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,BOT,104.513,115.223166666,6,0.041,bottas,Mercedes,Valtteri,Bottas,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,GAS,104.965,120.134272727,11,0.493,gasly,AlphaTauri,Pierre,Gasly,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,GIO,105.789,118.373,9,1.317,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,HAM,104.544,113.915285714,7,0.072,hamilton,Mercedes,Lewis,Hamilton,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,LAT,106.198,122.4729,10,1.726,latifi,Williams,Nicholas,Latifi,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,LEC,106.836,118.804714285,7,2.364,leclerc,Ferrari,Charles,Leclerc,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,MAZ,107.335,122.3982,10,2.863,mazepin,Haas F1 Team,Nikita,Mazepin,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,MSC,107.529,119.565363636,11,3.057,mick_schumacher,Haas F1 Team,Mick,Schumacher,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,NOR,105.386,118.702230769,13,0.914,norris,McLaren,Lando,Norris,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,OCO,105.302,116.202375,8,0.83,ocon,Alpine,Esteban,Ocon,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,PER,105.404,119.243777777,9,0.932,perez,Red Bull Racing,Sergio,Perez,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,RAI,105.967,114.8596,10,1.495,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,RIC,106.118,116.73,9,1.646,ricciardo,McLaren,Daniel,Ricciardo,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,RUS,106.665,118.941333333,9,2.193,russell,Williams,George,Russell,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,SAI,105.517,115.565285714,7,1.045,sainz,Ferrari,Carlos,Sainz,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,STR,105.18,117.026444444,9,0.708,stroll,Aston Martin,Lance,Stroll,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,TSU,105.758,117.632272727,11,1.286,tsunoda,AlphaTauri,Yuki,Tsunoda,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,VER,104.472,115.999875,8,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP2,2021-08-29,VET,105.336,118.7683,10,0.864,vettel,Aston Martin,Sebastian,Vettel,14.8,19.5,82.0,0.5,False
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,ALO,119.613,130.530214285,14,2.689,alonso,Alpine,Fernando,Alonso,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,BOT,119.808,129.01290909,11,2.884,bottas,Mercedes,Valtteri,Bottas,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,GAS,119.324,128.9135,10,2.4,gasly,AlphaTauri,Pierre,Gasly,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,GIO,121.512,129.437142857,14,4.588,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,HAM,117.996,125.424142857,7,1.072,hamilton,Mercedes,Lewis,Hamilton,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,LAT,119.981,125.70475,8,3.057,latifi,Williams,Nicholas,Latifi,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,LEC,121.37,128.188181818,11,4.446,leclerc,Ferrari,Charles,Leclerc,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,MAZ,121.792,130.302466666,15,4.868,mazepin,Haas F1 Team,Nikita,Mazepin,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,MSC,121.269,129.342357142,14,4.345,mick_schumacher,Haas F1 Team,Mick,Schumacher,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,NOR,118.509,129.22725,8,1.585,norris,McLaren,Lando,Norris,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,OCO,118.913,130.886090909,11,1.989,ocon,Alpine,Esteban,Ocon,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,PER,117.871,127.379333333,6,0.947,perez,Red Bull Racing,Sergio,Perez,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,RAI,124.382,129.8125,2,7.458,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,RIC,120.456,129.904777777,9,3.532,ricciardo,McLaren,Daniel,Ricciardo,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,RUS,119.492,129.158857142,7,2.568,russell,Williams,George,Russell,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,SAI,120.749,128.421076923,13,3.825,sainz,Ferrari,Carlos,Sainz,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,STR,119.205,132.400571428,14,2.281,stroll,Aston Martin,Lance,Stroll,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,TSU,121.51,129.222615384,13,4.586,tsunoda,AlphaTauri,Yuki,Tsunoda,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,VER,116.924,125.836714285,7,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,13.9,16.5,92.6,0.4,True
+2021,12,Belgian Grand Prix,Spa-Francorchamps,FP3,2021-08-29,VET,119.436,131.890230769,13,2.512,vettel,Aston Martin,Sebastian,Vettel,13.9,16.5,92.6,0.4,True
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,ALO,72.158,86.2498,15,0.658,alonso,Alpine,Fernando,Alonso,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,BOT,71.738,89.913066666,15,0.238,bottas,Mercedes,Valtteri,Bottas,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,GAS,72.515,87.498133333,15,1.015,gasly,AlphaTauri,Pierre,Gasly,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,GIO,72.359,86.857533333,15,0.859,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,HAM,71.5,85.482714285,14,0.0,hamilton,Mercedes,Lewis,Hamilton,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,LAT,72.907,92.999928571,14,1.407,latifi,Williams,Nicholas,Latifi,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,LEC,71.623,86.39,16,0.123,leclerc,Ferrari,Charles,Leclerc,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,MAZ,73.516,93.6955,12,2.016,mazepin,Haas F1 Team,Nikita,Mazepin,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,MSC,73.847,91.260866666,15,2.347,mick_schumacher,Haas F1 Team,Mick,Schumacher,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,NOR,72.679,92.2772,15,1.179,norris,McLaren,Lando,Norris,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,OCO,72.231,90.744142857,14,0.731,ocon,Alpine,Esteban,Ocon,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,PER,73.328,89.4906,15,1.828,perez,Red Bull Racing,Sergio,Perez,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,RAI,73.053,84.427764705,17,1.553,nan,Alfa Romeo Racing,Kimi,Räikkönen,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,RIC,73.081,90.499533333,15,1.581,ricciardo,McLaren,Daniel,Ricciardo,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,RUS,73.181,89.567333333,12,1.681,russell,Williams,George,Russell,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,SAI,71.601,85.535625,16,0.101,sainz,Ferrari,Carlos,Sainz,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,STR,72.431,84.293666666,15,0.931,stroll,Aston Martin,Lance,Stroll,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,TSU,120.384,120.384,1,48.884,tsunoda,AlphaTauri,Yuki,Tsunoda,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,VER,71.597,89.607,15,0.097,max_verstappen,Red Bull Racing,Max,Verstappen,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP1,2021-09-05,VET,75.984,91.495,3,4.484,vettel,Aston Martin,Sebastian,Vettel,18.6,24.9,73.4,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,ALO,71.28,84.253625,24,0.378,alonso,Alpine,Fernando,Alonso,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,BOT,71.132,85.962793103,29,0.23,bottas,Mercedes,Valtteri,Bottas,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,GAS,71.462,83.693863636,22,0.56,gasly,AlphaTauri,Pierre,Gasly,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,GIO,71.678,87.27272,25,0.776,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,HAM,71.911,71.911,1,1.009,hamilton,Mercedes,Lewis,Hamilton,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,LAT,72.61,86.698636363,22,1.708,latifi,Williams,Nicholas,Latifi,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,LEC,70.902,86.654956521,23,0.0,leclerc,Ferrari,Charles,Leclerc,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,MAZ,72.835,85.502,7,1.933,mazepin,Haas F1 Team,Nikita,Mazepin,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,MSC,72.607,84.04276,25,1.705,mick_schumacher,Haas F1 Team,Mick,Schumacher,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,NOR,71.488,84.165333333,21,0.586,norris,McLaren,Lando,Norris,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,OCO,71.074,84.078321428,28,0.172,ocon,Alpine,Esteban,Ocon,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,PER,71.946,85.266954545,22,1.044,perez,Red Bull Racing,Sergio,Perez,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,RAI,72.206,87.16604,25,1.304,nan,Alfa Romeo Racing,Kimi,Räikkönen,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,RIC,72.157,86.573111111,18,1.255,ricciardo,McLaren,Daniel,Ricciardo,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,RUS,72.855,86.808782608,23,1.953,russell,Williams,George,Russell,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,SAI,71.056,89.22847826,23,0.154,sainz,Ferrari,Carlos,Sainz,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,STR,72.136,83.240565217,23,1.234,stroll,Aston Martin,Lance,Stroll,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,TSU,72.096,86.36184,25,1.194,tsunoda,AlphaTauri,Yuki,Tsunoda,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,VER,71.264,83.464047619,21,0.362,max_verstappen,Red Bull Racing,Max,Verstappen,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP2,2021-09-05,VET,71.713,85.605142857,21,0.811,vettel,Aston Martin,Sebastian,Vettel,20.7,35.0,65.5,0.6,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,ALO,70.67,90.723416666,12,1.047,alonso,Alpine,Fernando,Alonso,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,BOT,70.179,96.23876923,13,0.556,bottas,Mercedes,Valtteri,Bottas,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,GAS,71.005,94.070058823,17,1.382,gasly,AlphaTauri,Pierre,Gasly,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,GIO,71.299,91.9323125,16,1.676,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,HAM,70.417,93.734166666,18,0.794,hamilton,Mercedes,Lewis,Hamilton,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,KUB,72.162,86.77973913,23,2.539,kubica,Alfa Romeo Racing,Robert,Kubica,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,LAT,71.083,91.989142857,14,1.46,latifi,Williams,Nicholas,Latifi,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,LEC,70.896,92.283857142,14,1.273,leclerc,Ferrari,Charles,Leclerc,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,MAZ,72.136,90.390526315,19,2.513,mazepin,Haas F1 Team,Nikita,Mazepin,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,MSC,72.366,92.071647058,17,2.743,mick_schumacher,Haas F1 Team,Mick,Schumacher,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,NOR,70.781,90.69,14,1.158,norris,McLaren,Lando,Norris,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,OCO,71.18,91.795105263,19,1.557,ocon,Alpine,Esteban,Ocon,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,PER,70.526,98.0820625,16,0.903,perez,Red Bull Racing,Sergio,Perez,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,RIC,71.013,89.940571428,14,1.39,ricciardo,McLaren,Daniel,Ricciardo,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,RUS,71.274,90.446333333,15,1.651,russell,Williams,George,Russell,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,SAI,71.94,97.042,3,2.317,sainz,Ferrari,Carlos,Sainz,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,STR,70.842,90.677733333,15,1.219,stroll,Aston Martin,Lance,Stroll,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,TSU,71.98,90.13176923,26,2.357,tsunoda,AlphaTauri,Yuki,Tsunoda,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,VER,69.623,92.8154,10,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,17.2,29.3,68.4,0.7,False
+2021,13,Dutch Grand Prix,Zandvoort,FP3,2021-09-05,VET,70.872,90.068533333,15,1.249,vettel,Aston Martin,Sebastian,Vettel,17.2,29.3,68.4,0.7,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,ALO,81.926,91.187666666,21,1.0,alonso,Alpine,Fernando,Alonso,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,BOT,81.451,95.834423076,26,0.525,bottas,Mercedes,Valtteri,Bottas,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,GAS,81.719,99.76456,25,0.793,gasly,AlphaTauri,Pierre,Gasly,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,GIO,82.27,96.7135,22,1.344,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,HAM,80.926,95.435458333,24,0.0,hamilton,Mercedes,Lewis,Hamilton,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,KUB,83.009,99.57812,25,2.083,kubica,Alfa Romeo Racing,Robert,Kubica,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,LAT,83.442,96.77974074,27,2.516,latifi,Williams,Nicholas,Latifi,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,LEC,81.802,98.265,21,0.876,leclerc,Ferrari,Charles,Leclerc,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,MAZ,83.445,97.570888888,18,2.519,mazepin,Haas F1 Team,Nikita,Mazepin,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,MSC,83.551,95.516222222,18,2.625,mick_schumacher,Haas F1 Team,Mick,Schumacher,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,NOR,81.202,99.406625,24,0.276,norris,McLaren,Lando,Norris,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,OCO,82.534,94.93525,24,1.608,ocon,Alpine,Esteban,Ocon,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,PER,82.039,94.501526315,19,1.113,perez,Red Bull Racing,Sergio,Perez,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,RIC,81.474,94.216041666,24,0.548,ricciardo,McLaren,Daniel,Ricciardo,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,RUS,83.092,95.685607142,28,2.166,russell,Williams,George,Russell,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,SAI,81.914,97.885318181,22,0.988,sainz,Ferrari,Carlos,Sainz,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,STR,81.676,97.870166666,18,0.75,stroll,Aston Martin,Lance,Stroll,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,TSU,82.53,97.619,28,1.604,tsunoda,AlphaTauri,Yuki,Tsunoda,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,VER,81.378,93.7375,18,0.452,max_verstappen,Red Bull Racing,Max,Verstappen,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP1,2021-09-12,VET,81.824,100.143619047,21,0.898,vettel,Aston Martin,Sebastian,Vettel,27.2,38.8,36.4,0.3,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,ALO,84.539,89.356384615,13,1.293,alonso,Alpine,Fernando,Alonso,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,BOT,83.468,92.05295238,21,0.222,bottas,Mercedes,Valtteri,Bottas,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,GAS,84.654,89.056590909,22,1.408,gasly,AlphaTauri,Pierre,Gasly,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,GIO,84.502,91.060291666,24,1.256,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,HAM,83.246,91.727090909,22,0.0,hamilton,Mercedes,Lewis,Hamilton,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,KUB,84.28,94.329576923,26,1.034,kubica,Alfa Romeo Racing,Robert,Kubica,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,LAT,84.805,90.986,19,1.559,latifi,Williams,Nicholas,Latifi,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,LEC,84.77,88.582611111,18,1.524,leclerc,Ferrari,Charles,Leclerc,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,MAZ,85.729,89.60995,20,2.483,mazepin,Haas F1 Team,Nikita,Mazepin,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,MSC,86.012,90.255333333,21,2.766,mick_schumacher,Haas F1 Team,Mick,Schumacher,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,NOR,84.665,89.56128,25,1.419,norris,McLaren,Lando,Norris,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,OCO,84.263,89.538764705,17,1.017,ocon,Alpine,Esteban,Ocon,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,PER,83.917,88.607888888,27,0.671,perez,Red Bull Racing,Sergio,Perez,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,RIC,84.774,94.988380952,21,1.528,ricciardo,McLaren,Daniel,Ricciardo,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,RUS,85.083,89.7043,20,1.837,russell,Williams,George,Russell,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,SAI,86.124,91.3995,12,2.878,sainz,Ferrari,Carlos,Sainz,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,STR,85.763,90.752291666,24,2.517,stroll,Aston Martin,Lance,Stroll,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,TSU,85.422,89.150068965,29,2.176,tsunoda,AlphaTauri,Yuki,Tsunoda,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,VER,83.662,87.15275,20,0.416,max_verstappen,Red Bull Racing,Max,Verstappen,25.5,37.5,49.1,0.4,False
+2021,14,Italian Grand Prix,Monza,FP2,2021-09-12,VET,85.486,91.946458333,24,2.24,vettel,Aston Martin,Sebastian,Vettel,25.5,37.5,49.1,0.4,False
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,ALO,96.225,112.345777777,18,1.798,alonso,Alpine,Fernando,Alonso,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,BOT,94.427,107.894190476,21,0.0,bottas,Mercedes,Valtteri,Bottas,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,GAS,95.794,114.6879,20,1.367,gasly,AlphaTauri,Pierre,Gasly,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,GIO,96.795,114.541333333,18,2.368,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,HAM,94.638,109.5195,16,0.211,hamilton,Mercedes,Lewis,Hamilton,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,LAT,98.155,110.7215,16,3.728,latifi,Williams,Nicholas,Latifi,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,LEC,95.117,109.199529411,17,0.69,leclerc,Ferrari,Charles,Leclerc,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,MAZ,98.586,113.696058823,17,4.159,mazepin,Haas F1 Team,Nikita,Mazepin,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,MSC,98.977,115.58695,20,4.55,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,NOR,95.959,112.836421052,19,1.532,norris,McLaren,Lando,Norris,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,OCO,96.236,109.67025,20,1.809,ocon,Alpine,Esteban,Ocon,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,PER,96.188,110.012611111,18,1.761,perez,Red Bull Racing,Sergio,Perez,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,RAI,96.952,113.333466666,15,2.525,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,RIC,96.877,112.46785,20,2.45,ricciardo,McLaren,Daniel,Ricciardo,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,RUS,98.013,111.44217647,17,3.586,russell,Williams,George,Russell,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,SAI,95.811,112.596142857,21,1.384,sainz,Ferrari,Carlos,Sainz,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,STR,96.522,103.031266666,15,2.095,stroll,Aston Martin,Lance,Stroll,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,TSU,97.794,113.276590909,22,3.367,tsunoda,AlphaTauri,Yuki,Tsunoda,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,VER,94.654,113.8852,10,0.227,max_verstappen,Red Bull Racing,Max,Verstappen,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP1,2021-09-26,VET,95.781,105.458333333,18,1.354,vettel,Aston Martin,Sebastian,Vettel,19.3,30.3,50.0,0.7,True
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,ALO,94.762,112.503933333,15,1.169,alonso,Alpine,Fernando,Alonso,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,BOT,93.593,107.050230769,13,0.0,bottas,Mercedes,Valtteri,Bottas,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,GAS,93.845,108.6223125,16,0.252,gasly,AlphaTauri,Pierre,Gasly,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,GIO,95.178,107.964875,8,1.585,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,HAM,93.637,103.3504,15,0.044,hamilton,Mercedes,Lewis,Hamilton,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,LAT,95.411,109.819666666,15,1.818,latifi,Williams,Nicholas,Latifi,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,LEC,94.925,106.063352941,17,1.332,leclerc,Ferrari,Charles,Leclerc,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,MAZ,96.099,109.584214285,14,2.506,mazepin,Haas F1 Team,Nikita,Mazepin,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,MSC,96.23,105.218333333,15,2.637,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,NOR,94.154,108.334222222,9,0.561,norris,McLaren,Lando,Norris,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,OCO,94.402,105.236764705,17,0.809,ocon,Alpine,Esteban,Ocon,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,PER,94.938,103.582625,16,1.345,perez,Red Bull Racing,Sergio,Perez,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,RAI,95.052,107.040647058,17,1.459,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,RIC,95.63,107.781714285,7,2.037,ricciardo,McLaren,Daniel,Ricciardo,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,RUS,95.094,112.014733333,15,1.501,russell,Williams,George,Russell,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,SAI,94.678,107.078466666,15,1.085,sainz,Ferrari,Carlos,Sainz,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,STR,95.334,107.796875,16,1.741,stroll,Aston Martin,Lance,Stroll,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,TSU,95.954,108.4685,18,2.361,tsunoda,AlphaTauri,Yuki,Tsunoda,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,VER,94.621,103.394214285,14,1.028,max_verstappen,Red Bull Racing,Max,Verstappen,19.2,31.7,50.2,0.8,False
+2021,15,Russian Grand Prix,Sochi,FP2,2021-09-26,VET,94.837,106.780764705,17,1.244,vettel,Aston Martin,Sebastian,Vettel,19.2,31.7,50.2,0.8,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,ALO,85.383,99.100318181,22,1.205,alonso,Alpine,Fernando,Alonso,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,BOT,84.842,101.137458333,24,0.664,bottas,Mercedes,Valtteri,Bottas,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,GAS,85.382,99.054333333,27,1.204,gasly,AlphaTauri,Pierre,Gasly,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,GIO,85.812,110.008523809,21,1.634,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,HAM,84.178,99.498238095,21,0.0,hamilton,Mercedes,Lewis,Hamilton,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,LAT,85.863,101.485666666,24,1.685,latifi,Williams,Nicholas,Latifi,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,LEC,84.654,105.36525,24,0.476,leclerc,Ferrari,Charles,Leclerc,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,MAZ,87.019,98.340916666,24,2.841,mazepin,Haas F1 Team,Nikita,Mazepin,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,MSC,86.636,100.011363636,22,2.458,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,NOR,85.347,101.17340909,22,1.169,norris,McLaren,Lando,Norris,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,OCO,84.909,101.067481481,27,0.731,ocon,Alpine,Esteban,Ocon,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,PER,85.459,101.296190476,21,1.281,perez,Red Bull Racing,Sergio,Perez,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,RAI,85.933,107.439666666,21,1.755,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,RIC,85.75,101.5485,22,1.572,ricciardo,McLaren,Daniel,Ricciardo,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,RUS,85.685,103.064954545,22,1.507,russell,Williams,George,Russell,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,SAI,84.86,102.13240909,22,0.682,sainz,Ferrari,Carlos,Sainz,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,STR,86.221,99.228807692,26,2.043,stroll,Aston Martin,Lance,Stroll,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,TSU,86.424,105.58026923,26,2.246,tsunoda,AlphaTauri,Yuki,Tsunoda,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,VER,84.603,103.779666666,21,0.425,max_verstappen,Red Bull Racing,Max,Verstappen,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP1,2021-10-10,VET,85.81,98.848761904,21,1.632,vettel,Aston Martin,Sebastian,Vettel,19.6,28.9,66.4,1.2,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,ALO,84.66,100.494,17,0.856,alonso,Alpine,Fernando,Alonso,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,BOT,84.214,99.42975,28,0.41,bottas,Mercedes,Valtteri,Bottas,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,GAS,84.756,97.228714285,28,0.952,gasly,AlphaTauri,Pierre,Gasly,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,GIO,84.796,100.793192307,26,0.992,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,HAM,83.804,94.655846153,26,0.0,hamilton,Mercedes,Lewis,Hamilton,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,LAT,85.307,100.361296296,27,1.503,latifi,Williams,Nicholas,Latifi,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,LEC,83.97,101.65644,25,0.166,leclerc,Ferrari,Charles,Leclerc,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,MAZ,85.698,101.359136363,22,1.894,mazepin,Haas F1 Team,Nikita,Mazepin,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,MSC,85.48,100.095043478,23,1.676,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,NOR,84.525,99.249736842,19,0.721,norris,McLaren,Lando,Norris,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,OCO,84.672,99.6591,20,0.868,ocon,Alpine,Esteban,Ocon,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,PER,84.373,99.566083333,24,0.569,perez,Red Bull Racing,Sergio,Perez,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,RAI,85.143,97.008434782,23,1.339,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,RIC,84.975,97.149157894,19,1.171,ricciardo,McLaren,Daniel,Ricciardo,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,RUS,85.358,96.02025,24,1.554,russell,Williams,George,Russell,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,SAI,84.903,95.990645161,31,1.099,sainz,Ferrari,Carlos,Sainz,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,STR,85.02,98.065178571,28,1.216,stroll,Aston Martin,Lance,Stroll,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,TSU,84.882,100.615333333,27,1.078,tsunoda,AlphaTauri,Yuki,Tsunoda,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,VER,84.439,98.4585,24,0.635,max_verstappen,Red Bull Racing,Max,Verstappen,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP2,2021-10-10,VET,85.229,96.92476923,26,1.425,vettel,Aston Martin,Sebastian,Vettel,19.7,28.3,66.9,1.3,False
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,ALO,91.545,113.7341,10,1.098,alonso,Alpine,Fernando,Alonso,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,BOT,91.996,105.0098,5,1.549,bottas,Mercedes,Valtteri,Bottas,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,GAS,90.447,109.514066666,15,0.0,gasly,AlphaTauri,Pierre,Gasly,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,GIO,92.097,114.273823529,17,1.65,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,HAM,93.636,103.818,2,3.189,hamilton,Mercedes,Lewis,Hamilton,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,LAT,95.681,112.07525,4,5.234,latifi,Williams,Nicholas,Latifi,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,LEC,91.543,104.9665,12,1.096,leclerc,Ferrari,Charles,Leclerc,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,MAZ,93.425,108.8206,10,2.978,mazepin,Haas F1 Team,Nikita,Mazepin,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,MSC,92.228,109.005444444,18,1.781,mick_schumacher,Haas F1 Team,Mick,Schumacher,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,NOR,92.314,104.688857142,14,1.867,norris,McLaren,Lando,Norris,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,OCO,92.089,108.441307692,13,1.642,ocon,Alpine,Esteban,Ocon,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,PER,90.684,106.03190909,11,0.237,perez,Red Bull Racing,Sergio,Perez,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,RAI,91.572,109.268153846,13,1.125,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,RIC,92.27,108.926928571,14,1.823,ricciardo,McLaren,Daniel,Ricciardo,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,SAI,91.262,107.963,18,0.815,sainz,Ferrari,Carlos,Sainz,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,STR,93.348,109.47375,8,2.901,stroll,Aston Martin,Lance,Stroll,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,TSU,91.981,112.2086875,16,1.534,tsunoda,AlphaTauri,Yuki,Tsunoda,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,VER,90.611,110.803444444,9,0.164,max_verstappen,Red Bull Racing,Max,Verstappen,17.6,23.4,90.4,0.2,True
+2021,16,Turkish Grand Prix,Istanbul,FP3,2021-10-10,VET,92.111,108.9711,10,1.664,vettel,Aston Martin,Sebastian,Vettel,17.6,23.4,90.4,0.2,True
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,ALO,97.068,105.679,9,2.194,alonso,Alpine,Fernando,Alonso,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,BOT,94.874,113.411090909,11,0.0,bottas,Mercedes,Valtteri,Bottas,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,GAS,96.611,105.693818181,11,1.737,gasly,AlphaTauri,Pierre,Gasly,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,GIO,96.874,115.070333333,12,2.0,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,HAM,94.919,99.5548,10,0.045,hamilton,Mercedes,Lewis,Hamilton,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,LAT,97.463,110.92,14,2.589,latifi,Williams,Nicholas,Latifi,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,LEC,96.334,112.273363636,11,1.46,leclerc,Ferrari,Charles,Leclerc,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,MAZ,100.948,113.138333333,15,6.074,mazepin,Haas F1 Team,Nikita,Mazepin,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,MSC,98.866,119.685416666,12,3.992,mick_schumacher,Haas F1 Team,Mick,Schumacher,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,NOR,96.855,110.903857142,7,1.981,norris,McLaren,Lando,Norris,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,OCO,96.97,107.293076923,13,2.096,ocon,Alpine,Esteban,Ocon,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,PER,95.817,109.217,16,0.943,perez,Red Bull Racing,Sergio,Perez,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,RAI,96.876,117.709538461,13,2.002,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,RIC,96.22,107.47576923,13,1.346,ricciardo,McLaren,Daniel,Ricciardo,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,RUS,96.966,111.998,15,2.092,russell,Williams,George,Russell,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,SAI,96.508,112.670928571,14,1.634,sainz,Ferrari,Carlos,Sainz,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,STR,96.972,105.958571428,14,2.098,stroll,Aston Martin,Lance,Stroll,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,TSU,97.248,110.762666666,15,2.374,tsunoda,AlphaTauri,Yuki,Tsunoda,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,VER,95.806,105.1507,10,0.932,max_verstappen,Red Bull Racing,Max,Verstappen,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP1,2021-10-24,VET,96.344,111.806,15,1.47,vettel,Aston Martin,Sebastian,Vettel,27.1,31.5,64.2,0.3,False
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,ALO,96.376,103.657230769,13,1.534,alonso,Alpine,Fernando,Alonso,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,BOT,95.36,109.007277777,18,0.518,bottas,Mercedes,Valtteri,Bottas,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,GAS,96.242,109.862666666,18,1.4,gasly,AlphaTauri,Pierre,Gasly,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,GIO,96.138,103.2254375,16,1.296,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,HAM,94.842,108.007,16,0.0,hamilton,Mercedes,Lewis,Hamilton,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,LAT,97.254,107.828590909,22,2.412,latifi,Williams,Nicholas,Latifi,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,LEC,95.572,107.921111111,18,0.73,leclerc,Ferrari,Charles,Leclerc,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,MAZ,98.026,111.786444444,18,3.184,mazepin,Haas F1 Team,Nikita,Mazepin,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,MSC,97.041,110.206722222,18,2.199,mick_schumacher,Haas F1 Team,Mick,Schumacher,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,NOR,95.203,106.858933333,15,0.361,norris,McLaren,Lando,Norris,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,OCO,96.158,106.438647058,17,1.316,ocon,Alpine,Esteban,Ocon,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,PER,94.946,108.727631578,19,0.104,perez,Red Bull Racing,Sergio,Perez,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,RAI,96.558,108.564105263,19,1.716,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,RIC,95.457,107.659411764,17,0.615,ricciardo,McLaren,Daniel,Ricciardo,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,RUS,97.49,107.192666666,18,2.648,russell,Williams,George,Russell,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,SAI,95.919,103.4569375,16,1.077,sainz,Ferrari,Carlos,Sainz,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,STR,95.561,106.136761904,21,0.719,stroll,Aston Martin,Lance,Stroll,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,TSU,96.69,104.757,16,1.848,tsunoda,AlphaTauri,Yuki,Tsunoda,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,VER,95.824,112.10555,20,0.982,max_verstappen,Red Bull Racing,Max,Verstappen,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP2,2021-10-24,VET,96.718,103.929814814,27,1.876,vettel,Aston Martin,Sebastian,Vettel,29.1,36.3,52.0,0.5,True
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,ALO,96.49,113.751777777,9,2.107,alonso,Alpine,Fernando,Alonso,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,BOT,94.988,113.60225,8,0.605,bottas,Mercedes,Valtteri,Bottas,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,GAS,95.398,111.3667,10,1.015,gasly,AlphaTauri,Pierre,Gasly,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,GIO,96.252,114.1899,10,1.869,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,HAM,94.458,103.071,9,0.075,hamilton,Mercedes,Lewis,Hamilton,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,LAT,96.118,113.05125,4,1.735,latifi,Williams,Nicholas,Latifi,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,LEC,95.343,118.085083333,12,0.96,leclerc,Ferrari,Charles,Leclerc,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,MAZ,97.344,117.029125,8,2.961,mazepin,Haas F1 Team,Nikita,Mazepin,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,MSC,96.671,117.518555555,9,2.288,mick_schumacher,Haas F1 Team,Mick,Schumacher,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,NOR,94.945,106.262571428,7,0.562,norris,McLaren,Lando,Norris,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,OCO,95.711,113.539333333,6,1.328,ocon,Alpine,Esteban,Ocon,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,PER,94.701,120.61475,8,0.318,perez,Red Bull Racing,Sergio,Perez,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,RAI,96.062,111.810666666,12,1.679,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,RIC,95.345,119.03775,8,0.962,ricciardo,McLaren,Daniel,Ricciardo,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,RUS,96.023,120.7714,5,1.64,russell,Williams,George,Russell,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,SAI,94.805,111.596181818,11,0.422,sainz,Ferrari,Carlos,Sainz,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,STR,96.392,115.19225,8,2.009,stroll,Aston Martin,Lance,Stroll,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,TSU,96.572,109.548666666,6,2.189,tsunoda,AlphaTauri,Yuki,Tsunoda,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,VER,94.383,110.663,7,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,28.6,36.9,60.5,0.9,False
+2021,17,United States Grand Prix,Austin,FP3,2021-10-24,VET,95.851,107.174555555,9,1.468,vettel,Aston Martin,Sebastian,Vettel,28.6,36.9,60.5,0.9,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,ALO,79.656,91.533434782,23,1.315,alonso,Alpine,Fernando,Alonso,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,BOT,78.341,93.735695652,23,0.0,bottas,Mercedes,Valtteri,Bottas,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,GAS,78.985,92.74715,20,0.644,gasly,AlphaTauri,Pierre,Gasly,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,GIO,80.344,94.149583333,24,2.003,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,HAM,78.417,96.7832,20,0.076,hamilton,Mercedes,Lewis,Hamilton,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,LAT,81.58,92.32975,20,3.239,latifi,Williams,Nicholas,Latifi,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,LEC,79.667,96.824388888,18,1.326,leclerc,Ferrari,Charles,Leclerc,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,MAZ,82.819,93.2398,20,4.478,mazepin,Haas F1 Team,Nikita,Mazepin,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,MSC,82.144,93.7045,24,3.803,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,NOR,80.301,94.062782608,23,1.96,norris,McLaren,Lando,Norris,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,OCO,79.759,96.054470588,17,1.418,ocon,Alpine,Esteban,Ocon,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,PER,78.61,97.859944444,18,0.269,perez,Red Bull Racing,Sergio,Perez,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,RAI,80.026,93.022434782,23,1.685,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,RIC,80.273,94.471181818,22,1.932,ricciardo,McLaren,Daniel,Ricciardo,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,RUS,80.517,94.30675,20,2.176,russell,Williams,George,Russell,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,SAI,79.463,97.064347826,23,1.122,sainz,Ferrari,Carlos,Sainz,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,STR,80.03,99.602958333,24,1.689,stroll,Aston Martin,Lance,Stroll,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,TSU,80.011,92.479423076,26,1.67,tsunoda,AlphaTauri,Yuki,Tsunoda,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,VER,78.464,90.02492,25,0.123,max_verstappen,Red Bull Racing,Max,Verstappen,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP1,2021-11-07,VET,79.858,89.885125,24,1.517,vettel,Aston Martin,Sebastian,Vettel,19.0,40.4,42.1,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,ALO,78.732,87.917916666,24,1.431,alonso,Alpine,Fernando,Alonso,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,BOT,77.725,92.829571428,28,0.424,bottas,Mercedes,Valtteri,Bottas,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,GAS,78.429,89.782538461,26,1.128,gasly,AlphaTauri,Pierre,Gasly,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,GIO,79.227,91.308464285,28,1.926,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,HAM,77.81,89.832636363,22,0.509,hamilton,Mercedes,Lewis,Hamilton,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,LAT,80.82,89.219266666,15,3.519,latifi,Williams,Nicholas,Latifi,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,LEC,78.605,93.75868,25,1.304,leclerc,Ferrari,Charles,Leclerc,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,MAZ,81.581,94.13364,25,4.28,mazepin,Haas F1 Team,Nikita,Mazepin,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,MSC,79.62,91.591888888,27,2.319,mick_schumacher,Haas F1 Team,Mick,Schumacher,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,NOR,78.979,92.095083333,24,1.678,norris,McLaren,Lando,Norris,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,OCO,79.431,88.436571428,35,2.13,ocon,Alpine,Esteban,Ocon,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,PER,77.871,88.895956521,23,0.57,perez,Red Bull Racing,Sergio,Perez,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,RAI,78.841,89.670227272,22,1.54,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,RIC,79.521,99.035,6,2.22,ricciardo,McLaren,Daniel,Ricciardo,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,RUS,127.22,127.22,1,49.919,russell,Williams,George,Russell,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,SAI,78.318,94.494192307,26,1.017,sainz,Ferrari,Carlos,Sainz,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,STR,79.73,87.905205882,34,2.429,stroll,Aston Martin,Lance,Stroll,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,TSU,78.644,88.596407407,27,1.343,tsunoda,AlphaTauri,Yuki,Tsunoda,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,VER,77.301,90.3942,25,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP2,2021-11-07,VET,78.681,86.152655172,29,1.38,vettel,Aston Martin,Sebastian,Vettel,21.8,41.3,29.3,0.4,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,ALO,78.816,96.053384615,13,1.792,alonso,Alpine,Fernando,Alonso,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,BOT,77.708,98.929428571,14,0.684,bottas,Mercedes,Valtteri,Bottas,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,GAS,78.202,97.496,16,1.178,gasly,AlphaTauri,Pierre,Gasly,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,GIO,78.556,105.485941176,17,1.532,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,HAM,77.675,98.3655,10,0.651,hamilton,Mercedes,Lewis,Hamilton,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,LAT,79.313,100.433666666,9,2.289,latifi,Williams,Nicholas,Latifi,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,LEC,78.213,99.021941176,17,1.189,leclerc,Ferrari,Charles,Leclerc,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,MAZ,80.479,105.250307692,13,3.455,mazepin,Haas F1 Team,Nikita,Mazepin,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,MSC,79.238,100.172,12,2.214,mick_schumacher,Haas F1 Team,Mick,Schumacher,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,NOR,78.312,92.515153846,13,1.288,norris,McLaren,Lando,Norris,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,OCO,78.999,97.372466666,15,1.975,ocon,Alpine,Esteban,Ocon,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,PER,77.024,101.667230769,13,0.0,perez,Red Bull Racing,Sergio,Perez,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,RAI,78.531,96.1095,20,1.507,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,RIC,78.121,91.923923076,13,1.097,ricciardo,McLaren,Daniel,Ricciardo,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,RUS,79.211,96.118529411,17,2.187,russell,Williams,George,Russell,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,SAI,78.029,99.312411764,17,1.005,sainz,Ferrari,Carlos,Sainz,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,STR,78.352,103.257333333,15,1.328,stroll,Aston Martin,Lance,Stroll,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,TSU,78.037,109.220045454,22,1.013,tsunoda,AlphaTauri,Yuki,Tsunoda,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,VER,77.217,100.416,10,0.193,max_verstappen,Red Bull Racing,Max,Verstappen,18.0,36.3,38.9,0.3,False
+2021,18,Mexico City Grand Prix,Mexico City,FP3,2021-11-07,VET,78.614,99.690533333,15,1.59,vettel,Aston Martin,Sebastian,Vettel,18.0,36.3,38.9,0.3,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,ALO,70.201,79.428695652,23,1.151,alonso,Alpine,Fernando,Alonso,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,BOT,69.567,87.069703703,27,0.517,bottas,Mercedes,Valtteri,Bottas,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,GAS,69.88,86.278172413,29,0.83,gasly,AlphaTauri,Pierre,Gasly,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,GIO,70.587,85.638357142,28,1.537,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,HAM,69.05,89.866629629,27,0.0,hamilton,Mercedes,Lewis,Hamilton,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,LAT,70.902,83.408809523,21,1.852,latifi,Williams,Nicholas,Latifi,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,LEC,70.142,84.395793103,29,1.092,leclerc,Ferrari,Charles,Leclerc,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,MAZ,71.342,89.828625,24,2.292,mazepin,Haas F1 Team,Nikita,Mazepin,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,MSC,70.885,86.334454545,22,1.835,mick_schumacher,Haas F1 Team,Mick,Schumacher,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,NOR,70.61,80.815130434,23,1.56,norris,McLaren,Lando,Norris,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,OCO,70.145,84.067291666,24,1.095,ocon,Alpine,Esteban,Ocon,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,PER,69.492,82.040833333,24,0.442,perez,Red Bull Racing,Sergio,Perez,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,RAI,70.443,81.584071428,28,1.393,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,RIC,70.99,81.237714285,21,1.94,ricciardo,McLaren,Daniel,Ricciardo,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,RUS,70.938,84.814590909,22,1.888,russell,Williams,George,Russell,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,SAI,70.124,86.010857142,28,1.074,sainz,Ferrari,Carlos,Sainz,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,STR,70.352,91.030086956,23,1.302,stroll,Aston Martin,Lance,Stroll,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,TSU,70.374,87.264633333,30,1.324,tsunoda,AlphaTauri,Yuki,Tsunoda,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,VER,69.417,81.278473684,19,0.367,max_verstappen,Red Bull Racing,Max,Verstappen,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP1,2021-11-14,VET,70.413,87.507541666,24,1.363,vettel,Aston Martin,Sebastian,Vettel,17.8,34.0,79.9,0.5,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,ALO,71.238,82.54547619,21,0.0,alonso,Alpine,Fernando,Alonso,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,BOT,72.355,83.272954545,22,1.117,bottas,Mercedes,Valtteri,Bottas,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,GAS,73.608,80.070266666,30,2.37,gasly,AlphaTauri,Pierre,Gasly,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,GIO,72.997,77.909571428,35,1.759,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,HAM,72.741,80.15973913,23,1.503,hamilton,Mercedes,Lewis,Hamilton,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,LAT,74.025,80.069818181,22,2.787,latifi,Williams,Nicholas,Latifi,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,LEC,73.099,79.00648387,31,1.861,leclerc,Ferrari,Charles,Leclerc,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,MAZ,74.909,77.123028571,35,3.671,mazepin,Haas F1 Team,Nikita,Mazepin,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,MSC,74.066,78.109236842,38,2.828,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,NOR,73.581,83.063619047,21,2.343,norris,McLaren,Lando,Norris,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,OCO,72.407,77.376708333,24,1.169,ocon,Alpine,Esteban,Ocon,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,PER,72.903,78.684925925,27,1.665,perez,Red Bull Racing,Sergio,Perez,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,RAI,73.355,77.712837837,37,2.117,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,RIC,73.448,81.852391304,23,2.21,ricciardo,McLaren,Daniel,Ricciardo,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,RUS,73.615,79.091727272,22,2.377,russell,Williams,George,Russell,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,SAI,73.078,82.887241379,29,1.84,sainz,Ferrari,Carlos,Sainz,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,STR,73.426,81.657102564,39,2.188,stroll,Aston Martin,Lance,Stroll,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,TSU,73.726,77.352722222,36,2.488,tsunoda,AlphaTauri,Yuki,Tsunoda,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,VER,72.102,77.647041666,24,0.864,max_verstappen,Red Bull Racing,Max,Verstappen,19.0,50.5,54.1,0.4,False
+2021,19,São Paulo Grand Prix,São Paulo,FP2,2021-11-14,VET,73.747,81.04005,40,2.509,vettel,Aston Martin,Sebastian,Vettel,19.0,50.5,54.1,0.4,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,ALO,85.905,100.526052631,19,2.182,alonso,Alpine,Fernando,Alonso,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,BOT,84.194,106.4784,20,0.471,bottas,Mercedes,Valtteri,Bottas,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,GAS,84.16,102.704166666,24,0.437,gasly,AlphaTauri,Pierre,Gasly,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,GIO,85.757,102.876529411,17,2.034,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,HAM,84.509,110.9719375,16,0.786,hamilton,Mercedes,Lewis,Hamilton,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,LAT,85.688,105.73615,20,1.965,latifi,Williams,Nicholas,Latifi,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,LEC,84.79,108.855,23,1.067,leclerc,Ferrari,Charles,Leclerc,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,MAZ,87.5,109.167714285,14,3.777,mazepin,Haas F1 Team,Nikita,Mazepin,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,MSC,86.699,104.834277777,18,2.976,mick_schumacher,Haas F1 Team,Mick,Schumacher,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,NOR,85.215,108.848933333,15,1.492,norris,McLaren,Lando,Norris,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,OCO,84.972,108.3217,20,1.249,ocon,Alpine,Esteban,Ocon,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,PER,84.915,105.888,19,1.192,perez,Red Bull Racing,Sergio,Perez,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,RAI,85.828,107.777136363,22,2.105,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,RIC,85.291,108.480666666,21,1.568,ricciardo,McLaren,Daniel,Ricciardo,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,RUS,85.871,101.4107,20,2.148,russell,Williams,George,Russell,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,SAI,84.713,109.125761904,21,0.99,sainz,Ferrari,Carlos,Sainz,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,STR,86.712,110.101555555,9,2.989,stroll,Aston Martin,Lance,Stroll,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,TSU,84.648,106.449608695,23,0.925,tsunoda,AlphaTauri,Yuki,Tsunoda,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,VER,83.723,105.737105263,19,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP1,2021-11-21,VET,85.328,107.012333333,15,1.605,vettel,Aston Martin,Sebastian,Vettel,28.4,41.1,47.3,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,ALO,84.056,96.129333333,21,0.908,alonso,Alpine,Fernando,Alonso,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,BOT,83.148,102.318095238,21,0.0,bottas,Mercedes,Valtteri,Bottas,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,GAS,83.357,100.120565217,23,0.209,gasly,AlphaTauri,Pierre,Gasly,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,GIO,85.072,107.075789473,19,1.924,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,HAM,83.57,103.654105263,19,0.422,hamilton,Mercedes,Lewis,Hamilton,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,LAT,85.209,100.53104,25,2.061,latifi,Williams,Nicholas,Latifi,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,LEC,84.095,113.2711,20,0.947,leclerc,Ferrari,Charles,Leclerc,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,MSC,85.575,101.0385,24,2.427,mick_schumacher,Haas F1 Team,Mick,Schumacher,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,NOR,83.632,106.437523809,21,0.484,norris,McLaren,Lando,Norris,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,OCO,84.041,101.609807692,26,0.893,ocon,Alpine,Esteban,Ocon,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,PER,83.787,105.155117647,17,0.639,perez,Red Bull Racing,Sergio,Perez,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,RAI,84.631,100.384173913,23,1.483,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,RIC,84.135,101.4614,20,0.987,ricciardo,McLaren,Daniel,Ricciardo,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,RUS,84.954,100.376208333,24,1.806,russell,Williams,George,Russell,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,SAI,84.033,105.69408,25,0.885,sainz,Ferrari,Carlos,Sainz,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,STR,83.705,100.107619047,21,0.557,stroll,Aston Martin,Lance,Stroll,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,TSU,83.735,102.1935,24,0.587,tsunoda,AlphaTauri,Yuki,Tsunoda,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,VER,83.498,102.7066875,16,0.35,max_verstappen,Red Bull Racing,Max,Verstappen,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP2,2021-11-21,VET,84.02,103.238875,24,0.872,vettel,Aston Martin,Sebastian,Vettel,26.4,30.5,51.0,0.3,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,ALO,83.186,109.5257,10,0.876,alonso,Alpine,Fernando,Alonso,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,BOT,82.31,107.783090909,11,0.0,bottas,Mercedes,Valtteri,Bottas,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,GAS,82.721,108.168153846,13,0.411,gasly,AlphaTauri,Pierre,Gasly,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,GIO,84.288,112.407538461,13,1.978,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,HAM,82.388,102.090625,8,0.078,hamilton,Mercedes,Lewis,Hamilton,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,LAT,84.499,111.183,12,2.189,latifi,Williams,Nicholas,Latifi,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,LEC,83.276,108.611818181,11,0.966,leclerc,Ferrari,Charles,Leclerc,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,MSC,84.68,113.125066666,15,2.37,mick_schumacher,Haas F1 Team,Mick,Schumacher,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,NOR,83.895,110.216333333,12,1.585,norris,McLaren,Lando,Norris,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,OCO,83.209,112.394,15,0.899,ocon,Alpine,Esteban,Ocon,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,PER,82.846,99.973285714,7,0.536,perez,Red Bull Racing,Sergio,Perez,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,RAI,84.246,110.994470588,17,1.936,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,RIC,83.711,114.220636363,11,1.401,ricciardo,McLaren,Daniel,Ricciardo,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,RUS,83.923,110.263333333,15,1.613,russell,Williams,George,Russell,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,SAI,83.048,108.434272727,11,0.738,sainz,Ferrari,Carlos,Sainz,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,STR,84.154,109.453692307,13,1.844,stroll,Aston Martin,Lance,Stroll,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,TSU,83.567,115.3614375,16,1.257,tsunoda,AlphaTauri,Yuki,Tsunoda,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,VER,82.651,109.348857142,7,0.341,max_verstappen,Red Bull Racing,Max,Verstappen,27.5,36.9,59.1,0.5,False
+2021,20,Qatar Grand Prix,Lusail,FP3,2021-11-21,VET,83.884,111.274933333,15,1.574,vettel,Aston Martin,Sebastian,Vettel,27.5,36.9,59.1,0.5,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,ALO,90.842,103.7538,25,1.056,alonso,Alpine,Fernando,Alonso,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,BOT,90.009,108.746555555,18,0.223,bottas,Mercedes,Valtteri,Bottas,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,GAS,90.263,111.643208333,24,0.477,gasly,AlphaTauri,Pierre,Gasly,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,GIO,90.318,111.216260869,23,0.532,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,HAM,89.786,106.277307692,13,0.0,hamilton,Mercedes,Lewis,Hamilton,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,LAT,91.821,108.67075,24,2.035,latifi,Williams,Nicholas,Latifi,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,LEC,90.6,108.765105263,19,0.814,leclerc,Ferrari,Charles,Leclerc,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,MAZ,93.464,111.436,19,3.678,mazepin,Haas F1 Team,Nikita,Mazepin,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,MSC,91.525,106.068722222,18,1.739,mick_schumacher,Haas F1 Team,Mick,Schumacher,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,NOR,91.029,108.607777777,18,1.243,norris,McLaren,Lando,Norris,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,OCO,91.023,108.361346153,26,1.237,ocon,Alpine,Esteban,Ocon,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,PER,90.96,112.044333333,24,1.174,perez,Red Bull Racing,Sergio,Perez,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,RAI,91.296,109.008521739,23,1.51,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,RIC,90.608,110.982190476,21,0.822,ricciardo,McLaren,Daniel,Ricciardo,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,RUS,91.343,107.76256,25,1.557,russell,Williams,George,Russell,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,SAI,90.564,108.2978,20,0.778,sainz,Ferrari,Carlos,Sainz,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,STR,91.044,110.666047619,21,1.258,stroll,Aston Martin,Lance,Stroll,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,TSU,91.099,106.235105263,19,1.313,tsunoda,AlphaTauri,Yuki,Tsunoda,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,VER,89.842,109.5889375,16,0.056,max_verstappen,Red Bull Racing,Max,Verstappen,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP1,2021-12-05,VET,90.886,106.000761904,21,1.1,vettel,Aston Martin,Sebastian,Vettel,28.4,34.5,68.5,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,ALO,89.441,103.978823529,17,0.423,alonso,Alpine,Fernando,Alonso,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,BOT,89.079,105.294388888,18,0.061,bottas,Mercedes,Valtteri,Bottas,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,GAS,89.099,113.083388888,18,0.081,gasly,AlphaTauri,Pierre,Gasly,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,GIO,90.11,102.15225,16,1.092,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,HAM,89.018,105.160375,16,0.0,hamilton,Mercedes,Lewis,Hamilton,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,LAT,91.039,108.615473684,19,2.021,latifi,Williams,Nicholas,Latifi,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,LEC,89.772,107.7255,16,0.754,leclerc,Ferrari,Charles,Leclerc,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,MAZ,91.629,110.467333333,15,2.611,mazepin,Haas F1 Team,Nikita,Mazepin,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,MSC,90.652,106.2475,16,1.634,mick_schumacher,Haas F1 Team,Mick,Schumacher,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,NOR,90.004,109.222,14,0.986,norris,McLaren,Lando,Norris,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,OCO,89.555,104.216,16,0.537,ocon,Alpine,Esteban,Ocon,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,PER,89.768,111.275111111,18,0.75,perez,Red Bull Racing,Sergio,Perez,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,RAI,90.276,108.51955,20,1.258,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,RIC,89.968,102.420529411,17,0.95,ricciardo,McLaren,Daniel,Ricciardo,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,RUS,90.506,104.69055,20,1.488,russell,Williams,George,Russell,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,SAI,89.589,107.462529411,17,0.571,sainz,Ferrari,Carlos,Sainz,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,STR,90.442,103.073823529,17,1.424,stroll,Aston Martin,Lance,Stroll,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,TSU,89.597,106.826307692,13,0.579,tsunoda,AlphaTauri,Yuki,Tsunoda,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,VER,89.213,105.191,13,0.195,max_verstappen,Red Bull Racing,Max,Verstappen,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP2,2021-12-05,VET,90.502,102.00575,16,1.484,vettel,Aston Martin,Sebastian,Vettel,28.6,30.5,60.3,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,ALO,89.418,110.821777777,18,1.318,alonso,Alpine,Fernando,Alonso,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,BOT,89.019,110.026294117,17,0.919,bottas,Mercedes,Valtteri,Bottas,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,GAS,88.715,116.783736842,19,0.615,gasly,AlphaTauri,Pierre,Gasly,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,GIO,89.59,106.612916666,12,1.49,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,HAM,88.314,107.958466666,15,0.214,hamilton,Mercedes,Lewis,Hamilton,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,LAT,90.366,112.180923076,13,2.266,latifi,Williams,Nicholas,Latifi,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,LEC,89.101,112.374941176,17,1.001,leclerc,Ferrari,Charles,Leclerc,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,MAZ,90.979,117.091105263,19,2.879,mazepin,Haas F1 Team,Nikita,Mazepin,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,MSC,90.933,107.196285714,14,2.833,mick_schumacher,Haas F1 Team,Mick,Schumacher,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,NOR,89.3,112.184538461,13,1.2,norris,McLaren,Lando,Norris,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,OCO,89.177,111.759625,16,1.077,ocon,Alpine,Esteban,Ocon,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,PER,88.629,119.123388888,18,0.529,perez,Red Bull Racing,Sergio,Perez,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,RAI,89.689,110.857888888,18,1.589,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,RIC,89.717,105.2421875,16,1.617,ricciardo,McLaren,Daniel,Ricciardo,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,RUS,90.034,112.349615384,13,1.934,russell,Williams,George,Russell,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,SAI,89.149,109.384272727,11,1.049,sainz,Ferrari,Carlos,Sainz,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,STR,90.03,110.08,9,1.93,stroll,Aston Martin,Lance,Stroll,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,TSU,88.641,110.580583333,12,0.541,tsunoda,AlphaTauri,Yuki,Tsunoda,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,VER,88.1,114.261,14,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,29.2,34.5,65.2,0.3,False
+2021,21,Saudi Arabian Grand Prix,Jeddah,FP3,2021-12-05,VET,90.296,112.75625,12,2.196,vettel,Aston Martin,Sebastian,Vettel,29.2,34.5,65.2,0.3,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,AIT,87.481,104.216083333,24,2.472,nan,Williams,Jack,Aitken,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,ALO,85.625,106.771434782,23,0.616,alonso,Alpine,Fernando,Alonso,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,BOT,85.205,109.056523809,21,0.196,bottas,Mercedes,Valtteri,Bottas,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,GAS,85.822,102.519208333,24,0.813,gasly,AlphaTauri,Pierre,Gasly,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,GIO,86.409,105.417473684,19,1.4,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,HAM,85.042,96.388923076,13,0.033,hamilton,Mercedes,Lewis,Hamilton,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,LAT,87.487,107.519333333,24,2.478,latifi,Williams,Nicholas,Latifi,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,LEC,85.846,100.192571428,14,0.837,leclerc,Ferrari,Charles,Leclerc,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,MAZ,88.305,104.539,17,3.296,mazepin,Haas F1 Team,Nikita,Mazepin,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,MSC,87.698,100.499611111,18,2.689,mick_schumacher,Haas F1 Team,Mick,Schumacher,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,NOR,86.123,99.242809523,21,1.114,norris,McLaren,Lando,Norris,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,OCO,86.025,105.327947368,19,1.016,ocon,Alpine,Esteban,Ocon,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,PER,85.363,102.584058823,17,0.354,perez,Red Bull Racing,Sergio,Perez,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,RAI,86.189,106.401714285,21,1.18,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,RIC,86.676,98.36536,25,1.667,ricciardo,McLaren,Daniel,Ricciardo,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,SAI,85.886,113.348761904,21,0.877,sainz,Ferrari,Carlos,Sainz,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,STR,86.608,103.666052631,19,1.599,stroll,Aston Martin,Lance,Stroll,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,TSU,85.378,108.940578947,19,0.369,tsunoda,AlphaTauri,Yuki,Tsunoda,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,VER,85.009,105.434411764,17,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP1,2021-12-12,VET,86.007,105.464863636,22,0.998,vettel,Aston Martin,Sebastian,Vettel,27.0,39.3,46.0,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,ALO,84.225,100.173086956,23,0.534,alonso,Alpine,Fernando,Alonso,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,BOT,84.083,102.623076923,26,0.392,bottas,Mercedes,Valtteri,Bottas,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,GAS,84.94,94.994714285,21,1.249,gasly,AlphaTauri,Pierre,Gasly,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,GIO,85.108,102.048521739,23,1.417,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,HAM,83.691,93.283105263,19,0.0,hamilton,Mercedes,Lewis,Hamilton,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,LAT,85.687,103.152263157,19,1.996,latifi,Williams,Nicholas,Latifi,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,LEC,84.557,103.1074,25,0.866,leclerc,Ferrari,Charles,Leclerc,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,MAZ,86.336,103.302434782,23,2.645,mazepin,Haas F1 Team,Nikita,Mazepin,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,MSC,85.784,103.391041666,24,2.093,mick_schumacher,Haas F1 Team,Mick,Schumacher,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,NOR,85.072,94.494652173,23,1.381,norris,McLaren,Lando,Norris,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,OCO,84.034,98.657346153,26,0.343,ocon,Alpine,Esteban,Ocon,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,PER,84.4,101.649521739,23,0.709,perez,Red Bull Racing,Sergio,Perez,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,RAI,85.44,100.567526315,19,1.749,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,RIC,84.812,99.082,23,1.121,ricciardo,McLaren,Daniel,Ricciardo,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,RUS,85.549,100.285153846,26,1.858,russell,Williams,George,Russell,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,SAI,84.844,93.271619047,21,1.153,sainz,Ferrari,Carlos,Sainz,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,STR,85.385,99.523863636,22,1.694,stroll,Aston Martin,Lance,Stroll,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,TSU,84.532,98.642857142,21,0.841,tsunoda,AlphaTauri,Yuki,Tsunoda,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,VER,84.332,95.5555,20,0.641,max_verstappen,Red Bull Racing,Max,Verstappen,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP2,2021-12-12,VET,85.195,99.847416666,24,1.504,vettel,Aston Martin,Sebastian,Vettel,24.9,29.9,69.6,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,ALO,85.094,101.0553125,16,1.82,alonso,Alpine,Fernando,Alonso,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,BOT,84.025,111.052642857,14,0.751,bottas,Mercedes,Valtteri,Bottas,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,GAS,84.251,109.269166666,18,0.977,gasly,AlphaTauri,Pierre,Gasly,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,GIO,85.048,114.693866666,15,1.774,giovinazzi,Alfa Romeo Racing,Antonio,Giovinazzi,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,HAM,83.274,106.874266666,15,0.0,hamilton,Mercedes,Lewis,Hamilton,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,LAT,85.322,107.801375,16,2.048,latifi,Williams,Nicholas,Latifi,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,LEC,84.758,109.4675625,16,1.484,leclerc,Ferrari,Charles,Leclerc,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,MAZ,86.332,113.210666666,15,3.058,mazepin,Haas F1 Team,Nikita,Mazepin,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,MSC,85.34,111.300785714,14,2.066,mick_schumacher,Haas F1 Team,Mick,Schumacher,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,NOR,84.106,110.890214285,14,0.832,norris,McLaren,Lando,Norris,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,OCO,84.834,103.059214285,14,1.56,ocon,Alpine,Esteban,Ocon,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,PER,84.047,114.512473684,19,0.773,perez,Red Bull Racing,Sergio,Perez,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,RAI,85.037,103.801947368,19,1.763,raikkonen,Alfa Romeo Racing,Kimi,Räikkönen,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,RIC,84.733,104.825461538,13,1.459,ricciardo,McLaren,Daniel,Ricciardo,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,RUS,85.22,104.985052631,19,1.946,russell,Williams,George,Russell,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,SAI,84.595,104.259857142,14,1.321,sainz,Ferrari,Carlos,Sainz,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,STR,84.821,107.582894736,19,1.547,stroll,Aston Martin,Lance,Stroll,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,TSU,84.223,110.2205,16,0.949,tsunoda,AlphaTauri,Yuki,Tsunoda,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,VER,83.488,104.055,19,0.214,max_verstappen,Red Bull Racing,Max,Verstappen,26.8,38.5,47.8,0.5,False
+2021,22,Abu Dhabi Grand Prix,Yas Island,FP3,2021-12-12,VET,85.115,106.762272727,22,1.841,vettel,Aston Martin,Sebastian,Vettel,26.8,38.5,47.8,0.5,False
