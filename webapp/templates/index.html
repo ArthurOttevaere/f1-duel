@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F1 Race Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">F1</span>
+      <span class="brand-text">Race&nbsp;Predictor</span>
+    </div>
+
+    <form id="controls" class="controls" autocomplete="off">
+      <label class="field">
+        <span>Saison</span>
+        <input type="number" id="year" min="2018" max="2026" value="2026" />
+      </label>
+      <label class="field">
+        <span>Manche</span>
+        <input type="number" id="round" min="1" max="24" value="1" />
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="prequali" />
+        <span class="track"><span class="thumb"></span></span>
+        <span class="toggle-label">Pré-qualifs</span>
+      </label>
+      <button type="submit" id="run" class="btn-run">
+        <span class="btn-label">Prédire</span>
+      </button>
+    </form>
+  </header>
+
+  <main id="stage" class="stage">
+    <!-- État initial -->
+    <section id="empty" class="empty">
+      <div class="empty-icon">🏁</div>
+      <h1>Prédiction de Grand Prix</h1>
+      <p>Choisis une saison et une manche, puis lance la prédiction du modèle.</p>
+    </section>
+
+    <!-- Chargement -->
+    <section id="loading" class="loading" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <p id="loading-text">Le modèle analyse les données de la séance…</p>
+    </section>
+
+    <!-- Erreur -->
+    <section id="error" class="error-box" hidden>
+      <p id="error-text"></p>
+    </section>
+
+    <!-- Résultats -->
+    <section id="results" class="results" hidden>
+      <div class="race-head">
+        <h2 id="race-name">—</h2>
+        <div class="race-meta">
+          <span id="race-circuit" class="chip"></span>
+          <span id="race-mode" class="chip chip-mode"></span>
+        </div>
+        <p class="legend">
+          <b>Position</b> = arrivée prédite par le modèle ·
+          <b>Grille</b> = position de départ (résultat des qualifs) ·
+          <span class="delta up">▲</span>/<span class="delta down">▼</span> = places gagnées / perdues pendant la course
+        </p>
+      </div>
+
+      <div id="podium" class="podium"></div>
+      <ol id="ranking" class="ranking"></ol>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
