@@ -276,8 +276,11 @@ def get_standings(year, round_number):
 
 # ─── Construction du dataset de prédiction ───────────────────────────────────
 
-def build_predict_df(year, round_number, pre_quali=False):
-    """Assemble les features pour tous les pilotes d'une course à venir."""
+def build_predict_df(year, round_number, pre_quali=False, weather_override=None):
+    """Assemble les features pour tous les pilotes d'une course à venir.
+
+    weather_override ∈ {None, 'wet', 'dry'} force un scénario météo (mode what-if).
+    """
     print(f"\n{'='*55}")
     print(f"  Chargement FastF1 ({year} R{round_number})...")
 
@@ -298,6 +301,16 @@ def build_predict_df(year, round_number, pre_quali=False):
     # DEFAULT_WEATHER garantit que Rainfall et les autres clés sont toujours présents
     # même quand aucune session FP/quali n'est encore disponible.
     weather = {**DEFAULT_WEATHER, **fp_weather, **quali_weather}
+
+    # What-if météo : on force un scénario sec ou pluvieux.
+    if weather_override == 'wet':
+        weather['Rainfall']      = True
+        weather['Humidity_mean'] = max(float(weather.get('Humidity_mean', 50) or 50), 88.0)
+        weather['TrackTemp_mean'] = min(float(weather.get('TrackTemp_mean', 35) or 35), 24.0)
+        weather['AirTemp_mean']  = min(float(weather.get('AirTemp_mean', 22) or 22), 18.0)
+    elif weather_override == 'dry':
+        weather['Rainfall']      = False
+        weather['Humidity_mean'] = min(float(weather.get('Humidity_mean', 50) or 50), 45.0)
 
     # Circuit depuis FastF1
     try:
@@ -331,16 +344,30 @@ def build_predict_df(year, round_number, pre_quali=False):
             fp_info = fp_info.rename(columns={'Driver': 'Abbreviation'})
         drivers_info = fp_info[['DriverId', 'TeamName', 'Abbreviation']].dropna(subset=['DriverId'])
     else:
-        # Fallback : lineup de la dernière course de la saison en cours (ou saison précédente)
-        prior_races = df_hist[df_hist['Season'] <= year].sort_values(['Season', 'Round'])
-        last_round_per_driver = prior_races.groupby('DriverId').last().reset_index()
-        # Garder uniquement les pilotes actifs cette saison (ou saison précédente)
-        last_season = last_round_per_driver['Season'].max()
-        drivers_info = (
-            last_round_per_driver[last_round_per_driver['Season'] >= last_season - 1]
-            [['DriverId', 'TeamName', 'Abbreviation']]
-        )
-        print(f"  [INFO] FP et qualifs non disponibles — lineup estimé depuis la dernière course connue")
+        # Fallback : aucune session (FP/quali) disponible — typiquement une course
+        # future. On reconstruit la grille de départ depuis les données existantes.
+        season_rows = df_hist[df_hist['Season'] == year]
+        if not season_rows.empty:
+            # La saison cible est déjà présente : on reprend SON line-up (stable sur
+            # la saison) au lieu de fusionner plusieurs saisons. Évite ainsi de
+            # ressusciter des pilotes partis (ex: Doohan/Tsunoda en 2026).
+            drivers_info = (
+                season_rows.sort_values('Round')
+                .groupby('DriverId').last().reset_index()
+                [['DriverId', 'TeamName', 'Abbreviation']]
+            )
+            print(f"  [INFO] FP et qualifs non disponibles — line-up {year} repris des données de la saison")
+        else:
+            # Saison inconnue : on retombe sur le line-up de la dernière saison
+            # connue UNIQUEMENT (pas N-1 en plus), pour ne pas mélanger les grilles.
+            prior_races = df_hist[df_hist['Season'] < year].sort_values(['Season', 'Round'])
+            last_season = prior_races['Season'].max()
+            drivers_info = (
+                prior_races[prior_races['Season'] == last_season]
+                .groupby('DriverId').last().reset_index()
+                [['DriverId', 'TeamName', 'Abbreviation']]
+            )
+            print(f"  [INFO] FP et qualifs non disponibles — line-up estimé depuis la saison {int(last_season)}")
 
     # Déduplique (le nombre de pilotes varie : 20 historiquement, 22 en 2026+)
     drivers_info = (
@@ -603,13 +630,40 @@ FEATURE_LABELS = {
 
 # ─── Prédiction ───────────────────────────────────────────────────────────────
 
-def predict(year, round_number, pre_quali=False):
+def load_actual_results(year, round_number):
+    """Résultats réels de la course (DriverId → position d'arrivée).
+
+    Retourne {} si la course n'a pas encore eu lieu ou est indisponible.
+    """
+    try:
+        session = fastf1.get_session(year, round_number, 'R')
+        session.load(laps=False, telemetry=False, weather=False, messages=False)
+        res = session.results
+        if res is None or res.empty:
+            return {}
+        out = {}
+        for _, r in res.iterrows():
+            did = r.get('DriverId')
+            pos = r.get('Position')
+            if did and pos == pos:  # not NaN
+                try:
+                    out[str(did)] = int(pos)
+                except (TypeError, ValueError):
+                    continue
+        return out
+    except Exception:
+        return {}
+
+
+def predict(year, round_number, pre_quali=False, weather_override=None):
     # Charger modèles
     xgb_model, lgb_model, meta, encoders = load_models()
     FEATURE_COLS = meta['feature_cols']
 
     # Construire features
-    df, event_name, circuit, pre_quali = build_predict_df(year, round_number, pre_quali)
+    df, event_name, circuit, pre_quali = build_predict_df(
+        year, round_number, pre_quali, weather_override
+    )
 
     # Encodage
     for col, enc_col in [('DriverId', 'driver_encoded'),
