@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,37 +19,85 @@
     </div>
 
     <form id="controls" class="controls" autocomplete="off">
-      <label class="field">
-        <span>Saison</span>
-        <input type="number" id="year" min="2018" max="2026" value="2026" />
+      <label class="field field-year">
+        <span>Season</span>
+        <select id="year"></select>
       </label>
-      <label class="field">
-        <span>Manche</span>
-        <input type="number" id="round" min="1" max="24" value="1" />
-      </label>
-      <label class="toggle">
+
+      <!-- Race picker: searchable combobox -->
+      <div class="field field-race">
+        <span>Grand Prix</span>
+        <div class="combo" id="combo">
+          <input type="text" id="race-search" placeholder="Search for a Grand Prix…"
+                 role="combobox" aria-expanded="false" aria-autocomplete="list"
+                 aria-controls="race-list" />
+          <input type="hidden" id="round" value="" />
+          <svg class="combo-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <ul class="combo-list" id="race-list" role="listbox" hidden></ul>
+        </div>
+      </div>
+
+      <label class="toggle" title="Ignore qualifying results and estimate the grid from practice pace">
         <input type="checkbox" id="prequali" />
         <span class="track"><span class="thumb"></span></span>
-        <span class="toggle-label">Pré-qualifs</span>
+        <span class="toggle-label">Pre-qualifying</span>
       </label>
       <button type="submit" id="run" class="btn-run">
-        <span class="btn-label">Prédire</span>
+        <span class="btn-label">Predict</span>
       </button>
     </form>
   </header>
 
   <main id="stage" class="stage">
-    <!-- État initial -->
-    <section id="empty" class="empty">
-      <div class="empty-icon">🏁</div>
-      <h1>Prédiction de Grand Prix</h1>
-      <p>Choisis une saison et une manche, puis lance la prédiction du modèle.</p>
+    <!-- Carte course : compte à rebours + météo (visible dès qu'un GP est choisi) -->
+    <section id="race-info" class="race-info glass" hidden>
+      <div class="ri-track" id="ri-track" hidden>
+        <svg id="track-svg" viewBox="0 0 100 100" aria-hidden="true">
+          <path id="track-path" fill="none" stroke="currentColor" stroke-width="2.4"
+                stroke-linejoin="round" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div class="ri-head">
+        <h2 id="ri-name">—</h2>
+        <p id="ri-where" class="ri-where"></p>
+        <p id="track-meta" class="ri-track-meta"></p>
+      </div>
+
+      <div class="ri-countdown" id="ri-countdown">
+        <span class="ri-label" id="ri-cd-label">Starts in</span>
+        <div class="ri-clock" id="ri-clock">
+          <div class="cd-unit"><b id="cd-d">—</b><span>days</span></div>
+          <div class="cd-unit"><b id="cd-h">—</b><span>hrs</span></div>
+          <div class="cd-unit"><b id="cd-m">—</b><span>min</span></div>
+          <div class="cd-unit"><b id="cd-s">—</b><span>sec</span></div>
+        </div>
+        <span class="ri-when" id="ri-when"></span>
+      </div>
+
+      <div class="ri-weather" id="ri-weather" hidden>
+        <div class="wx-icon" id="wx-icon"></div>
+        <div class="wx-body">
+          <div class="wx-temp"><b id="wx-temp">—</b><span id="wx-range"></span></div>
+          <div class="wx-label" id="wx-label"></div>
+          <div class="wx-extra" id="wx-extra"></div>
+        </div>
+      </div>
     </section>
 
-    <!-- Chargement -->
+    <!-- Initial state -->
+    <section id="empty" class="empty">
+      <div class="empty-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="56" height="56"><path d="M10 6v36M10 8h26l-4 7 4 7H10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </div>
+      <h1>Grand Prix prediction</h1>
+      <p>Pick a season and a Grand Prix, then run the model's prediction.</p>
+    </section>
+
+    <!-- Loading -->
     <section id="loading" class="loading" hidden>
       <div class="spinner" aria-hidden="true"></div>
-      <p id="loading-text">Le modèle analyse les données de la séance…</p>
+      <p id="loading-text">The model is analysing the session data…</p>
     </section>
 
     <!-- Erreur -->
@@ -65,17 +113,94 @@
           <span id="race-circuit" class="chip"></span>
           <span id="race-mode" class="chip chip-mode"></span>
         </div>
+
+        <div class="results-tools">
+          <div class="whatif" id="whatif" title="Re-run the prediction under a forced weather scenario">
+            <span class="whatif-label">What-if</span>
+            <div class="seg" id="whatif-seg">
+              <button type="button" data-w="" class="active">Real</button>
+              <button type="button" data-w="dry">Dry</button>
+              <button type="button" data-w="wet">Wet</button>
+            </div>
+          </div>
+          <button type="button" id="share-btn" class="tool-btn">
+            <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M11 5a2 2 0 1 0-1.9-2.6L5.8 4.3a2 2 0 1 0 0 3.4l3.3 1.9a2 2 0 1 0 .6-1L6.4 6.7a2 2 0 0 0 0-1.4l3.3-1.9A2 2 0 0 0 11 5z" fill="currentColor"/></svg>
+            Share
+          </button>
+          <button type="button" id="season-btn" class="tool-btn">Season accuracy</button>
+        </div>
+
+        <div id="accuracy" class="accuracy" hidden></div>
+
         <p class="legend">
-          <b>Position</b> = arrivée prédite par le modèle ·
-          <b>Grille</b> = position de départ (résultat des qualifs) ·
-          <span class="delta up">▲</span>/<span class="delta down">▼</span> = places gagnées / perdues pendant la course
+          <span class="lg-chip lg-start">Start</span> grid position ·
+          <span class="legend-move up">▲</span>/<span class="legend-move down">▼</span> places gained / lost from the start ·
+          <span class="lg-chip lg-pred">Pred</span> model's predicted finish ·
+          <span class="lg-chip lg-finish">Finish</span> actual result (past races) ·
+          <b>click any driver</b> to see why
+        </p>
+        <p class="legend legend-note" id="prequali-note" hidden>
+          * In pre-qualifying mode the start grid is estimated from practice pace (qualifying ignored),
+          so the arrows show movement relative to that estimated grid.
         </p>
       </div>
 
       <div id="podium" class="podium"></div>
       <ol id="ranking" class="ranking"></ol>
+
+      <button type="button" id="show-full" class="show-full" hidden>
+        <span id="show-full-label">Show full grid</span>
+        <svg viewBox="0 0 12 8" width="11" height="8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <ol id="ranking-rest" class="ranking ranking-rest" hidden></ol>
     </section>
   </main>
+
+  <!-- Season accuracy dashboard -->
+  <div id="season-modal" class="modal" hidden>
+    <div class="modal-scrim" id="season-scrim"></div>
+    <div class="modal-card glass modal-wide" role="dialog" aria-modal="true" aria-labelledby="season-title">
+      <button class="modal-close" id="season-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-name" id="season-title">Season accuracy</div>
+      <p class="modal-lede" id="season-lede">How close the model's predictions were to the actual results.</p>
+      <div id="season-progress" class="season-progress" hidden>
+        <div class="sp-bar"><span id="sp-fill"></span></div>
+        <span id="sp-text" class="sp-text"></span>
+      </div>
+      <div id="season-summary" class="season-summary"></div>
+      <div id="season-list" class="season-list"></div>
+      <p class="modal-foot">Each race is scored by comparing the predicted finishing order with the official result. Computed once, then cached.</p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" hidden></div>
+
+  <!-- Mini help popover (indicators / confidence) -->
+  <div id="help-pop" class="help-pop" hidden role="dialog" aria-live="polite"></div>
+
+  <!-- Modal explication pilote -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-scrim" id="modal-scrim"></div>
+    <div class="modal-card glass" role="dialog" aria-modal="true" aria-labelledby="m-name">
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-head">
+        <div id="m-avatar"></div>
+        <div class="modal-id">
+          <div class="modal-pos" id="m-pos"></div>
+          <div class="modal-name" id="m-name"></div>
+          <div class="modal-team" id="m-team"></div>
+        </div>
+      </div>
+      <p class="modal-lede" id="m-lede"></p>
+      <div class="modal-factors" id="m-factors"></div>
+      <p class="modal-foot">Factors come from the model (XGBoost · SHAP values). <b>Boost</b> = pushes forward, <b>penalty</b> = holds back.</p>
+    </div>
+  </div>
 
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
