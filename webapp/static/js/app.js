@@ -37,16 +37,26 @@ const els = {
   trackPath: $('track-path'),
   trackMeta: $('track-meta'),
   // Season modal
-  seasonModal: $('season-modal'),
-  seasonScrim: $('season-scrim'),
-  seasonClose: $('season-close'),
+  seasonModal:    $('season-modal'),
+  seasonScrim:    $('season-scrim'),
+  seasonClose:    $('season-close'),
   seasonProgress: $('season-progress'),
-  seasonLede: $('season-lede'),
-  spFill: $('sp-fill'),
-  spText: $('sp-text'),
-  seasonSummary: $('season-summary'),
-  seasonList: $('season-list'),
+  seasonLede:     $('season-lede'),
+  spFill:         $('sp-fill'),
+  spText:         $('sp-text'),
+  seasonSummary:  $('season-summary'),
+  seasonList:     $('season-list'),
+  statsFilter:    $('stats-filter'),
   helpPop: $('help-pop'),
+  // Session data modal
+  sessionDataBtn:   $('session-data-btn'),
+  sessionDataModal: $('session-data-modal'),
+  sessionDataScrim: $('session-data-scrim'),
+  sessionDataClose: $('session-data-close'),
+  sdTitle:   $('sd-title'),
+  sdLede:    $('sd-lede'),
+  sdTabs:    $('sd-tabs'),
+  sdContent: $('sd-content'),
   // Carte course (countdown + météo)
   raceInfo:  $('race-info'),
   riName:    $('ri-name'),
@@ -388,7 +398,8 @@ function movementTag(delta) {
 function rankBadge(pos) {
   return `<div class="rank-badge rank-${pos}">
     <svg class="rank-hex" viewBox="0 0 40 44" aria-hidden="true">
-      <path d="M20 1 38 11.5v21L20 43 2 32.5v-21z" fill="none" stroke-width="1.4"/>
+      <path class="hex-bg" d="M20 1 38 11.5v21L20 43 2 32.5v-21z"/>
+      <path class="hex-hi" d="M20 1.5 37.5 12v8.5L20 21 2.5 12V12z"/>
     </svg>
     <span class="rank-num">${pos}</span>
   </div>`;
@@ -578,6 +589,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !els.helpPop.hidden) { hideHelp(); els.helpPop._for = null; return; }
   if (e.key === 'Escape' && !els.modal.hidden) closeModal();
   if (e.key === 'Escape' && !els.seasonModal.hidden) closeSeason();
+  if (e.key === 'Escape' && !els.sessionDataModal.hidden) closeSessionData();
 });
 
 // ─── Full grid · What-if · Share · Season ───────────────────────────────────
@@ -640,6 +652,11 @@ function resetWhatif() {
 
 let seasonTimer = null;
 
+// ─── Season accuracy modal ──────────────────────────────────────────────────
+
+let _seasonData = null;
+let _seasonZone = 'all';
+
 function openSeason() {
   els.seasonModal.hidden = false;
   requestAnimationFrame(() => els.seasonModal.classList.add('open'));
@@ -652,19 +669,23 @@ function closeSeason() {
 }
 async function loadSeason() {
   const year = els.year.value;
-  els.seasonLede.textContent = `How close the model got across the ${year} season (past races only).`;
+  els.seasonLede.textContent = `Model accuracy across the ${year} season — past races only.`;
   const tick = async () => {
     try {
       const res = await fetch(`/api/season?year=${encodeURIComponent(year)}`);
       const d = await res.json();
-      renderSeason(d);
+      _seasonData = d;
+      renderSeasonProgress(d);
+      renderSeasonSummary();
+      renderSeasonList();
       if (d.status !== 'running' && seasonTimer) { clearInterval(seasonTimer); seasonTimer = null; }
     } catch { /* ignore transient */ }
   };
   await tick();
   if (!seasonTimer) seasonTimer = setInterval(tick, 3000);
 }
-function renderSeason(d) {
+
+function renderSeasonProgress(d) {
   const running = d.status === 'running';
   els.seasonProgress.hidden = !running || !d.total;
   if (d.total) {
@@ -672,31 +693,219 @@ function renderSeason(d) {
     els.spFill.style.width = `${pct}%`;
     els.spText.textContent = `Computing… ${d.done}/${d.total} races`;
   }
+}
 
-  const s = d.summary;
-  els.seasonSummary.innerHTML = s ? `
-    <div class="ss-stat"><b>${s.avg_exact_pct}%</b><span>avg exact</span></div>
-    <div class="ss-stat"><b>${s.avg_mae}</b><span>avg error (pos)</span></div>
-    <div class="ss-stat"><b>${s.podium_hits}/${s.podium_max}</b><span>podium slots</span></div>
-    <div class="ss-stat"><b>${s.winners_correct}/${s.races}</b><span>winners</span></div>` : '';
+function renderSeasonSummary() {
+  const s = _seasonData?.summary;
+  if (!s) { els.seasonSummary.innerHTML = ''; return; }
+
+  const fmt = (v) => v ?? '—';
+
+  let cards;
+  if (_seasonZone === 'all') {
+    cards = [
+      { val: fmt(s.avg_mae),          label: 'avg error (pos)' },
+      { val: `${fmt(s.avg_exact_pct)}%`,     label: 'exact hits' },
+      { val: `${fmt(s.avg_within1_pct)}%`,   label: '±1 position' },
+      { val: `${fmt(s.avg_within3_pct)}%`,   label: '±3 positions' },
+    ];
+  } else if (_seasonZone === 'top10') {
+    cards = [
+      { val: fmt(s.avg_top10_mae),           label: 'avg error — top 10' },
+      { val: `${fmt(s.avg_top10_exact_pct)}%`,  label: 'exact (top 10)' },
+      { val: `${fmt(s.avg_top10_within1_pct)}%`, label: '±1 — top 10' },
+      { val: `${s.top10_hits}/${s.top10_max}`,   label: 'correctly in top 10' },
+    ];
+  } else {
+    cards = [
+      { val: fmt(s.avg_top3_mae),            label: 'avg error — podium' },
+      { val: `${fmt(s.avg_top3_exact_pct)}%`,   label: 'exact (podium)' },
+      { val: `${fmt(s.avg_top3_within1_pct)}%`,  label: '±1 — podium' },
+      { val: `${s.podium_hits}/${s.podium_max}`, label: 'podium slots detected' },
+    ];
+  }
+
+  const grid = cards.map((c) =>
+    `<div class="ss-card"><b>${c.val}</b><span>${c.label}</span></div>`
+  ).join('');
+
+  const wPct = s.races ? Math.round(s.winners_correct / s.races * 100) : 0;
+  const banner = `<div class="ss-banner">
+    <b>${s.winners_correct}/${s.races}</b> winners predicted correctly
+    <span class="ss-banner-pct">${wPct}%</span>
+  </div>`;
+
+  els.seasonSummary.innerHTML = `<div class="ss-grid">${grid}</div>${banner}`;
+}
+
+function renderSeasonList() {
+  const d = _seasonData;
+  if (!d) return;
 
   const rows = (d.results || []).map((r) => {
-    const w = r.winner_correct ? '<span class="sl-win ok">✓</span>' : '<span class="sl-win no">✗</span>';
-    const acc = Math.max(4, Math.round((1 - Math.min(r.mae, 8) / 8) * 100)); // bar: lower error = fuller
+    const zoneData = _seasonZone === 'top3'  ? r.top3
+                   : _seasonZone === 'top10' ? r.top10
+                   : null;
+    const mae = zoneData?.mae ?? r.mae;
+    const acc = Math.max(4, Math.round((1 - Math.min(mae, 8) / 8) * 100));
+
+    let badge;
+    if (_seasonZone === 'top3') {
+      badge = `<span class="sl-zone">${r.podium_hits ?? 0}/3</span>`;
+    } else if (_seasonZone === 'top10') {
+      badge = `<span class="sl-zone">${r.top10_hits ?? 0}/10</span>`;
+    } else {
+      badge = r.winner_correct
+        ? '<span class="sl-win ok">✓</span>'
+        : '<span class="sl-win no">✗</span>';
+    }
+
     return `<div class="sl-row">
       <span class="sl-rnd">R${r.round}</span>
       <span class="sl-name">${esc(r.event_name || '')}</span>
       <span class="sl-bar"><span style="width:${acc}%"></span></span>
-      <span class="sl-mae">${r.mae}</span>
-      ${w}
+      <span class="sl-mae">${mae}</span>
+      ${badge}
     </div>`;
   }).join('');
-  els.seasonList.innerHTML = rows || (running ? '' : '<p class="modal-empty">No completed races to score yet.</p>');
+
+  els.seasonList.innerHTML = rows
+    || (d.status === 'running' ? '' : '<p class="modal-empty">No completed races to score yet.</p>');
 }
 
 els.seasonBtn.addEventListener('click', openSeason);
 els.seasonClose.addEventListener('click', closeSeason);
 els.seasonScrim.addEventListener('click', closeSeason);
+
+// Zone filter pills
+els.statsFilter.querySelectorAll('.sf-pill').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    _seasonZone = btn.dataset.zone;
+    els.statsFilter.querySelectorAll('.sf-pill').forEach((b) =>
+      b.classList.toggle('active', b === btn)
+    );
+    renderSeasonSummary();
+    renderSeasonList();
+  });
+});
+
+// ─── Session data modal ─────────────────────────────────────────────────────
+
+let _sdData = null;
+
+function openSessionData() {
+  const year  = els.year.value;
+  const round = els.round.value;
+  if (!year || !round) return;
+
+  _sdData = null;
+  els.sessionDataModal.hidden = false;
+  requestAnimationFrame(() => els.sessionDataModal.classList.add('open'));
+  els.sdTitle.textContent  = 'Session data';
+  els.sdLede.textContent   = 'Loading…';
+  els.sdTabs.innerHTML     = '';
+  els.sdContent.innerHTML  = '';
+
+  fetch(`/api/session_data?year=${encodeURIComponent(year)}&round=${encodeURIComponent(round)}`)
+    .then((r) => r.json().then((d) => ({ ok: r.ok, d })))
+    .then(({ ok, d }) => {
+      if (!ok) throw new Error(d.error || 'Failed to load session data');
+      renderSessionData(d);
+    })
+    .catch((e) => {
+      els.sdContent.innerHTML = `<p class="modal-empty">Error: ${esc(e.message)}</p>`;
+    });
+}
+
+function renderSessionData(d) {
+  _sdData = d;
+  els.sdLede.textContent = `Raw input data for ${d.year} Round ${d.round}.`;
+
+  const sessions = [
+    { key: 'fp1',   label: 'FP 1',  type: 'fp',    data: d.fp1 },
+    { key: 'fp2',   label: 'FP 2',  type: 'fp',    data: d.fp2 },
+    { key: 'fp3',   label: 'FP 3',  type: 'fp',    data: d.fp3 },
+    { key: 'quali', label: 'Quali', type: 'quali', data: d.quali },
+  ];
+  const available = sessions.filter((s) => s.data && s.data.length > 0);
+
+  if (available.length === 0) {
+    els.sdTabs.innerHTML    = '';
+    els.sdContent.innerHTML = '<p class="modal-empty">No session data available from FastF1.</p>';
+    return;
+  }
+
+  // Build tab bar
+  els.sdTabs.innerHTML = available.map((s) =>
+    `<button type="button" class="sd-tab" data-tab="${s.key}">` +
+    `${esc(s.label)}<span class="sd-tab-count">${s.data.length}</span></button>`
+  ).join('');
+  els.sdTabs.querySelectorAll('.sd-tab').forEach((btn) => {
+    btn.addEventListener('click', () => switchSdTab(btn.dataset.tab));
+  });
+
+  // Default: Qualifying if available, else FP3, FP2, FP1
+  const preferred = ['quali', 'fp3', 'fp2', 'fp1'];
+  const defaultKey = preferred.find((k) => available.some((s) => s.key === k)) || available[0].key;
+  switchSdTab(defaultKey);
+}
+
+function switchSdTab(key) {
+  if (!_sdData) return;
+  els.sdTabs.querySelectorAll('.sd-tab').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.tab === key);
+  });
+  const isQuali = key === 'quali';
+  const data    = _sdData[key];
+  els.sdContent.innerHTML = isQuali ? qualiTable(data) : fpTable(data);
+}
+
+function fpTable(drivers) {
+  if (!drivers || drivers.length === 0)
+    return '<p class="modal-empty">No data available for this session.</p>';
+  const rows = drivers.map((r) =>
+    `<tr>
+       <td class="sd-pos">${r.pos}</td>
+       <td class="sd-abbr" style="--accent:${r.color}">${esc(r.abbr)}</td>
+       <td class="sd-team">${esc(r.team)}</td>
+       <td class="sd-time">${r.best_lap || '—'}</td>
+       <td class="sd-gap">${r.gap || '—'}</td>
+       <td class="sd-num">${r.laps || '—'}</td>
+     </tr>`
+  ).join('');
+  return `<table class="sd-table">
+    <thead><tr><th>P</th><th>Driver</th><th>Team</th><th>Best lap</th><th>Gap</th><th>Laps</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function qualiTable(drivers) {
+  if (!drivers || drivers.length === 0)
+    return '<p class="modal-empty">Qualifying data not yet available.</p>';
+  const rows = drivers.map((r) =>
+    `<tr>
+       <td class="sd-pos">${r.pos || '—'}</td>
+       <td class="sd-abbr" style="--accent:${r.color}">${esc(r.abbr)}</td>
+       <td class="sd-team">${esc(r.team)}</td>
+       <td class="sd-time">${r.q1 || '—'}</td>
+       <td class="sd-time">${r.q2 || '—'}</td>
+       <td class="sd-time">${r.q3 || '—'}</td>
+     </tr>`
+  ).join('');
+  return `<table class="sd-table">
+    <thead><tr><th>P</th><th>Driver</th><th>Team</th><th>Q1</th><th>Q2</th><th>Q3</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function closeSessionData() {
+  els.sessionDataModal.classList.remove('open');
+  setTimeout(() => { els.sessionDataModal.hidden = true; }, 200);
+}
+
+els.sessionDataBtn.addEventListener('click', openSessionData);
+els.sessionDataClose.addEventListener('click', closeSessionData);
+els.sessionDataScrim.addEventListener('click', closeSessionData);
 
 // ─── Track outline ──────────────────────────────────────────────────────────
 

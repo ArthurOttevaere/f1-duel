@@ -185,32 +185,42 @@ def _accuracy_summary(drivers):
     """Métriques de justesse (prédit vs réel), comparées PAR PILOTE.
 
     Chaque pilote doit fournir 'driver_id', 'pos' (prédit) et 'actual' (réel).
-    Les hits podium/top-10 comptent les pilotes correctement placés dans la zone,
-    pas les numéros de position (qui se recouvrent toujours).
+    Retourne des stats globales + par zone (top3 / top10).
     """
     rated = [d for d in drivers
              if d.get('actual') is not None and d.get('driver_id')]
     if not rated:
         return None
-    n = len(rated)
-    mae = sum(abs(d['pos'] - d['actual']) for d in rated) / n
-    exact = sum(1 for d in rated if d['pos'] == d['actual']) / n
 
+    def _zone_stats(subset):
+        if not subset:
+            return None
+        m = len(subset)
+        return {
+            'n':           m,
+            'mae':         round(sum(abs(d['pos'] - d['actual']) for d in subset) / m, 2),
+            'exact_pct':   round(sum(1 for d in subset if d['pos'] == d['actual']) / m * 100),
+            'within1_pct': round(sum(1 for d in subset if abs(d['pos'] - d['actual']) <= 1) / m * 100),
+            'within3_pct': round(sum(1 for d in subset if abs(d['pos'] - d['actual']) <= 3) / m * 100),
+        }
+
+    n = len(rated)
     pred_podium_ids   = {d['driver_id'] for d in rated if d['pos'] <= 3}
     actual_podium_ids = {d['driver_id'] for d in rated if d['actual'] <= 3}
     pred_top10_ids    = {d['driver_id'] for d in rated if d['pos'] <= 10}
     actual_top10_ids  = {d['driver_id'] for d in rated if d['actual'] <= 10}
+    pred_winner       = next((d['driver_id'] for d in rated if d['pos'] == 1), None)
+    actual_winner     = next((d['driver_id'] for d in rated if d['actual'] == 1), None)
 
-    pred_winner   = next((d['driver_id'] for d in rated if d['pos'] == 1), None)
-    actual_winner = next((d['driver_id'] for d in rated if d['actual'] == 1), None)
-
+    global_stats = _zone_stats(rated)
     return {
-        'mae':            round(mae, 2),
-        'exact_pct':      round(exact * 100),
+        **global_stats,
         'podium_hits':    len(pred_podium_ids & actual_podium_ids),
         'top10_hits':     len(pred_top10_ids & actual_top10_ids),
         'winner_correct': pred_winner is not None and pred_winner == actual_winner,
         'rated':          n,
+        'top3':           _zone_stats([d for d in rated if d['actual'] <= 3]),
+        'top10':          _zone_stats([d for d in rated if d['actual'] <= 10]),
     }
 
 
@@ -320,7 +330,10 @@ def _race_accuracy(year, rnd):
     if os.path.isfile(disk):
         try:
             with open(disk) as f:
-                return json.load(f)
+                data = json.load(f)
+            if 'top3' in data:   # format v2 — cache valide
+                return data
+            os.remove(disk)      # ancien format sans stats de zone → recalcul
         except Exception:
             pass
     try:
@@ -474,6 +487,107 @@ def _is_nan(v) -> bool:
         return False
 
 
+def _fmt_secs(secs) -> str | None:
+    """Formate des secondes (float ou timedelta) en m:ss.sss, ou None si invalide."""
+    if secs is None:
+        return None
+    try:
+        s = secs.total_seconds() if hasattr(secs, 'total_seconds') else float(secs)
+    except (TypeError, ValueError):
+        return None
+    if s != s:
+        return None
+    m = int(s // 60)
+    return f'{m}:{s - m * 60:06.3f}'
+
+
+def _fp_session_standings(year, rnd, session_type):
+    """Classement d'une séance FP (par tour chronométré). None si indisponible."""
+    import fastf1
+    import pandas as pd
+    try:
+        session = fastf1.get_session(year, rnd, session_type)
+        session.load(laps=True, telemetry=False, weather=False, messages=False)
+        laps = session.laps
+        if laps is None or laps.empty:
+            return None
+        timed = laps[laps['LapTime'].notna()].copy()
+        if timed.empty:
+            return None
+        stats = (
+            timed.groupby('Driver')
+            .agg(BestLapTime=('LapTime', 'min'), LapCount=('LapTime', 'count'))
+            .reset_index()
+        )
+        fastest = stats['BestLapTime'].min()
+        stats['Gap']        = (stats['BestLapTime'] - fastest).dt.total_seconds()
+        stats['BestLapSec'] = stats['BestLapTime'].dt.total_seconds()
+        stats = stats.sort_values('Gap').reset_index(drop=True)
+        # Infos équipe depuis session.results
+        team_map = {}
+        if session.results is not None and not session.results.empty:
+            for _, r in session.results.iterrows():
+                abbr = str(r.get('Abbreviation') or '')
+                team = str(r.get('TeamName') or '')
+                if abbr:
+                    team_map[abbr] = team
+        rows = []
+        for i, row in stats.iterrows():
+            abbr = str(row['Driver'])
+            team = team_map.get(abbr, '')
+            gap  = float(row['Gap'])
+            rows.append({
+                'pos':      i + 1,
+                'abbr':     abbr,
+                'team':     team,
+                'color':    TEAM_COLORS.get(team, DEFAULT_COLOR),
+                'best_lap': _fmt_secs(row['BestLapSec']),
+                'gap':      f'+{gap:.3f}' if gap > 0 else '—',
+                'laps':     int(row['LapCount']),
+            })
+        return rows or None
+    except Exception:
+        return None
+
+
+def _quali_session_standings(year, rnd):
+    """Classement des qualifications. None si indisponible."""
+    import fastf1
+    try:
+        session = fastf1.get_session(year, rnd, 'Q')
+        session.load(laps=False, telemetry=False, weather=False, messages=False)
+        q = session.results
+        if q is None or q.empty:
+            return None
+        if 'Position' in q.columns:
+            q = q.copy().sort_values('Position', na_position='last')
+        rows = []
+        for _, row in q.iterrows():
+            team  = str(row.get('TeamName') or '')
+            abbr  = str(row.get('Abbreviation') or '')
+            pos   = row.get('Position')
+            try:
+                pos_int = int(pos) if pos == pos else 0
+            except (TypeError, ValueError):
+                pos_int = 0
+            q1 = _fmt_secs(row.get('Q1'))
+            q2 = _fmt_secs(row.get('Q2'))
+            q3 = _fmt_secs(row.get('Q3'))
+            rows.append({
+                'pos':   pos_int,
+                'abbr':  abbr,
+                'team':  team,
+                'color': TEAM_COLORS.get(team, DEFAULT_COLOR),
+                'q1':    q1,
+                'q2':    q2,
+                'q3':    q3,
+                'best':  q3 or q2 or q1,
+            })
+        return rows or None
+    except Exception:
+        return None
+
+
 def _fmt_feature_value(feat: str, val, row) -> str:
     """Formate la valeur brute d'une feature en texte lisible."""
     # Features encodées → on montre le vrai nom, pas l'entier d'encodage
@@ -512,10 +626,36 @@ def _fmt_feature_value(feat: str, val, row) -> str:
     return f'{f:.1f}'
 
 
-def _build_factors(row, top_n: int = 4):
+# Labels/help alternatifs quand on est en mode pré-qualifications :
+# ces features sont estimées depuis les essais libres, pas depuis les vraies qualifs.
+_PRE_QUALI_LABELS = {
+    'quali_position':      'Estimated grid (FP pace)',
+    'GridPosition':        'Estimated starting position',
+    'quali_gap_to_pole':   'Practice gap to fastest',
+    'best_quali_time':     'Best practice lap time',
+    'fp3_vs_quali_delta':  'FP lap consistency',
+}
+_PRE_QUALI_HELP = {
+    'quali_position':
+        "Starting grid position estimated from practice lap times — qualifying hasn't taken place yet, "
+        "so the model ranks drivers by their FP pace instead.",
+    'GridPosition':
+        'Grid position estimated from practice pace, not from an actual qualifying session.',
+    'quali_gap_to_pole':
+        'Gap to the fastest driver in practice — used as a proxy for the expected qualifying gap to pole.',
+    'best_quali_time':
+        'Best lap time recorded in practice — no qualifying time is available yet.',
+    'fp3_vs_quali_delta':
+        'Variation between a driver\'s fastest and average practice laps — a proxy for consistency.',
+}
+
+
+def _build_factors(row, top_n: int = 4, pre_quali: bool = False):
     """Key factors (SHAP) explaining a driver's predicted position.
 
     impact < 0 → pushes forward (boost) ; > 0 → holds back (penalty).
+    In pre-qualifying mode, qualifying-related feature labels are replaced by
+    practice equivalents so they remain meaningful to the user.
     """
     contribs = row.get('_shap_contribs')
     if contribs is None:
@@ -525,12 +665,16 @@ def _build_factors(row, top_n: int = 4):
     factors = []
     for feat in top.index:
         impact = float(contribs[feat])
+        label = ((_PRE_QUALI_LABELS.get(feat) if pre_quali else None)
+                 or FACTOR_LABELS.get(feat, feat))
+        help_text = ((_PRE_QUALI_HELP.get(feat) if pre_quali else None)
+                     or FACTOR_HELP.get(feat, ''))
         factors.append({
-            'label':  FACTOR_LABELS.get(feat, feat),
+            'label':  label,
             'value':  _fmt_feature_value(feat, row.get(feat), row),
             'effect': 'boost' if impact < 0 else 'penalty',
             'weight': round(abs(impact) / max_abs, 3) if max_abs else 0.0,
-            'help':   FACTOR_HELP.get(feat, ''),
+            'help':   help_text,
         })
     return factors
 
@@ -898,17 +1042,41 @@ def api_season():
             threading.Thread(target=_season_worker, args=(year,), daemon=True).start()
 
     results = sorted(job['results'], key=lambda r: r.get('round', 0))
+
+    def _zavg(key, subkey=None):
+        """Moyenne d'un champ numérique sur les résultats, ignore les None."""
+        vals = []
+        for r in results:
+            v = (r.get(key) or {}).get(subkey) if subkey else r.get(key)
+            if v is not None:
+                vals.append(v)
+        return round(sum(vals) / len(vals), 2) if vals else None
+
     # Agrégat saison
     summary = None
     if results:
         n = len(results)
         summary = {
-            'races':         n,
-            'avg_mae':       round(sum(r['mae'] for r in results) / n, 2),
-            'avg_exact_pct': round(sum(r['exact_pct'] for r in results) / n),
-            'podium_hits':   sum(r['podium_hits'] for r in results),
-            'podium_max':    n * 3,
-            'winners_correct': sum(1 for r in results if r.get('winner_correct')),
+            'races':               n,
+            'winners_correct':     sum(1 for r in results if r.get('winner_correct')),
+            # Global (total)
+            'avg_mae':             round(sum(r['mae'] for r in results) / n, 2),
+            'avg_exact_pct':       round(sum(r['exact_pct'] for r in results) / n),
+            'avg_within1_pct':     _zavg('within1_pct'),
+            'avg_within3_pct':     _zavg('within3_pct'),
+            # Détection de zone
+            'podium_hits':         sum(r['podium_hits'] for r in results),
+            'podium_max':          n * 3,
+            'top10_hits':          sum(r.get('top10_hits', 0) for r in results),
+            'top10_max':           n * 10,
+            # Zone podium (top 3 réels)
+            'avg_top3_mae':        _zavg('top3', 'mae'),
+            'avg_top3_exact_pct':  _zavg('top3', 'exact_pct'),
+            'avg_top3_within1_pct':_zavg('top3', 'within1_pct'),
+            # Zone top 10 réels
+            'avg_top10_mae':       _zavg('top10', 'mae'),
+            'avg_top10_exact_pct': _zavg('top10', 'exact_pct'),
+            'avg_top10_within1_pct':_zavg('top10', 'within1_pct'),
         }
     return jsonify({
         'year':    year,
@@ -989,7 +1157,7 @@ def api_predict():
                 'actual':     act,
                 'actual_delta': (pos - act) if act is not None else None,
                 'has_photo': _have_headshot(driver_id),
-                'factors':   _build_factors(row),
+                'factors':   _build_factors(row, pre_quali=bool(used_pre_quali)),
             })
 
         accuracy = _accuracy_summary(drivers) if actual else None
@@ -1005,8 +1173,33 @@ def api_predict():
             'accuracy':     accuracy,
             'drivers':      drivers,
         }
-        _cache[key] = payload
+        # Don't cache incomplete grids — FastF1 may have returned partial session data.
+        if len(drivers) >= 15:
+            _cache[key] = payload
         return jsonify(payload)
+
+
+@app.route('/api/session_data')
+def api_session_data():
+    """Classements FP1 / FP2 / FP3 / Quali pour le modal Session data.
+
+    Charge chaque séance indépendamment depuis FastF1 (cache disque).
+    Jamais caché côté Flask — FastF1 gère lui-même la persistance.
+    """
+    try:
+        year = int(request.args.get('year'))
+        rnd  = int(request.args.get('round'))
+    except (TypeError, ValueError):
+        return jsonify({'error': 'Parameters "year" and "round" are required.'}), 400
+
+    return jsonify({
+        'year':  year,
+        'round': rnd,
+        'fp1':   _fp_session_standings(year, rnd, 'FP1'),
+        'fp2':   _fp_session_standings(year, rnd, 'FP2'),
+        'fp3':   _fp_session_standings(year, rnd, 'FP3'),
+        'quali': _quali_session_standings(year, rnd),
+    })
 
 
 if __name__ == '__main__':

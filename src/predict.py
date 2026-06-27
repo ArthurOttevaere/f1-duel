@@ -145,10 +145,12 @@ def load_practice(year, round_number):
             info_cols = [c for c in ['Abbreviation', 'DriverId', 'TeamName']
                          if c in session.results.columns]
             driver_info = session.results[info_cols].rename(columns={'Abbreviation': 'Driver'})
+            # Left join from laps (all who set times) + add session.results info where available.
+            # DriverId may be NaN for some 2026 drivers — build_predict_df handles this via history.
             stats = stats.merge(driver_info, on='Driver', how='left')
 
             weather = _weather_summary(session)
-            print(f"  → Données practice chargées depuis {fp}")
+            print(f"  → Données practice chargées depuis {fp} ({len(stats)} pilotes avec tours)")
             return stats, weather, fp
         except Exception as e:
             print(f"  [INFO] {fp} indisponible: {e}")
@@ -337,12 +339,46 @@ def build_predict_df(year, round_number, pre_quali=False, weather_override=None)
     # ── Liste des pilotes : depuis qualifs, sinon FP, sinon dernière course
     if quali_df is not None and not quali_df.empty:
         drivers_info = quali_df[['DriverId', 'TeamName', 'Abbreviation']].dropna(subset=['DriverId'])
-    elif fp_stats is not None and 'DriverId' in fp_stats.columns:
+    elif fp_stats is not None:
         # load_practice renomme 'Abbreviation' → 'Driver' : on rétablit le nom attendu.
         fp_info = fp_stats.copy()
         if 'Abbreviation' not in fp_info.columns and 'Driver' in fp_info.columns:
             fp_info = fp_info.rename(columns={'Driver': 'Abbreviation'})
-        drivers_info = fp_info[['DriverId', 'TeamName', 'Abbreviation']].dropna(subset=['DriverId'])
+        fp_abbrevs = fp_info['Abbreviation'].dropna().unique()
+
+        # session.results de FastF1 peut avoir des DriverId manquants pour les
+        # nouvelles équipes/pilotes. On utilise features.csv comme source fiable.
+        season_src = df_hist[df_hist['Season'] == year]
+        if season_src.empty:
+            season_src = df_hist[df_hist['Season'] == df_hist['Season'].max()]
+
+        if not season_src.empty and len(fp_abbrevs) > 0:
+            lineup = (
+                season_src.sort_values('Round')
+                .groupby('Abbreviation').last()[['DriverId', 'TeamName']]
+                .reset_index()
+            )
+            drivers_info = (
+                pd.DataFrame({'Abbreviation': fp_abbrevs})
+                .merge(lineup, on='Abbreviation', how='left')
+            )
+            # Pilotes non trouvés dans l'historique → on essaie le DriverId de fp_stats
+            if 'DriverId' in fp_info.columns:
+                fp_ids = (
+                    fp_info[['Abbreviation', 'DriverId', 'TeamName']]
+                    .dropna(subset=['DriverId'])
+                    .set_index('Abbreviation')
+                )
+                for idx in drivers_info.index[drivers_info['DriverId'].isna()]:
+                    abbr = drivers_info.loc[idx, 'Abbreviation']
+                    if abbr in fp_ids.index:
+                        drivers_info.loc[idx, 'DriverId'] = fp_ids.loc[abbr, 'DriverId']
+                        drivers_info.loc[idx, 'TeamName'] = fp_ids.loc[abbr, 'TeamName']
+            drivers_info = drivers_info.dropna(subset=['DriverId'])
+        elif 'DriverId' in fp_info.columns:
+            drivers_info = fp_info[['DriverId', 'TeamName', 'Abbreviation']].dropna(subset=['DriverId'])
+        else:
+            drivers_info = pd.DataFrame(columns=['DriverId', 'TeamName', 'Abbreviation'])
     else:
         # Fallback : aucune session (FP/quali) disponible — typiquement une course
         # future. On reconstruit la grille de départ depuis les données existantes.

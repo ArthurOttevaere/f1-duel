@@ -127,6 +127,10 @@
             <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M11 5a2 2 0 1 0-1.9-2.6L5.8 4.3a2 2 0 1 0 0 3.4l3.3 1.9a2 2 0 1 0 .6-1L6.4 6.7a2 2 0 0 0 0-1.4l3.3-1.9A2 2 0 0 0 11 5z" fill="currentColor"/></svg>
             Share
           </button>
+          <button type="button" id="session-data-btn" class="tool-btn">
+            <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 3h12M2 7h8M2 11h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Session data
+          </button>
           <button type="button" id="season-btn" class="tool-btn">Season accuracy</button>
         </div>
 
@@ -165,6 +169,11 @@
       </button>
       <div class="modal-name" id="season-title">Season accuracy</div>
       <p class="modal-lede" id="season-lede">How close the model's predictions were to the actual results.</p>
+      <div class="stats-filter" id="stats-filter">
+        <button type="button" class="sf-pill active" data-zone="all">Total</button>
+        <button type="button" class="sf-pill" data-zone="top10">Top 10</button>
+        <button type="button" class="sf-pill" data-zone="top3">Podium</button>
+      </div>
       <div id="season-progress" class="season-progress" hidden>
         <div class="sp-bar"><span id="sp-fill"></span></div>
         <span id="sp-text" class="sp-text"></span>
@@ -199,6 +208,21 @@
       <p class="modal-lede" id="m-lede"></p>
       <div class="modal-factors" id="m-factors"></div>
       <p class="modal-foot">Factors come from the model (XGBoost · SHAP values). <b>Boost</b> = pushes forward, <b>penalty</b> = holds back.</p>
+    </div>
+  </div>
+
+  <!-- Session data modal (FP + quali standings used as model input) -->
+  <div id="session-data-modal" class="modal" hidden>
+    <div class="modal-scrim" id="session-data-scrim"></div>
+    <div class="modal-card glass modal-wide" role="dialog" aria-modal="true" aria-labelledby="sd-title">
+      <button class="modal-close" id="session-data-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-name" id="sd-title">Session data</div>
+      <p class="modal-lede" id="sd-lede">Practice and qualifying standings used as model input.</p>
+      <div class="sd-tabs" id="sd-tabs"></div>
+      <div id="sd-content"></div>
+      <p class="modal-foot">If fewer than 20 drivers appear, FastF1 may have incomplete session data cached — restart the server and try again after the session is fully uploaded.</p>
     </div>
   </div>
 
