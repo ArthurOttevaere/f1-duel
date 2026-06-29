@@ -7,7 +7,7 @@ emplacements (placeholders) prêts à recevoir les vraies têtes des pilotes.
 
 Usage:
   python src/app.py
-  → ouvre http://127.0.0.1:5000
+  → ouvre http://127.0.0.1:5050
 
 Les têtes des pilotes :
   Dépose une image carrée nommée  <driver_id>.png  dans  webapp/static/drivers/
@@ -1203,9 +1203,17 @@ def api_session_data():
 
 
 if __name__ == '__main__':
-    print('\n  Interface F1 → http://127.0.0.1:5000\n')
+    # Port configurable via $F1_PORT. On évite 5000, accaparé par le récepteur
+    # AirPlay de macOS (ControlCenter), qui répond à la place de Flask et fait
+    # afficher une page blanche dans le navigateur.
+    port = int(os.environ.get('F1_PORT', '5050'))
+    # Le launcher désactive le reloader (F1_NO_RELOAD=1) : pas de redémarrage
+    # « Restarting with stat » qui ouvre le navigateur trop tôt.
+    debug = os.environ.get('F1_NO_RELOAD') != '1'
+
+    print(f'\n  Interface F1 → http://127.0.0.1:{port}\n')
     # Pré-charge les calendriers en arrière-plan → changement d'année quasi instantané.
     # (évité sous le reloader Flask pour ne pas pré-charger deux fois)
-    if not app.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+    if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
         threading.Thread(target=_prewarm_schedules, daemon=True).start()
-    app.run(debug=True, port=5000)
+    app.run(debug=debug, port=port)

@@ -5,7 +5,7 @@
 #   • se place dans le dossier du projet (où qu'il soit)
 #   • crée le venv et installe les dépendances si besoin
 #   • démarre le serveur Flask
-#   • ouvre http://127.0.0.1:5000 dans le navigateur dès qu'il répond
+#   • ouvre http://127.0.0.1:5050 dans le navigateur dès qu'il répond
 #
 # Pour arrêter : ferme cette fenêtre ou fais Ctrl+C.
 
@@ -49,13 +49,31 @@ if [ ! -f "models/meta.json" ] || [ ! -f "data/processed/features.csv" ]; then
   exit 1
 fi
 
-URL="http://127.0.0.1:5000"
+# Port 5050 : on évite 5000, accaparé par le récepteur AirPlay de macOS
+# (ControlCenter), qui répond à la place de Flask → page blanche.
+export F1_PORT=5050
+export F1_NO_RELOAD=1          # pas de reloader Flask → démarrage net, un seul process
+URL="http://127.0.0.1:${F1_PORT}"
 
-# ── Ouvrir le navigateur dès que le serveur répond (en arrière-plan) ─────────
+# ── Arrêter un éventuel serveur F1 déjà lancé (double-clic répété, zombie) ────
+pkill -f "src/app.py" 2>/dev/null || true
+# Libérer le port s'il est encore occupé par une ancienne instance à nous.
+if lsof -ti "tcp:${F1_PORT}" >/dev/null 2>&1; then
+  lsof -ti "tcp:${F1_PORT}" | xargs kill 2>/dev/null || true
+  sleep 1
+fi
+
+# ── Ouvrir le navigateur SEULEMENT quand Flask répond vraiment (HTTP 200) ────
+# On vérifie un vrai 200 : une simple connexion TCP ne suffit pas (un autre
+# service pourrait répondre et faire ouvrir une page blanche).
 (
-  for _ in $(seq 1 60); do
-    if curl -s -o /dev/null "$URL" 2>/dev/null; then
-      open "$URL"
+  # set +e dans le sous-shell : sous set -e, « code=$(curl…) » qui échoue
+  # (connexion refusée pendant le démarrage) tuerait la boucle avant le 200.
+  set +e
+  for _ in $(seq 1 120); do
+    code=$(curl -s -o /dev/null -w "%{http_code}" "$URL" 2>/dev/null)
+    if [ "$code" = "200" ]; then
+      open -a Safari "$URL"
       break
     fi
     sleep 0.5
