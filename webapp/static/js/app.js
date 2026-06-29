@@ -106,7 +106,57 @@ const els = {
   contentionList:     $('contention-list'),
   cnRpts:    $('cn-rpts'),
   cnSpts:    $('cn-spts'),
+  // Theme toggle
+  themeToggle: $('theme-toggle'),
 };
+
+// ─── Thème jour / nuit (sombre par défaut, choix mémorisé) ──────────────────
+const THEME_KEY = 'f1-theme';
+els.themeToggle.addEventListener('click', () => {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const next = isLight ? 'dark' : 'light';
+  if (next === 'light') document.documentElement.setAttribute('data-theme', 'light');
+  else document.documentElement.removeAttribute('data-theme');
+  try { localStorage.setItem(THEME_KEY, next); } catch { /* stockage indispo */ }
+});
+
+// ─── Effet 3D « glassy » sur la carte course au survol ──────────────────────
+// La carte s'incline légèrement vers le curseur et un reflet le suit. Throttlé
+// via requestAnimationFrame ; respecte hover fin + prefers-reduced-motion.
+(() => {
+  const card = els.raceInfo;
+  if (!card) return;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const MAX = 5.5; // amplitude d'inclinaison (degrés)
+  let raf = 0, last = null;
+
+  card.addEventListener('pointerenter', () => {
+    if (fine.matches && !reduce.matches) card.classList.add('is-tilting');
+  });
+  card.addEventListener('pointermove', (e) => {
+    if (!fine.matches || reduce.matches) return;
+    last = e;
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      const r = card.getBoundingClientRect();
+      const px = (last.clientX - r.left) / r.width;
+      const py = (last.clientY - r.top) / r.height;
+      const rx = (0.5 - py) * MAX * 2;
+      const ry = (px - 0.5) * MAX * 2;
+      card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+      card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+      card.style.transform =
+        `perspective(1100px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+    });
+  });
+  card.addEventListener('pointerleave', () => {
+    if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    card.classList.remove('is-tilting');
+    card.style.transform = '';   // retour fluide via la transition par défaut
+  });
+})();
 
 function show(section) {
   for (const s of [els.empty, els.loading, els.error, els.results]) {
@@ -1421,6 +1471,8 @@ async function loadRaceInfo(year, round) {
 }
 
 els.form.addEventListener('submit', predict);
+// Le bouton Predict vit désormais dans la carte course (hors du <form>) → clic explicite.
+els.run.addEventListener('click', predict);
 
 // Au chargement : si l'URL porte ?year=&round= on lance directement (liens
 // partageables) ; sinon on pré-remplit avec le prochain GP de la saison.

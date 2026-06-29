@@ -12,8 +12,60 @@
   --glass-border: rgba(255, 255, 255, 0.10);
   --glass-hi:     rgba(255, 255, 255, 0.16);
 
+  /* Nav bar = chrome flottant, léger et translucide (l'aurore transparaît) */
+  --nav-bg:     rgba(255, 255, 255, 0.032);
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --nav-shadow: 0 8px 26px rgba(0, 0, 0, 0.32);
+
+  /* Cartes de contenu = surface solide, posée, nettement détachée du fond */
+  --card-bg:     rgba(28, 31, 40, 0.72);
+  --card-border: rgba(255, 255, 255, 0.13);
+  --card-hi:     rgba(255, 255, 255, 0.10);
+  --card-shadow: 0 22px 56px rgba(0, 0, 0, 0.55);
+
+  /* Surfaces ponctuelles */
+  --input-bg:    rgba(0, 0, 0, 0.25);
+  --popover-bg:  rgba(16, 17, 22, 0.86);
+  --option-bg:   #14151a;
+  --spec-hi:     rgba(255, 255, 255, 0.07);   /* reflet spéculaire haut de carte */
+  --chart-grid:  rgba(255, 255, 255, 0.07);   /* grille des graphes */
+  --thresh-line: #ffffff;                     /* ligne de seuil (course au titre) */
+  --glare:       rgba(255, 255, 255, 0.10);   /* reflet 3D suivant le curseur */
+
   --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ─── Thème clair (blanc cassé doux) ──────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:        #e9eaef;
+  --text:      #1b1d24;
+  --text-dim:  #565b67;
+  --text-mute: #878d99;
+  --red:       #f5072f;
+  --red-deep:  #d60029;
+
+  --glass:        rgba(255, 255, 255, 0.55);
+  --glass-strong: rgba(0, 0, 0, 0.05);
+  --glass-border: rgba(0, 0, 0, 0.10);
+  --glass-hi:     rgba(255, 255, 255, 0.85);
+
+  --nav-bg:     rgba(255, 255, 255, 0.48);
+  --nav-border: rgba(0, 0, 0, 0.08);
+  --nav-shadow: 0 8px 22px rgba(20, 24, 40, 0.10);
+
+  --card-bg:     rgba(255, 255, 255, 0.86);
+  --card-border: rgba(0, 0, 0, 0.09);
+  --card-hi:     rgba(255, 255, 255, 0.9);
+  --card-shadow: 0 18px 44px rgba(20, 24, 40, 0.14);
+
+  --input-bg:    rgba(0, 0, 0, 0.04);
+  --popover-bg:  rgba(252, 252, 253, 0.92);
+  --option-bg:   #ffffff;
+  --spec-hi:     rgba(255, 255, 255, 0.5);
+  --chart-grid:  rgba(0, 0, 0, 0.10);
+  --thresh-line: #1b1d24;
+  --glare:       rgba(255, 255, 255, 0.55);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,6 +74,11 @@
    réglant `display` (.modal, .race-info…) garde l'élément affiché et son overlay
    capte tous les clics. */
 [hidden] { display: none !important; }
+
+/* Feedback de pression universel : chaque bouton "s'enfonce" légèrement au clic.
+   Les règles spécifiques (plus prioritaires) priment quand elles existent. */
+button { transition: transform 150ms var(--ease-out); }
+button:active { transform: scale(0.97); }
 
 html { scroll-behavior: smooth; }
 
@@ -32,6 +89,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background-color 280ms var(--ease-out), color 280ms var(--ease-out);
 }
 
 /* Aurores en fond : donnent matière à réfracter au verre */
@@ -47,44 +105,102 @@ body {
     var(--bg);
   filter: saturate(1.1);
 }
+/* Aurore adoucie en mode clair (sinon halos trop vifs sur fond pâle) */
+[data-theme="light"] .bg-grid {
+  background:
+    radial-gradient(680px 460px at 16% 6%,  rgba(255, 30, 60, 0.10),  transparent 60%),
+    radial-gradient(600px 480px at 90% 2%,  rgba(70, 110, 255, 0.08), transparent 62%),
+    radial-gradient(760px 620px at 72% 72%, rgba(120, 40, 200, 0.05), transparent 60%),
+    var(--bg);
+  filter: saturate(1);
+}
 
 /* ─── Topbar ──────────────────────────────────────────────────────────────── */
 
 .topbar {
   position: sticky;
-  top: 12px;
+  top: 14px;
   z-index: 10;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  margin: 12px 14px 0;
-  padding: 13px 18px;
-  border-radius: 18px;
-  background: var(--glass);
-  backdrop-filter: blur(26px) saturate(1.7);
-  -webkit-backdrop-filter: blur(26px) saturate(1.7);
-  border: 1px solid var(--glass-border);
+  gap: 14px;
+  /* Pilule compacte, centrée — ne s'étire plus sur toute la largeur. */
+  width: fit-content;
+  max-width: calc(100% - 28px);
+  margin: 16px auto 0;
+  padding: 7px 11px;
+  border-radius: 15px;
+  /* Chrome flottant : très translucide, bord fin, ombre discrète. */
+  background: var(--nav-bg);
+  backdrop-filter: blur(22px) saturate(1.7);
+  -webkit-backdrop-filter: blur(22px) saturate(1.7);
+  border: 1px solid var(--nav-border);
   box-shadow:
     inset 0 1px 0 var(--glass-hi),
-    0 12px 40px rgba(0, 0, 0, 0.4);
+    var(--nav-shadow);
   flex-wrap: wrap;
+  transition: background-color 280ms var(--ease-out), border-color 280ms var(--ease-out);
 }
 
-.brand { display: flex; align-items: center; gap: 11px; }
-.brand-mark {
-  font-weight: 800;
-  font-size: 17px;
-  letter-spacing: -0.5px;
-  color: #fff;
-  background: linear-gradient(160deg, var(--red), var(--red-deep));
-  padding: 4px 9px;
-  border-radius: 9px;
-  box-shadow: 0 4px 18px rgba(255, 30, 60, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-.brand-text { font-weight: 700; letter-spacing: -0.3px; font-size: 15px; }
+/* Séparateur fin entre les groupes de la nav */
+.nav-sep { width: 1px; align-self: stretch; margin: 2px 2px; background: var(--glass-border); }
 
-.controls { display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; }
+/* ── Marque + emplacement logo ─────────────────────────────────────────────── */
+.nav-brand { display: flex; align-items: center; gap: 10px; padding-left: 4px; }
+.logo-slot {
+  position: relative;
+  width: 30px; height: 30px;
+  display: grid; place-items: center;
+  border-radius: 9px; overflow: hidden;
+  background: linear-gradient(160deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+}
+.logo-slot #brand-logo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.logo-ph {
+  font-weight: 800; font-size: 13px; letter-spacing: -0.4px;
+  color: var(--text-dim);
+}
+.brand-text { font-weight: 700; letter-spacing: -0.3px; font-size: 14.5px; white-space: nowrap; }
+
+/* ── Onglets de navigation (ouvrent les modales) ───────────────────────────── */
+.nav-tabs { display: flex; align-items: center; gap: 2px; }
+.nav-tab {
+  display: inline-flex; align-items: center; gap: 7px;
+  font: inherit; font-size: 13px; font-weight: 600;
+  color: var(--text-dim);
+  background: transparent; border: 1px solid transparent;
+  padding: 7px 13px; border-radius: 10px; cursor: pointer;
+  white-space: nowrap;
+  transition: color 140ms var(--ease-out), background-color 140ms var(--ease-out), transform 140ms var(--ease-out);
+}
+.nav-tab svg { opacity: 0.7; transition: opacity 140ms var(--ease-out); }
+.nav-tab:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .nav-tab:hover { color: var(--text); background: var(--glass-strong); }
+  .nav-tab:hover svg { opacity: 1; }
+}
+
+/* ── Bouton thème jour / nuit ──────────────────────────────────────────────── */
+.nav-icon-btn {
+  display: inline-grid; place-items: center;
+  width: 34px; height: 34px;
+  color: var(--text-dim);
+  background: transparent; border: 1px solid transparent;
+  border-radius: 10px; cursor: pointer;
+  transition: color 140ms var(--ease-out), background-color 140ms var(--ease-out), transform 140ms var(--ease-out);
+}
+.nav-icon-btn:active { transform: scale(0.94); }
+@media (hover: hover) and (pointer: fine) {
+  .nav-icon-btn:hover { color: var(--text); background: var(--glass-strong); }
+}
+.nav-icon-btn .icon-sun { display: none; }
+[data-theme="light"] .nav-icon-btn .icon-moon { display: none; }
+[data-theme="light"] .nav-icon-btn .icon-sun { display: block; }
+
+/* ── Sélecteurs saison + course ────────────────────────────────────────────── */
+.nav-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.nav-controls .field { gap: 0; }
 
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field > span { font-size: 10.5px; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.7px; }
@@ -94,7 +210,7 @@ body {
 .field input,
 .combo input[type="text"] {
   padding: 9px 12px;
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--input-bg);
   border: 1px solid var(--glass-border);
   border-radius: 11px;
   color: var(--text);
@@ -123,7 +239,7 @@ body {
   background-size: 11px;
   padding-right: 30px;
 }
-.field-year select option { background: #14151a; color: var(--text); }
+.field-year select option { background: var(--option-bg); color: var(--text); }
 
 /* ─── Combobox course (recherche par nom) ─────────────────────────────────── */
 
@@ -154,7 +270,7 @@ body {
   list-style: none;
   padding: 6px;
   border-radius: 14px;
-  background: rgba(16, 17, 22, 0.86);
+  background: var(--popover-bg);
   backdrop-filter: blur(26px) saturate(1.7);
   -webkit-backdrop-filter: blur(26px) saturate(1.7);
   border: 1px solid var(--glass-border);
@@ -326,7 +442,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   position: absolute;
   inset: 0 0 auto 0;
   height: 45%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent);
+  background: linear-gradient(180deg, var(--spec-hi), transparent);
   pointer-events: none;
 }
 
@@ -701,8 +817,40 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   padding: 18px 22px;
   border-radius: 20px;
   margin-bottom: 30px;
+  /* Surface de contenu solide : se détache nettement de la nav (chrome léger). */
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: inset 0 1px 0 var(--card-hi), var(--card-shadow);
+  /* Inclinaison 3D au survol (pilotée en JS via --mx/--my + transform) */
+  will-change: transform;
+  transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out);
 }
 .race-info.loading-info { opacity: 0.6; }
+/* Reflet spéculaire qui suit le curseur — donne le rendu "verre" */
+.race-info::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), var(--glare), transparent 60%);
+  opacity: 0;
+  transition: opacity 280ms var(--ease-out);
+}
+/* Pendant l'inclinaison : suivi rapide du curseur + reflet + ombre creusée */
+.race-info.is-tilting {
+  transition: transform 90ms linear, box-shadow 260ms var(--ease-out);
+  box-shadow: inset 0 1px 0 var(--card-hi), 0 34px 80px rgba(0, 0, 0, 0.55);
+}
+.race-info.is-tilting::after { opacity: 1; }
+[data-theme="light"] .race-info.is-tilting { box-shadow: inset 0 1px 0 var(--card-hi), 0 30px 64px rgba(20, 24, 40, 0.20); }
+
+/* Pied d'action de la carte course : prend toute la largeur, séparé par un filet */
+.ri-actions {
+  flex: 1 1 100%;
+  display: flex; align-items: center; justify-content: flex-end; gap: 18px;
+  padding-top: 16px; margin-top: 2px;
+  border-top: 1px solid var(--glass-border);
+}
 
 .ri-head { min-width: 150px; flex: 1 1 200px; }
 #ri-name { font-size: 19px; font-weight: 800; letter-spacing: -0.5px; }
@@ -772,6 +920,10 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   overflow-y: auto;
   border-radius: 22px;
   padding: 24px 24px 20px;
+  /* Surface solide (cohérent avec les cartes de contenu) */
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: inset 0 1px 0 var(--card-hi), var(--card-shadow);
   opacity: 0;
   transform: translateY(14px) scale(0.97);
   transition: opacity 240ms var(--ease-out), transform 280ms var(--ease-out);
@@ -783,7 +935,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   width: 30px; height: 30px;
   display: grid; place-items: center;
   border-radius: 9px;
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--glass-strong);
   border: 1px solid var(--glass-border);
   color: var(--text-dim);
   cursor: pointer;
@@ -884,7 +1036,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   color: var(--text-dim);
   background: transparent; border: none; cursor: pointer;
   padding: 5px 11px; border-radius: 8px;
-  transition: background-color 140ms var(--ease-out), color 140ms var(--ease-out);
+  transition: background-color 140ms var(--ease-out), color 140ms var(--ease-out), transform 140ms var(--ease-out);
 }
 .seg button.active { background: var(--glass-strong); color: var(--text); box-shadow: inset 0 1px 0 var(--glass-hi); }
 .seg button[data-w="wet"].active  { color: #64c4ff; }
@@ -938,7 +1090,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   background: rgba(255, 255, 255, 0.03);
   border: 1px dashed var(--glass-border);
   border-radius: 13px; padding: 11px; cursor: pointer;
-  transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+  transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), transform 160ms var(--ease-out);
 }
 .show-full:hover { color: var(--text); background: var(--glass-strong); }
 .show-full svg { transition: transform 220ms var(--ease-out); }
@@ -947,7 +1099,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
 /* ─── Dashboard saison ────────────────────────────────────────────────────── */
 .modal-wide { width: min(620px, 100%); }
 .season-progress { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
-.sp-bar { flex: 1; height: 6px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+.sp-bar { flex: 1; height: 6px; border-radius: 999px; background: var(--glass-strong); overflow: hidden; }
 .sp-bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--red), var(--red-deep)); border-radius: 999px; transition: width 400ms var(--ease-out); }
 .sp-text { font-size: 11.5px; color: var(--text-mute); font-family: 'Geist Mono', monospace; white-space: nowrap; }
 
@@ -960,12 +1112,13 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   padding: 5px 16px; border-radius: 999px;
   border: 1px solid var(--glass-border);
   color: var(--text-mute); background: transparent; cursor: pointer;
-  transition: color 130ms, background 130ms, border-color 130ms;
+  transition: color 130ms var(--ease-out), background 130ms var(--ease-out),
+              border-color 130ms var(--ease-out), transform 130ms var(--ease-out);
 }
-.sf-pill:hover { color: var(--text-dim); background: rgba(255,255,255,0.05); }
+.sf-pill:hover { color: var(--text-dim); background: var(--glass-strong); }
 .sf-pill.active {
-  color: var(--text); background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.22);
+  color: var(--text); background: var(--glass-strong);
+  border-color: var(--text-mute);
 }
 
 /* Stats cards grid */
@@ -977,7 +1130,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
 .ss-card {
   display: flex; flex-direction: column; gap: 5px;
   padding: 13px 14px; border-radius: 12px;
-  background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+  background: var(--glass-strong); border: 1px solid var(--glass-border);
 }
 .ss-card b {
   font-family: 'Geist Mono', monospace;
@@ -992,7 +1145,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   display: flex; align-items: center; gap: 8px;
   font-size: 12.5px; color: var(--text-mute);
   padding: 9px 12px; border-radius: 8px;
-  background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
+  background: var(--glass-strong); border: 1px solid var(--glass-border);
 }
 .ss-banner b { color: var(--text-dim); font-weight: 700; }
 .ss-banner-pct {
@@ -1006,7 +1159,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   flex: 1; min-width: 90px;
   display: flex; flex-direction: column; align-items: center; gap: 2px;
   padding: 12px 8px; border-radius: 13px;
-  background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+  background: var(--glass-strong); border: 1px solid var(--glass-border);
 }
 .ss-stat b { font-family: 'Geist Mono', monospace; font-size: 21px; font-weight: 600; letter-spacing: -0.6px; }
 .ss-stat span { font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-mute); text-align: center; }
@@ -1015,7 +1168,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
 .sl-row { display: grid; grid-template-columns: 34px 1fr 90px 36px 28px; align-items: center; gap: 10px; padding: 7px 4px; }
 .sl-rnd { font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text-mute); }
 .sl-name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sl-bar { height: 5px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+.sl-bar { height: 5px; border-radius: 999px; background: var(--glass-strong); overflow: hidden; }
 .sl-bar span { display: block; height: 100%; background: linear-gradient(90deg, #34d399, #10b981); border-radius: 999px; }
 .sl-mae { font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text-dim); text-align: right; }
 .sl-win.ok { color: #34d399; } .sl-win.no { color: #f87171; }
@@ -1039,19 +1192,19 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   padding: 7px 14px; display: flex; align-items: center; gap: 7px;
   border-radius: 8px 8px 0 0;
   border: 1px solid transparent; border-bottom: none;
-  transition: color 140ms, background 140ms;
+  transition: color 140ms var(--ease-out), background 140ms var(--ease-out), transform 140ms var(--ease-out);
   position: relative; bottom: -1px;
 }
-.sd-tab:hover { color: var(--text-dim); background: rgba(255,255,255,0.04); }
+.sd-tab:hover { color: var(--text-dim); background: var(--glass-strong); }
 .sd-tab.active {
   color: var(--text);
-  background: rgba(255,255,255,0.06);
+  background: var(--glass-strong);
   border-color: var(--glass-border);
   border-bottom-color: var(--bg);
 }
 .sd-tab-count {
   font-size: 10px; font-weight: 700;
-  background: rgba(255,255,255,0.07);
+  background: var(--glass-strong);
   padding: 1px 6px; border-radius: 999px;
   color: var(--text-mute);
 }
@@ -1088,7 +1241,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   vertical-align: middle;
 }
 .sd-table tbody tr:last-child td { border-bottom: none; }
-.sd-table tbody tr:hover td { background: rgba(255,255,255,0.025); }
+.sd-table tbody tr:hover td { background: var(--glass-strong); }
 
 .sd-pos  { font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 700; color: var(--text-mute); width: 28px; }
 .sd-abbr { font-family: 'Geist Mono', monospace; font-weight: 700; font-size: 12.5px; color: var(--accent, var(--text)); }
@@ -1100,23 +1253,18 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
 #session-data-btn { margin-left: auto; }
 #season-btn { margin-left: 0; }
 
-/* ─── Topbar : groupe gauche + bouton de navigation ───────────────────────── */
-.topbar-left { display: flex; align-items: center; gap: 16px; }
-.nav-btn { display: inline-flex; align-items: center; gap: 7px; }
-.nav-btn svg { opacity: 0.8; }
-
 /* ─── Championnats (classement + graphe points) ───────────────────────────── */
 .modal-xl { width: min(940px, 100%); }
 
 .champ-chart {
   margin: 6px 0 16px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.025);
+  background: var(--input-bg);
   border: 1px solid var(--glass-border);
   padding: 10px 8px 4px;
 }
 .cc-svg { width: 100%; height: auto; display: block; }
-.cc-grid { stroke: rgba(255, 255, 255, 0.07); stroke-width: 1; }
+.cc-grid { stroke: var(--chart-grid); stroke-width: 1; }
 .cc-ytick { fill: var(--text-mute); font-size: 10px; text-anchor: end; font-family: 'Geist Mono', monospace; }
 .cc-xtick { fill: var(--text-mute); font-size: 10px; text-anchor: middle; font-family: 'Geist Mono', monospace; }
 .cc-line {
@@ -1140,7 +1288,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   padding: 7px 8px; border-radius: 10px; cursor: pointer;
   transition: background-color 130ms var(--ease-out), opacity 130ms var(--ease-out);
 }
-.ct-row:hover, .ct-row.hot { background: rgba(255, 255, 255, 0.05); }
+.ct-row:hover, .ct-row.hot { background: var(--glass-strong); }
 .ct-row.dim { opacity: 0.4; }
 .ct-pos { font-family: 'Geist Mono', monospace; font-size: 12.5px; font-weight: 700; color: var(--text-mute); text-align: center; }
 .cc-swatch { width: 10px; height: 10px; border-radius: 3px; }
@@ -1175,7 +1323,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   padding: 7px 8px; border-radius: 11px;
   transition: opacity 140ms var(--ease-out), background-color 140ms var(--ease-out);
 }
-.cn-row:hover { background: rgba(255, 255, 255, 0.035); }
+.cn-row:hover { background: var(--glass-strong); }
 .cn-row.out { opacity: 0.42; }
 .cn-row.champ { background: rgba(255, 199, 64, 0.07); }
 .cn-row .avatar { width: 30px; height: 30px; margin: 0; }
@@ -1186,11 +1334,11 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
 .cn-team { font-size: 11px; color: var(--text-mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Barre : potentiel max (translucide) + acquis (plein) + seuil = points du leader */
-.cn-bar { position: relative; height: 16px; border-radius: 6px; background: rgba(255, 255, 255, 0.05); overflow: hidden; }
+.cn-bar { position: relative; height: 16px; border-radius: 6px; background: var(--glass-strong); overflow: hidden; }
 .cn-bar-max, .cn-bar-cur { position: absolute; top: 0; left: 0; height: 100%; border-radius: 6px; }
 .cn-bar-max { opacity: 0.3; }
 .cn-bar-cur { opacity: 1; }
-.cn-thresh { position: absolute; top: -2px; bottom: -2px; left: var(--thresh); width: 2px; background: #fff; opacity: 0.85; box-shadow: 0 0 5px rgba(255,255,255,0.5); }
+.cn-thresh { position: absolute; top: -2px; bottom: -2px; left: var(--thresh); width: 2px; background: var(--thresh-line); opacity: 0.8; }
 
 .cn-nums { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.25; }
 .cn-cur { font-family: 'Geist Mono', monospace; font-size: 13.5px; font-weight: 700; color: var(--text); }
@@ -1208,7 +1356,7 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   transform: translate(-50%, 14px);
   z-index: 200;
   padding: 11px 18px; border-radius: 12px;
-  background: rgba(16, 17, 22, 0.92);
+  background: var(--popover-bg);
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   box-shadow: inset 0 1px 0 var(--glass-hi), 0 14px 40px rgba(0,0,0,0.5);
@@ -1238,8 +1386,17 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   * { transition-duration: 0.01ms !important; }
 }
 
+@media (max-width: 620px) {
+  /* La nav passe en pleine largeur et s'empile proprement sur mobile. */
+  .topbar { width: auto; margin: 14px 12px 0; }
+  .nav-controls { width: 100%; }
+  .nav-controls .field-year { flex: 0 0 auto; }
+  .field-race { flex: 1 1 auto; }
+  .field-year select { width: 84px; }
+  .nav-sep { display: none; }
+}
+
 @media (max-width: 560px) {
-  .controls { width: 100%; }
   .field-race { flex: 1 1 100%; }
   .combo input[type="text"] { width: 100%; }
   .podium { grid-template-columns: 1fr; }
@@ -1249,10 +1406,10 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   .row-right .pb-start { display: none; }
   .race-info { gap: 18px; }
   .ri-weather { margin-left: 0; }
+  .ri-actions { justify-content: space-between; }
   #season-btn { margin-left: 0; }
   .sl-row { grid-template-columns: 30px 1fr 60px 28px 22px; }
   .ss-grid { grid-template-columns: repeat(2, 1fr); }
-  .topbar-left { width: 100%; justify-content: space-between; flex-wrap: wrap; }
   .cn-grid { grid-template-columns: repeat(3, 1fr); }
   .cn-row { grid-template-columns: 22px 26px 1fr auto auto; gap: 8px; }
   .cn-row .cn-bar { display: none; }
