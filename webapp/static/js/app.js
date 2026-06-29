@@ -81,6 +81,31 @@ const els = {
   mTeam:    $('m-team'),
   mLede:    $('m-lede'),
   mFactors: $('m-factors'),
+  // Championship modal
+  standingsBtn:  $('standings-btn'),
+  champModal:    $('champ-modal'),
+  champScrim:    $('champ-scrim'),
+  champClose:    $('champ-close'),
+  champLede:     $('champ-lede'),
+  champTabs:     $('champ-tabs'),
+  champProgress: $('champ-progress'),
+  champFill:     $('champ-fill'),
+  champText:     $('champ-text'),
+  champChart:    $('champ-chart'),
+  champTable:    $('champ-table'),
+  // Title race (contention) modal
+  contentionBtn:      $('contention-btn'),
+  contentionModal:    $('contention-modal'),
+  contentionScrim:    $('contention-scrim'),
+  contentionClose:    $('contention-close'),
+  contentionLede:     $('contention-lede'),
+  contentionProgress: $('contention-progress'),
+  contentionFill:     $('contention-fill'),
+  contentionText:     $('contention-text'),
+  contentionSummary:  $('contention-summary'),
+  contentionList:     $('contention-list'),
+  cnRpts:    $('cn-rpts'),
+  cnSpts:    $('cn-spts'),
 };
 
 function show(section) {
@@ -589,6 +614,8 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !els.helpPop.hidden) { hideHelp(); els.helpPop._for = null; return; }
   if (e.key === 'Escape' && !els.modal.hidden) closeModal();
   if (e.key === 'Escape' && !els.seasonModal.hidden) closeSeason();
+  if (e.key === 'Escape' && !els.champModal.hidden) closeChamp();
+  if (e.key === 'Escape' && !els.contentionModal.hidden) closeContention();
   if (e.key === 'Escape' && !els.sessionDataModal.hidden) closeSessionData();
 });
 
@@ -788,6 +815,304 @@ els.statsFilter.querySelectorAll('.sf-pill').forEach((btn) => {
     renderSeasonList();
   });
 });
+
+// ─── Championship standings + points-over-time chart ────────────────────────
+
+let champTimer  = null;
+let _champData  = null;
+let _champTab   = 'drivers';   // 'drivers' | 'constructors'
+let _champHi    = null;        // clé effectivement surlignée
+let _champPin   = null;        // clé épinglée au clic (persiste au survol)
+
+function openChamp() {
+  els.champModal.hidden = false;
+  requestAnimationFrame(() => els.champModal.classList.add('open'));
+  loadChamp();
+}
+function closeChamp() {
+  els.champModal.classList.remove('open');
+  if (champTimer) { clearInterval(champTimer); champTimer = null; }
+  setTimeout(() => { els.champModal.hidden = true; }, 200);
+}
+
+async function loadChamp() {
+  const year = els.year.value;
+  els.champLede.textContent = `${year} championship — cumulative points, race by race.`;
+  const tick = async () => {
+    try {
+      const res = await fetch(`/api/championship?year=${encodeURIComponent(year)}`);
+      const d = await res.json();
+      _champData = d;
+      renderChampProgress(d);
+      renderChamp();
+      if (d.status !== 'running' && champTimer) { clearInterval(champTimer); champTimer = null; }
+    } catch { /* transient */ }
+  };
+  await tick();
+  if (!champTimer) champTimer = setInterval(tick, 3000);
+}
+
+function renderChampProgress(d) {
+  const running = d.status === 'running';
+  els.champProgress.hidden = !running || !d.total;
+  if (d.total) {
+    els.champFill.style.width = `${Math.round((d.done / d.total) * 100)}%`;
+    els.champText.textContent = `Loading races… ${d.done}/${d.total}`;
+  }
+}
+
+const fmtPts = (v) => (Number.isInteger(v) ? String(v) : Number(v).toFixed(1));
+
+function champSeries() {
+  if (!_champData) return [];
+  return (_champTab === 'constructors' ? _champData.constructors : _champData.drivers) || [];
+}
+function champKey(row) {
+  return _champTab === 'constructors' ? row.team : row.driver_id;
+}
+
+function renderChamp() {
+  renderChampChart();
+  renderChampTable();
+}
+
+// Pas d'axe « rond » (1, 2, 5 × 10ⁿ) le plus proche du pas brut demandé.
+function niceStep(raw) {
+  const r = raw || 1;
+  const pow = Math.pow(10, Math.floor(Math.log10(r)));
+  const f = r / pow;
+  const nice = f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10;
+  return Math.max(1, nice * pow);
+}
+
+function renderChampChart() {
+  const d = _champData;
+  const series = champSeries();
+  const rounds = d?.rounds || [];
+  if (!series.length || !rounds.length) {
+    els.champChart.innerHTML = (d && d.status !== 'running')
+      ? '<p class="modal-empty">No completed races yet this season.</p>'
+      : '';
+    return;
+  }
+
+  const n = rounds.length;
+  const W = 860, H = 380;
+  const padL = 40, padR = 14, padT = 14, padB = 26;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
+
+  let maxY = 0;
+  for (const s of series) maxY = Math.max(maxY, s.series[s.series.length - 1] || 0);
+  const step = niceStep(Math.max(maxY, 1) / 4);
+  const top  = Math.max(step, Math.ceil(maxY / step) * step);
+
+  const X = (i) => padL + (n === 1 ? plotW / 2 : (i * plotW) / (n - 1));
+  const Y = (v) => padT + plotH - (v / top) * plotH;
+
+  let grid = '';
+  for (let g = 0; g <= top + 1e-6; g += step) {
+    const y = Y(g);
+    grid += `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" class="cc-grid"/>`;
+    grid += `<text x="${padL - 7}" y="${(y + 3).toFixed(1)}" class="cc-ytick">${g}</text>`;
+  }
+
+  let xlabels = '';
+  const everyX = n > 16 ? 2 : 1;
+  rounds.forEach((r, i) => {
+    if (i % everyX !== 0 && i !== n - 1) return;
+    xlabels += `<text x="${X(i).toFixed(1)}" y="${H - 8}" class="cc-xtick">${r.round}</text>`;
+  });
+
+  const hi = _champHi;
+  let lines = '', dots = '';
+  for (const s of series) {
+    const key = champKey(s);
+    const dim = hi && key !== hi;
+    const hot = hi && key === hi;
+    if (n === 1) {
+      dots += `<circle cx="${X(0).toFixed(1)}" cy="${Y(s.series[0]).toFixed(1)}" r="3.5" fill="${s.color}" class="cc-dot${dim ? ' dim' : ''}"/>`;
+    } else {
+      const pts = s.series.map((v, i) => `${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
+      lines += `<polyline points="${pts}" fill="none" stroke="${s.color}" class="cc-line${dim ? ' dim' : ''}${hot ? ' hot' : ''}" data-key="${esc(key)}"/>`;
+    }
+    if (hot) {
+      dots += `<circle cx="${X(n - 1).toFixed(1)}" cy="${Y(s.series[n - 1]).toFixed(1)}" r="3.5" fill="${s.color}"/>`;
+    }
+  }
+
+  els.champChart.innerHTML =
+    `<svg viewBox="0 0 ${W} ${H}" class="cc-svg" preserveAspectRatio="xMidYMid meet">${grid}${xlabels}${lines}${dots}</svg>`;
+}
+
+function renderChampTable() {
+  const series = champSeries();
+  if (!series.length) { els.champTable.innerHTML = ''; return; }
+
+  els.champTable.innerHTML = series.map((s) => {
+    const key = champKey(s);
+    const hot = _champHi === key ? ' hot' : '';
+    const dim = _champHi && _champHi !== key ? ' dim' : '';
+    const ident = _champTab === 'constructors'
+      ? `${teamBadge(s)}<span class="ct-name">${esc(s.team)}</span>`
+      : `${avatar(s)}<span class="ct-id"><span class="ct-name">${esc(s.name)}</span><span class="ct-sub">${esc(s.team)}</span></span>`;
+    return `<div class="ct-row${hot}${dim}" data-key="${esc(key)}" tabindex="0" role="button">
+      <span class="ct-pos">${s.pos}</span>
+      <span class="cc-swatch" style="background:${s.color}"></span>
+      <span class="ct-ident">${ident}</span>
+      <span class="ct-pts">${fmtPts(s.total)}<small>pts</small></span>
+    </div>`;
+  }).join('');
+}
+
+function champHighlight(key) {
+  if (_champHi === key) return;
+  _champHi = key;
+  renderChamp();
+}
+
+// Survol = surbrillance temporaire ; clic = épingle (persiste quand on quitte).
+els.champTable.addEventListener('mouseover', (e) => {
+  const row = e.target.closest('.ct-row'); if (row) champHighlight(row.dataset.key);
+});
+els.champTable.addEventListener('mouseleave', () => champHighlight(_champPin));
+els.champTable.addEventListener('click', (e) => {
+  const row = e.target.closest('.ct-row'); if (!row) return;
+  _champPin = _champPin === row.dataset.key ? null : row.dataset.key;
+  champHighlight(_champPin);
+});
+els.champChart.addEventListener('mouseover', (e) => {
+  const l = e.target.closest('[data-key]'); if (l) champHighlight(l.dataset.key);
+});
+els.champChart.addEventListener('mouseleave', () => champHighlight(_champPin));
+els.champChart.addEventListener('click', (e) => {
+  const l = e.target.closest('[data-key]'); if (!l) return;
+  _champPin = _champPin === l.dataset.key ? null : l.dataset.key;
+  champHighlight(_champPin);
+});
+
+els.champTabs.querySelectorAll('.sd-tab').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    _champTab = btn.dataset.tab;
+    _champHi = _champPin = null;
+    els.champTabs.querySelectorAll('.sd-tab').forEach((b) => b.classList.toggle('active', b === btn));
+    renderChamp();
+  });
+});
+
+els.standingsBtn.addEventListener('click', openChamp);
+els.champClose.addEventListener('click', closeChamp);
+els.champScrim.addEventListener('click', closeChamp);
+
+// ─── Title race : qui est encore en lice pour le championnat ────────────────
+
+let contentionTimer = null;
+let _contentionData = null;
+
+function openContention() {
+  els.contentionModal.hidden = false;
+  requestAnimationFrame(() => els.contentionModal.classList.add('open'));
+  loadContention();
+}
+function closeContention() {
+  els.contentionModal.classList.remove('open');
+  if (contentionTimer) { clearInterval(contentionTimer); contentionTimer = null; }
+  setTimeout(() => { els.contentionModal.hidden = true; }, 200);
+}
+
+async function loadContention() {
+  const year = els.year.value;
+  els.contentionLede.textContent = `${year} drivers' title — who can still mathematically win it.`;
+  const tick = async () => {
+    try {
+      const res = await fetch(`/api/contention?year=${encodeURIComponent(year)}`);
+      const d = await res.json();
+      _contentionData = d;
+      renderContentionProgress(d);
+      renderContention();
+      if (d.status !== 'running' && contentionTimer) { clearInterval(contentionTimer); contentionTimer = null; }
+    } catch { /* transient */ }
+  };
+  await tick();
+  if (!contentionTimer) contentionTimer = setInterval(tick, 3000);
+}
+
+function renderContentionProgress(d) {
+  const running = d.status === 'running';
+  els.contentionProgress.hidden = !running || !d.total;
+  if (d.total) {
+    els.contentionFill.style.width = `${Math.round((d.done / d.total) * 100)}%`;
+    els.contentionText.textContent = `Loading races… ${d.done}/${d.total}`;
+  }
+}
+
+function renderContention() {
+  const d = _contentionData;
+  if (!d) return;
+  const rem = d.remaining || {};
+  els.cnRpts.textContent = rem.race_points ?? 25;
+  els.cnSpts.textContent = rem.sprint_points ?? 8;
+
+  if (!d.drivers || !d.drivers.length) {
+    els.contentionSummary.innerHTML = '';
+    els.contentionList.innerHTML = d.status === 'running'
+      ? '' : '<p class="modal-empty">No races completed yet this season.</p>';
+    return;
+  }
+
+  // Bandeau + cartes de synthèse.
+  const champRow = d.champion ? d.drivers.find((x) => x.driver_id === d.champion) : null;
+  const banner = champRow
+    ? `<div class="cn-banner champ">🏆 <b>${esc(champRow.name)}</b> has clinched the ${d.year} title</div>`
+    : `<div class="cn-banner"><b>${d.alive_count}</b> driver${d.alive_count === 1 ? '' : 's'} still in contention</div>`;
+
+  const cards = [
+    { val: rem.races ?? 0,         label: `race${rem.races === 1 ? '' : 's'} left` },
+    { val: rem.sprints ?? 0,       label: `sprint${rem.sprints === 1 ? '' : 's'} left` },
+    { val: rem.max_available ?? 0, label: 'points still up for grabs' },
+  ];
+  const grid = cards.map((c) => `<div class="ss-card"><b>${c.val}</b><span>${esc(c.label)}</span></div>`).join('');
+  els.contentionSummary.innerHTML = `<div class="ss-grid cn-grid">${grid}</div>${banner}`;
+
+  // Échelle des barres : 0 → meilleur "maximum possible" du plateau.
+  const leader = d.leader_points || 0;
+  let scaleMax = leader;
+  for (const x of d.drivers) scaleMax = Math.max(scaleMax, x.max_possible);
+  scaleMax = Math.max(scaleMax, 1);
+  const w = (v) => `${Math.max(0, Math.min(100, (v / scaleMax) * 100))}%`;
+  const threshPct = `${(leader / scaleMax) * 100}%`;
+
+  els.contentionList.innerHTML = d.drivers.map((x) => {
+    const out = !x.alive;
+    const champ = x.status === 'champion';
+    const pill = champ ? '<span class="cn-pill champ">Champion</span>'
+               : x.alive ? '<span class="cn-pill in">In contention</span>'
+               : '<span class="cn-pill out">Out</span>';
+    const gapTxt = x.pos === 1 ? 'leader' : `−${fmtPts(x.gap)}`;
+    return `<div class="cn-row${out ? ' out' : ''}${champ ? ' champ' : ''}">
+      <span class="cn-pos">${x.pos}</span>
+      ${avatar(x)}
+      <span class="cn-id">
+        <span class="cn-name">${esc(x.name)}</span>
+        <span class="cn-team">${esc(x.team)}</span>
+      </span>
+      <span class="cn-bar" style="--thresh:${threshPct}">
+        <span class="cn-bar-max" style="width:${w(x.max_possible)}; background:${x.color}"></span>
+        <span class="cn-bar-cur" style="width:${w(x.total)}; background:${x.color}"></span>
+        <span class="cn-thresh"></span>
+      </span>
+      <span class="cn-nums">
+        <span class="cn-cur">${fmtPts(x.total)}<small>pts</small></span>
+        <span class="cn-max">max ${fmtPts(x.max_possible)} · ${gapTxt}</span>
+      </span>
+      ${pill}
+    </div>`;
+  }).join('');
+}
+
+els.contentionBtn.addEventListener('click', openContention);
+els.contentionClose.addEventListener('click', closeContention);
+els.contentionScrim.addEventListener('click', closeContention);
 
 // ─── Session data modal ─────────────────────────────────────────────────────
 
@@ -1120,15 +1445,25 @@ els.form.addEventListener('submit', predict);
   }
 
   // Prochain GP → détermine l'année et le round à pré-sélectionner.
+  // Un paramètre ?year= seul (sans round) force juste la saison (utile pour
+  // un lien direct vers le classement d'une saison passée).
   let year = MAX_YEAR;
   let round = null;
-  try {
-    const res = await fetch('/api/next');
-    const d = await res.json();
-    if (d.year)  year = d.year;
-    if (d.round) round = d.round;
-  } catch { /* défauts conservés */ }
+  if (q.get('year')) {
+    year = q.get('year');
+  } else {
+    try {
+      const res = await fetch('/api/next');
+      const d = await res.json();
+      if (d.year)  year = d.year;
+      if (d.round) round = d.round;
+    } catch { /* défauts conservés */ }
+  }
 
   els.year.value = String(year);
   await loadSchedule(year, { keepRound: round });
+
+  // Deep-links : #standings → classement ; #title → course au titre.
+  if (location.hash === '#standings') openChamp();
+  if (location.hash === '#title') openContention();
 })();

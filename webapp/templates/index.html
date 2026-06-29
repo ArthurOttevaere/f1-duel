@@ -13,9 +13,19 @@
   <div class="bg-grid" aria-hidden="true"></div>
 
   <header class="topbar">
-    <div class="brand">
-      <span class="brand-mark">F1</span>
-      <span class="brand-text">Race&nbsp;Predictor</span>
+    <div class="topbar-left">
+      <div class="brand">
+        <span class="brand-mark">F1</span>
+        <span class="brand-text">Race&nbsp;Predictor</span>
+      </div>
+      <button type="button" id="standings-btn" class="tool-btn nav-btn">
+        <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 14V2M2 14h12M5 11l3-4 2 2 4-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Standings
+      </button>
+      <button type="button" id="contention-btn" class="tool-btn nav-btn">
+        <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M8 1.5 9.9 5.6l4.5.5-3.3 3 .9 4.4L8 11.3 4 13.5l.9-4.4-3.3-3 4.5-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        Title race
+      </button>
     </div>
 
     <form id="controls" class="controls" autocomplete="off">
@@ -181,6 +191,48 @@
       <div id="season-summary" class="season-summary"></div>
       <div id="season-list" class="season-list"></div>
       <p class="modal-foot">Each race is scored by comparing the predicted finishing order with the official result. Computed once, then cached.</p>
+    </div>
+  </div>
+
+  <!-- Championship standings + points-over-time chart -->
+  <div id="champ-modal" class="modal" hidden>
+    <div class="modal-scrim" id="champ-scrim"></div>
+    <div class="modal-card glass modal-xl" role="dialog" aria-modal="true" aria-labelledby="champ-title">
+      <button class="modal-close" id="champ-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-name" id="champ-title">Championship</div>
+      <p class="modal-lede" id="champ-lede">Points race by race — follow the title fight and position swaps.</p>
+      <div class="sd-tabs" id="champ-tabs">
+        <button type="button" class="sd-tab active" data-tab="drivers">Drivers</button>
+        <button type="button" class="sd-tab" data-tab="constructors">Constructors</button>
+      </div>
+      <div id="champ-progress" class="season-progress" hidden>
+        <div class="sp-bar"><span id="champ-fill"></span></div>
+        <span id="champ-text" class="sp-text"></span>
+      </div>
+      <div id="champ-chart" class="champ-chart"></div>
+      <div id="champ-table" class="champ-table"></div>
+      <p class="modal-foot">Cumulative points after each round (race + sprint). Hover the chart or a row to highlight a contender.</p>
+    </div>
+  </div>
+
+  <!-- Title race : who is still mathematically in contention -->
+  <div id="contention-modal" class="modal" hidden>
+    <div class="modal-scrim" id="contention-scrim"></div>
+    <div class="modal-card glass modal-xl" role="dialog" aria-modal="true" aria-labelledby="contention-title">
+      <button class="modal-close" id="contention-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-name" id="contention-title">Title race</div>
+      <p class="modal-lede" id="contention-lede">Who can still mathematically win the drivers' championship.</p>
+      <div id="contention-progress" class="season-progress" hidden>
+        <div class="sp-bar"><span id="contention-fill"></span></div>
+        <span id="contention-text" class="sp-text"></span>
+      </div>
+      <div id="contention-summary" class="cn-summary"></div>
+      <div id="contention-list" class="cn-list"></div>
+      <p class="modal-foot">A driver is <b>out</b> once their best possible total (winning every remaining race &amp; sprint) can no longer reach the current leader's points. Remaining points = races × <span id="cn-rpts">25</span> + sprints × <span id="cn-spts">8</span>.</p>
     </div>
   </div>
 

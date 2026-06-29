@@ -31,7 +31,8 @@ WEBAPP_DIR      = os.path.join(ROOT, 'webapp')
 SCHED_CACHE_DIR = os.path.join(ROOT, 'data', 'schedule_cache')
 TRACK_CACHE_DIR = os.path.join(ROOT, 'data', 'track_cache')
 ACC_CACHE_DIR   = os.path.join(ROOT, 'data', 'accuracy_cache')
-for _d in (SCHED_CACHE_DIR, TRACK_CACHE_DIR, ACC_CACHE_DIR):
+CHAMP_CACHE_DIR = os.path.join(ROOT, 'data', 'champ_cache')
+for _d in (SCHED_CACHE_DIR, TRACK_CACHE_DIR, ACC_CACHE_DIR, CHAMP_CACHE_DIR):
     os.makedirs(_d, exist_ok=True)
 
 app = Flask(
@@ -377,6 +378,268 @@ def _season_worker(year):
     except Exception as e:  # noqa: BLE001
         job['status'] = 'error'
         job['error'] = str(e)
+
+
+# ─── Classement des championnats (pilotes & constructeurs) ───────────────────
+
+_CHAMP_JOBS: dict = {}
+_CHAMP_LOCK = threading.Lock()
+
+
+def _race_points(year, rnd):
+    """Points marqués (course + sprint) par pilote sur une manche. Caché disque.
+
+    Renvoie une liste [{driver_id, name, abbr, team, points}] ou None si la
+    manche n'a pas de résultat exploitable.
+    """
+    disk = os.path.join(CHAMP_CACHE_DIR, f'{year}_{rnd}.json')
+    if os.path.isfile(disk):
+        try:
+            with open(disk) as f:
+                return json.load(f)
+        except Exception:
+            pass
+
+    import fastf1
+
+    rows: dict = {}
+
+    def _accumulate(session_id):
+        try:
+            session = fastf1.get_session(year, rnd, session_id)
+            session.load(laps=False, telemetry=False, weather=False, messages=False)
+        except Exception:
+            return
+        res = getattr(session, 'results', None)
+        if res is None or res.empty:
+            return
+        for _, r in res.iterrows():
+            did = r.get('DriverId')
+            if not did:
+                continue
+            did = str(did)
+            pts = r.get('Points')
+            try:
+                pts = float(pts) if pts == pts else 0.0  # NaN → 0
+            except (TypeError, ValueError):
+                pts = 0.0
+            name = str(r.get('FullName') or '').strip()
+            abbr = str(r.get('Abbreviation') or '').strip()
+            team = str(r.get('TeamName') or '').strip()
+            entry = rows.get(did)
+            if entry is None:
+                entry = {'driver_id': did, 'name': '', 'abbr': '',
+                         'team': 'Unknown', 'points': 0.0}
+                rows[did] = entry
+            # La course ('R') passe en dernier → son équipe/nom fait foi.
+            if name:
+                entry['name'] = name
+            if abbr:
+                entry['abbr'] = abbr
+            if team:
+                entry['team'] = team
+            entry['points'] += pts
+
+    # Sprint d'abord (si la manche en a un), puis la course.
+    _accumulate('Sprint')
+    _accumulate('R')
+
+    out = list(rows.values())
+    # On ne cache que des grilles plausiblement complètes (évite de figer des
+    # résultats partiels que FastF1 n'aurait pas encore tout uploadés).
+    if len(out) >= 10:
+        try:
+            with open(disk, 'w') as f:
+                json.dump(out, f)
+        except Exception:
+            pass
+        return out
+    return out or None
+
+
+def _champ_worker(year):
+    job = _CHAMP_JOBS[year]
+    try:
+        sched = _get_schedule_df(year)
+        names = {}
+        for _, ev in sched.iterrows():
+            try:
+                names[int(ev['RoundNumber'])] = str(ev.get('EventName', ''))
+            except (TypeError, ValueError):
+                continue
+        rounds = sorted(int(r) for r in sched['RoundNumber']
+                        if int(r) >= 1 and _race_is_past(year, int(r)))
+        job['total'] = len(rounds)
+        for rnd in rounds:
+            pts = _race_points(year, rnd)
+            if pts:
+                job['rounds'].append({
+                    'round':  rnd,
+                    'name':   names.get(rnd, f'Round {rnd}'),
+                    'points': pts,
+                })
+            job['done'] += 1
+        job['status'] = 'done'
+    except Exception as e:  # noqa: BLE001
+        job['status'] = 'error'
+        job['error'] = str(e)
+
+
+def _build_standings(rounds):
+    """Construit les classements + séries cumulées à partir des manches collectées."""
+    round_axis = [{'round': r['round'], 'name': r['name']} for r in rounds]
+
+    # Métadonnées pilotes + ensemble des équipes vues sur la saison.
+    driver_meta: dict = {}
+    teams: dict = {}
+    for r in rounds:
+        for d in r['points']:
+            did = d['driver_id']
+            meta = driver_meta.setdefault(
+                did, {'name': '', 'abbr': '', 'team': 'Unknown'})
+            if d.get('name'):
+                meta['name'] = d['name']
+            if d.get('abbr'):
+                meta['abbr'] = d['abbr']
+            if d.get('team'):
+                meta['team'] = d['team']
+                teams[d['team']] = True
+
+    d_cum = {did: 0.0 for did in driver_meta}
+    d_series = {did: [] for did in driver_meta}
+    t_cum = {t: 0.0 for t in teams}
+    t_series = {t: [] for t in teams}
+
+    for r in rounds:
+        rp: dict = {}
+        rt: dict = {}
+        for d in r['points']:
+            rp[d['driver_id']] = rp.get(d['driver_id'], 0.0) + d['points']
+            if d.get('team'):
+                rt[d['team']] = rt.get(d['team'], 0.0) + d['points']
+        for did in driver_meta:
+            d_cum[did] += rp.get(did, 0.0)
+            d_series[did].append(round(d_cum[did], 1))
+        for t in teams:
+            t_cum[t] += rt.get(t, 0.0)
+            t_series[t].append(round(t_cum[t], 1))
+
+    drivers = []
+    for did, meta in driver_meta.items():
+        team = meta['team']
+        drivers.append({
+            'driver_id': did,
+            'name':      meta['name'] or did,
+            'abbr':      meta['abbr'] or '',
+            'team':      team,
+            'team_abbr': _team_abbr(team),
+            'color':     TEAM_COLORS.get(team, DEFAULT_COLOR),
+            'has_photo': _have_headshot(did),
+            'total':     round(d_cum[did], 1),
+            'series':    d_series[did],
+        })
+    drivers.sort(key=lambda x: (-x['total'], x['name']))
+    for i, d in enumerate(drivers):
+        d['pos'] = i + 1
+
+    constructors = []
+    for t in teams:
+        constructors.append({
+            'team':      t,
+            'team_slug': _team_slug(t),
+            'team_abbr': _team_abbr(t),
+            'has_logo':  _have_team_logo(t),
+            'color':     TEAM_COLORS.get(t, DEFAULT_COLOR),
+            'total':     round(t_cum[t], 1),
+            'series':    t_series[t],
+        })
+    constructors.sort(key=lambda x: (-x['total'], x['team']))
+    for i, c in enumerate(constructors):
+        c['pos'] = i + 1
+
+    return {'rounds': round_axis, 'drivers': drivers, 'constructors': constructors}
+
+
+# ─── Course au titre : qui est encore mathématiquement en lice ───────────────
+
+def _remaining_points_info(year):
+    """Points encore distribuables sur la saison (courses + sprints à venir).
+
+    Le maximum par course inclut le point du meilleur tour pour les saisons où il
+    existait (2019-2024) ; supprimé depuis 2025. Le sprint vaut 8 pts (format
+    2022+), 3 pts en 2021. Une manche déjà courue est ignorée — et si un week-end
+    est en cours, on reste *conservateur* (on peut surcompter, jamais éliminer à
+    tort un pilote).
+    """
+    sched = _get_schedule_df(year)
+    race_max   = 26 if 2019 <= year <= 2024 else 25
+    sprint_max = 8 if year >= 2022 else (3 if year == 2021 else 0)
+
+    remaining_races = 0
+    remaining_sprints = 0
+    events = []
+    for _, ev in sched.iterrows():
+        try:
+            rnd = int(ev['RoundNumber'])
+        except (TypeError, ValueError):
+            continue
+        if rnd < 1 or _race_is_past(year, rnd):
+            continue
+        fmt = str(ev.get('EventFormat', '') or '').lower()
+        is_sprint = 'sprint' in fmt
+        remaining_races += 1
+        if is_sprint:
+            remaining_sprints += 1
+        events.append({
+            'round':  rnd,
+            'name':   str(ev.get('EventName', f'Round {rnd}')),
+            'sprint': is_sprint,
+        })
+
+    max_available = remaining_races * race_max + remaining_sprints * sprint_max
+    return {
+        'races':         remaining_races,
+        'sprints':       remaining_sprints,
+        'race_points':   race_max,
+        'sprint_points': sprint_max,
+        'max_available': max_available,
+        'events':        events,
+    }
+
+
+def _contention(drivers, remaining_max):
+    """Annote chaque pilote : peut-il encore (mathématiquement) gagner le titre ?
+
+    Renvoie (annotated_drivers, leader_points, champion_id|None).
+    Un pilote est en lice si ``total + remaining_max >= leader_points``. Le leader
+    a décroché le titre si même le 2ᵉ à son maximum ne peut plus l'égaler.
+    """
+    if not drivers:
+        return [], 0.0, None
+
+    leader_pts = drivers[0]['total']
+    second_max = (drivers[1]['total'] + remaining_max) if len(drivers) > 1 else 0.0
+    clinched = leader_pts > second_max  # personne ne peut plus rattraper le leader
+
+    out = []
+    for i, d in enumerate(drivers):
+        max_possible = round(d['total'] + remaining_max, 1)
+        alive = max_possible >= leader_pts
+        if clinched and i == 0:
+            status = 'champion'
+        elif alive:
+            status = 'alive'
+        else:
+            status = 'eliminated'
+        out.append({
+            **d,
+            'max_possible': max_possible,
+            'gap':          round(leader_pts - d['total'], 1),
+            'alive':        alive,
+            'status':       status,
+        })
+    champion = drivers[0]['driver_id'] if clinched else None
+    return out, leader_pts, champion
 
 
 # ─── Explicabilité : facteurs clés par pilote (depuis SHAP) ──────────────────
@@ -1086,6 +1349,82 @@ def api_season():
         'error':   job['error'],
         'summary': summary,
         'results': results,
+    })
+
+
+@app.route('/api/championship')
+def api_championship():
+    """Classement pilotes & constructeurs + points cumulés course par course.
+
+    Calcul en tâche de fond (comme la justesse saison) avec polling : le frontend
+    interroge périodiquement jusqu'à ce que ``status`` passe à ``done``.
+    """
+    try:
+        year = int(request.args.get('year'))
+    except (TypeError, ValueError):
+        return jsonify({'error': 'Parameter "year" is required.'}), 400
+
+    with _CHAMP_LOCK:
+        job = _CHAMP_JOBS.get(year)
+        if job is None:
+            job = {'status': 'running', 'total': 0, 'done': 0,
+                   'rounds': [], 'error': None}
+            _CHAMP_JOBS[year] = job
+            threading.Thread(target=_champ_worker, args=(year,), daemon=True).start()
+
+    rounds = sorted(job['rounds'], key=lambda r: r['round'])
+    payload = _build_standings(rounds)
+    payload.update({
+        'year':   year,
+        'status': job['status'],
+        'total':  job['total'],
+        'done':   job['done'],
+        'error':  job['error'],
+    })
+    return jsonify(payload)
+
+
+@app.route('/api/contention')
+def api_contention():
+    """Qui est encore mathématiquement en lice pour le titre pilotes ?
+
+    Réutilise le worker de championnat (points course + sprint) pour les totaux
+    actuels, et le calendrier pour les points restants. Polling comme les autres.
+    """
+    try:
+        year = int(request.args.get('year'))
+    except (TypeError, ValueError):
+        return jsonify({'error': 'Parameter "year" is required.'}), 400
+
+    with _CHAMP_LOCK:
+        job = _CHAMP_JOBS.get(year)
+        if job is None:
+            job = {'status': 'running', 'total': 0, 'done': 0,
+                   'rounds': [], 'error': None}
+            _CHAMP_JOBS[year] = job
+            threading.Thread(target=_champ_worker, args=(year,), daemon=True).start()
+
+    rounds = sorted(job['rounds'], key=lambda r: r['round'])
+    standings = _build_standings(rounds)['drivers']
+
+    try:
+        remaining = _remaining_points_info(year)
+    except Exception:
+        remaining = {'races': 0, 'sprints': 0, 'race_points': 25,
+                     'sprint_points': 8, 'max_available': 0, 'events': []}
+
+    drivers, leader_pts, champion = _contention(standings, remaining['max_available'])
+    return jsonify({
+        'year':          year,
+        'status':        job['status'],
+        'total':         job['total'],
+        'done':          job['done'],
+        'error':         job['error'],
+        'remaining':     remaining,
+        'leader_points': leader_pts,
+        'champion':      champion,
+        'alive_count':   sum(1 for d in drivers if d['alive']),
+        'drivers':       drivers,
     })
 
 

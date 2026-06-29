@@ -1100,6 +1100,108 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
 #session-data-btn { margin-left: auto; }
 #season-btn { margin-left: 0; }
 
+/* ─── Topbar : groupe gauche + bouton de navigation ───────────────────────── */
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.nav-btn { display: inline-flex; align-items: center; gap: 7px; }
+.nav-btn svg { opacity: 0.8; }
+
+/* ─── Championnats (classement + graphe points) ───────────────────────────── */
+.modal-xl { width: min(940px, 100%); }
+
+.champ-chart {
+  margin: 6px 0 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--glass-border);
+  padding: 10px 8px 4px;
+}
+.cc-svg { width: 100%; height: auto; display: block; }
+.cc-grid { stroke: rgba(255, 255, 255, 0.07); stroke-width: 1; }
+.cc-ytick { fill: var(--text-mute); font-size: 10px; text-anchor: end; font-family: 'Geist Mono', monospace; }
+.cc-xtick { fill: var(--text-mute); font-size: 10px; text-anchor: middle; font-family: 'Geist Mono', monospace; }
+.cc-line {
+  stroke-width: 2; fill: none;
+  stroke-linejoin: round; stroke-linecap: round;
+  opacity: 0.9; cursor: pointer;
+  transition: opacity 160ms var(--ease-out), stroke-width 160ms var(--ease-out);
+}
+.cc-line.dim { opacity: 0.1; }
+.cc-line.hot { opacity: 1; stroke-width: 3.4; }
+.cc-dot.dim { opacity: 0.18; }
+
+.champ-table {
+  display: flex; flex-direction: column; gap: 2px;
+  max-height: 320px; overflow-y: auto;
+}
+.ct-row {
+  display: grid;
+  grid-template-columns: 30px 10px 1fr auto;
+  align-items: center; gap: 11px;
+  padding: 7px 8px; border-radius: 10px; cursor: pointer;
+  transition: background-color 130ms var(--ease-out), opacity 130ms var(--ease-out);
+}
+.ct-row:hover, .ct-row.hot { background: rgba(255, 255, 255, 0.05); }
+.ct-row.dim { opacity: 0.4; }
+.ct-pos { font-family: 'Geist Mono', monospace; font-size: 12.5px; font-weight: 700; color: var(--text-mute); text-align: center; }
+.cc-swatch { width: 10px; height: 10px; border-radius: 3px; }
+.ct-ident { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.ct-ident .avatar { width: 30px; height: 30px; margin: 0; flex: 0 0 auto; }
+.ct-ident .avatar .ph { font-size: 11px; }
+.ct-ident .team-badge { flex: 0 0 auto; }
+.ct-id { display: flex; flex-direction: column; min-width: 0; }
+.ct-name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ct-sub { font-size: 11px; color: var(--text-mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ct-pts { font-family: 'Geist Mono', monospace; font-size: 14px; font-weight: 700; color: var(--text); white-space: nowrap; }
+.ct-pts small { font-size: 10px; font-weight: 600; color: var(--text-mute); margin-left: 3px; }
+
+/* ─── Course au titre (contention) ────────────────────────────────────────── */
+.cn-summary { margin-bottom: 14px; }
+.cn-grid { grid-template-columns: repeat(3, 1fr); margin-bottom: 12px; }
+.cn-banner {
+  padding: 10px 14px; border-radius: 12px; font-size: 13px;
+  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--glass-border);
+}
+.cn-banner b { font-weight: 700; }
+.cn-banner.champ {
+  background: linear-gradient(90deg, rgba(255, 199, 64, 0.16), rgba(255, 199, 64, 0.04));
+  border-color: rgba(255, 199, 64, 0.32); color: #ffd66b;
+}
+
+.cn-list { display: flex; flex-direction: column; gap: 3px; max-height: 360px; overflow-y: auto; }
+.cn-row {
+  display: grid;
+  grid-template-columns: 26px 30px minmax(120px, 1.1fr) 1.5fr auto auto;
+  align-items: center; gap: 12px;
+  padding: 7px 8px; border-radius: 11px;
+  transition: opacity 140ms var(--ease-out), background-color 140ms var(--ease-out);
+}
+.cn-row:hover { background: rgba(255, 255, 255, 0.035); }
+.cn-row.out { opacity: 0.42; }
+.cn-row.champ { background: rgba(255, 199, 64, 0.07); }
+.cn-row .avatar { width: 30px; height: 30px; margin: 0; }
+.cn-row .avatar .ph { font-size: 11px; }
+.cn-pos { font-family: 'Geist Mono', monospace; font-size: 12.5px; font-weight: 700; color: var(--text-mute); text-align: center; }
+.cn-id { display: flex; flex-direction: column; min-width: 0; }
+.cn-name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cn-team { font-size: 11px; color: var(--text-mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Barre : potentiel max (translucide) + acquis (plein) + seuil = points du leader */
+.cn-bar { position: relative; height: 16px; border-radius: 6px; background: rgba(255, 255, 255, 0.05); overflow: hidden; }
+.cn-bar-max, .cn-bar-cur { position: absolute; top: 0; left: 0; height: 100%; border-radius: 6px; }
+.cn-bar-max { opacity: 0.3; }
+.cn-bar-cur { opacity: 1; }
+.cn-thresh { position: absolute; top: -2px; bottom: -2px; left: var(--thresh); width: 2px; background: #fff; opacity: 0.85; box-shadow: 0 0 5px rgba(255,255,255,0.5); }
+
+.cn-nums { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.25; }
+.cn-cur { font-family: 'Geist Mono', monospace; font-size: 13.5px; font-weight: 700; color: var(--text); }
+.cn-cur small { font-size: 9.5px; font-weight: 600; color: var(--text-mute); margin-left: 2px; }
+.cn-max { font-size: 10.5px; color: var(--text-mute); font-family: 'Geist Mono', monospace; white-space: nowrap; }
+
+.cn-pill { font-size: 10.5px; font-weight: 700; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+.cn-pill.in   { color: #34d399; background: rgba(52, 211, 153, 0.14); }
+.cn-pill.out  { color: #f87171; background: rgba(248, 113, 113, 0.13); }
+.cn-pill.champ { color: #ffd66b; background: rgba(255, 199, 64, 0.16); }
+
 /* ─── Toast ───────────────────────────────────────────────────────────────── */
 .toast {
   position: fixed; left: 50%; bottom: 26px;
@@ -1150,4 +1252,8 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
   #season-btn { margin-left: 0; }
   .sl-row { grid-template-columns: 30px 1fr 60px 28px 22px; }
   .ss-grid { grid-template-columns: repeat(2, 1fr); }
+  .topbar-left { width: 100%; justify-content: space-between; flex-wrap: wrap; }
+  .cn-grid { grid-template-columns: repeat(3, 1fr); }
+  .cn-row { grid-template-columns: 22px 26px 1fr auto auto; gap: 8px; }
+  .cn-row .cn-bar { display: none; }
 }
