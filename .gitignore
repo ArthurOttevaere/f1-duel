@@ -227,3 +227,5 @@ fastf1_cache/
 data/schedule_cache/
 data/track_cache/
 data/accuracy_cache/
+
+webapp/static/teams/f1_teams/
