@@ -1,0 +1,1240 @@
+Season,Round,EventName,Circuit,SessionType,EventDate,Driver,BestLapTime,AvgLapTime,LapCount,GapToFastest,DriverId,TeamName,FirstName,LastName,AirTemp_mean,TrackTemp_mean,Humidity_mean,WindSpeed_mean,Rainfall
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,ALO,85.896,93.453545454,11,1.87,alonso,McLaren,Fernando,Alonso,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,BOT,84.577,96.972791666,24,0.551,bottas,Mercedes,Valtteri,Bottas,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,ERI,87.964,98.210130434,23,3.938,ericsson,Sauber,Marcus,Ericsson,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,GAS,86.494,101.466,21,2.468,gasly,Toro Rosso,Pierre,Gasly,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,GRO,85.73,94.64968421,19,1.704,grosjean,Haas F1 Team,Romain,Grosjean,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,HAM,84.026,101.112454545,22,0.0,hamilton,Mercedes,Lewis,Hamilton,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,HAR,87.745,102.139083333,12,3.719,brendon_hartley,Toro Rosso,Brendon,Hartley,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,HUL,86.583,101.23945,20,2.557,hulkenberg,Renault,Nico,Hulkenberg,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,LEC,88.853,99.65125,24,4.827,leclerc,Sauber,Charles,Leclerc,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,MAG,87.035,99.000666666,9,3.009,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,OCO,86.605,96.3432,25,2.579,ocon,Force India,Esteban,Ocon,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,PER,86.767,95.449523809,21,2.741,perez,Force India,Sergio,Perez,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,RAI,84.875,94.625611111,18,0.849,raikkonen,Ferrari,Kimi,Räikkönen,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,RIC,85.063,100.295523809,21,1.037,ricciardo,Red Bull Racing,Daniel,Ricciardo,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,SAI,85.922,101.833833333,18,1.896,sainz,Renault,Carlos,Sainz,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,SIR,86.536,97.48285,20,2.51,sirotkin,Williams,Sergey,Sirotkin,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,STR,86.636,96.281076923,26,2.61,stroll,Williams,Lance,Stroll,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,VAN,86.482,100.202454545,11,2.456,vandoorne,McLaren,Stoffel,Vandoorne,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,VER,84.771,97.074590909,22,0.745,max_verstappen,Red Bull Racing,Max,Verstappen,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP1,2018-03-25,VET,84.995,93.770058823,17,0.969,vettel,Ferrari,Sebastian,Vettel,26.8,42.3,33.9,1.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,ALO,85.2,98.449,23,1.269,alonso,McLaren,Fernando,Alonso,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,BOT,84.159,96.584206896,29,0.228,bottas,Mercedes,Valtteri,Bottas,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,ERI,86.814,99.046518518,27,2.883,ericsson,Sauber,Marcus,Ericsson,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,GAS,85.945,97.122138888,36,2.014,gasly,Toro Rosso,Pierre,Gasly,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,GRO,84.648,95.599290322,31,0.717,grosjean,Haas F1 Team,Romain,Grosjean,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,HAM,83.931,97.261838709,31,0.0,hamilton,Mercedes,Lewis,Hamilton,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,HAR,85.925,98.694078947,38,1.994,brendon_hartley,Toro Rosso,Brendon,Hartley,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,HUL,85.471,97.34428125,32,1.54,hulkenberg,Renault,Nico,Hulkenberg,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,LEC,86.815,98.87928125,32,2.884,leclerc,Sauber,Charles,Leclerc,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,MAG,85.246,96.862407407,27,1.315,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,OCO,85.888,96.419178571,28,1.957,ocon,Force India,Esteban,Ocon,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,PER,85.413,95.5048,25,1.482,perez,Force India,Sergio,Perez,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,RAI,84.214,97.0732,35,0.283,raikkonen,Ferrari,Kimi,Räikkönen,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,RIC,84.721,97.70036,25,0.79,ricciardo,Red Bull Racing,Daniel,Ricciardo,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,SAI,85.39,98.593032258,31,1.459,sainz,Renault,Carlos,Sainz,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,SIR,85.974,98.523545454,33,2.043,sirotkin,Williams,Sergey,Sirotkin,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,STR,85.543,96.296703703,27,1.612,stroll,Williams,Lance,Stroll,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,VAN,85.285,97.290034482,29,1.354,vandoorne,McLaren,Stoffel,Vandoorne,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,VER,84.058,93.874354838,31,0.127,max_verstappen,Red Bull Racing,Max,Verstappen,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP2,2018-03-25,VET,84.46,97.380382352,34,0.529,vettel,Ferrari,Sebastian,Vettel,29.7,41.7,25.2,0.9,False
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,ALO,94.298,105.187666666,9,8.231,alonso,McLaren,Fernando,Alonso,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,BOT,94.174,108.9341,10,8.107,bottas,Mercedes,Valtteri,Bottas,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,ERI,88.89,106.178636363,11,2.823,ericsson,Sauber,Marcus,Ericsson,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,GAS,94.99,105.393833333,12,8.923,gasly,Toro Rosso,Pierre,Gasly,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,GRO,96.171,106.27025,4,10.104,grosjean,Haas F1 Team,Romain,Grosjean,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,HAM,94.225,105.6945,6,8.158,hamilton,Mercedes,Lewis,Hamilton,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,HAR,95.438,104.766166666,12,9.371,brendon_hartley,Toro Rosso,Brendon,Hartley,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,HUL,98.482,108.4966,5,12.415,hulkenberg,Renault,Nico,Hulkenberg,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,LEC,96.448,106.122333333,9,10.381,leclerc,Sauber,Charles,Leclerc,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,MAG,96.807,104.469,5,10.74,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,RAI,88.499,107.185,10,2.432,raikkonen,Ferrari,Kimi,Räikkönen,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,RIC,94.043,103.164,12,7.976,ricciardo,Red Bull Racing,Daniel,Ricciardo,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,SAI,93.172,110.5635,8,7.105,sainz,Renault,Carlos,Sainz,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,SIR,95.589,109.5915,14,9.522,sirotkin,Williams,Sergey,Sirotkin,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,STR,95.828,106.747285714,7,9.761,stroll,Williams,Lance,Stroll,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,VAN,94.233,105.895,11,8.166,vandoorne,McLaren,Stoffel,Vandoorne,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,VER,91.68,108.233166666,6,5.613,max_verstappen,Red Bull Racing,Max,Verstappen,19.8,24.8,86.8,0.8,True
+2018,1,Australian Grand Prix,Melbourne,FP3,2018-03-25,VET,86.067,103.656461538,13,0.0,vettel,Ferrari,Sebastian,Vettel,19.8,24.8,86.8,0.8,True
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,ALO,93.223,109.7508,20,2.163,alonso,McLaren,Fernando,Alonso,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,BOT,91.364,103.2694,20,0.304,bottas,Mercedes,Valtteri,Bottas,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,ERI,93.508,109.452166666,18,2.448,ericsson,Sauber,Marcus,Ericsson,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,GAS,92.779,110.902727272,22,1.719,gasly,Toro Rosso,Pierre,Gasly,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,GRO,92.516,103.308631578,19,1.456,grosjean,Haas F1 Team,Romain,Grosjean,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,HAM,92.272,106.484,17,1.212,hamilton,Mercedes,Lewis,Hamilton,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,HAR,93.497,108.846173913,23,2.437,brendon_hartley,Toro Rosso,Brendon,Hartley,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,HUL,93.104,105.3155,14,2.044,hulkenberg,Renault,Nico,Hulkenberg,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,LEC,93.278,103.342266666,15,2.218,leclerc,Sauber,Charles,Leclerc,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,MAG,92.971,105.1766,15,1.911,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,OCO,93.794,106.658842105,19,2.734,ocon,Force India,Esteban,Ocon,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,PER,93.662,102.949818181,22,2.602,perez,Force India,Sergio,Perez,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,RAI,91.458,102.467076923,13,0.398,raikkonen,Ferrari,Kimi,Räikkönen,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,RIC,91.06,98.5307,10,0.0,ricciardo,Red Bull Racing,Daniel,Ricciardo,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,SAI,92.885,102.1504375,16,1.825,sainz,Renault,Carlos,Sainz,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,SIR,93.467,107.304583333,24,2.407,sirotkin,Williams,Sergey,Sirotkin,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,STR,93.379,110.1139375,16,2.319,stroll,Williams,Lance,Stroll,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,VAN,93.364,103.96645,20,2.304,vandoorne,McLaren,Stoffel,Vandoorne,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP1,2018-04-08,VET,91.47,107.602307692,13,0.41,vettel,Ferrari,Sebastian,Vettel,30.2,40.4,36.7,2.3,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,ALO,91.282,101.669153846,26,1.465,alonso,McLaren,Fernando,Alonso,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,BOT,90.38,100.060178571,28,0.563,bottas,Mercedes,Valtteri,Bottas,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,ERI,92.733,102.4575,28,2.916,ericsson,Sauber,Marcus,Ericsson,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,GAS,91.232,101.453285714,35,1.415,gasly,Toro Rosso,Pierre,Gasly,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,GRO,91.591,99.601066666,30,1.774,grosjean,Haas F1 Team,Romain,Grosjean,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,HAM,90.472,101.385689655,29,0.655,hamilton,Mercedes,Lewis,Hamilton,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,HAR,92.908,102.466314285,35,3.091,brendon_hartley,Toro Rosso,Brendon,Hartley,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,HUL,91.22,100.549258064,31,1.403,hulkenberg,Renault,Nico,Hulkenberg,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,LEC,92.372,99.719323529,34,2.555,leclerc,Sauber,Charles,Leclerc,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,MAG,91.969,100.2574375,32,2.152,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,OCO,91.809,102.332535714,28,1.992,ocon,Force India,Esteban,Ocon,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,PER,91.868,101.944666666,30,2.051,perez,Force India,Sergio,Perez,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,RAI,89.817,101.004,27,0.0,raikkonen,Ferrari,Kimi,Räikkönen,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,RIC,90.751,100.347107142,28,0.934,ricciardo,Red Bull Racing,Daniel,Ricciardo,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,SAI,91.601,102.540677419,31,1.784,sainz,Renault,Carlos,Sainz,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,SIR,92.474,105.512205882,34,2.657,sirotkin,Williams,Sergey,Sirotkin,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,STR,92.382,105.302703703,27,2.565,stroll,Williams,Lance,Stroll,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,VAN,91.422,102.5326875,32,1.605,vandoorne,McLaren,Stoffel,Vandoorne,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,VER,90.745,101.599285714,28,0.928,max_verstappen,Red Bull Racing,Max,Verstappen,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP2,2018-04-08,VET,89.828,101.27517647,34,0.011,vettel,Ferrari,Sebastian,Vettel,27.2,32.9,49.1,1.0,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,ALO,91.445,108.204333333,9,1.577,alonso,McLaren,Fernando,Alonso,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,BOT,90.781,106.811538461,13,0.913,bottas,Mercedes,Valtteri,Bottas,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,ERI,91.859,107.329214285,14,1.991,ericsson,Sauber,Marcus,Ericsson,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,GAS,91.438,105.2306,15,1.57,gasly,Toro Rosso,Pierre,Gasly,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,GRO,91.513,110.046,11,1.645,grosjean,Haas F1 Team,Romain,Grosjean,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,HAM,90.691,100.0239,10,0.823,hamilton,Mercedes,Lewis,Hamilton,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,HAR,91.46,105.590133333,15,1.592,brendon_hartley,Toro Rosso,Brendon,Hartley,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,HUL,91.144,108.53,8,1.276,hulkenberg,Renault,Nico,Hulkenberg,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,LEC,92.047,105.65925,16,2.179,leclerc,Sauber,Charles,Leclerc,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,MAG,91.737,106.565363636,11,1.869,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,OCO,91.554,111.337333333,15,1.686,ocon,Force India,Esteban,Ocon,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,PER,91.564,110.264333333,12,1.696,perez,Force India,Sergio,Perez,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,RAI,89.868,109.92190909,11,0.0,raikkonen,Ferrari,Kimi,Räikkönen,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,RIC,90.452,105.7988,5,0.584,ricciardo,Red Bull Racing,Daniel,Ricciardo,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,SAI,91.2,107.373444444,9,1.332,sainz,Renault,Carlos,Sainz,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,SIR,92.463,110.915777777,9,2.595,sirotkin,Williams,Sergey,Sirotkin,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,STR,92.865,112.6332,10,2.997,stroll,Williams,Lance,Stroll,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,VAN,91.86,109.5732,10,1.992,vandoorne,McLaren,Stoffel,Vandoorne,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,VER,90.393,106.327,5,0.525,max_verstappen,Red Bull Racing,Max,Verstappen,29.5,37.7,44.0,0.9,False
+2018,2,Bahrain Grand Prix,Sakhir,FP3,2018-04-08,VET,90.719,112.6382,5,0.851,vettel,Ferrari,Sebastian,Vettel,29.5,37.7,44.0,0.9,False
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,ALO,96.044,104.889875,24,2.045,alonso,McLaren,Fernando,Alonso,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,BOT,94.457,103.89356,25,0.458,bottas,Mercedes,Valtteri,Bottas,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,ERI,96.909,106.475375,16,2.91,ericsson,Sauber,Marcus,Ericsson,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,GAS,96.037,104.93725,16,2.038,gasly,Toro Rosso,Pierre,Gasly,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,GRO,95.718,105.047705882,17,1.719,grosjean,Haas F1 Team,Romain,Grosjean,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,HAM,93.999,106.670722222,18,0.0,hamilton,Mercedes,Lewis,Hamilton,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,HAR,96.715,105.8053,20,2.716,brendon_hartley,Toro Rosso,Brendon,Hartley,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,HUL,95.8,109.173230769,13,1.801,hulkenberg,Renault,Nico,Hulkenberg,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,LEC,96.723,103.9845,18,2.724,leclerc,Sauber,Charles,Leclerc,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,MAG,95.178,106.370470588,17,1.179,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,OCO,96.351,104.570518518,27,2.352,ocon,Force India,Esteban,Ocon,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,PER,96.051,105.091260869,23,2.052,perez,Force India,Sergio,Perez,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,RAI,94.358,104.8507,10,0.359,raikkonen,Ferrari,Kimi,Räikkönen,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,RIC,94.537,104.544444444,18,0.538,ricciardo,Red Bull Racing,Daniel,Ricciardo,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,SAI,95.616,107.724631578,19,1.617,sainz,Renault,Carlos,Sainz,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,SIR,96.691,106.13392,25,2.692,sirotkin,Williams,Sergey,Sirotkin,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,STR,97.277,108.956583333,24,3.278,stroll,Williams,Lance,Stroll,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,VAN,96.756,108.84665,20,2.757,vandoorne,McLaren,Stoffel,Vandoorne,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,VER,94.668,106.130388888,18,0.669,max_verstappen,Red Bull Racing,Max,Verstappen,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP1,2018-04-15,VET,94.861,111.031071428,14,0.862,vettel,Ferrari,Sebastian,Vettel,19.0,20.5,41.0,3.1,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,ALO,94.632,105.173722222,18,1.15,alonso,McLaren,Fernando,Alonso,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,BOT,93.515,105.667875,24,0.033,bottas,Mercedes,Valtteri,Bottas,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,ERI,95.624,108.37504,25,2.142,ericsson,Sauber,Marcus,Ericsson,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,GAS,94.849,105.150814814,27,1.367,gasly,Toro Rosso,Pierre,Gasly,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,GRO,96.471,105.012565217,23,2.989,grosjean,Haas F1 Team,Romain,Grosjean,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,HAM,93.482,105.136913043,23,0.0,hamilton,Mercedes,Lewis,Hamilton,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,HAR,95.333,103.634757575,33,1.851,brendon_hartley,Toro Rosso,Brendon,Hartley,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,HUL,94.313,104.152962962,27,0.831,hulkenberg,Renault,Nico,Hulkenberg,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,LEC,95.916,105.535826086,23,2.434,leclerc,Sauber,Charles,Leclerc,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,MAG,94.458,103.290695652,23,0.976,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,OCO,94.874,105.4325,26,1.392,ocon,Force India,Esteban,Ocon,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,PER,94.792,108.320153846,26,1.31,perez,Force India,Sergio,Perez,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,RAI,93.489,105.591809523,21,0.007,raikkonen,Ferrari,Kimi,Räikkönen,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,RIC,94.557,105.578913043,23,1.075,ricciardo,Red Bull Racing,Daniel,Ricciardo,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,SAI,94.473,106.84644,25,0.991,sainz,Renault,Carlos,Sainz,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,SIR,95.34,105.179964285,28,1.858,sirotkin,Williams,Sergey,Sirotkin,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,STR,97.147,111.203375,16,3.665,stroll,Williams,Lance,Stroll,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,VAN,95.163,105.164944444,18,1.681,vandoorne,McLaren,Stoffel,Vandoorne,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,VER,93.823,103.158954545,22,0.341,max_verstappen,Red Bull Racing,Max,Verstappen,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP2,2018-04-15,VET,93.59,108.686130434,23,0.108,vettel,Ferrari,Sebastian,Vettel,17.5,20.2,75.8,1.8,True
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,ALO,94.851,112.207625,8,1.833,alonso,McLaren,Fernando,Alonso,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,BOT,93.761,109.63276923,13,0.743,bottas,Mercedes,Valtteri,Bottas,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,ERI,95.679,112.206222222,9,2.661,ericsson,Sauber,Marcus,Ericsson,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,GAS,95.079,108.116076923,13,2.061,gasly,Toro Rosso,Pierre,Gasly,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,GRO,95.756,113.9055,4,2.738,grosjean,Haas F1 Team,Romain,Grosjean,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,HAM,94.057,112.878090909,11,1.039,hamilton,Mercedes,Lewis,Hamilton,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,HAR,94.991,107.9113125,16,1.973,brendon_hartley,Toro Rosso,Brendon,Hartley,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,HUL,94.841,107.573461538,13,1.823,hulkenberg,Renault,Nico,Hulkenberg,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,LEC,95.497,112.864818181,11,2.479,leclerc,Sauber,Charles,Leclerc,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,MAG,94.329,103.294043478,23,1.311,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,OCO,94.456,110.661642857,14,1.438,ocon,Force India,Esteban,Ocon,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,PER,94.445,107.587416666,12,1.427,perez,Force India,Sergio,Perez,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,RAI,93.469,106.6305,16,0.451,raikkonen,Ferrari,Kimi,Räikkönen,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,RIC,95.061,108.545,2,2.043,ricciardo,Red Bull Racing,Daniel,Ricciardo,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,SAI,94.582,109.603764705,17,1.564,sainz,Renault,Carlos,Sainz,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,SIR,94.741,105.6685,10,1.723,sirotkin,Williams,Sergey,Sirotkin,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,STR,95.375,107.013916666,12,2.357,stroll,Williams,Lance,Stroll,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,VAN,94.977,111.449818181,11,1.959,vandoorne,McLaren,Stoffel,Vandoorne,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,VER,93.969,108.809916666,12,0.951,max_verstappen,Red Bull Racing,Max,Verstappen,12.6,15.1,81.6,2.3,False
+2018,3,Chinese Grand Prix,Shanghai,FP3,2018-04-15,VET,93.018,108.838,10,0.0,vettel,Ferrari,Sebastian,Vettel,12.6,15.1,81.6,2.3,False
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,ALO,106.465,115.177764705,17,2.223,alonso,McLaren,Fernando,Alonso,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,BOT,104.242,113.472619047,21,0.0,bottas,Mercedes,Valtteri,Bottas,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,ERI,107.073,117.914066666,15,2.831,ericsson,Sauber,Marcus,Ericsson,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,GAS,106.492,117.666666666,12,2.25,gasly,Toro Rosso,Pierre,Gasly,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,GRO,106.856,112.347,18,2.614,grosjean,Haas F1 Team,Romain,Grosjean,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,HAM,105.2,116.5605,20,0.958,hamilton,Mercedes,Lewis,Hamilton,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,HAR,106.747,115.374814814,27,2.505,brendon_hartley,Toro Rosso,Brendon,Hartley,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,HUL,106.749,113.948,6,2.507,hulkenberg,Renault,Nico,Hulkenberg,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,LEC,106.875,117.993375,16,2.633,leclerc,Sauber,Charles,Leclerc,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,MAG,107.434,114.673538461,13,3.192,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,OCO,105.237,118.2325,22,0.995,ocon,Force India,Esteban,Ocon,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,PER,105.075,121.99055,20,0.833,perez,Force India,Sergio,Perez,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,RAI,106.861,115.639428571,7,2.619,raikkonen,Ferrari,Kimi,Räikkönen,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,RIC,104.277,113.193052631,19,0.035,ricciardo,Red Bull Racing,Daniel,Ricciardo,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,SAI,108.741,123.926,7,4.499,sainz,Renault,Carlos,Sainz,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,SIR,106.48,115.6454,20,2.238,sirotkin,Williams,Sergey,Sirotkin,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,STR,106.59,112.438142857,21,2.348,stroll,Williams,Lance,Stroll,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,VAN,107.967,119.180333333,15,3.725,vandoorne,McLaren,Stoffel,Vandoorne,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,VER,105.559,109.43825,8,1.317,max_verstappen,Red Bull Racing,Max,Verstappen,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP1,2018-04-29,VET,106.513,120.785428571,14,2.271,vettel,Ferrari,Sebastian,Vettel,22.6,41.9,41.0,0.8,True
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,ALO,103.7,114.089733333,30,0.905,alonso,McLaren,Fernando,Alonso,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,BOT,103.57,115.478181818,22,0.775,bottas,Mercedes,Valtteri,Bottas,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,ERI,106.042,117.269166666,6,3.247,ericsson,Sauber,Marcus,Ericsson,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,GAS,104.712,113.425028571,35,1.917,gasly,Toro Rosso,Pierre,Gasly,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,GRO,104.425,112.882791666,24,1.63,grosjean,Haas F1 Team,Romain,Grosjean,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,HAM,103.603,114.968925925,27,0.808,hamilton,Mercedes,Lewis,Hamilton,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,HAR,105.051,112.9548,30,2.256,brendon_hartley,Toro Rosso,Brendon,Hartley,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,HUL,104.091,111.7623,30,1.296,hulkenberg,Renault,Nico,Hulkenberg,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,LEC,104.94,112.762333333,27,2.145,leclerc,Sauber,Charles,Leclerc,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,MAG,103.977,113.65,26,1.182,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,OCO,103.814,112.010555555,27,1.019,ocon,Force India,Esteban,Ocon,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,PER,104.142,115.245285714,28,1.347,perez,Force India,Sergio,Perez,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,RAI,102.864,113.295142857,28,0.069,raikkonen,Ferrari,Kimi,Räikkönen,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,RIC,102.795,111.634125,32,0.0,ricciardo,Red Bull Racing,Daniel,Ricciardo,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,SAI,103.834,113.830151515,33,1.039,sainz,Renault,Carlos,Sainz,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,SIR,105.007,117.793966666,30,2.212,sirotkin,Williams,Sergey,Sirotkin,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,STR,104.459,115.530444444,27,1.664,stroll,Williams,Lance,Stroll,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,VAN,105.288,114.037615384,26,2.493,vandoorne,McLaren,Stoffel,Vandoorne,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,VER,102.911,111.900217391,23,0.116,max_verstappen,Red Bull Racing,Max,Verstappen,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP2,2018-04-29,VET,104.127,114.585852941,34,1.332,vettel,Ferrari,Sebastian,Vettel,19.6,29.1,60.6,1.1,False
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,ALO,104.763,112.239111111,9,1.672,alonso,McLaren,Fernando,Alonso,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,BOT,103.569,111.974333333,15,0.478,bottas,Mercedes,Valtteri,Bottas,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,ERI,105.91,119.352416666,12,2.819,ericsson,Sauber,Marcus,Ericsson,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,GAS,104.905,115.916083333,12,1.814,gasly,Toro Rosso,Pierre,Gasly,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,GRO,105.261,117.865666666,9,2.17,grosjean,Haas F1 Team,Romain,Grosjean,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,HAM,103.452,115.304545454,11,0.361,hamilton,Mercedes,Lewis,Hamilton,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,HAR,106.186,120.371,5,3.095,brendon_hartley,Toro Rosso,Brendon,Hartley,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,HUL,105.456,114.240888888,9,2.365,hulkenberg,Renault,Nico,Hulkenberg,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,LEC,105.218,115.7357,10,2.127,leclerc,Sauber,Charles,Leclerc,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,MAG,103.958,110.393857142,7,0.867,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,OCO,104.22,116.452714285,7,1.129,ocon,Force India,Esteban,Ocon,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,PER,103.936,118.554833333,6,0.845,perez,Force India,Sergio,Perez,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,RAI,103.493,115.71076923,13,0.402,raikkonen,Ferrari,Kimi,Räikkönen,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,RIC,104.861,112.147461538,13,1.77,ricciardo,Red Bull Racing,Daniel,Ricciardo,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,SAI,105.432,116.151583333,12,2.341,sainz,Renault,Carlos,Sainz,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,SIR,104.534,115.801666666,6,1.443,sirotkin,Williams,Sergey,Sirotkin,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,STR,104.123,116.655333333,3,1.032,stroll,Williams,Lance,Stroll,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,VAN,105.505,118.622333333,9,2.414,vandoorne,McLaren,Stoffel,Vandoorne,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,VER,103.519,110.600571428,14,0.428,max_verstappen,Red Bull Racing,Max,Verstappen,24.0,29.4,41.4,1.4,True
+2018,4,Azerbaijan Grand Prix,Baku,FP3,2018-04-29,VET,103.091,120.084615384,13,0.0,vettel,Ferrari,Sebastian,Vettel,24.0,29.4,41.4,1.4,True
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,ALO,79.858,90.374380952,21,1.71,alonso,McLaren,Fernando,Alonso,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,BOT,78.148,91.717862068,29,0.0,bottas,Mercedes,Valtteri,Bottas,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,ERI,80.984,98.5654,15,2.836,ericsson,Sauber,Marcus,Ericsson,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,GAS,80.508,91.66028,25,2.36,gasly,Toro Rosso,Pierre,Gasly,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,GRO,79.906,88.2563,20,1.758,grosjean,Haas F1 Team,Romain,Grosjean,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,HAM,78.997,90.214,19,0.849,hamilton,Mercedes,Lewis,Hamilton,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,HAR,81.373,94.505272727,22,3.225,brendon_hartley,Toro Rosso,Brendon,Hartley,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,HUL,81.159,92.979045454,22,3.011,hulkenberg,Renault,Nico,Hulkenberg,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,KUB,81.51,91.38585,20,3.362,nan,Williams,Robert,Kubica,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,LEC,80.665,92.31805,20,2.517,leclerc,Sauber,Charles,Leclerc,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,MAG,80.637,89.037041666,24,2.489,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,OCO,81.144,89.457772727,22,2.996,ocon,Force India,Esteban,Ocon,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,PER,80.924,94.62596875,32,2.776,perez,Force India,Sergio,Perez,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,RAI,79.499,90.913933333,15,1.351,raikkonen,Ferrari,Kimi,Räikkönen,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,RIC,79.871,99.257625,8,1.723,ricciardo,Red Bull Racing,Daniel,Ricciardo,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,SAI,81.053,94.870043478,23,2.905,sainz,Renault,Carlos,Sainz,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,STR,82.756,95.470333333,9,4.608,stroll,Williams,Lance,Stroll,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,VAN,80.083,87.819086956,23,1.935,vandoorne,McLaren,Stoffel,Vandoorne,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,VER,79.187,90.848458333,24,1.039,max_verstappen,Red Bull Racing,Max,Verstappen,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP1,2018-05-13,VET,79.098,92.211736842,19,0.95,vettel,Ferrari,Sebastian,Vettel,21.2,35.3,54.5,2.3,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,ALO,80.035,91.325892857,28,1.776,alonso,McLaren,Fernando,Alonso,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,BOT,78.611,88.473,35,0.352,bottas,Mercedes,Valtteri,Bottas,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,ERI,80.501,92.631151515,33,2.242,ericsson,Sauber,Marcus,Ericsson,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,GAS,80.373,90.882785714,28,2.114,gasly,Toro Rosso,Pierre,Gasly,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,GRO,79.579,90.5159,20,1.32,grosjean,Haas F1 Team,Romain,Grosjean,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,HAM,78.259,89.239057142,35,0.0,hamilton,Mercedes,Lewis,Hamilton,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,HAR,81.265,92.197344827,29,3.006,brendon_hartley,Toro Rosso,Brendon,Hartley,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,HUL,80.183,91.312128205,39,1.924,hulkenberg,Renault,Nico,Hulkenberg,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,LEC,80.514,89.041875,24,2.255,leclerc,Sauber,Charles,Leclerc,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,MAG,79.643,90.717771428,35,1.384,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,OCO,80.024,93.350705882,34,1.765,ocon,Force India,Esteban,Ocon,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,PER,79.962,93.034347826,23,1.703,perez,Force India,Sergio,Perez,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,RAI,78.829,102.665785714,14,0.57,raikkonen,Ferrari,Kimi,Räikkönen,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,RIC,78.392,92.23268421,38,0.133,ricciardo,Red Bull Racing,Daniel,Ricciardo,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,SAI,80.672,92.998111111,27,2.413,sainz,Renault,Carlos,Sainz,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,SIR,82.06,97.62634375,32,3.801,sirotkin,Williams,Sergey,Sirotkin,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,STR,81.556,94.2838125,32,3.297,stroll,Williams,Lance,Stroll,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,VAN,79.722,91.263821428,28,1.463,vandoorne,McLaren,Stoffel,Vandoorne,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,VER,78.533,87.734722222,36,0.274,max_verstappen,Red Bull Racing,Max,Verstappen,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP2,2018-05-13,VET,78.585,92.053129032,31,0.326,vettel,Ferrari,Sebastian,Vettel,24.2,43.2,49.9,2.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,ALO,78.847,92.452363636,11,1.566,alonso,McLaren,Fernando,Alonso,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,BOT,77.294,94.3914375,16,0.013,bottas,Mercedes,Valtteri,Bottas,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,ERI,79.744,97.971,13,2.463,ericsson,Sauber,Marcus,Ericsson,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,GAS,78.886,92.956307692,13,1.605,gasly,Toro Rosso,Pierre,Gasly,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,GRO,78.706,89.935916666,12,1.425,grosjean,Haas F1 Team,Romain,Grosjean,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,HAM,77.281,98.059636363,11,0.0,hamilton,Mercedes,Lewis,Hamilton,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,HAR,79.428,89.879894736,19,2.147,brendon_hartley,Toro Rosso,Brendon,Hartley,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,HUL,78.905,95.583083333,12,1.624,hulkenberg,Renault,Nico,Hulkenberg,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,LEC,79.292,91.003,15,2.011,leclerc,Sauber,Charles,Leclerc,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,MAG,78.357,90.028416666,12,1.076,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,OCO,79.121,94.335352941,17,1.84,ocon,Force India,Esteban,Ocon,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,PER,79.376,95.5364,15,2.095,perez,Force India,Sergio,Perez,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,RAI,77.581,94.9,13,0.3,raikkonen,Ferrari,Kimi,Räikkönen,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,RIC,77.981,90.065583333,12,0.7,ricciardo,Red Bull Racing,Daniel,Ricciardo,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,SAI,78.783,89.849153846,13,1.502,sainz,Renault,Carlos,Sainz,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,SIR,79.909,94.431888888,9,2.628,sirotkin,Williams,Sergey,Sirotkin,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,STR,79.9,98.672181818,11,2.619,stroll,Williams,Lance,Stroll,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,VAN,79.236,95.196153846,13,1.955,vandoorne,McLaren,Stoffel,Vandoorne,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,VER,79.013,93.774666666,3,1.732,max_verstappen,Red Bull Racing,Max,Verstappen,21.2,32.4,60.9,1.6,False
+2018,5,Spanish Grand Prix,Barcelona,FP3,2018-05-13,VET,77.55,98.9045,12,0.269,vettel,Ferrari,Sebastian,Vettel,21.2,32.4,60.9,1.6,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,ALO,74.637,85.818416666,12,2.511,alonso,McLaren,Fernando,Alonso,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,BOT,73.502,85.158714285,35,1.376,bottas,Mercedes,Valtteri,Bottas,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,ERI,75.206,84.171257142,35,3.08,ericsson,Sauber,Marcus,Ericsson,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,GAS,74.24,83.866411764,34,2.114,gasly,Toro Rosso,Pierre,Gasly,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,GRO,73.943,81.215619047,21,1.817,grosjean,Haas F1 Team,Romain,Grosjean,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,HAM,72.48,85.178,30,0.354,hamilton,Mercedes,Lewis,Hamilton,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,HAR,74.034,82.07472093,43,1.908,brendon_hartley,Toro Rosso,Brendon,Hartley,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,HUL,74.134,86.627757575,33,2.008,hulkenberg,Renault,Nico,Hulkenberg,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,LEC,74.521,83.521,35,2.395,leclerc,Sauber,Charles,Leclerc,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,MAG,78.801,83.8612,5,6.675,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,OCO,74.0,82.857257142,35,1.874,ocon,Force India,Esteban,Ocon,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,PER,73.717,81.270764705,34,1.591,perez,Force India,Sergio,Perez,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,RAI,73.066,87.363029411,34,0.94,raikkonen,Ferrari,Kimi,Räikkönen,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,RIC,72.126,83.3985,32,0.0,ricciardo,Red Bull Racing,Daniel,Ricciardo,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,SAI,73.456,86.485611111,36,1.33,sainz,Renault,Carlos,Sainz,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,SIR,73.962,84.730648648,37,1.836,sirotkin,Williams,Sergey,Sirotkin,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,STR,74.782,85.310871794,39,2.656,stroll,Williams,Lance,Stroll,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,VAN,74.291,84.639,33,2.165,vandoorne,McLaren,Stoffel,Vandoorne,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,VER,72.28,84.156227272,22,0.154,max_verstappen,Red Bull Racing,Max,Verstappen,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP1,2018-05-27,VET,73.041,83.616972222,36,0.915,vettel,Ferrari,Sebastian,Vettel,21.7,34.6,61.7,1.0,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,ALO,73.115,83.605526315,38,1.274,alonso,McLaren,Fernando,Alonso,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,BOT,72.642,81.929941176,34,0.801,bottas,Mercedes,Valtteri,Bottas,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,ERI,74.173,81.121767441,43,2.332,ericsson,Sauber,Marcus,Ericsson,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,GAS,73.41,83.402862068,29,1.569,gasly,Toro Rosso,Pierre,Gasly,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,GRO,73.763,82.746088235,34,1.922,grosjean,Haas F1 Team,Romain,Grosjean,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,HAM,72.536,85.157833333,30,0.695,hamilton,Mercedes,Lewis,Hamilton,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,HAR,73.222,82.182386363,44,1.381,brendon_hartley,Toro Rosso,Brendon,Hartley,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,HUL,73.047,85.617576923,26,1.206,hulkenberg,Renault,Nico,Hulkenberg,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,LEC,73.575,82.649166666,42,1.734,leclerc,Sauber,Charles,Leclerc,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,MAG,73.572,81.968526315,38,1.731,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,OCO,73.382,81.931522727,44,1.541,ocon,Force India,Esteban,Ocon,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,PER,73.37,83.806027777,36,1.529,perez,Force India,Sergio,Perez,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,RAI,72.543,84.542419354,31,0.702,raikkonen,Ferrari,Kimi,Räikkönen,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,RIC,71.841,83.443206896,29,0.0,ricciardo,Red Bull Racing,Daniel,Ricciardo,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,SAI,73.2,85.131033333,30,1.359,sainz,Renault,Carlos,Sainz,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,SIR,73.547,83.87504878,41,1.706,sirotkin,Williams,Sergey,Sirotkin,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,STR,74.011,85.461451612,31,2.17,stroll,Williams,Lance,Stroll,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,VAN,73.077,84.498916666,36,1.236,vandoorne,McLaren,Stoffel,Vandoorne,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,VER,72.035,82.054394736,38,0.194,max_verstappen,Red Bull Racing,Max,Verstappen,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP2,2018-05-27,VET,72.413,82.94027027,37,0.572,vettel,Ferrari,Sebastian,Vettel,22.7,38.1,68.1,1.2,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,ALO,73.279,88.379809523,21,1.493,alonso,McLaren,Fernando,Alonso,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,BOT,72.356,87.665434782,23,0.57,bottas,Mercedes,Valtteri,Bottas,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,ERI,74.221,86.239708333,24,2.435,ericsson,Sauber,Marcus,Ericsson,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,GAS,72.761,86.791736842,19,0.975,gasly,Toro Rosso,Pierre,Gasly,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,GRO,73.881,84.845294117,17,2.095,grosjean,Haas F1 Team,Romain,Grosjean,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,HAM,72.273,89.247130434,23,0.487,hamilton,Mercedes,Lewis,Hamilton,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,HAR,72.752,86.947238095,21,0.966,brendon_hartley,Toro Rosso,Brendon,Hartley,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,HUL,73.112,87.008318181,22,1.326,hulkenberg,Renault,Nico,Hulkenberg,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,LEC,73.644,87.145380952,21,1.858,leclerc,Sauber,Charles,Leclerc,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,MAG,74.192,87.513875,16,2.406,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,OCO,72.94,88.46955,20,1.154,ocon,Force India,Esteban,Ocon,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,PER,73.025,92.251947368,19,1.239,perez,Force India,Sergio,Perez,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,RAI,72.142,89.181545454,22,0.356,raikkonen,Ferrari,Kimi,Räikkönen,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,RIC,71.786,83.597947368,19,0.0,ricciardo,Red Bull Racing,Daniel,Ricciardo,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,SAI,72.85,87.4489,20,1.064,sainz,Renault,Carlos,Sainz,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,SIR,72.854,91.437315789,19,1.068,sirotkin,Williams,Sergey,Sirotkin,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,STR,73.595,85.864636363,22,1.809,stroll,Williams,Lance,Stroll,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,VAN,72.874,86.324666666,21,1.088,vandoorne,McLaren,Stoffel,Vandoorne,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,VER,71.787,84.111181818,11,0.001,max_verstappen,Red Bull Racing,Max,Verstappen,24.7,41.9,59.0,0.9,False
+2018,6,Monaco Grand Prix,Monte Carlo,FP3,2018-05-27,VET,72.023,87.0198,20,0.237,vettel,Ferrari,Sebastian,Vettel,24.7,41.9,59.0,0.9,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,ALO,73.9,89.225363636,22,0.598,alonso,McLaren,Fernando,Alonso,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,BOT,73.617,83.383629629,27,0.315,bottas,Mercedes,Valtteri,Bottas,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,ERI,75.386,89.1516,25,2.084,ericsson,Sauber,Marcus,Ericsson,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,GAS,75.004,84.780461538,26,1.702,gasly,Toro Rosso,Pierre,Gasly,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,GRO,75.119,82.772705882,17,1.817,grosjean,Haas F1 Team,Romain,Grosjean,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,HAM,73.39,83.45324,25,0.088,hamilton,Mercedes,Lewis,Hamilton,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,HAR,75.756,83.655484848,33,2.454,brendon_hartley,Toro Rosso,Brendon,Hartley,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,HUL,122.84,122.84,1,49.538,hulkenberg,Renault,Nico,Hulkenberg,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,LAT,77.145,88.757304347,23,3.843,nan,Force India,Nicholas,Latifi,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,LEC,75.439,87.10048,25,2.137,leclerc,Sauber,Charles,Leclerc,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,MAG,75.579,84.565823529,17,2.277,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,OCO,75.071,81.738916666,24,1.769,ocon,Force India,Esteban,Ocon,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,RAI,73.727,82.026173913,23,0.425,raikkonen,Ferrari,Kimi,Räikkönen,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,RIC,73.518,81.285263157,19,0.216,ricciardo,Red Bull Racing,Daniel,Ricciardo,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,SAI,74.116,83.562,19,0.814,sainz,Renault,Carlos,Sainz,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,SIR,75.768,84.153076923,26,2.466,sirotkin,Williams,Sergey,Sirotkin,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,STR,76.259,82.387230769,13,2.957,stroll,Williams,Lance,Stroll,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,VAN,74.311,85.4564,15,1.009,vandoorne,McLaren,Stoffel,Vandoorne,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,VER,73.302,85.486666666,21,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP1,2018-06-10,VET,73.574,82.298266666,15,0.272,vettel,Ferrari,Sebastian,Vettel,19.5,33.8,31.9,2.1,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,ALO,73.866,88.165555555,27,1.668,alonso,McLaren,Fernando,Alonso,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,BOT,73.061,82.938081081,37,0.863,bottas,Mercedes,Valtteri,Bottas,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,ERI,74.108,84.833421052,38,1.91,ericsson,Sauber,Marcus,Ericsson,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,GAS,74.486,83.334444444,36,2.288,gasly,Toro Rosso,Pierre,Gasly,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,GRO,73.62,84.184967741,31,1.422,grosjean,Haas F1 Team,Romain,Grosjean,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,HAM,72.777,83.228138888,36,0.579,hamilton,Mercedes,Lewis,Hamilton,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,HAR,73.889,82.659358974,39,1.691,brendon_hartley,Toro Rosso,Brendon,Hartley,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,HUL,73.967,83.718117647,34,1.769,hulkenberg,Renault,Nico,Hulkenberg,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,LEC,73.884,82.359694444,36,1.686,leclerc,Sauber,Charles,Leclerc,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,MAG,73.956,81.894972222,36,1.758,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,OCO,73.747,83.42225,36,1.549,ocon,Force India,Esteban,Ocon,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,PER,73.754,83.227833333,36,1.556,perez,Force India,Sergio,Perez,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,RAI,72.328,82.973230769,39,0.13,raikkonen,Ferrari,Kimi,Räikkönen,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,RIC,72.603,82.403214285,14,0.405,ricciardo,Red Bull Racing,Daniel,Ricciardo,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,SAI,74.433,85.021142857,7,2.235,sainz,Renault,Carlos,Sainz,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,SIR,74.782,83.95140625,32,2.584,sirotkin,Williams,Sergey,Sirotkin,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,STR,74.703,82.64754054,37,2.505,stroll,Williams,Lance,Stroll,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,VAN,74.167,90.517666666,12,1.969,vandoorne,McLaren,Stoffel,Vandoorne,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,VER,72.198,82.194857142,35,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP2,2018-06-10,VET,72.985,83.947666666,21,0.787,vettel,Ferrari,Sebastian,Vettel,22.4,41.9,29.5,1.9,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,ALO,73.225,84.346875,16,1.626,alonso,McLaren,Fernando,Alonso,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,BOT,72.255,83.23525,24,0.656,bottas,Mercedes,Valtteri,Bottas,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,ERI,73.925,88.514823529,17,2.326,ericsson,Sauber,Marcus,Ericsson,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,GAS,73.334,88.3651875,16,1.735,gasly,Toro Rosso,Pierre,Gasly,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,GRO,73.014,82.848923076,13,1.415,grosjean,Haas F1 Team,Romain,Grosjean,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,HAM,71.706,81.84155,20,0.107,hamilton,Mercedes,Lewis,Hamilton,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,HAR,73.076,87.347272727,22,1.477,brendon_hartley,Toro Rosso,Brendon,Hartley,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,HUL,72.946,87.203944444,18,1.347,hulkenberg,Renault,Nico,Hulkenberg,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,LEC,73.452,85.61225,16,1.853,leclerc,Sauber,Charles,Leclerc,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,MAG,73.488,85.473388888,18,1.889,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,OCO,73.064,85.14775,16,1.465,ocon,Force India,Esteban,Ocon,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,PER,72.903,87.2305,14,1.304,perez,Force India,Sergio,Perez,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,RAI,71.65,83.623,18,0.051,raikkonen,Ferrari,Kimi,Räikkönen,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,RIC,72.153,82.735461538,26,0.554,ricciardo,Red Bull Racing,Daniel,Ricciardo,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,SAI,73.331,83.437526315,19,1.732,sainz,Renault,Carlos,Sainz,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,SIR,73.818,86.7016,15,2.219,sirotkin,Williams,Sergey,Sirotkin,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,STR,73.968,83.9535,14,2.369,stroll,Williams,Lance,Stroll,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,VAN,73.034,86.459055555,18,1.435,vandoorne,McLaren,Stoffel,Vandoorne,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,VER,71.599,87.717416666,12,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,21.1,36.0,33.5,2.4,False
+2018,7,Canadian Grand Prix,Montréal,FP3,2018-06-10,VET,71.648,87.214,19,0.049,vettel,Ferrari,Sebastian,Vettel,21.1,36.0,33.5,2.4,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,ALO,94.862,104.8576,15,2.631,alonso,McLaren,Fernando,Alonso,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,BOT,92.371,108.77232,25,0.14,bottas,Mercedes,Valtteri,Bottas,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,ERI,94.592,116.262764705,17,2.361,ericsson,Sauber,Marcus,Ericsson,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,GAS,93.685,112.974111111,18,1.454,gasly,Toro Rosso,Pierre,Gasly,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,GRO,93.318,108.597588235,17,1.087,grosjean,Haas F1 Team,Romain,Grosjean,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,HAM,92.231,111.966428571,21,0.0,hamilton,Mercedes,Lewis,Hamilton,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,HAR,94.664,111.198428571,21,2.433,brendon_hartley,Toro Rosso,Brendon,Hartley,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,HUL,94.993,109.012842105,19,2.762,hulkenberg,Renault,Nico,Hulkenberg,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,LEC,94.513,110.0580625,16,2.282,leclerc,Sauber,Charles,Leclerc,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,MAG,94.108,110.834052631,19,1.877,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,OCO,94.484,112.349727272,11,2.253,ocon,Force India,Esteban,Ocon,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,PER,93.719,108.50747619,21,1.488,perez,Force India,Sergio,Perez,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,RAI,93.003,108.378263157,19,0.772,raikkonen,Ferrari,Kimi,Räikkönen,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,RIC,92.527,112.704611111,18,0.296,ricciardo,Red Bull Racing,Daniel,Ricciardo,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,SAI,94.258,108.50047619,21,2.027,sainz,Renault,Carlos,Sainz,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,SIR,95.105,113.918523809,21,2.874,sirotkin,Williams,Sergey,Sirotkin,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,STR,94.881,109.501083333,24,2.65,stroll,Williams,Lance,Stroll,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,VAN,95.021,112.3236,20,2.79,vandoorne,McLaren,Stoffel,Vandoorne,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,VER,93.331,113.533333333,12,1.1,max_verstappen,Red Bull Racing,Max,Verstappen,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP1,2018-06-24,VET,93.172,110.950666666,15,0.941,vettel,Ferrari,Sebastian,Vettel,26.0,47.2,35.6,2.1,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,ALO,94.4,109.47945,20,1.861,alonso,McLaren,Fernando,Alonso,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,BOT,94.156,110.9066,5,1.617,bottas,Mercedes,Valtteri,Bottas,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,GAS,94.535,107.61546875,32,1.996,gasly,Toro Rosso,Pierre,Gasly,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,GRO,93.699,107.657692307,26,1.16,grosjean,Haas F1 Team,Romain,Grosjean,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,HAM,92.539,110.488173913,23,0.0,hamilton,Mercedes,Lewis,Hamilton,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,HAR,95.697,108.146964285,28,3.158,brendon_hartley,Toro Rosso,Brendon,Hartley,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,HUL,95.067,105.470307692,26,2.528,hulkenberg,Renault,Nico,Hulkenberg,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,LEC,95.583,105.7882,30,3.044,leclerc,Sauber,Charles,Leclerc,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,MAG,94.457,108.285933333,30,1.918,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,OCO,95.705,110.903681818,22,3.166,ocon,Force India,Esteban,Ocon,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,PER,96.08,114.4557,10,3.541,perez,Force India,Sergio,Perez,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,RAI,93.426,113.201923076,26,0.887,raikkonen,Ferrari,Kimi,Räikkönen,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,RIC,93.243,105.35276923,26,0.704,ricciardo,Red Bull Racing,Daniel,Ricciardo,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,SAI,95.086,106.272633333,30,2.547,sainz,Renault,Carlos,Sainz,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,SIR,95.97,109.24148387,31,3.431,sirotkin,Williams,Sergey,Sirotkin,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,STR,95.936,108.065032258,31,3.397,stroll,Williams,Lance,Stroll,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,VAN,95.172,109.457625,24,2.633,vandoorne,McLaren,Stoffel,Vandoorne,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,VER,93.271,106.9079,20,0.732,max_verstappen,Red Bull Racing,Max,Verstappen,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP2,2018-06-24,VET,93.689,106.7084375,32,1.15,vettel,Ferrari,Sebastian,Vettel,28.2,49.3,35.9,2.9,False
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,ALO,96.365,96.365,1,2.699,alonso,McLaren,Fernando,Alonso,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,BOT,93.666,105.234,2,0.0,bottas,Mercedes,Valtteri,Bottas,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,ERI,98.45,107.0045,2,4.784,ericsson,Sauber,Marcus,Ericsson,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,GAS,98.317,112.812,3,4.651,gasly,Toro Rosso,Pierre,Gasly,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,HAM,100.743,119.4015,2,7.077,hamilton,Mercedes,Lewis,Hamilton,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,HUL,110.976,110.976,1,17.31,hulkenberg,Renault,Nico,Hulkenberg,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,LEC,95.012,113.3545,2,1.346,leclerc,Sauber,Charles,Leclerc,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,OCO,100.087,110.766,3,6.421,ocon,Force India,Esteban,Ocon,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,PER,99.641,108.729,3,5.975,perez,Force India,Sergio,Perez,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,RAI,109.711,110.4655,2,16.045,raikkonen,Ferrari,Kimi,Räikkönen,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,RIC,99.738,106.1225,2,6.072,ricciardo,Red Bull Racing,Daniel,Ricciardo,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,SAI,94.953,105.782,2,1.287,sainz,Renault,Carlos,Sainz,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,SIR,119.6,126.931333333,3,25.934,sirotkin,Williams,Sergey,Sirotkin,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,STR,122.399,130.854,2,28.733,stroll,Williams,Lance,Stroll,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,VAN,97.547,97.547,1,3.881,vandoorne,McLaren,Stoffel,Vandoorne,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,VER,124.242,126.8945,2,30.576,max_verstappen,Red Bull Racing,Max,Verstappen,21.7,29.7,77.5,1.9,True
+2018,8,French Grand Prix,Le Castellet,FP3,2018-06-24,VET,96.756,108.66025,4,3.09,vettel,Ferrari,Sebastian,Vettel,21.7,29.7,77.5,1.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,ALO,66.612,77.62856,25,1.773,alonso,McLaren,Fernando,Alonso,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,BOT,64.966,76.865305555,36,0.127,bottas,Mercedes,Valtteri,Bottas,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,ERI,66.4,79.762857142,28,1.561,ericsson,Sauber,Marcus,Ericsson,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,GAS,66.394,77.389566666,30,1.555,gasly,Toro Rosso,Pierre,Gasly,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,GRO,66.028,76.74,27,1.189,grosjean,Haas F1 Team,Romain,Grosjean,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,HAM,64.839,77.304472222,36,0.0,hamilton,Mercedes,Lewis,Hamilton,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,HAR,66.871,77.641525,40,2.032,brendon_hartley,Toro Rosso,Brendon,Hartley,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,HUL,66.479,78.572774193,31,1.64,hulkenberg,Renault,Nico,Hulkenberg,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,KUB,67.424,75.359294117,34,2.585,nan,Williams,Robert,Kubica,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,LEC,66.215,80.628777777,27,1.376,leclerc,Sauber,Charles,Leclerc,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,MAG,66.404,76.1025,20,1.565,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,OCO,66.055,76.3432,35,1.216,ocon,Force India,Esteban,Ocon,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,PER,66.455,76.44327027,37,1.616,perez,Force India,Sergio,Perez,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,RAI,65.776,74.559115384,26,0.937,raikkonen,Ferrari,Kimi,Räikkönen,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,RIC,65.483,79.320166666,18,0.644,ricciardo,Red Bull Racing,Daniel,Ricciardo,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,SAI,66.427,80.39848,25,1.588,sainz,Renault,Carlos,Sainz,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,STR,66.567,79.29637037,27,1.728,stroll,Williams,Lance,Stroll,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,VAN,66.698,79.501230769,26,1.859,vandoorne,McLaren,Stoffel,Vandoorne,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,VER,65.072,75.507473684,38,0.233,max_verstappen,Red Bull Racing,Max,Verstappen,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP1,2018-07-01,VET,65.18,79.77792,25,0.341,vettel,Ferrari,Sebastian,Vettel,19.8,26.8,68.4,1.2,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,ALO,66.429,74.706642857,28,1.85,alonso,McLaren,Fernando,Alonso,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,BOT,64.755,75.210131578,38,0.176,bottas,Mercedes,Valtteri,Bottas,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,ERI,66.199,77.08004,25,1.62,ericsson,Sauber,Marcus,Ericsson,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,GAS,65.758,74.057148148,27,1.179,gasly,Toro Rosso,Pierre,Gasly,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,GRO,65.429,76.803628571,35,0.85,grosjean,Haas F1 Team,Romain,Grosjean,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,HAM,64.579,77.831705882,34,0.0,hamilton,Mercedes,Lewis,Hamilton,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,HAR,66.332,74.36044,50,1.753,brendon_hartley,Toro Rosso,Brendon,Hartley,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,HUL,66.273,72.643487179,39,1.694,hulkenberg,Renault,Nico,Hulkenberg,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,LEC,66.096,75.7364,25,1.517,leclerc,Sauber,Charles,Leclerc,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,MAG,65.559,75.071162162,37,0.98,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,OCO,66.133,75.427421052,38,1.554,ocon,Force India,Esteban,Ocon,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,PER,66.354,74.959813953,43,1.775,perez,Force India,Sergio,Perez,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,RAI,65.265,76.201729729,37,0.686,raikkonen,Ferrari,Kimi,Räikkönen,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,RIC,65.031,75.245860465,43,0.452,ricciardo,Red Bull Racing,Daniel,Ricciardo,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,SAI,65.999,76.16175,32,1.42,sainz,Renault,Carlos,Sainz,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,SIR,66.326,75.612177777,45,1.747,sirotkin,Williams,Sergey,Sirotkin,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,STR,66.626,73.805282051,39,2.047,stroll,Williams,Lance,Stroll,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,VAN,65.93,75.778674418,43,1.351,vandoorne,McLaren,Stoffel,Vandoorne,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,VER,65.125,73.085822222,45,0.546,max_verstappen,Red Bull Racing,Max,Verstappen,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP2,2018-07-01,VET,64.815,74.048,49,0.236,vettel,Ferrari,Sebastian,Vettel,21.6,26.9,63.0,0.9,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,ALO,65.448,80.4506,15,1.378,alonso,McLaren,Fernando,Alonso,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,BOT,64.204,82.10495,20,0.134,bottas,Mercedes,Valtteri,Bottas,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,ERI,65.699,85.482083333,24,1.629,ericsson,Sauber,Marcus,Ericsson,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,GAS,65.264,80.456714285,21,1.194,gasly,Toro Rosso,Pierre,Gasly,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,GRO,64.916,82.783071428,14,0.846,grosjean,Haas F1 Team,Romain,Grosjean,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,HAM,64.099,81.022809523,21,0.029,hamilton,Mercedes,Lewis,Hamilton,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,HAR,65.705,81.01735,20,1.635,brendon_hartley,Toro Rosso,Brendon,Hartley,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,HUL,65.228,80.918125,16,1.158,hulkenberg,Renault,Nico,Hulkenberg,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,LEC,65.219,77.494,21,1.149,leclerc,Sauber,Charles,Leclerc,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,MAG,65.013,82.666538461,13,0.943,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,OCO,65.444,79.542277777,18,1.374,ocon,Force India,Esteban,Ocon,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,PER,65.502,80.174523809,21,1.432,perez,Force India,Sergio,Perez,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,RAI,64.47,78.442894736,19,0.4,raikkonen,Ferrari,Kimi,Räikkönen,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,RIC,64.891,82.652533333,15,0.821,ricciardo,Red Bull Racing,Daniel,Ricciardo,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,SAI,65.086,75.374263157,19,1.016,sainz,Renault,Carlos,Sainz,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,SIR,66.318,78.44675,20,2.248,sirotkin,Williams,Sergey,Sirotkin,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,STR,66.029,73.750428571,21,1.959,stroll,Williams,Lance,Stroll,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,VAN,65.837,82.488583333,12,1.767,vandoorne,McLaren,Stoffel,Vandoorne,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,VER,64.791,78.603545454,11,0.721,max_verstappen,Red Bull Racing,Max,Verstappen,22.3,31.0,63.8,1.1,True
+2018,9,Austrian Grand Prix,Spielberg,FP3,2018-07-01,VET,64.07,79.418894736,19,0.0,vettel,Ferrari,Sebastian,Vettel,22.3,31.0,63.8,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,ALO,90.322,111.872,14,2.835,alonso,McLaren,Fernando,Alonso,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,BOT,87.854,105.360956521,23,0.367,bottas,Mercedes,Valtteri,Bottas,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,ERI,89.942,114.71995238,21,2.455,ericsson,Sauber,Marcus,Ericsson,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,GAS,90.004,108.122875,24,2.517,gasly,Toro Rosso,Pierre,Gasly,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,GRO,89.352,101.33575,8,1.865,grosjean,Haas F1 Team,Romain,Grosjean,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,HAM,87.487,110.87295,20,0.0,hamilton,Mercedes,Lewis,Hamilton,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,HAR,90.749,108.136692307,26,3.262,brendon_hartley,Toro Rosso,Brendon,Hartley,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,HUL,90.701,109.778214285,14,3.214,hulkenberg,Renault,Nico,Hulkenberg,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,LEC,90.027,111.644608695,23,2.54,leclerc,Sauber,Charles,Leclerc,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,MAG,90.065,104.4552,15,2.578,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,OCO,89.815,108.011894736,19,2.328,ocon,Force India,Esteban,Ocon,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,PER,89.812,116.553157894,19,2.325,perez,Force India,Sergio,Perez,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,RAI,88.218,104.2982,20,0.731,raikkonen,Ferrari,Kimi,Räikkönen,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,RIC,88.144,103.8725,24,0.657,ricciardo,Red Bull Racing,Daniel,Ricciardo,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,SAI,90.358,103.604470588,17,2.871,sainz,Renault,Carlos,Sainz,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,SIR,91.017,115.109470588,17,3.53,sirotkin,Williams,Sergey,Sirotkin,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,STR,89.878,115.161428571,21,2.391,stroll,Williams,Lance,Stroll,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,VAN,90.416,105.429157894,19,2.929,vandoorne,McLaren,Stoffel,Vandoorne,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,VER,88.325,101.472947368,19,0.838,max_verstappen,Red Bull Racing,Max,Verstappen,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP1,2018-07-08,VET,87.998,107.554470588,17,0.511,vettel,Ferrari,Sebastian,Vettel,21.2,37.9,57.4,1.1,True
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,ALO,89.306,101.759925925,27,1.754,alonso,McLaren,Fernando,Alonso,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,BOT,87.909,101.364814814,27,0.357,bottas,Mercedes,Valtteri,Bottas,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,ERI,90.046,102.452777777,27,2.494,ericsson,Sauber,Marcus,Ericsson,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,GAS,89.831,107.445181818,11,2.279,gasly,Toro Rosso,Pierre,Gasly,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,HAM,87.739,104.509103448,29,0.187,hamilton,Mercedes,Lewis,Hamilton,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,HAR,90.404,102.55016129,31,2.852,brendon_hartley,Toro Rosso,Brendon,Hartley,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,HUL,89.354,100.8314,30,1.802,hulkenberg,Renault,Nico,Hulkenberg,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,LEC,89.557,104.05056,25,2.005,leclerc,Sauber,Charles,Leclerc,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,MAG,89.617,103.695448275,29,2.065,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,OCO,89.467,99.981107142,28,1.915,ocon,Force India,Esteban,Ocon,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,PER,89.522,101.511884615,26,1.97,perez,Force India,Sergio,Perez,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,RAI,88.045,100.663833333,30,0.493,raikkonen,Ferrari,Kimi,Räikkönen,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,RIC,88.408,102.21868,25,0.856,ricciardo,Red Bull Racing,Daniel,Ricciardo,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,SAI,89.563,102.034870967,31,2.011,sainz,Renault,Carlos,Sainz,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,SIR,90.103,102.638516129,31,2.551,sirotkin,Williams,Sergey,Sirotkin,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,STR,90.069,103.284766666,30,2.517,stroll,Williams,Lance,Stroll,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,VAN,90.121,103.720333333,27,2.569,vandoorne,McLaren,Stoffel,Vandoorne,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP2,2018-07-08,VET,87.552,101.102366666,30,0.0,vettel,Ferrari,Sebastian,Vettel,26.5,51.7,36.9,1.3,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,ALO,89.07,107.698384615,13,2.348,alonso,McLaren,Fernando,Alonso,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,BOT,87.364,112.738230769,13,0.642,bottas,Mercedes,Valtteri,Bottas,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,ERI,88.814,109.645076923,13,2.092,ericsson,Sauber,Marcus,Ericsson,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,GAS,90.05,90.05,1,3.328,gasly,Toro Rosso,Pierre,Gasly,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,GRO,88.554,103.800615384,13,1.832,grosjean,Haas F1 Team,Romain,Grosjean,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,HAM,86.722,114.735083333,12,0.0,hamilton,Mercedes,Lewis,Hamilton,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,HUL,89.094,108.170111111,9,2.372,hulkenberg,Renault,Nico,Hulkenberg,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,LEC,88.146,113.3102,15,1.424,leclerc,Sauber,Charles,Leclerc,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,MAG,88.418,115.187692307,13,1.696,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,OCO,88.917,113.806916666,12,2.195,ocon,Force India,Esteban,Ocon,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,PER,89.066,110.634583333,12,2.344,perez,Force India,Sergio,Perez,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,RAI,86.815,105.2925,10,0.093,raikkonen,Ferrari,Kimi,Räikkönen,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,RIC,88.018,107.179916666,12,1.296,ricciardo,Red Bull Racing,Daniel,Ricciardo,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,SAI,89.133,109.054916666,12,2.411,sainz,Renault,Carlos,Sainz,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,SIR,89.984,106.950454545,11,3.262,sirotkin,Williams,Sergey,Sirotkin,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,STR,89.829,112.388545454,11,3.107,stroll,Williams,Lance,Stroll,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,VAN,90.004,110.243692307,13,3.282,vandoorne,McLaren,Stoffel,Vandoorne,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,VER,88.012,103.434666666,18,1.29,max_verstappen,Red Bull Racing,Max,Verstappen,23.8,42.7,50.6,2.1,False
+2018,10,British Grand Prix,Silverstone,FP3,2018-07-08,VET,87.851,112.494,5,1.129,vettel,Ferrari,Sebastian,Vettel,23.8,42.7,50.6,2.1,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,ALO,75.544,88.0302,10,2.019,alonso,McLaren,Fernando,Alonso,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,BOT,73.903,87.379074074,27,0.378,bottas,Mercedes,Valtteri,Bottas,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,GAS,76.071,92.240785714,28,2.546,gasly,Toro Rosso,Pierre,Gasly,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,GIO,76.136,90.99,19,2.611,nan,Sauber,Antonio,Giovinazzi,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,GRO,74.691,89.5594,25,1.166,grosjean,Haas F1 Team,Romain,Grosjean,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,HAM,73.529,90.6485,26,0.004,hamilton,Mercedes,Lewis,Hamilton,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,HAR,75.864,88.56721875,32,2.339,brendon_hartley,Toro Rosso,Brendon,Hartley,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,HUL,75.282,90.516148148,27,1.757,hulkenberg,Renault,Nico,Hulkenberg,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,LAT,76.023,88.766238095,21,2.498,nan,Force India,Nicholas,Latifi,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,LEC,75.097,87.653,21,1.572,leclerc,Sauber,Charles,Leclerc,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,MAG,74.853,92.192416666,24,1.328,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,PER,75.415,87.31148,25,1.89,perez,Force India,Sergio,Perez,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,RAI,74.267,85.74385,20,0.742,raikkonen,Ferrari,Kimi,Räikkönen,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,RIC,73.525,91.613823529,17,0.0,ricciardo,Red Bull Racing,Daniel,Ricciardo,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,SAI,75.769,91.00475,8,2.244,sainz,Renault,Carlos,Sainz,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,SIR,75.876,95.258413793,29,2.351,sirotkin,Williams,Sergey,Sirotkin,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,STR,75.629,88.2766,25,2.104,stroll,Williams,Lance,Stroll,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,VAN,76.149,89.298,10,2.624,vandoorne,McLaren,Stoffel,Vandoorne,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,VER,73.714,82.438866666,30,0.189,max_verstappen,Red Bull Racing,Max,Verstappen,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP1,2018-07-22,VET,73.796,91.367105263,19,0.271,vettel,Ferrari,Sebastian,Vettel,28.1,41.2,32.5,1.2,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,ALO,74.836,92.405058823,34,1.751,alonso,McLaren,Fernando,Alonso,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,BOT,73.19,84.821444444,36,0.105,bottas,Mercedes,Valtteri,Bottas,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,ERI,74.783,89.55515625,32,1.698,ericsson,Sauber,Marcus,Ericsson,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,GAS,74.793,87.053951219,41,1.708,gasly,Toro Rosso,Pierre,Gasly,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,GRO,73.973,87.291870967,31,0.888,grosjean,Haas F1 Team,Romain,Grosjean,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,HAM,73.111,85.627861111,36,0.026,hamilton,Mercedes,Lewis,Hamilton,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,HAR,74.83,84.139333333,42,1.745,brendon_hartley,Toro Rosso,Brendon,Hartley,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,HUL,74.496,84.639714285,28,1.411,hulkenberg,Renault,Nico,Hulkenberg,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,LEC,74.374,86.947297297,37,1.289,leclerc,Sauber,Charles,Leclerc,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,MAG,74.189,90.066333333,33,1.104,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,OCO,74.508,89.996828571,35,1.423,ocon,Force India,Esteban,Ocon,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,PER,74.552,86.745117647,34,1.467,perez,Force India,Sergio,Perez,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,RAI,73.427,84.256105263,38,0.342,raikkonen,Ferrari,Kimi,Räikkönen,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,RIC,74.682,81.222030303,33,1.597,ricciardo,Red Bull Racing,Daniel,Ricciardo,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,SAI,74.592,85.321307692,39,1.507,sainz,Renault,Carlos,Sainz,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,SIR,75.408,89.857513513,37,2.323,sirotkin,Williams,Sergey,Sirotkin,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,STR,75.269,85.569848484,33,2.184,stroll,Williams,Lance,Stroll,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,VAN,75.454,90.522870967,31,2.369,vandoorne,McLaren,Stoffel,Vandoorne,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,VER,73.085,92.4575,14,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP2,2018-07-22,VET,73.31,84.669023255,43,0.225,vettel,Ferrari,Sebastian,Vettel,31.2,47.9,23.1,2.0,False
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,BOT,103.982,103.982,1,9.405,bottas,Mercedes,Valtteri,Bottas,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,ERI,95.0,99.222571428,7,0.423,ericsson,Sauber,Marcus,Ericsson,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,GAS,95.659,105.495,4,1.082,gasly,Toro Rosso,Pierre,Gasly,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,GRO,104.181,104.181,1,9.604,grosjean,Haas F1 Team,Romain,Grosjean,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,HAM,103.664,103.664,1,9.087,hamilton,Mercedes,Lewis,Hamilton,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,HAR,96.151,102.0175,4,1.574,brendon_hartley,Toro Rosso,Brendon,Hartley,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,HUL,96.873,99.259,2,2.296,hulkenberg,Renault,Nico,Hulkenberg,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,LEC,94.577,102.255166666,6,0.0,leclerc,Sauber,Charles,Leclerc,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,MAG,104.993,104.993,1,10.416,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,OCO,101.154,101.154,1,6.577,ocon,Force India,Esteban,Ocon,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,RAI,97.755,101.615,3,3.178,raikkonen,Ferrari,Kimi,Räikkönen,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,SAI,120.24,120.24,1,25.663,sainz,Renault,Carlos,Sainz,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,SIR,95.334,101.997285714,7,0.757,sirotkin,Williams,Sergey,Sirotkin,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,STR,98.393,107.8686,5,3.816,stroll,Williams,Lance,Stroll,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,VAN,104.403,104.403,1,9.826,vandoorne,McLaren,Stoffel,Vandoorne,19.3,23.6,90.0,1.0,True
+2018,11,German Grand Prix,Hockenheim,FP3,2018-07-22,VET,95.573,100.24825,4,0.996,vettel,Ferrari,Sebastian,Vettel,19.3,23.6,90.0,1.0,True
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,ALO,79.69,93.7343,20,2.077,alonso,McLaren,Fernando,Alonso,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,BOT,78.47,96.505294117,17,0.857,bottas,Mercedes,Valtteri,Bottas,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,ERI,80.697,105.426777777,9,3.084,ericsson,Sauber,Marcus,Ericsson,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,GAS,79.352,100.049576923,26,1.739,gasly,Toro Rosso,Pierre,Gasly,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,GIO,80.293,98.009481481,27,2.68,nan,Sauber,Antonio,Giovinazzi,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,GRO,78.975,94.470642857,14,1.362,grosjean,Haas F1 Team,Romain,Grosjean,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,HAM,78.036,94.985958333,24,0.423,hamilton,Mercedes,Lewis,Hamilton,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,HAR,79.841,100.019642857,28,2.228,brendon_hartley,Toro Rosso,Brendon,Hartley,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,HUL,79.025,96.960333333,9,1.412,hulkenberg,Renault,Nico,Hulkenberg,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,MAG,79.187,97.03816,25,1.574,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,OCO,80.065,92.973576923,26,2.452,ocon,Force India,Esteban,Ocon,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,PER,80.159,90.3025,22,2.546,perez,Force India,Sergio,Perez,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,RAI,77.948,91.320631578,19,0.335,raikkonen,Ferrari,Kimi,Räikkönen,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,RIC,77.613,86.458076923,26,0.0,ricciardo,Red Bull Racing,Daniel,Ricciardo,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,SAI,79.128,97.072666666,27,1.515,sainz,Renault,Carlos,Sainz,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,SIR,80.307,103.707875,24,2.694,sirotkin,Williams,Sergey,Sirotkin,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,STR,80.012,96.364689655,29,2.399,stroll,Williams,Lance,Stroll,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,VAN,80.151,97.274208333,24,2.538,vandoorne,McLaren,Stoffel,Vandoorne,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,VER,77.701,86.24076,25,0.088,max_verstappen,Red Bull Racing,Max,Verstappen,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP1,2018-07-29,VET,77.692,95.3909,20,0.079,vettel,Ferrari,Sebastian,Vettel,27.9,44.7,50.2,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,ALO,78.857,92.648470588,34,2.023,alonso,McLaren,Fernando,Alonso,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,BOT,77.868,90.551651162,43,1.034,bottas,Mercedes,Valtteri,Bottas,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,ERI,79.043,90.499657894,38,2.209,ericsson,Sauber,Marcus,Ericsson,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,GAS,78.518,89.5265,40,1.684,gasly,Toro Rosso,Pierre,Gasly,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,GRO,78.065,87.760771428,35,1.231,grosjean,Haas F1 Team,Romain,Grosjean,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,HAM,77.587,92.261897435,39,0.753,hamilton,Mercedes,Lewis,Hamilton,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,HAR,78.916,91.935236842,38,2.082,brendon_hartley,Toro Rosso,Brendon,Hartley,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,HUL,78.913,88.1612,20,2.079,hulkenberg,Renault,Nico,Hulkenberg,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,LEC,79.137,92.393147058,34,2.303,leclerc,Sauber,Charles,Leclerc,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,MAG,78.88,91.31253125,32,2.046,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,OCO,78.761,89.084789473,38,1.927,ocon,Force India,Esteban,Ocon,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,PER,78.85,89.089631578,38,2.016,perez,Force India,Sergio,Perez,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,RAI,77.153,88.777621621,37,0.319,raikkonen,Ferrari,Kimi,Räikkönen,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,RIC,77.061,88.26330303,33,0.227,ricciardo,Red Bull Racing,Daniel,Ricciardo,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,SAI,78.495,88.597457142,35,1.661,sainz,Renault,Carlos,Sainz,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,SIR,79.77,91.485119047,42,2.936,sirotkin,Williams,Sergey,Sirotkin,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,STR,79.645,89.194428571,42,2.811,stroll,Williams,Lance,Stroll,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,VAN,79.712,92.641147058,34,2.878,vandoorne,McLaren,Stoffel,Vandoorne,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,VER,76.908,86.975354838,31,0.074,max_verstappen,Red Bull Racing,Max,Verstappen,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP2,2018-07-29,VET,76.834,90.367785714,42,0.0,vettel,Ferrari,Sebastian,Vettel,29.5,44.5,43.5,1.4,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,ALO,78.467,98.220636363,11,2.297,alonso,McLaren,Fernando,Alonso,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,BOT,76.229,101.644923076,13,0.059,bottas,Mercedes,Valtteri,Bottas,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,ERI,78.842,104.521066666,15,2.672,ericsson,Sauber,Marcus,Ericsson,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,GAS,78.139,99.268277777,18,1.969,gasly,Toro Rosso,Pierre,Gasly,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,GRO,78.084,93.584125,16,1.914,grosjean,Haas F1 Team,Romain,Grosjean,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,HAM,76.749,108.127071428,14,0.579,hamilton,Mercedes,Lewis,Hamilton,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,HAR,78.252,98.9418125,16,2.082,brendon_hartley,Toro Rosso,Brendon,Hartley,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,HUL,78.083,100.298333333,15,1.913,hulkenberg,Renault,Nico,Hulkenberg,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,LEC,78.376,104.164625,16,2.206,leclerc,Sauber,Charles,Leclerc,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,MAG,78.23,95.083285714,14,2.06,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,OCO,78.512,99.542941176,17,2.342,ocon,Force India,Esteban,Ocon,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,PER,78.962,97.360266666,15,2.792,perez,Force India,Sergio,Perez,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,RAI,76.373,96.772,13,0.203,raikkonen,Ferrari,Kimi,Räikkönen,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,RIC,76.803,93.234857142,7,0.633,ricciardo,Red Bull Racing,Daniel,Ricciardo,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,SAI,77.754,100.9315,14,1.584,sainz,Renault,Carlos,Sainz,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,SIR,78.63,104.073466666,15,2.46,sirotkin,Williams,Sergey,Sirotkin,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,STR,79.132,99.327625,16,2.962,stroll,Williams,Lance,Stroll,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,VAN,78.789,97.877545454,11,2.619,vandoorne,McLaren,Stoffel,Vandoorne,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,VER,76.946,97.277181818,11,0.776,max_verstappen,Red Bull Racing,Max,Verstappen,28.4,55.3,52.1,1.2,False
+2018,12,Hungarian Grand Prix,Budapest,FP3,2018-07-29,VET,76.17,98.517923076,13,0.0,vettel,Ferrari,Sebastian,Vettel,28.4,55.3,52.1,1.2,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,BOT,104.724,113.331238095,21,0.366,bottas,Mercedes,Valtteri,Bottas,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,ERI,106.557,115.8965,12,2.199,ericsson,Sauber,Marcus,Ericsson,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,GAS,106.3,117.628578947,19,1.942,gasly,Toro Rosso,Pierre,Gasly,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,GRO,106.387,115.6278125,16,2.029,grosjean,Haas F1 Team,Romain,Grosjean,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,HAM,104.676,115.011,18,0.318,hamilton,Mercedes,Lewis,Hamilton,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,HAR,106.932,117.286947368,19,2.574,brendon_hartley,Toro Rosso,Brendon,Hartley,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,HUL,105.951,118.973066666,15,1.593,hulkenberg,Renault,Nico,Hulkenberg,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,LEC,106.554,121.8044,15,2.196,leclerc,Sauber,Charles,Leclerc,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,MAG,107.012,119.100764705,17,2.654,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,NOR,107.364,121.953619047,21,3.006,nan,McLaren,Lando,Norris,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,OCO,105.786,116.561529411,17,1.428,ocon,Force India,Esteban,Ocon,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,PER,106.169,117.321470588,17,1.811,perez,Force India,Sergio,Perez,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,RAI,104.718,112.707846153,13,0.36,raikkonen,Ferrari,Kimi,Räikkönen,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,RIC,105.558,109.4115,2,1.2,ricciardo,Red Bull Racing,Daniel,Ricciardo,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,SAI,106.21,117.7888,15,1.852,sainz,Renault,Carlos,Sainz,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,SIR,107.367,116.949294117,17,3.009,sirotkin,Williams,Sergey,Sirotkin,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,STR,106.965,117.593619047,21,2.607,stroll,Williams,Lance,Stroll,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,VAN,107.452,125.0955,8,3.094,vandoorne,McLaren,Stoffel,Vandoorne,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,VER,104.509,116.5511875,16,0.151,max_verstappen,Red Bull Racing,Max,Verstappen,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP1,2018-08-26,VET,104.358,115.595714285,14,0.0,vettel,Ferrari,Sebastian,Vettel,15.3,22.8,72.8,1.6,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,ALO,106.153,117.800541666,24,2.798,alonso,McLaren,Fernando,Alonso,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,BOT,103.803,112.96176,25,0.448,bottas,Mercedes,Valtteri,Bottas,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,ERI,105.537,112.270111111,18,2.182,ericsson,Sauber,Marcus,Ericsson,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,GAS,106.08,116.971413793,29,2.725,gasly,Toro Rosso,Pierre,Gasly,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,GRO,105.817,115.261230769,26,2.462,grosjean,Haas F1 Team,Romain,Grosjean,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,HAM,103.523,116.86268,25,0.168,hamilton,Mercedes,Lewis,Hamilton,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,HAR,106.337,114.286419354,31,2.982,brendon_hartley,Toro Rosso,Brendon,Hartley,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,HUL,105.753,114.63168,25,2.398,hulkenberg,Renault,Nico,Hulkenberg,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,LEC,105.622,116.8182,20,2.267,leclerc,Sauber,Charles,Leclerc,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,MAG,106.078,117.693076923,26,2.723,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,OCO,105.935,112.591055555,18,2.58,ocon,Racing Point,Esteban,Ocon,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,PER,104.662,115.497166666,24,1.307,perez,Racing Point,Sergio,Perez,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,RAI,103.355,113.959538461,26,0.0,raikkonen,Ferrari,Kimi,Räikkönen,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,RIC,104.25,113.04132,25,0.895,ricciardo,Red Bull Racing,Daniel,Ricciardo,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,SAI,105.481,113.39492,25,2.126,sainz,Renault,Carlos,Sainz,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,SIR,106.451,115.193193548,31,3.096,sirotkin,Williams,Sergey,Sirotkin,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,STR,106.47,114.882838709,31,3.115,stroll,Williams,Lance,Stroll,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,VAN,106.496,118.360238095,21,3.141,vandoorne,McLaren,Stoffel,Vandoorne,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,VER,104.046,111.601809523,21,0.691,max_verstappen,Red Bull Racing,Max,Verstappen,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP2,2018-08-26,VET,104.129,115.198535714,28,0.774,vettel,Ferrari,Sebastian,Vettel,17.2,27.3,48.6,1.4,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,ALO,106.942,117.86690909,11,4.281,alonso,McLaren,Fernando,Alonso,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,BOT,103.464,117.642,9,0.803,bottas,Mercedes,Valtteri,Bottas,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,ERI,105.536,110.827166666,6,2.875,ericsson,Sauber,Marcus,Ericsson,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,GAS,106.182,116.46275,12,3.521,gasly,Toro Rosso,Pierre,Gasly,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,GRO,105.814,117.745571428,7,3.153,grosjean,Haas F1 Team,Romain,Grosjean,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,HAM,102.798,119.823333333,6,0.137,hamilton,Mercedes,Lewis,Hamilton,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,HAR,106.259,115.754846153,13,3.598,brendon_hartley,Toro Rosso,Brendon,Hartley,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,HUL,105.464,114.669642857,14,2.803,hulkenberg,Renault,Nico,Hulkenberg,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,LEC,104.963,119.284333333,9,2.302,leclerc,Sauber,Charles,Leclerc,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,MAG,106.087,117.160571428,7,3.426,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,OCO,105.485,120.520875,8,2.824,ocon,Racing Point,Esteban,Ocon,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,PER,105.341,119.01,6,2.68,perez,Racing Point,Sergio,Perez,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,RAI,102.724,118.4145,12,0.063,raikkonen,Ferrari,Kimi,Räikkönen,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,RIC,104.479,117.433142857,7,1.818,ricciardo,Red Bull Racing,Daniel,Ricciardo,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,SAI,105.925,121.066666666,9,3.264,sainz,Renault,Carlos,Sainz,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,SIR,106.63,119.469666666,6,3.969,sirotkin,Williams,Sergey,Sirotkin,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,STR,106.502,120.36,6,3.841,stroll,Williams,Lance,Stroll,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,VAN,107.061,119.3496,10,4.4,vandoorne,McLaren,Stoffel,Vandoorne,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,VER,104.048,110.8306,5,1.387,max_verstappen,Red Bull Racing,Max,Verstappen,12.8,22.0,66.8,1.7,False
+2018,13,Belgian Grand Prix,Spa-Francorchamps,FP3,2018-08-26,VET,102.661,115.954111111,9,0.0,vettel,Ferrari,Sebastian,Vettel,12.8,22.0,66.8,1.7,False
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,ALO,97.426,106.968222222,9,3.426,alonso,McLaren,Fernando,Alonso,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,BOT,96.238,101.693,6,2.238,bottas,Mercedes,Valtteri,Bottas,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,ERI,97.79,102.837111111,9,3.79,ericsson,Sauber,Marcus,Ericsson,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,GAS,95.438,103.2813125,16,1.438,gasly,Toro Rosso,Pierre,Gasly,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,GRO,97.683,102.0011,10,3.683,grosjean,Haas F1 Team,Romain,Grosjean,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,HAM,96.546,100.4675,4,2.546,hamilton,Mercedes,Lewis,Hamilton,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,HAR,95.024,103.294571428,14,1.024,brendon_hartley,Toro Rosso,Brendon,Hartley,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,HUL,96.107,103.1299,10,2.107,hulkenberg,Renault,Nico,Hulkenberg,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,LEC,96.648,103.49625,8,2.648,leclerc,Sauber,Charles,Leclerc,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,MAG,97.066,102.6784,10,3.066,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,NOR,98.282,107.347666666,6,4.282,nan,McLaren,Lando,Norris,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,OCO,94.593,102.636928571,14,0.593,ocon,Racing Point,Esteban,Ocon,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,PER,94.0,100.379066666,15,0.0,perez,Racing Point,Sergio,Perez,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,RAI,94.55,102.5265,24,0.55,raikkonen,Ferrari,Kimi,Räikkönen,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,RIC,95.207,100.886555555,9,1.207,ricciardo,Red Bull Racing,Daniel,Ricciardo,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,SAI,95.995,103.050333333,12,1.995,sainz,Renault,Carlos,Sainz,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,SIR,97.929,101.01075,8,3.929,sirotkin,Williams,Sergey,Sirotkin,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,STR,98.253,108.743833333,6,4.253,stroll,Williams,Lance,Stroll,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,VER,95.665,101.117285714,7,1.665,max_verstappen,Red Bull Racing,Max,Verstappen,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP1,2018-09-02,VET,97.867,106.9445,2,3.867,vettel,Ferrari,Sebastian,Vettel,18.5,22.3,90.5,1.1,True
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,ALO,83.741,94.329722222,18,2.636,alonso,McLaren,Fernando,Alonso,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,BOT,81.803,92.13584375,32,0.698,bottas,Mercedes,Valtteri,Bottas,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,GAS,83.402,93.258290322,31,2.297,gasly,Toro Rosso,Pierre,Gasly,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,GRO,83.077,91.790925925,27,1.972,grosjean,Haas F1 Team,Romain,Grosjean,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,HAM,81.392,91.227107142,28,0.287,hamilton,Mercedes,Lewis,Hamilton,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,HAR,83.531,93.112785714,14,2.426,brendon_hartley,Toro Rosso,Brendon,Hartley,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,HUL,83.063,90.04036,25,1.958,hulkenberg,Renault,Nico,Hulkenberg,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,LEC,82.965,96.525642857,14,1.86,leclerc,Sauber,Charles,Leclerc,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,MAG,83.233,93.423083333,24,2.128,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,OCO,82.93,92.196074074,27,1.825,ocon,Racing Point,Esteban,Ocon,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,PER,82.942,91.321724137,29,1.837,perez,Racing Point,Sergio,Perez,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,RAI,81.375,91.920111111,27,0.27,raikkonen,Ferrari,Kimi,Räikkönen,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,RIC,82.296,95.99104,25,1.191,ricciardo,Red Bull Racing,Daniel,Ricciardo,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,SAI,83.193,91.866777777,27,2.088,sainz,Renault,Carlos,Sainz,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,SIR,83.514,96.2254,25,2.409,sirotkin,Williams,Sergey,Sirotkin,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,STR,83.566,92.48188,25,2.461,stroll,Williams,Lance,Stroll,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,VAN,84.084,93.634884615,26,2.979,vandoorne,McLaren,Stoffel,Vandoorne,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,VER,82.154,91.09156,25,1.049,max_verstappen,Red Bull Racing,Max,Verstappen,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP2,2018-09-02,VET,81.105,94.784565217,23,0.0,vettel,Ferrari,Sebastian,Vettel,22.3,28.0,61.9,1.6,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,ALO,82.892,93.787736842,19,2.383,alonso,McLaren,Fernando,Alonso,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,BOT,81.112,96.83,15,0.603,bottas,Mercedes,Valtteri,Bottas,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,ERI,82.882,93.693090909,22,2.373,ericsson,Sauber,Marcus,Ericsson,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,GAS,82.631,94.956705882,17,2.122,gasly,Toro Rosso,Pierre,Gasly,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,GRO,82.357,94.252,13,1.848,grosjean,Haas F1 Team,Romain,Grosjean,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,HAM,80.59,97.551,11,0.081,hamilton,Mercedes,Lewis,Hamilton,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,HAR,83.164,94.12775,16,2.655,brendon_hartley,Toro Rosso,Brendon,Hartley,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,HUL,83.149,95.43125,8,2.64,hulkenberg,Renault,Nico,Hulkenberg,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,LEC,82.313,99.609214285,14,1.804,leclerc,Sauber,Charles,Leclerc,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,MAG,82.011,95.800666666,12,1.502,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,OCO,82.055,93.878642857,14,1.546,ocon,Racing Point,Esteban,Ocon,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,PER,82.486,95.38690909,11,1.977,perez,Racing Point,Sergio,Perez,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,RAI,80.682,95.144846153,13,0.173,raikkonen,Ferrari,Kimi,Räikkönen,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,RIC,82.31,92.703166666,12,1.801,ricciardo,Red Bull Racing,Daniel,Ricciardo,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,SAI,82.737,95.505384615,13,2.228,sainz,Renault,Carlos,Sainz,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,SIR,82.778,93.808352941,17,2.269,sirotkin,Williams,Sergey,Sirotkin,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,STR,82.86,91.284,15,2.351,stroll,Williams,Lance,Stroll,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,VAN,82.987,94.523538461,13,2.478,vandoorne,McLaren,Stoffel,Vandoorne,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,VER,81.388,100.90990909,11,0.879,max_verstappen,Red Bull Racing,Max,Verstappen,18.8,28.6,76.6,1.4,False
+2018,14,Italian Grand Prix,Monza,FP3,2018-09-02,VET,80.509,92.575785714,14,0.0,vettel,Ferrari,Sebastian,Vettel,18.8,28.6,76.6,1.4,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,ALO,102.63,118.203222222,18,2.919,alonso,McLaren,Fernando,Alonso,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,BOT,101.429,115.758,25,1.718,bottas,Mercedes,Valtteri,Bottas,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,ERI,102.408,114.906785714,14,2.697,ericsson,Sauber,Marcus,Ericsson,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,GAS,103.24,122.8083,20,3.529,gasly,Toro Rosso,Pierre,Gasly,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,GRO,102.108,118.203117647,17,2.397,grosjean,Haas F1 Team,Romain,Grosjean,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,HAM,101.232,112.874181818,22,1.521,hamilton,Mercedes,Lewis,Hamilton,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,HAR,103.485,119.733923076,26,3.774,brendon_hartley,Toro Rosso,Brendon,Hartley,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,HUL,101.105,113.354238095,21,1.394,hulkenberg,Renault,Nico,Hulkenberg,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,LEC,102.035,114.820785714,14,2.324,leclerc,Sauber,Charles,Leclerc,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,MAG,102.452,120.0011875,16,2.741,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,OCO,103.177,114.596368421,19,3.466,ocon,Racing Point,Esteban,Ocon,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,PER,102.412,117.470857142,21,2.701,perez,Racing Point,Sergio,Perez,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,RAI,100.486,119.900117647,17,0.775,raikkonen,Ferrari,Kimi,Räikkönen,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,RIC,99.711,113.961260869,23,0.0,ricciardo,Red Bull Racing,Daniel,Ricciardo,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,SAI,101.329,117.395823529,17,1.618,sainz,Renault,Carlos,Sainz,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,SIR,104.036,117.633894736,19,4.325,sirotkin,Williams,Sergey,Sirotkin,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,STR,103.849,118.3326,25,4.138,stroll,Williams,Lance,Stroll,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,VAN,105.16,121.42775,8,5.449,vandoorne,McLaren,Stoffel,Vandoorne,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,VER,99.912,115.394434782,23,0.201,max_verstappen,Red Bull Racing,Max,Verstappen,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP1,2018-09-16,VET,99.997,118.206736842,19,0.286,vettel,Ferrari,Sebastian,Vettel,31.6,41.8,60.4,2.9,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,ALO,100.459,114.545615384,26,1.76,alonso,McLaren,Fernando,Alonso,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,BOT,99.368,116.483413793,29,0.669,bottas,Mercedes,Valtteri,Bottas,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,ERI,100.812,112.35775862,29,2.113,ericsson,Sauber,Marcus,Ericsson,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,GAS,101.615,113.856766666,30,2.916,gasly,Toro Rosso,Pierre,Gasly,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,GRO,100.384,113.162482758,29,1.685,grosjean,Haas F1 Team,Romain,Grosjean,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,HAM,98.71,109.339846153,13,0.011,hamilton,Mercedes,Lewis,Hamilton,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,HAR,101.542,116.247970588,34,2.843,brendon_hartley,Toro Rosso,Brendon,Hartley,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,HUL,100.668,112.67253125,32,1.969,hulkenberg,Renault,Nico,Hulkenberg,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,LEC,101.062,114.204,33,2.363,leclerc,Sauber,Charles,Leclerc,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,MAG,101.154,115.729285714,28,2.455,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,OCO,100.87,114.635933333,30,2.171,ocon,Racing Point,Esteban,Ocon,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,PER,100.774,115.436461538,26,2.075,perez,Racing Point,Sergio,Perez,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,RAI,98.699,112.756933333,30,0.0,raikkonen,Ferrari,Kimi,Räikkönen,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,RIC,99.309,112.54037931,29,0.61,ricciardo,Red Bull Racing,Daniel,Ricciardo,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,SAI,100.274,112.4,33,1.575,sainz,Renault,Carlos,Sainz,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,SIR,102.181,117.35830303,33,3.482,sirotkin,Williams,Sergey,Sirotkin,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,STR,102.141,120.430285714,14,3.442,stroll,Williams,Lance,Stroll,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,VAN,101.164,117.021,28,2.465,vandoorne,McLaren,Stoffel,Vandoorne,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,VER,99.221,114.455541666,24,0.522,max_verstappen,Red Bull Racing,Max,Verstappen,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP2,2018-09-16,VET,100.633,117.358,9,1.934,vettel,Ferrari,Sebastian,Vettel,30.0,34.8,68.9,1.8,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,ALO,100.254,121.006571428,7,2.2,alonso,McLaren,Fernando,Alonso,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,BOT,98.603,118.606692307,13,0.549,bottas,Mercedes,Valtteri,Bottas,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,ERI,101.953,112.99,10,3.899,ericsson,Sauber,Marcus,Ericsson,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,GAS,100.686,115.00575,8,2.632,gasly,Toro Rosso,Pierre,Gasly,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,GRO,99.747,116.0589,10,1.693,grosjean,Haas F1 Team,Romain,Grosjean,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,HAM,98.558,111.491888888,9,0.504,hamilton,Mercedes,Lewis,Hamilton,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,HAR,101.562,123.982307692,13,3.508,brendon_hartley,Toro Rosso,Brendon,Hartley,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,HUL,100.45,116.2685,14,2.396,hulkenberg,Renault,Nico,Hulkenberg,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,LEC,100.915,121.5706,15,2.861,leclerc,Sauber,Charles,Leclerc,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,MAG,100.559,121.8775,10,2.505,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,OCO,100.073,116.034333333,9,2.019,ocon,Racing Point,Esteban,Ocon,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,PER,100.231,114.01525,8,2.177,perez,Racing Point,Sergio,Perez,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,RAI,98.416,114.7495,12,0.362,raikkonen,Ferrari,Kimi,Räikkönen,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,RIC,99.186,110.5981,10,1.132,ricciardo,Red Bull Racing,Daniel,Ricciardo,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,SAI,100.591,119.629166666,12,2.537,sainz,Renault,Carlos,Sainz,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,SIR,101.884,114.9676,15,3.83,sirotkin,Williams,Sergey,Sirotkin,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,STR,102.22,117.349933333,15,4.166,stroll,Williams,Lance,Stroll,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,VAN,100.798,118.155454545,11,2.744,vandoorne,McLaren,Stoffel,Vandoorne,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,VER,99.265,118.141285714,7,1.211,max_verstappen,Red Bull Racing,Max,Verstappen,29.9,36.2,66.9,2.4,False
+2018,15,Singapore Grand Prix,Singapore,FP3,2018-09-16,VET,98.054,114.338666666,15,0.0,vettel,Ferrari,Sebastian,Vettel,29.9,36.2,66.9,2.4,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,BOT,94.999,106.40508,25,0.511,bottas,Mercedes,Valtteri,Bottas,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,GAS,96.944,107.515761904,21,2.456,gasly,Toro Rosso,Pierre,Gasly,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,GIO,96.712,110.589941176,17,2.224,nan,Sauber,Antonio,Giovinazzi,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,GRO,96.816,108.116473684,19,2.328,grosjean,Haas F1 Team,Romain,Grosjean,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,HAM,94.818,108.056277777,18,0.33,hamilton,Mercedes,Lewis,Hamilton,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,HAR,97.944,105.600666666,24,3.456,brendon_hartley,Toro Rosso,Brendon,Hartley,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,HUL,96.274,113.255692307,13,1.786,hulkenberg,Renault,Nico,Hulkenberg,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,LAT,97.206,114.867210526,19,2.718,nan,Racing Point,Nicholas,Latifi,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,LEC,97.054,112.73485,20,2.566,leclerc,Sauber,Charles,Leclerc,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,MAG,96.196,109.039764705,17,1.708,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,MAR,97.183,109.708529411,17,2.695,nan,Renault,Artem,Markelov,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,NOR,97.022,112.21855,20,2.534,nan,McLaren,Lando,Norris,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,OCO,95.663,107.44775,20,1.175,ocon,Racing Point,Esteban,Ocon,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,RAI,95.696,109.715142857,14,1.208,raikkonen,Ferrari,Kimi,Räikkönen,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,RIC,95.524,112.3495,8,1.036,ricciardo,Red Bull Racing,Daniel,Ricciardo,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,SIR,97.225,112.95368421,19,2.737,sirotkin,Williams,Sergey,Sirotkin,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,STR,99.137,116.794375,8,4.649,stroll,Williams,Lance,Stroll,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,VAN,97.187,111.896727272,22,2.699,vandoorne,McLaren,Stoffel,Vandoorne,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,VER,94.538,109.456352941,17,0.05,max_verstappen,Red Bull Racing,Max,Verstappen,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP1,2018-09-30,VET,94.488,111.151785714,14,0.0,vettel,Ferrari,Sebastian,Vettel,22.2,28.4,60.5,1.3,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,ALO,96.074,108.850033333,30,2.689,alonso,McLaren,Fernando,Alonso,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,BOT,93.584,106.3139,30,0.199,bottas,Mercedes,Valtteri,Bottas,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,ERI,95.295,108.05240625,32,1.91,ericsson,Sauber,Marcus,Ericsson,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,GAS,95.137,106.4922,25,1.752,gasly,Toro Rosso,Pierre,Gasly,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,GRO,95.911,106.25684375,32,2.526,grosjean,Haas F1 Team,Romain,Grosjean,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,HAM,93.385,104.807566666,30,0.0,hamilton,Mercedes,Lewis,Hamilton,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,HAR,96.024,105.155307692,26,2.639,brendon_hartley,Toro Rosso,Brendon,Hartley,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,HUL,95.568,104.722875,32,2.183,hulkenberg,Renault,Nico,Hulkenberg,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,LEC,95.432,109.153137931,29,2.047,leclerc,Sauber,Charles,Leclerc,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,MAG,95.331,107.320965517,29,1.946,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,OCO,95.147,107.435931034,29,1.762,ocon,Racing Point,Esteban,Ocon,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,PER,95.122,106.892846153,26,1.737,perez,Racing Point,Sergio,Perez,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,RAI,94.388,105.696555555,27,1.003,raikkonen,Ferrari,Kimi,Räikkönen,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,RIC,93.844,106.197911764,34,0.459,ricciardo,Red Bull Racing,Daniel,Ricciardo,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,SAI,95.341,108.9835,34,1.956,sainz,Renault,Carlos,Sainz,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,SIR,96.861,108.832222222,36,3.476,sirotkin,Williams,Sergey,Sirotkin,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,STR,97.001,110.0305625,32,3.616,stroll,Williams,Lance,Stroll,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,VAN,96.617,109.703592592,27,3.232,vandoorne,McLaren,Stoffel,Vandoorne,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,VER,93.827,105.635357142,28,0.442,max_verstappen,Red Bull Racing,Max,Verstappen,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP2,2018-09-30,VET,93.928,107.404310344,29,0.543,vettel,Ferrari,Sebastian,Vettel,21.7,28.1,59.8,1.2,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,ALO,96.992,109.006333333,18,3.925,alonso,McLaren,Fernando,Alonso,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,BOT,93.321,116.438,12,0.254,bottas,Mercedes,Valtteri,Bottas,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,ERI,95.37,108.971666666,9,2.303,ericsson,Sauber,Marcus,Ericsson,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,GAS,95.125,106.85317647,17,2.058,gasly,Toro Rosso,Pierre,Gasly,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,GRO,95.185,113.637533333,15,2.118,grosjean,Haas F1 Team,Romain,Grosjean,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,HAM,93.067,102.216285714,7,0.0,hamilton,Mercedes,Lewis,Hamilton,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,HAR,96.033,107.50668421,19,2.966,brendon_hartley,Toro Rosso,Brendon,Hartley,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,HUL,95.213,111.302555555,9,2.146,hulkenberg,Renault,Nico,Hulkenberg,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,LEC,94.628,116.513583333,12,1.561,leclerc,Sauber,Charles,Leclerc,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,MAG,94.82,112.543916666,12,1.753,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,OCO,94.809,103.084125,8,1.742,ocon,Racing Point,Esteban,Ocon,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,PER,94.916,118.0916,10,1.849,perez,Racing Point,Sergio,Perez,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,RAI,93.688,108.71925,8,0.621,raikkonen,Ferrari,Kimi,Räikkönen,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,RIC,94.394,107.098,10,1.327,ricciardo,Red Bull Racing,Daniel,Ricciardo,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,SAI,94.988,115.6753,10,1.921,sainz,Renault,Carlos,Sainz,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,SIR,96.071,113.963307692,13,3.004,sirotkin,Williams,Sergey,Sirotkin,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,STR,96.274,114.546411764,17,3.207,stroll,Williams,Lance,Stroll,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,VAN,96.597,117.271454545,11,3.53,vandoorne,McLaren,Stoffel,Vandoorne,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,VER,93.937,117.013875,8,0.87,max_verstappen,Red Bull Racing,Max,Verstappen,23.5,33.4,61.1,1.6,False
+2018,16,Russian Grand Prix,Sochi,FP3,2018-09-30,VET,93.667,109.1496,10,0.6,vettel,Ferrari,Sebastian,Vettel,23.5,33.4,61.1,1.6,False
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,ALO,92.034,107.6352,15,3.343,alonso,McLaren,Fernando,Alonso,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,BOT,89.137,107.000173913,23,0.446,bottas,Mercedes,Valtteri,Bottas,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,ERI,91.073,109.508260869,23,2.382,ericsson,Sauber,Marcus,Ericsson,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,GAS,91.073,103.7278,15,2.382,gasly,Toro Rosso,Pierre,Gasly,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,GRO,90.814,106.132888888,18,2.123,grosjean,Haas F1 Team,Romain,Grosjean,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,HAM,88.691,103.163454545,22,0.0,hamilton,Mercedes,Lewis,Hamilton,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,HAR,91.908,111.403631578,19,3.217,brendon_hartley,Toro Rosso,Brendon,Hartley,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,HUL,91.418,103.950384615,13,2.727,hulkenberg,Renault,Nico,Hulkenberg,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,LEC,90.929,106.495826086,23,2.238,leclerc,Sauber,Charles,Leclerc,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,MAG,91.274,106.700083333,24,2.583,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,NOR,92.683,102.195384615,26,3.992,nan,McLaren,Lando,Norris,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,OCO,90.591,102.254619047,21,1.9,ocon,Racing Point,Esteban,Ocon,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,PER,91.272,104.239869565,23,2.581,perez,Racing Point,Sergio,Perez,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,RAI,89.627,103.352666666,15,0.936,raikkonen,Ferrari,Kimi,Räikkönen,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,RIC,89.373,99.659892857,28,0.682,ricciardo,Red Bull Racing,Daniel,Ricciardo,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,SAI,91.1,109.189125,16,2.409,sainz,Renault,Carlos,Sainz,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,SIR,92.513,106.610904761,21,3.822,sirotkin,Williams,Sergey,Sirotkin,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,STR,91.508,107.211090909,22,2.817,stroll,Williams,Lance,Stroll,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,VER,89.841,99.608538461,26,1.15,max_verstappen,Red Bull Racing,Max,Verstappen,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP1,2018-10-07,VET,89.685,105.677866666,15,0.994,vettel,Ferrari,Sebastian,Vettel,22.4,26.1,75.2,0.8,True
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,ALO,90.988,102.078333333,30,2.771,alonso,McLaren,Fernando,Alonso,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,BOT,88.678,104.508333333,27,0.461,bottas,Mercedes,Valtteri,Bottas,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,ERI,90.478,98.090321428,28,2.261,ericsson,Sauber,Marcus,Ericsson,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,GAS,90.795,98.850555555,9,2.578,gasly,Toro Rosso,Pierre,Gasly,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,GRO,90.44,101.184,29,2.223,grosjean,Haas F1 Team,Romain,Grosjean,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,HAM,88.217,101.937703703,27,0.0,hamilton,Mercedes,Lewis,Hamilton,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,HAR,90.502,104.054583333,24,2.285,brendon_hartley,Toro Rosso,Brendon,Hartley,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,HUL,90.644,98.806787878,33,2.427,hulkenberg,Renault,Nico,Hulkenberg,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,LEC,90.906,102.057318181,22,2.689,leclerc,Sauber,Charles,Leclerc,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,MAG,90.956,102.237454545,22,2.739,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,OCO,90.035,100.335785714,28,1.818,ocon,Racing Point,Esteban,Ocon,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,PER,90.51,103.51296,25,2.293,perez,Racing Point,Sergio,Perez,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,RAI,89.498,102.853666666,30,1.281,raikkonen,Ferrari,Kimi,Räikkönen,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,RIC,89.513,99.517130434,23,1.296,ricciardo,Red Bull Racing,Daniel,Ricciardo,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,SAI,90.904,101.637037037,27,2.687,sainz,Renault,Carlos,Sainz,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,SIR,91.087,105.571757575,33,2.87,sirotkin,Williams,Sergey,Sirotkin,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,STR,91.215,101.725392857,28,2.998,stroll,Williams,Lance,Stroll,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,VAN,91.981,103.578629629,27,3.764,vandoorne,McLaren,Stoffel,Vandoorne,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,VER,89.257,100.685034482,29,1.04,max_verstappen,Red Bull Racing,Max,Verstappen,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP2,2018-10-07,VET,89.05,100.76984375,32,0.833,vettel,Ferrari,Sebastian,Vettel,24.0,30.1,71.1,1.2,False
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,ALO,92.608,103.8394,10,3.009,alonso,McLaren,Fernando,Alonso,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,BOT,90.422,113.968666666,9,0.823,bottas,Mercedes,Valtteri,Bottas,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,ERI,92.442,114.3262,5,2.843,ericsson,Sauber,Marcus,Ericsson,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,GAS,93.105,108.280285714,7,3.506,gasly,Toro Rosso,Pierre,Gasly,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,GRO,91.636,110.975090909,11,2.037,grosjean,Haas F1 Team,Romain,Grosjean,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,HAM,89.599,114.233142857,7,0.0,hamilton,Mercedes,Lewis,Hamilton,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,HAR,92.03,111.696888888,9,2.431,brendon_hartley,Toro Rosso,Brendon,Hartley,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,HUL,92.224,110.742333333,9,2.625,hulkenberg,Renault,Nico,Hulkenberg,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,LEC,91.76,108.3387,10,2.161,leclerc,Sauber,Charles,Leclerc,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,MAG,91.521,111.2492,10,1.922,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,OCO,91.088,104.451666666,6,1.489,ocon,Racing Point,Esteban,Ocon,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,PER,91.483,108.211125,8,1.884,perez,Racing Point,Sergio,Perez,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,RAI,90.054,105.3001,10,0.455,raikkonen,Ferrari,Kimi,Räikkönen,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,RIC,90.474,110.166833333,6,0.875,ricciardo,Red Bull Racing,Daniel,Ricciardo,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,SAI,91.513,109.9528,10,1.914,sainz,Renault,Carlos,Sainz,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,SIR,92.631,109.2754,10,3.032,sirotkin,Williams,Sergey,Sirotkin,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,STR,92.201,112.4432,10,2.602,stroll,Williams,Lance,Stroll,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,VAN,93.034,108.986111111,9,3.435,vandoorne,McLaren,Stoffel,Vandoorne,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,VER,90.304,104.774714285,7,0.705,max_verstappen,Red Bull Racing,Max,Verstappen,25.8,27.6,90.2,5.9,True
+2018,17,Japanese Grand Prix,Suzuka,FP3,2018-10-07,VET,89.715,108.312363636,11,0.116,vettel,Ferrari,Sebastian,Vettel,25.8,27.6,90.2,5.9,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,ALO,111.036,117.87025,4,3.534,alonso,McLaren,Fernando,Alonso,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,BOT,108.806,121.108,4,1.304,bottas,Mercedes,Valtteri,Bottas,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,ERI,111.016,119.2818,10,3.514,ericsson,Sauber,Marcus,Ericsson,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,GAS,111.234,117.471785714,14,3.732,gasly,Toro Rosso,Pierre,Gasly,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,GEL,112.625,119.638375,16,5.123,nan,Toro Rosso,Sean,Gelael,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,GRO,110.821,115.543,6,3.319,grosjean,Haas F1 Team,Romain,Grosjean,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,HAM,107.502,116.78725,4,0.0,hamilton,Mercedes,Lewis,Hamilton,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,HUL,111.717,121.827,4,4.215,hulkenberg,Renault,Nico,Hulkenberg,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,LEC,110.961,120.635181818,11,3.459,leclerc,Sauber,Charles,Leclerc,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,MAG,111.614,119.111818181,11,4.112,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,NOR,111.232,119.4824,5,3.73,nan,McLaren,Lando,Norris,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,OCO,111.655,116.528083333,12,4.153,ocon,Racing Point,Esteban,Ocon,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,PER,111.459,116.208846153,13,3.957,perez,Racing Point,Sergio,Perez,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,RAI,109.928,114.6145,14,2.426,raikkonen,Ferrari,Kimi,Räikkönen,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,RIC,109.326,114.309,7,1.824,ricciardo,Red Bull Racing,Daniel,Ricciardo,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,SAI,110.665,114.6635,4,3.163,sainz,Renault,Carlos,Sainz,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,SIR,111.589,123.135888888,9,4.087,sirotkin,Williams,Sergey,Sirotkin,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,STR,111.896,123.393333333,9,4.394,stroll,Williams,Lance,Stroll,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,VER,108.847,115.809714285,7,1.345,max_verstappen,Red Bull Racing,Max,Verstappen,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP1,2018-10-21,VET,109.489,119.307615384,13,1.987,vettel,Ferrari,Sebastian,Vettel,16.5,17.8,93.8,1.4,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,ALO,111.728,120.841,2,3.012,alonso,McLaren,Fernando,Alonso,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,ERI,113.07,122.434285714,7,4.354,ericsson,Sauber,Marcus,Ericsson,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,GAS,109.728,120.09725,8,1.012,gasly,Toro Rosso,Pierre,Gasly,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,HAM,108.716,120.828,2,0.0,hamilton,Mercedes,Lewis,Hamilton,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,HAR,112.505,124.879125,16,3.789,brendon_hartley,Toro Rosso,Brendon,Hartley,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,HUL,112.208,114.30125,4,3.492,hulkenberg,Renault,Nico,Hulkenberg,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,LEC,114.101,122.598142857,7,5.385,leclerc,Sauber,Charles,Leclerc,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,OCO,115.348,119.174,5,6.632,ocon,Racing Point,Esteban,Ocon,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,PER,114.963,120.6592,5,6.247,perez,Racing Point,Sergio,Perez,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,RAI,113.443,116.7955,4,4.727,raikkonen,Ferrari,Kimi,Räikkönen,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,SAI,114.42,114.42,1,5.704,sainz,Renault,Carlos,Sainz,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,SIR,115.446,127.015166666,6,6.73,sirotkin,Williams,Sergey,Sirotkin,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,STR,114.637,127.72175,4,5.921,stroll,Williams,Lance,Stroll,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,VAN,113.354,119.332125,8,4.638,vandoorne,McLaren,Stoffel,Vandoorne,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,VER,109.798,119.41125,4,1.082,max_verstappen,Red Bull Racing,Max,Verstappen,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP2,2018-10-21,VET,113.912,119.911142857,7,5.196,vettel,Ferrari,Sebastian,Vettel,17.5,18.9,94.0,1.6,True
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,ALO,96.332,105.417352941,17,2.535,alonso,McLaren,Fernando,Alonso,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,BOT,94.556,104.3501875,16,0.759,bottas,Mercedes,Valtteri,Bottas,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,ERI,96.0,107.673764705,17,2.203,ericsson,Sauber,Marcus,Ericsson,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,GAS,95.713,103.651625,24,1.916,gasly,Toro Rosso,Pierre,Gasly,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,GRO,95.468,105.7646875,16,1.671,grosjean,Haas F1 Team,Romain,Grosjean,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,HAM,93.87,104.620944444,18,0.073,hamilton,Mercedes,Lewis,Hamilton,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,HAR,96.33,106.090727272,22,2.533,brendon_hartley,Toro Rosso,Brendon,Hartley,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,HUL,95.882,107.183,16,2.085,hulkenberg,Renault,Nico,Hulkenberg,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,LEC,95.365,109.027555555,18,1.568,leclerc,Sauber,Charles,Leclerc,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,MAG,95.77,108.2639375,16,1.973,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,OCO,95.562,108.222947368,19,1.765,ocon,Racing Point,Esteban,Ocon,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,PER,95.411,108.579,18,1.614,perez,Racing Point,Sergio,Perez,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,RAI,93.843,105.78417647,17,0.046,raikkonen,Ferrari,Kimi,Räikkönen,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,RIC,94.91,106.43325,16,1.113,ricciardo,Red Bull Racing,Daniel,Ricciardo,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,SAI,95.45,109.183666666,18,1.653,sainz,Renault,Carlos,Sainz,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,SIR,96.193,104.4618125,16,2.396,sirotkin,Williams,Sergey,Sirotkin,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,STR,96.188,106.126125,16,2.391,stroll,Williams,Lance,Stroll,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,VAN,96.302,108.305947368,19,2.505,vandoorne,McLaren,Stoffel,Vandoorne,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,VER,94.703,105.581625,16,0.906,max_verstappen,Red Bull Racing,Max,Verstappen,18.6,20.7,80.8,1.8,False
+2018,18,United States Grand Prix,Austin,FP3,2018-10-21,VET,93.797,102.7066,15,0.0,vettel,Ferrari,Sebastian,Vettel,18.6,20.7,80.8,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,BOT,78.322,91.187875,24,1.666,bottas,Mercedes,Valtteri,Bottas,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,ERI,79.312,95.754875,24,2.656,ericsson,Sauber,Marcus,Ericsson,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,GIO,79.134,94.020666666,21,2.478,nan,Sauber,Antonio,Giovinazzi,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,GRO,79.276,89.546454545,22,2.62,grosjean,Haas F1 Team,Romain,Grosjean,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,HAM,78.075,92.3082,20,1.419,hamilton,Mercedes,Lewis,Hamilton,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,HAR,79.024,96.648173913,23,2.368,brendon_hartley,Toro Rosso,Brendon,Hartley,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,HUL,78.028,91.881529411,17,1.372,hulkenberg,Renault,Nico,Hulkenberg,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,LAT,79.078,95.806789473,19,2.422,nan,Racing Point,Nicholas,Latifi,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,MAG,79.853,91.687875,24,3.197,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,NOR,79.646,86.862,18,2.99,nan,McLaren,Lando,Norris,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,PER,79.124,90.60708,25,2.468,perez,Racing Point,Sergio,Perez,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,RAI,78.936,96.542722222,18,2.28,raikkonen,Ferrari,Kimi,Räikkönen,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,RIC,77.139,92.3056,15,0.483,ricciardo,Red Bull Racing,Daniel,Ricciardo,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,SAI,77.926,95.1793125,16,1.27,sainz,Renault,Carlos,Sainz,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,SIR,79.899,99.990384615,26,3.243,sirotkin,Williams,Sergey,Sirotkin,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,STR,80.142,97.773727272,22,3.486,stroll,Williams,Lance,Stroll,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,VAN,79.716,90.46108,25,3.06,vandoorne,McLaren,Stoffel,Vandoorne,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,VER,76.656,89.2476,15,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP1,2018-10-28,VET,78.746,98.115615384,13,2.09,vettel,Ferrari,Sebastian,Vettel,19.4,28.4,58.7,1.2,True
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,ALO,79.543,89.514518518,27,2.823,alonso,McLaren,Fernando,Alonso,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,BOT,78.14,91.468675675,37,1.42,bottas,Mercedes,Valtteri,Bottas,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,ERI,79.322,91.547421052,38,2.602,ericsson,Sauber,Marcus,Ericsson,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,GAS,79.047,91.32284375,32,2.327,gasly,Toro Rosso,Pierre,Gasly,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,GRO,78.733,89.777277777,36,2.013,grosjean,Haas F1 Team,Romain,Grosjean,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,HAM,78.1,91.201783783,37,1.38,hamilton,Mercedes,Lewis,Hamilton,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,HAR,78.061,90.81921875,32,1.341,brendon_hartley,Toro Rosso,Brendon,Hartley,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,HUL,78.046,87.461515151,33,1.326,hulkenberg,Renault,Nico,Hulkenberg,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,LEC,79.024,90.104194444,36,2.304,leclerc,Sauber,Charles,Leclerc,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,MAG,79.67,89.354,32,2.95,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,OCO,78.485,93.19925,20,1.765,ocon,Racing Point,Esteban,Ocon,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,PER,78.167,87.0998,20,1.447,perez,Racing Point,Sergio,Perez,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,RAI,78.133,90.115384615,39,1.413,raikkonen,Ferrari,Kimi,Räikkönen,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,RIC,76.873,88.895586206,29,0.153,ricciardo,Red Bull Racing,Daniel,Ricciardo,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,SAI,77.953,87.70446875,32,1.233,sainz,Renault,Carlos,Sainz,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,SIR,79.335,90.786735294,34,2.615,sirotkin,Williams,Sergey,Sirotkin,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,STR,79.219,90.175181818,22,2.499,stroll,Williams,Lance,Stroll,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,VAN,79.096,91.264230769,26,2.376,vandoorne,McLaren,Stoffel,Vandoorne,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,VER,76.72,88.342705882,17,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP2,2018-10-28,VET,77.954,90.952051282,39,1.234,vettel,Ferrari,Sebastian,Vettel,24.5,47.5,34.6,1.8,False
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,ALO,78.548,91.628857142,7,2.264,alonso,McLaren,Fernando,Alonso,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,BOT,78.839,90.41,2,2.555,bottas,Mercedes,Valtteri,Bottas,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,ERI,77.565,93.49090909,11,1.281,ericsson,Sauber,Marcus,Ericsson,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,GAS,77.525,88.338230769,13,1.241,gasly,Toro Rosso,Pierre,Gasly,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,GRO,78.145,93.723571428,7,1.861,grosjean,Haas F1 Team,Romain,Grosjean,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,HAM,76.538,89.147428571,7,0.254,hamilton,Mercedes,Lewis,Hamilton,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,HAR,78.637,92.62125,8,2.353,brendon_hartley,Toro Rosso,Brendon,Hartley,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,HUL,77.623,91.189285714,7,1.339,hulkenberg,Renault,Nico,Hulkenberg,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,LEC,77.059,93.7133,10,0.775,leclerc,Sauber,Charles,Leclerc,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,OCO,77.731,97.066,8,1.447,ocon,Racing Point,Esteban,Ocon,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,PER,77.819,95.522625,8,1.535,perez,Racing Point,Sergio,Perez,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,RAI,77.045,89.266692307,13,0.761,raikkonen,Ferrari,Kimi,Räikkönen,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,RIC,77.028,89.8812,5,0.744,ricciardo,Red Bull Racing,Daniel,Ricciardo,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,SAI,77.336,93.222375,8,1.052,sainz,Renault,Carlos,Sainz,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,SIR,78.669,92.375833333,6,2.385,sirotkin,Williams,Sergey,Sirotkin,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,STR,78.698,93.9142,5,2.414,stroll,Williams,Lance,Stroll,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,VAN,78.445,87.161916666,12,2.161,vandoorne,McLaren,Stoffel,Vandoorne,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,VER,76.284,92.372428571,7,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,15.8,19.8,83.2,0.9,True
+2018,19,Mexican Grand Prix,Mexico City,FP3,2018-10-28,VET,76.566,98.029375,8,0.282,vettel,Ferrari,Sebastian,Vettel,15.8,19.8,83.2,0.9,True
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,BOT,69.679,81.76645,20,0.668,bottas,Mercedes,Valtteri,Bottas,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,GAS,70.934,87.41244,25,1.923,gasly,Toro Rosso,Pierre,Gasly,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,GIO,70.685,84.9046,25,1.674,nan,Sauber,Antonio,Giovinazzi,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,GRO,69.922,81.151916666,24,0.911,grosjean,Haas F1 Team,Romain,Grosjean,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,HAM,69.107,83.25364,25,0.096,hamilton,Mercedes,Lewis,Hamilton,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,HAR,71.176,82.712074074,27,2.165,brendon_hartley,Toro Rosso,Brendon,Hartley,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,HUL,70.679,83.289133333,30,1.668,hulkenberg,Renault,Nico,Hulkenberg,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,LAT,71.493,87.273,30,2.482,nan,Racing Point,Nicholas,Latifi,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,LEC,70.346,84.095875,24,1.335,leclerc,Sauber,Charles,Leclerc,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,MAG,70.236,85.892083333,12,1.225,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,NOR,71.013,86.650208333,24,2.002,nan,McLaren,Lando,Norris,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,OCO,70.361,81.288310344,29,1.35,ocon,Racing Point,Esteban,Ocon,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,RAI,69.573,82.487791666,24,0.562,raikkonen,Ferrari,Kimi,Räikkönen,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,RIC,69.395,79.830777777,18,0.384,ricciardo,Red Bull Racing,Daniel,Ricciardo,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,SAI,70.662,82.9847,30,1.651,sainz,Renault,Carlos,Sainz,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,SIR,71.037,86.963576923,26,2.026,sirotkin,Williams,Sergey,Sirotkin,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,STR,70.799,82.870307692,26,1.788,stroll,Williams,Lance,Stroll,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,VAN,71.452,84.4443125,16,2.441,vandoorne,McLaren,Stoffel,Vandoorne,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,VER,69.011,86.6445,12,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP1,2018-11-11,VET,69.06,89.6824375,16,0.049,vettel,Ferrari,Sebastian,Vettel,20.9,31.1,74.1,1.6,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,ALO,70.332,80.403516129,31,1.486,alonso,McLaren,Fernando,Alonso,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,BOT,68.846,78.469113636,44,0.0,bottas,Mercedes,Valtteri,Bottas,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,ERI,70.532,80.219153846,39,1.686,ericsson,Sauber,Marcus,Ericsson,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,GAS,70.33,78.551307692,39,1.484,gasly,Toro Rosso,Pierre,Gasly,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,GRO,69.769,78.261175,40,0.923,grosjean,Haas F1 Team,Romain,Grosjean,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,HAM,68.849,79.22527027,37,0.003,hamilton,Mercedes,Lewis,Hamilton,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,HAR,70.734,79.00407317,41,1.888,brendon_hartley,Toro Rosso,Brendon,Hartley,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,HUL,71.674,84.9765,4,2.828,hulkenberg,Renault,Nico,Hulkenberg,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,LEC,69.943,77.761692307,39,1.097,leclerc,Sauber,Charles,Leclerc,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,MAG,70.007,77.746371428,35,1.161,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,OCO,70.159,78.373560975,41,1.313,ocon,Racing Point,Esteban,Ocon,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,PER,70.32,78.243888888,18,1.474,perez,Racing Point,Sergio,Perez,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,RAI,69.412,77.279944444,36,0.566,raikkonen,Ferrari,Kimi,Räikkönen,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,RIC,69.164,77.254128205,39,0.318,ricciardo,Red Bull Racing,Daniel,Ricciardo,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,SAI,70.458,77.980651162,43,1.612,sainz,Renault,Carlos,Sainz,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,SIR,70.569,81.18009756,41,1.723,sirotkin,Williams,Sergey,Sirotkin,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,STR,70.662,77.535275,40,1.816,stroll,Williams,Lance,Stroll,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,VAN,70.596,82.459238095,21,1.75,vandoorne,McLaren,Stoffel,Vandoorne,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,VER,69.339,76.55468,25,0.493,max_verstappen,Red Bull Racing,Max,Verstappen,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP2,2018-11-11,VET,68.919,77.106263157,38,0.073,vettel,Ferrari,Sebastian,Vettel,20.2,31.7,78.9,1.9,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,ALO,70.02,80.78775,12,2.072,alonso,McLaren,Fernando,Alonso,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,BOT,68.465,83.00325,20,0.517,bottas,Mercedes,Valtteri,Bottas,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,ERI,69.808,95.47605,20,1.86,ericsson,Sauber,Marcus,Ericsson,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,GAS,69.402,94.354111111,18,1.454,gasly,Toro Rosso,Pierre,Gasly,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,GRO,69.257,86.212615384,13,1.309,grosjean,Haas F1 Team,Romain,Grosjean,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,HAM,68.165,95.952272727,11,0.217,hamilton,Mercedes,Lewis,Hamilton,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,HAR,69.985,90.515866666,15,2.037,brendon_hartley,Toro Rosso,Brendon,Hartley,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,HUL,69.461,86.2871875,16,1.513,hulkenberg,Renault,Nico,Hulkenberg,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,LEC,69.448,90.885222222,18,1.5,leclerc,Sauber,Charles,Leclerc,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,MAG,69.146,84.152727272,11,1.198,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,OCO,69.588,91.9695,16,1.64,ocon,Racing Point,Esteban,Ocon,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,PER,70.116,88.088875,16,2.168,perez,Racing Point,Sergio,Perez,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,RAI,68.49,81.915153846,13,0.542,raikkonen,Ferrari,Kimi,Räikkönen,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,RIC,68.788,92.1051,10,0.84,ricciardo,Red Bull Racing,Daniel,Ricciardo,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,SAI,69.864,83.871214285,14,1.916,sainz,Renault,Carlos,Sainz,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,SIR,69.885,92.079090909,11,1.937,sirotkin,Williams,Sergey,Sirotkin,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,STR,70.001,88.027428571,14,2.053,stroll,Williams,Lance,Stroll,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,VAN,70.289,85.69576923,13,2.341,vandoorne,McLaren,Stoffel,Vandoorne,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,VER,68.733,87.6521,10,0.785,max_verstappen,Red Bull Racing,Max,Verstappen,24.4,35.2,58.3,1.7,False
+2018,20,Brazilian Grand Prix,São Paulo,FP3,2018-11-11,VET,67.948,82.077714285,14,0.0,vettel,Ferrari,Sebastian,Vettel,24.4,35.2,58.3,1.7,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,ALO,102.313,118.397272727,11,3.822,alonso,McLaren,Fernando,Alonso,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,BOT,99.452,118.772047619,21,0.961,bottas,Mercedes,Valtteri,Bottas,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,ERI,101.928,113.73676923,13,3.437,ericsson,Sauber,Marcus,Ericsson,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,GAS,100.671,115.454111111,9,2.18,gasly,Toro Rosso,Pierre,Gasly,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,GIO,101.662,112.173666666,15,3.171,nan,Sauber,Antonio,Giovinazzi,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,GRO,100.663,115.381235294,17,2.172,grosjean,Haas F1 Team,Romain,Grosjean,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,HAM,99.543,108.775428571,14,1.052,hamilton,Mercedes,Lewis,Hamilton,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,HAR,101.137,119.451954545,22,2.646,brendon_hartley,Toro Rosso,Brendon,Hartley,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,HUL,101.023,120.740421052,19,2.532,hulkenberg,Renault,Nico,Hulkenberg,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,KUB,102.992,121.4886,20,4.501,nan,Williams,Robert,Kubica,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,MAG,100.235,113.296384615,13,1.744,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,OCO,100.102,110.725235294,17,1.611,ocon,Racing Point,Esteban,Ocon,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,PER,101.075,117.292117647,17,2.584,perez,Racing Point,Sergio,Perez,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,RAI,100.417,116.9538125,16,1.926,raikkonen,Ferrari,Kimi,Räikkönen,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,RIC,98.945,112.068583333,12,0.454,ricciardo,Red Bull Racing,Daniel,Ricciardo,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,SAI,100.588,109.188666666,12,2.097,sainz,Renault,Carlos,Sainz,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,STR,101.493,121.139133333,15,3.002,stroll,Williams,Lance,Stroll,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,VAN,102.114,116.922857142,14,3.623,vandoorne,McLaren,Stoffel,Vandoorne,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,VER,98.491,111.46025,20,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP1,2018-11-25,VET,100.453,120.742666666,15,1.962,vettel,Ferrari,Sebastian,Vettel,29.4,41.4,33.9,1.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,ALO,98.725,112.5805625,32,1.489,alonso,McLaren,Fernando,Alonso,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,BOT,97.236,112.537375,32,0.0,bottas,Mercedes,Valtteri,Bottas,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,ERI,99.502,110.452,29,2.266,ericsson,Sauber,Marcus,Ericsson,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,GAS,98.506,112.454428571,28,1.27,gasly,Toro Rosso,Pierre,Gasly,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,GRO,98.06,111.864692307,26,0.824,grosjean,Haas F1 Team,Romain,Grosjean,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,HAM,97.443,112.363366666,30,0.207,hamilton,Mercedes,Lewis,Hamilton,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,HAR,98.957,113.18921875,32,1.721,brendon_hartley,Toro Rosso,Brendon,Hartley,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,HUL,98.23,110.87846875,32,0.994,hulkenberg,Renault,Nico,Hulkenberg,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,LEC,98.831,114.957533333,30,1.595,leclerc,Sauber,Charles,Leclerc,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,MAG,98.318,112.12532,25,1.082,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,OCO,98.402,110.739931034,29,1.166,ocon,Racing Point,Esteban,Ocon,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,PER,98.806,113.903777777,27,1.57,perez,Racing Point,Sergio,Perez,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,RAI,97.461,111.968,36,0.225,raikkonen,Ferrari,Kimi,Räikkönen,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,RIC,97.428,109.93184,25,0.192,ricciardo,Red Bull Racing,Daniel,Ricciardo,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,SAI,98.511,109.396484848,33,1.275,sainz,Renault,Carlos,Sainz,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,SIR,100.935,112.614911764,34,3.699,sirotkin,Williams,Sergey,Sirotkin,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,STR,100.046,111.1645,26,2.81,stroll,Williams,Lance,Stroll,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,VAN,99.938,122.274307692,13,2.702,vandoorne,McLaren,Stoffel,Vandoorne,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,VER,97.28,110.024962962,27,0.044,max_verstappen,Red Bull Racing,Max,Verstappen,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP2,2018-11-25,VET,97.569,112.25617647,34,0.333,vettel,Ferrari,Sebastian,Vettel,26.3,29.4,57.8,2.1,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,ALO,99.974,118.78625,8,2.798,alonso,McLaren,Fernando,Alonso,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,BOT,97.933,119.178333333,9,0.757,bottas,Mercedes,Valtteri,Bottas,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,ERI,99.997,113.574636363,11,2.821,ericsson,Sauber,Marcus,Ericsson,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,GAS,99.74,109.282,4,2.564,gasly,Toro Rosso,Pierre,Gasly,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,GRO,98.304,116.865,8,1.128,grosjean,Haas F1 Team,Romain,Grosjean,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,HAM,97.176,119.139,10,0.0,hamilton,Mercedes,Lewis,Hamilton,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,HAR,99.074,117.903636363,11,1.898,brendon_hartley,Toro Rosso,Brendon,Hartley,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,HUL,98.85,123.984230769,13,1.674,hulkenberg,Renault,Nico,Hulkenberg,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,LEC,99.282,123.849333333,6,2.106,leclerc,Sauber,Charles,Leclerc,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,MAG,99.612,118.252444444,9,2.436,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,OCO,99.011,109.088333333,3,1.835,ocon,Racing Point,Esteban,Ocon,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,PER,99.053,125.257090909,11,1.877,perez,Racing Point,Sergio,Perez,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,RAI,97.464,112.9535,12,0.288,raikkonen,Ferrari,Kimi,Räikkönen,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,RIC,98.09,107.5984,5,0.914,ricciardo,Red Bull Racing,Daniel,Ricciardo,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,SAI,98.97,121.218307692,13,1.794,sainz,Renault,Carlos,Sainz,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,SIR,101.182,121.165277777,18,4.006,sirotkin,Williams,Sergey,Sirotkin,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,STR,100.117,108.325666666,12,2.941,stroll,Williams,Lance,Stroll,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,VAN,100.233,120.083666666,9,3.057,vandoorne,McLaren,Stoffel,Vandoorne,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,VER,97.747,120.4468,10,0.571,max_verstappen,Red Bull Racing,Max,Verstappen,31.9,39.6,29.8,1.6,False
+2018,21,Abu Dhabi Grand Prix,Yas Marina,FP3,2018-11-25,VET,97.587,119.056777777,9,0.411,vettel,Ferrari,Sebastian,Vettel,31.9,39.6,29.8,1.6,False

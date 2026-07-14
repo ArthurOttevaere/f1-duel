@@ -1,0 +1,1222 @@
+Season,Round,EventName,Circuit,SessionType,EventDate,Driver,BestLapTime,AvgLapTime,LapCount,GapToFastest,DriverId,TeamName,FirstName,LastName,AirTemp_mean,TrackTemp_mean,Humidity_mean,WindSpeed_mean,Rainfall
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,ALB,95.923,115.708583333,12,1.73,albon,Williams,Alexander,Albon,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,ALO,95.0,104.372,10,0.807,alonso,Alpine,Fernando,Alonso,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,GAS,94.193,105.929947368,19,0.0,gasly,AlphaTauri,Pierre,Gasly,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,HAM,94.943,115.574181818,11,0.75,hamilton,Mercedes,Lewis,Hamilton,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,HUL,95.815,111.1482,20,1.622,hulkenberg,Aston Martin,Nico,Hulkenberg,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,LAT,95.644,115.2858,10,1.451,latifi,Williams,Nicholas,Latifi,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,LEC,94.557,109.746882352,17,0.364,leclerc,Ferrari,Charles,Leclerc,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,MAG,96.804,108.852777777,18,2.611,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,MSC,96.536,103.752,20,2.343,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,NOR,96.304,108.3485,18,2.111,norris,McLaren,Lando,Norris,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,OCO,95.151,118.791,12,0.958,ocon,Alpine,Esteban,Ocon,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,PER,95.05,108.102,18,0.857,perez,Red Bull Racing,Sergio,Perez,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,RIC,96.402,111.170235294,17,2.209,ricciardo,McLaren,Daniel,Ricciardo,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,RUS,94.629,110.29425,16,0.436,russell,Mercedes,George,Russell,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,SAI,94.611,109.963888888,18,0.418,sainz,Ferrari,Carlos,Sainz,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,STR,94.814,111.303166666,18,0.621,stroll,Aston Martin,Lance,Stroll,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,TSU,95.028,111.6658,15,0.835,tsunoda,AlphaTauri,Yuki,Tsunoda,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,VER,94.742,107.059833333,18,0.549,max_verstappen,Red Bull Racing,Max,Verstappen,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP1,2022-03-20,ZHO,95.053,114.123294117,17,0.86,zhou,Alfa Romeo,Guanyu,Zhou,19.9,34.7,36.4,0.8,True
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,ALB,94.735,109.292611111,18,2.799,albon,Williams,Alexander,Albon,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,ALO,92.877,104.783428571,21,0.941,alonso,Alpine,Fernando,Alonso,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,BOT,92.951,107.36572,25,1.015,bottas,Alfa Romeo,Valtteri,Bottas,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,GAS,93.621,105.678285714,21,1.685,gasly,AlphaTauri,Pierre,Gasly,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,HAM,93.144,105.24065,20,1.208,hamilton,Mercedes,Lewis,Hamilton,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,HUL,94.061,105.6762,25,2.125,hulkenberg,Aston Martin,Nico,Hulkenberg,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,LAT,94.486,108.21624,25,2.55,latifi,Williams,Nicholas,Latifi,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,LEC,92.023,109.693933333,15,0.087,leclerc,Ferrari,Charles,Leclerc,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,MAG,93.183,108.348888888,18,1.247,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,MSC,93.085,109.31447619,21,1.149,mick_schumacher,Haas F1 Team,Mick,Schumacher,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,NOR,93.28,105.861666666,24,1.344,norris,McLaren,Lando,Norris,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,OCO,93.36,104.631523809,21,1.424,ocon,Alpine,Esteban,Ocon,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,PER,92.958,106.176117647,17,1.022,perez,Red Bull Racing,Sergio,Perez,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,RIC,94.166,107.1129,10,2.23,ricciardo,McLaren,Daniel,Ricciardo,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,RUS,92.529,104.321,20,0.593,russell,Mercedes,George,Russell,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,SAI,92.52,107.125294117,17,0.584,sainz,Ferrari,Carlos,Sainz,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,STR,93.958,109.193761904,21,2.022,stroll,Aston Martin,Lance,Stroll,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,TSU,93.789,108.319130434,23,1.853,tsunoda,AlphaTauri,Yuki,Tsunoda,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,VER,91.936,101.116125,16,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP2,2022-03-20,ZHO,93.953,108.488565217,23,2.017,zhou,Alfa Romeo,Guanyu,Zhou,17.4,23.2,48.0,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,ALB,94.868,113.4363,10,2.324,albon,Williams,Alexander,Albon,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,ALO,94.628,110.515166666,12,2.084,alonso,Alpine,Fernando,Alonso,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,BOT,93.733,113.8750625,16,1.189,bottas,Alfa Romeo,Valtteri,Bottas,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,GAS,94.176,115.832666666,15,1.632,gasly,AlphaTauri,Pierre,Gasly,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,HAM,93.121,117.3932,10,0.577,hamilton,Mercedes,Lewis,Hamilton,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,HUL,93.971,114.753571428,14,1.427,hulkenberg,Aston Martin,Nico,Hulkenberg,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,LAT,95.667,116.169666666,9,3.123,latifi,Williams,Nicholas,Latifi,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,LEC,92.64,113.095363636,11,0.096,leclerc,Ferrari,Charles,Leclerc,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,MAG,93.437,121.0036,10,0.893,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,MSC,94.295,115.74975,12,1.751,mick_schumacher,Haas F1 Team,Mick,Schumacher,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,NOR,93.955,107.609571428,14,1.411,norris,McLaren,Lando,Norris,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,OCO,94.957,109.5,12,2.413,ocon,Alpine,Esteban,Ocon,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,PER,92.791,113.688625,16,0.247,perez,Red Bull Racing,Sergio,Perez,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,RIC,94.378,107.582055555,18,1.834,ricciardo,McLaren,Daniel,Ricciardo,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,RUS,92.935,108.980615384,13,0.391,russell,Mercedes,George,Russell,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,SAI,93.053,113.251666666,15,0.509,sainz,Ferrari,Carlos,Sainz,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,STR,93.92,119.914916666,12,1.376,stroll,Aston Martin,Lance,Stroll,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,VER,92.544,111.823545454,11,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,22.2,37.0,39.3,0.6,False
+2022,1,Bahrain Grand Prix,Sakhir,FP3,2022-03-20,ZHO,93.88,117.010857142,14,1.336,zhou,Alfa Romeo,Guanyu,Zhou,22.2,37.0,39.3,0.6,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,ALB,93.087,108.072842105,19,2.315,albon,Williams,Alexander,Albon,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,ALO,92.381,104.039764705,17,1.609,alonso,Alpine,Fernando,Alonso,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,BOT,91.084,108.495,16,0.312,bottas,Alfa Romeo,Valtteri,Bottas,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,GAS,91.317,104.507954545,22,0.545,gasly,AlphaTauri,Pierre,Gasly,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,HAM,92.364,109.80917647,17,1.592,hamilton,Mercedes,Lewis,Hamilton,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,HUL,93.034,115.58305,20,2.262,hulkenberg,Aston Martin,Nico,Hulkenberg,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,LAT,93.529,107.003809523,21,2.757,latifi,Williams,Nicholas,Latifi,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,LEC,90.772,108.101071428,14,0.0,leclerc,Ferrari,Charles,Leclerc,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,MAG,124.638,124.638,1,33.866,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,MSC,94.429,102.208117647,17,3.657,mick_schumacher,Haas F1 Team,Mick,Schumacher,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,NOR,92.594,110.4194,20,1.822,norris,McLaren,Lando,Norris,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,OCO,92.026,105.212619047,21,1.254,ocon,Alpine,Esteban,Ocon,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,PER,91.563,101.998421052,19,0.791,perez,Red Bull Racing,Sergio,Perez,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,RIC,92.506,109.1295,20,1.734,ricciardo,McLaren,Daniel,Ricciardo,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,RUS,92.839,109.2225,16,2.067,russell,Mercedes,George,Russell,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,SAI,91.139,103.59790909,11,0.367,sainz,Ferrari,Carlos,Sainz,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,STR,92.582,111.741888888,18,1.81,stroll,Aston Martin,Lance,Stroll,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,TSU,91.505,113.708,21,0.733,tsunoda,AlphaTauri,Yuki,Tsunoda,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,VER,90.888,108.508789473,19,0.116,max_verstappen,Red Bull Racing,Max,Verstappen,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP1,2022-03-27,ZHO,92.608,110.9699,20,1.836,zhou,Alfa Romeo,Guanyu,Zhou,22.9,28.2,51.4,4.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,ALB,91.866,108.30384,25,1.792,albon,Williams,Alexander,Albon,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,ALO,90.944,103.696434782,23,0.87,alonso,Alpine,Fernando,Alonso,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,BOT,90.832,108.7843,10,0.758,bottas,Alfa Romeo,Valtteri,Bottas,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,GAS,90.963,107.3882,25,0.889,gasly,AlphaTauri,Pierre,Gasly,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,HAM,90.513,105.54525,20,0.439,hamilton,Mercedes,Lewis,Hamilton,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,HUL,91.615,103.138307692,26,1.541,hulkenberg,Aston Martin,Nico,Hulkenberg,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,LAT,91.814,106.137523809,21,1.74,latifi,Williams,Nicholas,Latifi,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,LEC,90.074,113.932818181,11,0.0,leclerc,Ferrari,Charles,Leclerc,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,MAG,92.344,115.8925,10,2.27,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,MSC,91.169,109.06275,24,1.095,mick_schumacher,Haas F1 Team,Mick,Schumacher,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,NOR,90.735,102.904714285,21,0.661,norris,McLaren,Lando,Norris,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,OCO,90.76,106.087727272,22,0.686,ocon,Alpine,Esteban,Ocon,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,PER,90.36,106.533444444,18,0.286,perez,Red Bull Racing,Sergio,Perez,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,RIC,91.527,106.527736842,19,1.453,ricciardo,McLaren,Daniel,Ricciardo,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,RUS,90.664,104.03776,25,0.59,russell,Mercedes,George,Russell,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,SAI,90.32,113.6646,10,0.246,sainz,Ferrari,Carlos,Sainz,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,STR,91.372,105.577166666,24,1.298,stroll,Aston Martin,Lance,Stroll,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,TSU,90.886,108.652333333,21,0.812,tsunoda,AlphaTauri,Yuki,Tsunoda,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,VER,90.214,107.619444444,18,0.14,max_verstappen,Red Bull Racing,Max,Verstappen,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP2,2022-03-27,ZHO,91.615,108.726875,24,1.541,zhou,Alfa Romeo,Guanyu,Zhou,21.8,24.3,55.9,3.3,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,ALB,91.374,117.491384615,13,1.639,albon,Williams,Alexander,Albon,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,ALO,90.296,111.897928571,14,0.561,alonso,Alpine,Fernando,Alonso,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,BOT,90.03,114.039222222,18,0.295,bottas,Alfa Romeo,Valtteri,Bottas,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,GAS,90.148,113.304222222,9,0.413,gasly,AlphaTauri,Pierre,Gasly,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,HAM,90.707,105.66376923,13,0.972,hamilton,Mercedes,Lewis,Hamilton,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,HUL,91.424,117.979785714,14,1.689,hulkenberg,Aston Martin,Nico,Hulkenberg,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,LAT,91.992,114.7652,10,2.257,latifi,Williams,Nicholas,Latifi,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,LEC,89.735,107.957833333,18,0.0,leclerc,Ferrari,Charles,Leclerc,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,MAG,90.262,116.9022,15,0.527,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,MSC,90.765,111.743307692,13,1.03,mick_schumacher,Haas F1 Team,Mick,Schumacher,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,NOR,91.529,113.546384615,13,1.794,norris,McLaren,Lando,Norris,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,OCO,90.139,109.870285714,14,0.404,ocon,Alpine,Esteban,Ocon,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,PER,89.833,117.479166666,12,0.098,perez,Red Bull Racing,Sergio,Perez,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,RIC,91.186,111.86675,12,1.451,ricciardo,McLaren,Daniel,Ricciardo,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,RUS,90.983,113.186454545,11,1.248,russell,Mercedes,George,Russell,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,SAI,90.009,112.537555555,18,0.274,sainz,Ferrari,Carlos,Sainz,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,STR,91.067,119.5925,14,1.332,stroll,Aston Martin,Lance,Stroll,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,TSU,90.415,115.8712,15,0.68,tsunoda,AlphaTauri,Yuki,Tsunoda,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,VER,89.768,113.5835,8,0.033,max_verstappen,Red Bull Racing,Max,Verstappen,24.3,29.3,56.4,5.7,False
+2022,2,Saudi Arabian Grand Prix,Jeddah,FP3,2022-03-27,ZHO,90.946,116.359785714,14,1.211,zhou,Alfa Romeo,Guanyu,Zhou,24.3,29.3,56.4,5.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,ALB,82.754,97.98840909,22,2.948,albon,Williams,Alexander,Albon,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,ALO,81.229,90.723823529,17,1.423,alonso,Alpine,Fernando,Alonso,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,BOT,81.247,95.3697,20,1.441,bottas,Alfa Romeo,Valtteri,Bottas,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,GAS,81.701,101.527086956,23,1.895,gasly,AlphaTauri,Pierre,Gasly,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,HAM,81.027,93.838608695,23,1.221,hamilton,Mercedes,Lewis,Hamilton,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,LAT,83.924,99.990772727,22,4.118,latifi,Williams,Nicholas,Latifi,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,LEC,80.377,101.945111111,18,0.571,leclerc,Ferrari,Charles,Leclerc,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,MAG,83.186,99.346533333,15,3.38,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,MSC,84.349,103.345,11,4.543,mick_schumacher,Haas F1 Team,Mick,Schumacher,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,NOR,80.878,96.446210526,19,1.072,norris,McLaren,Lando,Norris,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,OCO,81.004,100.998875,24,1.198,ocon,Alpine,Esteban,Ocon,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,PER,80.399,104.675466666,15,0.593,perez,Red Bull Racing,Sergio,Perez,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,RIC,81.155,96.14435,20,1.349,ricciardo,McLaren,Daniel,Ricciardo,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,RUS,81.457,92.592521739,23,1.651,russell,Mercedes,George,Russell,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,SAI,79.806,97.23705,20,0.0,sainz,Ferrari,Carlos,Sainz,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,STR,81.869,99.178210526,19,2.063,stroll,Aston Martin,Lance,Stroll,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,TSU,81.289,96.842565217,23,1.483,tsunoda,AlphaTauri,Yuki,Tsunoda,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,VER,80.626,101.634111111,18,0.82,max_verstappen,Red Bull Racing,Max,Verstappen,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,VET,81.661,96.794466666,15,1.855,vettel,Aston Martin,Sebastian,Vettel,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP1,2022-04-10,ZHO,81.821,98.898833333,18,2.015,zhou,Alfa Romeo,Guanyu,Zhou,21.2,37.9,56.6,0.7,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,ALB,81.912,96.269375,24,2.934,albon,Williams,Alexander,Albon,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,ALO,79.537,94.354,18,0.559,alonso,Alpine,Fernando,Alonso,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,BOT,80.055,95.611,20,1.077,bottas,Alfa Romeo,Valtteri,Bottas,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,GAS,80.142,96.472652173,23,1.164,gasly,AlphaTauri,Pierre,Gasly,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,HAM,80.521,96.097526315,19,1.543,hamilton,Mercedes,Lewis,Hamilton,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,LAT,82.307,99.5181,20,3.329,latifi,Williams,Nicholas,Latifi,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,LEC,78.978,102.327434782,23,0.0,leclerc,Ferrari,Charles,Leclerc,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,MAG,81.191,97.134315789,19,2.213,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,MSC,81.974,99.402,18,2.996,mick_schumacher,Haas F1 Team,Mick,Schumacher,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,NOR,80.1,95.88505,20,1.122,norris,McLaren,Lando,Norris,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,OCO,79.842,92.622333333,21,0.864,ocon,Alpine,Esteban,Ocon,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,PER,79.658,96.280625,16,0.68,perez,Red Bull Racing,Sergio,Perez,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,RIC,80.203,94.3445,20,1.225,ricciardo,McLaren,Daniel,Ricciardo,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,RUS,80.212,97.132904761,21,1.234,russell,Mercedes,George,Russell,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,SAI,79.376,98.123954545,22,0.398,sainz,Ferrari,Carlos,Sainz,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,STR,80.611,94.571833333,24,1.633,stroll,Aston Martin,Lance,Stroll,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,TSU,80.424,94.663807692,26,1.446,tsunoda,AlphaTauri,Yuki,Tsunoda,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,VER,79.223,95.475105263,19,0.245,max_verstappen,Red Bull Racing,Max,Verstappen,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP2,2022-04-10,ZHO,81.063,97.1813,20,2.085,zhou,Alfa Romeo,Guanyu,Zhou,20.8,29.5,66.0,0.8,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,ALB,80.958,99.76225,12,1.841,albon,Williams,Alexander,Albon,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,ALO,79.275,100.388083333,12,0.158,alonso,Alpine,Fernando,Alonso,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,BOT,80.008,99.716384615,13,0.891,bottas,Alfa Romeo,Valtteri,Bottas,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,GAS,80.133,102.892833333,12,1.016,gasly,AlphaTauri,Pierre,Gasly,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,HAM,79.896,97.530181818,11,0.779,hamilton,Mercedes,Lewis,Hamilton,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,LAT,81.05,102.6314,10,1.933,latifi,Williams,Nicholas,Latifi,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,LEC,79.249,102.893416666,12,0.132,leclerc,Ferrari,Charles,Leclerc,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,MAG,81.025,102.6602,10,1.908,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,MSC,80.692,101.754846153,13,1.575,mick_schumacher,Haas F1 Team,Mick,Schumacher,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,NOR,79.117,108.194444444,9,0.0,norris,McLaren,Lando,Norris,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,OCO,80.205,97.832272727,11,1.088,ocon,Alpine,Esteban,Ocon,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,PER,79.265,97.265642857,14,0.148,perez,Red Bull Racing,Sergio,Perez,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,RIC,79.693,107.2019,10,0.576,ricciardo,McLaren,Daniel,Ricciardo,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,RUS,80.096,93.2915,14,0.979,russell,Mercedes,George,Russell,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,SAI,79.419,108.917714285,14,0.302,sainz,Ferrari,Carlos,Sainz,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,STR,81.636,102.139714285,7,2.519,stroll,Aston Martin,Lance,Stroll,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,TSU,80.071,103.544,10,0.954,tsunoda,AlphaTauri,Yuki,Tsunoda,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,VER,79.809,101.189,12,0.692,max_verstappen,Red Bull Racing,Max,Verstappen,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,VET,94.542,104.890333333,3,15.425,vettel,Aston Martin,Sebastian,Vettel,24.6,32.5,50.1,1.1,False
+2022,3,Australian Grand Prix,Melbourne,FP3,2022-04-10,ZHO,80.836,102.584333333,12,1.719,zhou,Alfa Romeo,Guanyu,Zhou,24.6,32.5,50.1,1.1,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,ALB,96.461,103.474363636,11,7.059,albon,Williams,Alexander,Albon,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,ALO,93.16,102.3867,10,3.758,alonso,Alpine,Fernando,Alonso,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,BOT,94.615,104.98475,12,5.213,bottas,Alfa Romeo,Valtteri,Bottas,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,GAS,95.104,102.845,15,5.702,gasly,AlphaTauri,Pierre,Gasly,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,HAM,96.464,102.626727272,11,7.062,hamilton,Mercedes,Lewis,Hamilton,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,LAT,99.698,106.328555555,9,10.296,latifi,Williams,Nicholas,Latifi,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,LEC,89.402,103.138210526,19,0.0,leclerc,Ferrari,Charles,Leclerc,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,MAG,92.439,100.621157894,19,3.037,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,MSC,92.988,102.940578947,19,3.586,mick_schumacher,Haas F1 Team,Mick,Schumacher,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,NOR,95.502,102.16725,8,6.1,norris,McLaren,Lando,Norris,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,OCO,95.42,103.6825,12,6.018,ocon,Alpine,Esteban,Ocon,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,PER,93.012,104.763928571,14,3.61,perez,Red Bull Racing,Sergio,Perez,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,RIC,95.625,102.892818181,11,6.223,ricciardo,McLaren,Daniel,Ricciardo,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,RUS,94.262,101.946133333,15,4.86,russell,Mercedes,George,Russell,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,SAI,90.279,98.8121,20,0.877,sainz,Ferrari,Carlos,Sainz,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,STR,96.033,108.934222222,18,6.631,stroll,Aston Martin,Lance,Stroll,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,TSU,93.611,104.654,14,4.209,tsunoda,AlphaTauri,Yuki,Tsunoda,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,VER,90.867,101.265066666,15,1.465,max_verstappen,Red Bull Racing,Max,Verstappen,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,VET,93.365,99.449705882,17,3.963,vettel,Aston Martin,Sebastian,Vettel,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP1,2022-04-24,ZHO,97.45,104.221375,16,8.048,zhou,Alfa Romeo,Guanyu,Zhou,11.5,14.7,91.3,2.9,True
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,ALB,80.591,87.14425,32,1.134,albon,Williams,Alexander,Albon,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,ALO,80.174,86.694923076,26,0.717,alonso,Alpine,Fernando,Alonso,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,GAS,80.439,86.866571428,35,0.982,gasly,AlphaTauri,Pierre,Gasly,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,HAM,79.992,89.095709677,31,0.535,hamilton,Mercedes,Lewis,Hamilton,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,LAT,81.263,87.308448275,29,1.806,latifi,Williams,Nicholas,Latifi,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,LEC,79.74,86.2646875,32,0.283,leclerc,Ferrari,Charles,Leclerc,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,MAG,80.74,87.491481481,27,1.283,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,MSC,80.977,87.22076923,26,1.52,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,NOR,83.821,99.71875,4,4.364,norris,McLaren,Lando,Norris,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,OCO,81.179,87.676892857,28,1.722,ocon,Alpine,Esteban,Ocon,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,PER,79.538,86.734967741,31,0.081,perez,Red Bull Racing,Sergio,Perez,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,RUS,79.457,90.132206896,29,0.0,russell,Mercedes,George,Russell,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,SAI,80.258,90.015,29,0.801,sainz,Ferrari,Carlos,Sainz,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,STR,81.149,88.0544,35,1.692,stroll,Aston Martin,Lance,Stroll,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,TSU,80.381,86.679060606,33,0.924,tsunoda,AlphaTauri,Yuki,Tsunoda,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,VER,80.371,87.271058823,34,0.914,max_verstappen,Red Bull Racing,Max,Verstappen,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,VET,81.155,88.122942857,35,1.698,vettel,Aston Martin,Sebastian,Vettel,19.2,30.9,48.4,2.2,False
+2022,4,Emilia Romagna Grand Prix,Imola,FP2,2022-04-24,ZHO,80.498,87.631068965,29,1.041,zhou,Alfa Romeo,Guanyu,Zhou,19.2,30.9,48.4,2.2,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,ALB,91.854,112.236666666,15,0.756,albon,Williams,Alexander,Albon,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,ALO,92.884,105.398714285,28,1.786,alonso,Alpine,Fernando,Alonso,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,BOT,93.773,103.3349,10,2.675,bottas,Alfa Romeo,Valtteri,Bottas,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,GAS,91.498,110.336416666,24,0.4,gasly,AlphaTauri,Pierre,Gasly,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,HAM,91.956,107.492133333,15,0.858,hamilton,Mercedes,Lewis,Hamilton,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,LAT,95.637,109.300956521,23,4.539,latifi,Williams,Nicholas,Latifi,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,LEC,91.098,107.582388888,18,0.0,leclerc,Ferrari,Charles,Leclerc,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,MAG,92.559,104.4782,15,1.461,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,MSC,94.945,106.6482,15,3.847,mick_schumacher,Haas F1 Team,Mick,Schumacher,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,NOR,92.615,105.235047619,21,1.517,norris,McLaren,Lando,Norris,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,OCO,93.417,109.013583333,24,2.319,ocon,Alpine,Esteban,Ocon,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,PER,91.301,113.11255,20,0.203,perez,Red Bull Racing,Sergio,Perez,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,RIC,92.592,105.867235294,17,1.494,ricciardo,McLaren,Daniel,Ricciardo,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,RUS,91.169,107.61835,20,0.071,russell,Mercedes,George,Russell,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,SAI,91.528,110.2159,20,0.43,sainz,Ferrari,Carlos,Sainz,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,STR,93.576,122.179294117,17,2.478,stroll,Aston Martin,Lance,Stroll,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,TSU,94.043,106.547826086,23,2.945,tsunoda,AlphaTauri,Yuki,Tsunoda,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,VER,91.277,102.98990909,11,0.179,max_verstappen,Red Bull Racing,Max,Verstappen,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,VET,93.024,115.19365,20,1.926,vettel,Aston Martin,Sebastian,Vettel,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP1,2022-05-08,ZHO,93.02,110.530111111,18,1.922,zhou,Alfa Romeo,Guanyu,Zhou,33.7,50.5,41.8,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,ALB,91.71,107.805294117,17,1.772,albon,Williams,Alexander,Albon,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,ALO,90.372,108.717882352,17,0.434,alonso,Alpine,Fernando,Alonso,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,GAS,90.547,105.8370625,16,0.609,gasly,AlphaTauri,Pierre,Gasly,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,HAM,90.179,104.443083333,12,0.241,hamilton,Mercedes,Lewis,Hamilton,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,LAT,92.913,110.6413,10,2.975,latifi,Williams,Nicholas,Latifi,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,LEC,90.044,104.917533333,15,0.106,leclerc,Ferrari,Charles,Leclerc,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,MAG,90.921,105.6438125,16,0.983,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,MSC,91.587,108.004125,16,1.649,mick_schumacher,Haas F1 Team,Mick,Schumacher,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,NOR,90.535,108.8583125,16,0.597,norris,McLaren,Lando,Norris,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,OCO,90.861,110.224882352,17,0.923,ocon,Alpine,Esteban,Ocon,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,PER,90.15,108.563428571,14,0.212,perez,Red Bull Racing,Sergio,Perez,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,RIC,91.208,110.724764705,17,1.27,ricciardo,McLaren,Daniel,Ricciardo,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,RUS,89.938,108.178833333,12,0.0,russell,Mercedes,George,Russell,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,SAI,90.964,113.462666666,6,1.026,sainz,Ferrari,Carlos,Sainz,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,STR,91.631,109.762411764,17,1.693,stroll,Aston Martin,Lance,Stroll,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,TSU,91.26,107.404888888,18,1.322,tsunoda,AlphaTauri,Yuki,Tsunoda,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,VET,91.393,107.293823529,17,1.455,vettel,Aston Martin,Sebastian,Vettel,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP2,2022-05-08,ZHO,90.86,109.03455,20,0.922,zhou,Alfa Romeo,Guanyu,Zhou,33.0,41.8,47.0,1.5,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,ALB,91.501,107.684416666,12,1.197,albon,Williams,Alexander,Albon,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,ALO,91.036,111.383333333,12,0.732,alonso,Alpine,Fernando,Alonso,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,BOT,91.885,105.93840909,22,1.581,bottas,Alfa Romeo,Valtteri,Bottas,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,GAS,91.901,104.372733333,15,1.597,gasly,AlphaTauri,Pierre,Gasly,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,HAM,91.89,110.006642857,14,1.586,hamilton,Mercedes,Lewis,Hamilton,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,LAT,92.376,111.395,14,2.072,latifi,Williams,Nicholas,Latifi,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,LEC,90.498,110.731058823,17,0.194,leclerc,Ferrari,Charles,Leclerc,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,MAG,91.227,102.803125,16,0.923,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,MSC,91.05,109.210733333,15,0.746,mick_schumacher,Haas F1 Team,Mick,Schumacher,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,NOR,91.594,110.796933333,15,1.29,norris,McLaren,Lando,Norris,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,PER,90.304,113.345388888,18,0.0,perez,Red Bull Racing,Sergio,Perez,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,RIC,91.728,105.188,16,1.424,ricciardo,McLaren,Daniel,Ricciardo,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,RUS,91.924,110.851214285,14,1.62,russell,Mercedes,George,Russell,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,SAI,91.172,112.845722222,18,0.868,sainz,Ferrari,Carlos,Sainz,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,STR,91.665,113.826789473,19,1.361,stroll,Aston Martin,Lance,Stroll,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,TSU,91.659,110.9125,20,1.355,tsunoda,AlphaTauri,Yuki,Tsunoda,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,VER,90.649,109.550117647,17,0.345,max_verstappen,Red Bull Racing,Max,Verstappen,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,VET,91.049,112.519714285,21,0.745,vettel,Aston Martin,Sebastian,Vettel,33.4,50.2,42.8,1.6,False
+2022,5,Miami Grand Prix,Miami,FP3,2022-05-08,ZHO,92.051,114.440357142,14,1.747,zhou,Alfa Romeo,Guanyu,Zhou,33.4,50.2,42.8,1.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,ALO,80.768,93.20255,20,0.94,alonso,Alpine,Fernando,Alonso,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,BOT,82.614,98.228,21,2.786,bottas,Alfa Romeo,Valtteri,Bottas,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,DEV,82.92,95.6482,25,3.092,nan,Williams,Nyck,De Vries,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,GAS,81.422,96.4515,20,1.594,gasly,AlphaTauri,Pierre,Gasly,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,HAM,80.811,95.58195238,21,0.983,hamilton,Mercedes,Lewis,Hamilton,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,KUB,81.975,92.33975,16,2.147,nan,Alfa Romeo,Robert,Kubica,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,LAT,83.011,97.927375,24,3.183,latifi,Williams,Nicholas,Latifi,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,LEC,79.828,91.143619047,21,0.0,leclerc,Ferrari,Charles,Leclerc,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,MAG,82.089,100.04276923,13,2.261,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,MSC,82.146,99.046166666,18,2.318,mick_schumacher,Haas F1 Team,Mick,Schumacher,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,NOR,81.279,96.549809523,21,1.451,norris,McLaren,Lando,Norris,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,OCO,81.891,97.310173913,23,2.063,ocon,Alpine,Esteban,Ocon,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,RIC,81.737,99.31055,20,1.909,ricciardo,McLaren,Daniel,Ricciardo,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,RUS,80.59,99.33975,24,0.762,russell,Mercedes,George,Russell,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,SAI,79.907,92.67073913,23,0.079,sainz,Ferrari,Carlos,Sainz,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,STR,81.92,99.632947368,19,2.092,stroll,Aston Martin,Lance,Stroll,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,TSU,81.814,97.5156,25,1.986,tsunoda,AlphaTauri,Yuki,Tsunoda,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,VER,80.164,95.820916666,24,0.336,max_verstappen,Red Bull Racing,Max,Verstappen,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,VET,82.164,98.77175,16,2.336,vettel,Aston Martin,Sebastian,Vettel,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP1,2022-05-22,VIP,84.138,104.7615,18,4.31,nan,Red Bull Racing,Juri,Vips,29.3,45.8,42.0,1.4,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,ALB,82.319,98.458,28,2.649,albon,Williams,Alexander,Albon,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,ALO,80.203,95.0955,22,0.533,alonso,Alpine,Fernando,Alonso,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,BOT,81.828,81.828,1,2.158,bottas,Alfa Romeo,Valtteri,Bottas,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,GAS,80.917,97.94844,25,1.247,gasly,AlphaTauri,Pierre,Gasly,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,HAM,79.874,95.121090909,22,0.204,hamilton,Mercedes,Lewis,Hamilton,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,LAT,83.197,99.097545454,22,3.527,latifi,Williams,Nicholas,Latifi,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,LEC,79.67,94.51696,25,0.0,leclerc,Ferrari,Charles,Leclerc,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,MAG,81.013,96.99565,20,1.343,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,MSC,80.757,96.784681818,22,1.087,mick_schumacher,Haas F1 Team,Mick,Schumacher,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,NOR,83.388,99.236,4,3.718,norris,McLaren,Lando,Norris,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,OCO,80.745,94.692652173,23,1.075,ocon,Alpine,Esteban,Ocon,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,PER,80.632,99.300653846,26,0.962,perez,Red Bull Racing,Sergio,Perez,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,RIC,81.385,95.339105263,19,1.715,ricciardo,McLaren,Daniel,Ricciardo,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,RUS,79.787,97.462304347,23,0.117,russell,Mercedes,George,Russell,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,SAI,79.99,96.323821428,28,0.32,sainz,Ferrari,Carlos,Sainz,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,STR,81.249,96.659034482,29,1.579,stroll,Aston Martin,Lance,Stroll,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,TSU,81.285,96.914038461,26,1.615,tsunoda,AlphaTauri,Yuki,Tsunoda,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,VER,80.006,93.790583333,24,0.336,max_verstappen,Red Bull Racing,Max,Verstappen,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,VET,80.703,94.027178571,28,1.033,vettel,Aston Martin,Sebastian,Vettel,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP2,2022-05-22,ZHO,81.866,99.971851851,27,2.196,zhou,Alfa Romeo,Guanyu,Zhou,30.8,43.7,27.6,2.8,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,ALB,81.572,104.063,15,1.8,albon,Williams,Alexander,Albon,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,ALO,80.981,96.208428571,14,1.209,alonso,Alpine,Fernando,Alonso,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,BOT,80.781,102.35175,20,1.009,bottas,Alfa Romeo,Valtteri,Bottas,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,HAM,80.002,105.4935,12,0.23,hamilton,Mercedes,Lewis,Hamilton,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,LAT,82.419,106.218866666,15,2.647,latifi,Williams,Nicholas,Latifi,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,LEC,79.772,94.362473684,19,0.0,leclerc,Ferrari,Charles,Leclerc,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,MAG,80.646,103.978941176,17,0.874,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,MSC,85.467,105.038666666,3,5.695,mick_schumacher,Haas F1 Team,Mick,Schumacher,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,NOR,80.403,99.848857142,14,0.631,norris,McLaren,Lando,Norris,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,OCO,80.882,97.1912,15,1.11,ocon,Alpine,Esteban,Ocon,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,PER,80.26,103.802307692,13,0.488,perez,Red Bull Racing,Sergio,Perez,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,RIC,80.91,100.590166666,12,1.138,ricciardo,McLaren,Daniel,Ricciardo,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,RUS,79.92,110.054166666,12,0.148,russell,Mercedes,George,Russell,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,SAI,80.129,99.931368421,19,0.357,sainz,Ferrari,Carlos,Sainz,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,STR,81.52,104.069611111,18,1.748,stroll,Aston Martin,Lance,Stroll,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,TSU,81.449,98.403947368,19,1.677,tsunoda,AlphaTauri,Yuki,Tsunoda,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,VER,79.844,102.398888888,9,0.072,max_verstappen,Red Bull Racing,Max,Verstappen,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,VET,80.944,100.741157894,19,1.172,vettel,Aston Martin,Sebastian,Vettel,31.5,44.1,32.0,2.6,False
+2022,6,Spanish Grand Prix,Barcelona,FP3,2022-05-22,ZHO,81.201,107.780625,16,1.429,zhou,Alfa Romeo,Guanyu,Zhou,31.5,44.1,32.0,2.6,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,ALB,76.11,88.229054054,37,1.579,albon,Williams,Alexander,Albon,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,ALO,75.749,85.743653846,26,1.218,alonso,Alpine,Fernando,Alonso,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,BOT,103.912,103.912,1,29.381,bottas,Alfa Romeo,Valtteri,Bottas,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,GAS,75.083,87.401466666,30,0.552,gasly,AlphaTauri,Pierre,Gasly,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,HAM,75.499,88.207346153,26,0.968,hamilton,Mercedes,Lewis,Hamilton,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,LAT,77.714,91.629035714,28,3.183,latifi,Williams,Nicholas,Latifi,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,LEC,74.531,92.029185185,27,0.0,leclerc,Ferrari,Charles,Leclerc,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,MAG,75.806,89.306851851,27,1.275,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,MSC,78.636,86.255090909,11,4.105,mick_schumacher,Haas F1 Team,Mick,Schumacher,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,NOR,75.056,86.089178571,28,0.525,norris,McLaren,Lando,Norris,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,OCO,76.315,88.420571428,21,1.784,ocon,Alpine,Esteban,Ocon,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,PER,74.57,95.868777777,27,0.039,perez,Red Bull Racing,Sergio,Perez,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,RIC,75.157,88.1551,30,0.626,ricciardo,McLaren,Daniel,Ricciardo,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,RUS,75.211,86.057466666,30,0.68,russell,Mercedes,George,Russell,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,SAI,74.601,94.473038461,26,0.07,sainz,Ferrari,Carlos,Sainz,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,STR,75.539,88.519636363,22,1.008,stroll,Aston Martin,Lance,Stroll,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,TSU,75.536,88.53590909,33,1.005,tsunoda,AlphaTauri,Yuki,Tsunoda,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,VER,74.712,88.025714285,21,0.181,max_verstappen,Red Bull Racing,Max,Verstappen,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,VET,75.387,85.8852,30,0.856,vettel,Aston Martin,Sebastian,Vettel,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP1,2022-05-29,ZHO,76.417,87.116083333,24,1.886,zhou,Alfa Romeo,Guanyu,Zhou,30.7,54.3,30.4,0.8,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,ALB,74.486,88.243896551,29,1.83,albon,Williams,Alexander,Albon,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,ALO,73.912,85.794714285,28,1.256,alonso,Alpine,Fernando,Alonso,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,BOT,74.468,90.70624,25,1.812,bottas,Alfa Romeo,Valtteri,Bottas,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,GAS,73.636,87.983928571,28,0.98,gasly,AlphaTauri,Pierre,Gasly,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,HAM,74.267,89.10344,25,1.611,hamilton,Mercedes,Lewis,Hamilton,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,LAT,76.276,90.719,30,3.62,latifi,Williams,Nicholas,Latifi,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,LEC,72.656,91.94437037,27,0.0,leclerc,Ferrari,Charles,Leclerc,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,MAG,74.239,86.927607142,28,1.583,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,MSC,74.894,87.988133333,30,2.238,mick_schumacher,Haas F1 Team,Mick,Schumacher,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,NOR,73.294,91.003428571,21,0.638,norris,McLaren,Lando,Norris,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,OCO,75.216,85.621,31,2.56,ocon,Alpine,Esteban,Ocon,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,PER,73.035,94.330607142,28,0.379,perez,Red Bull Racing,Sergio,Perez,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,RIC,104.698,104.698,1,32.042,ricciardo,McLaren,Daniel,Ricciardo,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,RUS,73.406,89.408928571,28,0.75,russell,Mercedes,George,Russell,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,SAI,72.7,92.738310344,29,0.044,sainz,Ferrari,Carlos,Sainz,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,STR,74.623,90.121884615,26,1.967,stroll,Aston Martin,Lance,Stroll,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,TSU,74.134,92.968166666,24,1.478,tsunoda,AlphaTauri,Yuki,Tsunoda,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,VER,73.103,88.550633333,30,0.447,max_verstappen,Red Bull Racing,Max,Verstappen,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,VET,74.059,88.984655172,29,1.403,vettel,Aston Martin,Sebastian,Vettel,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP2,2022-05-29,ZHO,74.525,89.3361,20,1.869,zhou,Alfa Romeo,Guanyu,Zhou,30.6,50.1,28.5,1.0,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,ALB,73.882,91.573157894,19,1.406,albon,Williams,Alexander,Albon,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,ALO,73.585,91.7756,20,1.109,alonso,Alpine,Fernando,Alonso,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,BOT,73.849,91.032285714,21,1.373,bottas,Alfa Romeo,Valtteri,Bottas,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,GAS,73.21,90.899894736,19,0.734,gasly,AlphaTauri,Pierre,Gasly,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,HAM,73.375,98.190833333,24,0.899,hamilton,Mercedes,Lewis,Hamilton,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,LAT,74.91,92.63190909,22,2.434,latifi,Williams,Nicholas,Latifi,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,LEC,72.517,96.57576923,26,0.041,leclerc,Ferrari,Charles,Leclerc,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,MAG,73.436,90.16785,20,0.96,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,MSC,73.827,92.650045454,22,1.351,mick_schumacher,Haas F1 Team,Mick,Schumacher,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,NOR,73.226,92.599875,16,0.75,norris,McLaren,Lando,Norris,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,OCO,74.26,90.8639,20,1.784,ocon,Alpine,Esteban,Ocon,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,PER,72.476,96.57372,25,0.0,perez,Red Bull Racing,Sergio,Perez,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,RIC,74.104,88.251692307,26,1.628,ricciardo,McLaren,Daniel,Ricciardo,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,RUS,73.476,90.111434782,23,1.0,russell,Mercedes,George,Russell,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,SAI,72.846,99.924,26,0.37,sainz,Ferrari,Carlos,Sainz,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,STR,74.639,91.981411764,17,2.163,stroll,Aston Martin,Lance,Stroll,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,TSU,73.645,91.00290909,22,1.169,tsunoda,AlphaTauri,Yuki,Tsunoda,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,VER,72.881,92.16637037,27,0.405,max_verstappen,Red Bull Racing,Max,Verstappen,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,VET,73.838,90.042208333,24,1.362,vettel,Aston Martin,Sebastian,Vettel,27.2,51.3,47.8,0.7,False
+2022,7,Monaco Grand Prix,Monaco,FP3,2022-05-29,ZHO,74.861,90.851285714,21,2.385,zhou,Alfa Romeo,Guanyu,Zhou,27.2,51.3,47.8,0.7,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,ALB,108.419,126.369588235,17,2.943,albon,Williams,Alexander,Albon,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,ALO,106.571,119.0384,15,1.095,alonso,Alpine,Fernando,Alonso,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,BOT,108.078,125.469294117,17,2.602,bottas,Alfa Romeo,Valtteri,Bottas,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,GAS,106.83,123.956277777,18,1.354,gasly,AlphaTauri,Pierre,Gasly,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,HAM,106.667,121.583666666,15,1.191,hamilton,Mercedes,Lewis,Hamilton,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,LAT,110.921,118.8565,4,5.445,latifi,Williams,Nicholas,Latifi,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,LEC,105.603,118.675714285,14,0.127,leclerc,Ferrari,Charles,Leclerc,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,MAG,107.946,122.91565,20,2.47,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,MSC,118.332,118.332,1,12.856,mick_schumacher,Haas F1 Team,Mick,Schumacher,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,NOR,107.691,121.545428571,14,2.215,norris,McLaren,Lando,Norris,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,OCO,106.917,124.6364,15,1.441,ocon,Alpine,Esteban,Ocon,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,PER,105.476,118.692538461,13,0.0,perez,Red Bull Racing,Sergio,Perez,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,RIC,108.81,116.5888,15,3.334,ricciardo,McLaren,Daniel,Ricciardo,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,RUS,106.705,122.928941176,17,1.229,russell,Mercedes,George,Russell,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,SAI,106.012,118.684428571,14,0.536,sainz,Ferrari,Carlos,Sainz,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,STR,107.847,126.516444444,18,2.371,stroll,Aston Martin,Lance,Stroll,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,TSU,106.696,121.9968125,16,1.22,tsunoda,AlphaTauri,Yuki,Tsunoda,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,VER,105.81,118.604444444,18,0.334,max_verstappen,Red Bull Racing,Max,Verstappen,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,VET,107.97,118.652733333,15,2.494,vettel,Aston Martin,Sebastian,Vettel,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP1,2022-06-12,ZHO,108.222,117.448466666,15,2.746,zhou,Alfa Romeo,Guanyu,Zhou,25.9,42.7,43.1,1.6,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,ALB,106.397,122.435545454,11,3.173,albon,Williams,Alexander,Albon,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,ALO,104.142,116.518888888,18,0.918,alonso,Alpine,Fernando,Alonso,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,BOT,105.115,116.7056,20,1.891,bottas,Alfa Romeo,Valtteri,Bottas,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,GAS,104.315,116.95295238,21,1.091,gasly,AlphaTauri,Pierre,Gasly,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,HAM,104.874,119.301727272,22,1.65,hamilton,Mercedes,Lewis,Hamilton,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,LAT,107.218,120.71685,20,3.994,latifi,Williams,Nicholas,Latifi,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,LEC,103.224,121.299647058,17,0.0,leclerc,Ferrari,Charles,Leclerc,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,MAG,105.588,116.933272727,22,2.364,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,MSC,106.425,123.675625,16,3.201,mick_schumacher,Haas F1 Team,Mick,Schumacher,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,NOR,104.771,120.106,19,1.547,norris,McLaren,Lando,Norris,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,OCO,104.609,118.2653,20,1.385,ocon,Alpine,Esteban,Ocon,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,PER,103.472,114.797214285,14,0.248,perez,Red Bull Racing,Sergio,Perez,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,RIC,105.059,118.186238095,21,1.835,ricciardo,McLaren,Daniel,Ricciardo,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,RUS,104.548,116.757095238,21,1.324,russell,Mercedes,George,Russell,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,SAI,104.274,119.397388888,18,1.05,sainz,Ferrari,Carlos,Sainz,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,STR,104.874,120.234818181,22,1.65,stroll,Aston Martin,Lance,Stroll,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,TSU,104.567,120.958333333,21,1.343,tsunoda,AlphaTauri,Yuki,Tsunoda,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,VER,103.58,118.638071428,14,0.356,max_verstappen,Red Bull Racing,Max,Verstappen,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,VET,104.781,117.307681818,22,1.557,vettel,Aston Martin,Sebastian,Vettel,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP2,2022-06-12,ZHO,105.264,119.337578947,19,2.04,zhou,Alfa Romeo,Guanyu,Zhou,23.9,33.4,52.5,1.4,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,ALB,105.479,123.676,11,2.309,albon,Williams,Alexander,Albon,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,ALO,104.842,122.5495,10,1.672,alonso,Alpine,Fernando,Alonso,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,BOT,105.574,126.1765,12,2.404,bottas,Alfa Romeo,Valtteri,Bottas,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,GAS,104.491,122.298588235,17,1.321,gasly,AlphaTauri,Pierre,Gasly,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,HAM,104.845,119.967,13,1.675,hamilton,Mercedes,Lewis,Hamilton,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,LAT,106.07,125.97275,12,2.9,latifi,Williams,Nicholas,Latifi,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,LEC,103.24,116.1585,10,0.07,leclerc,Ferrari,Charles,Leclerc,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,MAG,104.919,120.0163,10,1.749,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,MSC,105.532,124.360846153,13,2.362,mick_schumacher,Haas F1 Team,Mick,Schumacher,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,NOR,104.418,126.9121,10,1.248,norris,McLaren,Lando,Norris,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,OCO,104.685,122.7222,10,1.515,ocon,Alpine,Esteban,Ocon,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,PER,103.17,124.964416666,12,0.0,perez,Red Bull Racing,Sergio,Perez,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,RIC,104.476,122.9318125,16,1.306,ricciardo,McLaren,Daniel,Ricciardo,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,RUS,104.573,124.794833333,12,1.403,russell,Mercedes,George,Russell,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,SAI,103.596,126.239,12,0.426,sainz,Ferrari,Carlos,Sainz,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,STR,104.879,123.882636363,11,1.709,stroll,Aston Martin,Lance,Stroll,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,TSU,104.964,120.904692307,13,1.794,tsunoda,AlphaTauri,Yuki,Tsunoda,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,VER,103.449,126.301111111,9,0.279,max_verstappen,Red Bull Racing,Max,Verstappen,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,VET,104.689,120.933583333,12,1.519,vettel,Aston Martin,Sebastian,Vettel,27.1,46.3,50.9,1.1,False
+2022,8,Azerbaijan Grand Prix,Baku,FP3,2022-06-12,ZHO,104.913,125.231846153,13,1.743,zhou,Alfa Romeo,Guanyu,Zhou,27.1,46.3,50.9,1.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,ALB,76.308,90.361038461,26,1.15,albon,Williams,Alexander,Albon,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,ALO,75.531,88.977,29,0.373,alonso,Alpine,Fernando,Alonso,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,BOT,76.426,86.18375,24,1.268,bottas,Alfa Romeo,Valtteri,Bottas,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,GAS,76.165,94.3705,26,1.007,gasly,AlphaTauri,Pierre,Gasly,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,HAM,75.877,89.036304347,23,0.719,hamilton,Mercedes,Lewis,Hamilton,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,LAT,77.241,89.358133333,30,2.083,latifi,Williams,Nicholas,Latifi,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,LEC,75.666,85.196538461,26,0.508,leclerc,Ferrari,Charles,Leclerc,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,MAG,77.555,91.604964285,28,2.397,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,MSC,77.223,90.435636363,22,2.065,mick_schumacher,Haas F1 Team,Mick,Schumacher,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,NOR,76.211,92.218666666,15,1.053,norris,McLaren,Lando,Norris,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,OCO,76.421,89.470428571,21,1.263,ocon,Alpine,Esteban,Ocon,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,PER,75.619,88.309206896,29,0.461,perez,Red Bull Racing,Sergio,Perez,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,RIC,76.083,89.02304,25,0.925,ricciardo,McLaren,Daniel,Ricciardo,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,RUS,75.822,90.24684,25,0.664,russell,Mercedes,George,Russell,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,SAI,75.404,89.893741935,31,0.246,sainz,Ferrari,Carlos,Sainz,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,STR,75.877,91.335275862,29,0.719,stroll,Aston Martin,Lance,Stroll,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,TSU,76.322,91.525448275,29,1.164,tsunoda,AlphaTauri,Yuki,Tsunoda,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,VER,75.158,89.216869565,23,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,VET,76.041,89.7663,30,0.883,vettel,Aston Martin,Sebastian,Vettel,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP1,2022-06-19,ZHO,77.152,90.065185185,27,1.994,zhou,Alfa Romeo,Guanyu,Zhou,25.7,43.0,42.1,2.1,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,ALB,76.171,89.454259259,27,2.044,albon,Williams,Alexander,Albon,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,ALO,74.543,86.601761904,21,0.416,alonso,Alpine,Fernando,Alonso,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,GAS,74.879,89.730645161,31,0.752,gasly,AlphaTauri,Pierre,Gasly,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,HAM,75.421,90.99547619,21,1.294,hamilton,Mercedes,Lewis,Hamilton,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,LAT,76.509,89.623083333,24,2.382,latifi,Williams,Nicholas,Latifi,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,LEC,74.208,90.67,29,0.081,leclerc,Ferrari,Charles,Leclerc,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,MAG,75.499,86.60548387,31,1.372,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,MSC,75.516,87.16115625,32,1.389,mick_schumacher,Haas F1 Team,Mick,Schumacher,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,NOR,74.987,86.61974074,27,0.86,norris,McLaren,Lando,Norris,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,OCO,75.119,89.348551724,29,0.992,ocon,Alpine,Esteban,Ocon,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,PER,75.167,91.402923076,26,1.04,perez,Red Bull Racing,Sergio,Perez,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,RIC,75.033,91.024785714,28,0.906,ricciardo,McLaren,Daniel,Ricciardo,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,RUS,74.971,86.626928571,28,0.844,russell,Mercedes,George,Russell,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,SAI,74.352,91.43575862,29,0.225,sainz,Ferrari,Carlos,Sainz,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,STR,75.396,88.064709677,31,1.269,stroll,Aston Martin,Lance,Stroll,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,TSU,75.567,89.046882352,34,1.44,tsunoda,AlphaTauri,Yuki,Tsunoda,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,VER,74.127,88.147933333,30,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,VET,74.442,88.85975,32,0.315,vettel,Aston Martin,Sebastian,Vettel,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP2,2022-06-19,ZHO,75.526,89.7715,28,1.399,zhou,Alfa Romeo,Guanyu,Zhou,26.1,38.5,40.4,1.9,False
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,ALB,95.761,101.733866666,15,1.925,albon,Williams,Alexander,Albon,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,ALO,93.836,104.554230769,13,0.0,alonso,Alpine,Fernando,Alonso,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,BOT,95.016,103.945916666,12,1.18,bottas,Alfa Romeo,Valtteri,Bottas,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,GAS,93.889,101.0389375,16,0.053,gasly,AlphaTauri,Pierre,Gasly,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,HAM,95.692,102.366111111,9,1.856,hamilton,Mercedes,Lewis,Hamilton,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,LAT,98.394,107.474666666,9,4.558,latifi,Williams,Nicholas,Latifi,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,LEC,138.129,139.2715,2,44.293,leclerc,Ferrari,Charles,Leclerc,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,MAG,95.643,104.683307692,13,1.807,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,MSC,97.388,107.646933333,15,3.552,mick_schumacher,Haas F1 Team,Mick,Schumacher,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,NOR,94.248,102.757727272,11,0.412,norris,McLaren,Lando,Norris,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,OCO,94.003,100.550714285,14,0.167,ocon,Alpine,Esteban,Ocon,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,PER,94.498,100.917625,8,0.662,perez,Red Bull Racing,Sergio,Perez,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,RIC,94.11,102.89425,12,0.274,ricciardo,McLaren,Daniel,Ricciardo,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,RUS,94.259,99.358666666,9,0.423,russell,Mercedes,George,Russell,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,SAI,94.778,104.973,14,0.942,sainz,Ferrari,Carlos,Sainz,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,STR,95.531,103.0581,20,1.695,stroll,Aston Martin,Lance,Stroll,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,TSU,96.261,101.837,24,2.425,tsunoda,AlphaTauri,Yuki,Tsunoda,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,VER,94.616,106.853571428,7,0.78,max_verstappen,Red Bull Racing,Max,Verstappen,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,VET,93.891,101.491933333,15,0.055,vettel,Aston Martin,Sebastian,Vettel,11.5,16.6,82.8,2.0,True
+2022,9,Canadian Grand Prix,Montréal,FP3,2022-06-19,ZHO,95.213,107.25125,12,1.377,zhou,Alfa Romeo,Guanyu,Zhou,11.5,16.6,82.8,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,BOT,102.249,114.710833333,6,0.0,bottas,Alfa Romeo,Valtteri,Bottas,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,HAM,102.781,113.9325,6,0.532,hamilton,Mercedes,Lewis,Hamilton,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,LEC,103.801,119.81275,4,1.552,leclerc,Ferrari,Charles,Leclerc,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,MAG,108.161,108.4725,2,5.912,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,MSC,103.895,113.02,2,1.646,mick_schumacher,Haas F1 Team,Mick,Schumacher,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,NOR,104.337,104.337,1,2.088,norris,McLaren,Lando,Norris,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,RIC,115.899,115.899,1,13.65,ricciardo,McLaren,Daniel,Ricciardo,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,SAI,102.967,120.95725,4,0.718,sainz,Ferrari,Carlos,Sainz,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,STR,111.243,113.989,2,8.994,stroll,Aston Martin,Lance,Stroll,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,TSU,109.972,110.6725,2,7.723,tsunoda,AlphaTauri,Yuki,Tsunoda,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,VET,116.216,117.692,2,13.967,vettel,Aston Martin,Sebastian,Vettel,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP1,2022-07-03,ZHO,106.171,107.5485,2,3.922,zhou,Alfa Romeo,Guanyu,Zhou,16.3,24.7,70.9,2.0,True
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,ALB,90.263,108.403545454,11,1.321,albon,Williams,Alexander,Albon,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,ALO,89.695,107.638,16,0.753,alonso,Alpine,Fernando,Alonso,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,BOT,90.0,104.011038461,26,1.058,bottas,Alfa Romeo,Valtteri,Bottas,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,GAS,90.51,101.68612,25,1.568,gasly,AlphaTauri,Pierre,Gasly,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,HAM,89.105,102.798,18,0.163,hamilton,Mercedes,Lewis,Hamilton,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,LAT,91.326,107.979625,24,2.384,latifi,Williams,Nicholas,Latifi,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,LEC,89.404,106.12747619,21,0.462,leclerc,Ferrari,Charles,Leclerc,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,MAG,90.48,105.016708333,24,1.538,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,MSC,90.609,102.842153846,26,1.667,mick_schumacher,Haas F1 Team,Mick,Schumacher,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,NOR,89.118,103.29664,25,0.176,norris,McLaren,Lando,Norris,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,OCO,90.238,108.6949,10,1.296,ocon,Alpine,Esteban,Ocon,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,PER,89.753,108.711153846,13,0.811,perez,Red Bull Racing,Sergio,Perez,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,RIC,89.902,102.861318181,22,0.96,ricciardo,McLaren,Daniel,Ricciardo,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,RUS,89.799,103.333615384,26,0.857,russell,Mercedes,George,Russell,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,SAI,88.942,105.53964,25,0.0,sainz,Ferrari,Carlos,Sainz,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,STR,89.942,103.245076923,13,1.0,stroll,Aston Martin,Lance,Stroll,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,TSU,90.338,104.635346153,26,1.396,tsunoda,AlphaTauri,Yuki,Tsunoda,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,VER,89.149,103.361,14,0.207,max_verstappen,Red Bull Racing,Max,Verstappen,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,VET,90.057,105.180705882,17,1.115,vettel,Aston Martin,Sebastian,Vettel,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP2,2022-07-03,ZHO,90.271,106.878916666,24,1.329,zhou,Alfa Romeo,Guanyu,Zhou,18.8,30.3,50.1,4.0,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,ALB,89.78,105.430263157,19,1.879,albon,Williams,Alexander,Albon,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,ALO,89.52,100.629882352,17,1.619,alonso,Alpine,Fernando,Alonso,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,BOT,89.185,106.6088125,16,1.284,bottas,Alfa Romeo,Valtteri,Bottas,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,GAS,89.885,109.7075,20,1.984,gasly,AlphaTauri,Pierre,Gasly,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,HAM,88.488,106.55365,20,0.587,hamilton,Mercedes,Lewis,Hamilton,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,LAT,90.489,109.738615384,13,2.588,latifi,Williams,Nicholas,Latifi,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,LEC,88.348,111.429941176,17,0.447,leclerc,Ferrari,Charles,Leclerc,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,MAG,90.523,111.1332,15,2.622,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,MSC,89.51,109.703352941,17,1.609,mick_schumacher,Haas F1 Team,Mick,Schumacher,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,NOR,89.102,108.2843125,16,1.201,norris,McLaren,Lando,Norris,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,OCO,89.552,104.435380952,21,1.651,ocon,Alpine,Esteban,Ocon,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,PER,88.311,114.876388888,18,0.41,perez,Red Bull Racing,Sergio,Perez,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,RIC,90.293,109.152764705,17,2.392,ricciardo,McLaren,Daniel,Ricciardo,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,RUS,88.426,104.754111111,18,0.525,russell,Mercedes,George,Russell,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,SAI,88.689,107.14,15,0.788,sainz,Ferrari,Carlos,Sainz,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,STR,89.892,109.416285714,21,1.991,stroll,Aston Martin,Lance,Stroll,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,TSU,90.039,108.951210526,19,2.138,tsunoda,AlphaTauri,Yuki,Tsunoda,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,VER,87.901,108.505428571,14,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,VET,89.593,110.7992,20,1.692,vettel,Aston Martin,Sebastian,Vettel,17.3,25.1,66.2,4.7,False
+2022,10,British Grand Prix,Silverstone,FP3,2022-07-03,ZHO,89.752,106.218,14,1.851,zhou,Alfa Romeo,Guanyu,Zhou,17.3,25.1,66.2,4.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,ALB,67.582,79.920884615,26,1.28,albon,Williams,Alexander,Albon,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,ALO,67.1,78.911576923,26,0.798,alonso,Alpine,Fernando,Alonso,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,BOT,67.522,78.51195238,21,1.22,bottas,Alfa Romeo,Valtteri,Bottas,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,GAS,67.592,83.59125,28,1.29,gasly,AlphaTauri,Pierre,Gasly,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,HAM,66.909,82.835535714,28,0.607,hamilton,Mercedes,Lewis,Hamilton,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,LAT,68.149,82.428652173,23,1.847,latifi,Williams,Nicholas,Latifi,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,LEC,66.557,82.183115384,26,0.255,leclerc,Ferrari,Charles,Leclerc,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,MAG,66.965,79.600857142,28,0.663,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,MSC,67.246,80.24625,28,0.944,mick_schumacher,Haas F1 Team,Mick,Schumacher,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,NOR,69.915,84.520615384,13,3.613,norris,McLaren,Lando,Norris,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,OCO,67.462,86.632043478,23,1.16,ocon,Alpine,Esteban,Ocon,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,PER,66.839,88.430208333,24,0.537,perez,Red Bull Racing,Sergio,Perez,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,RIC,67.743,84.607380952,21,1.441,ricciardo,McLaren,Daniel,Ricciardo,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,RUS,66.702,81.618241379,29,0.4,russell,Mercedes,George,Russell,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,SAI,67.039,85.367708333,24,0.737,sainz,Ferrari,Carlos,Sainz,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,STR,67.431,86.8817,20,1.129,stroll,Aston Martin,Lance,Stroll,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,TSU,67.296,79.993142857,28,0.994,tsunoda,AlphaTauri,Yuki,Tsunoda,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,VER,66.302,85.814620689,29,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,VET,67.476,82.270565217,23,1.174,vettel,Aston Martin,Sebastian,Vettel,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP1,2022-07-10,ZHO,67.889,82.237590909,22,1.587,zhou,Alfa Romeo,Guanyu,Zhou,18.2,38.3,37.1,2.4,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,ALB,69.74,74.451612903,31,1.13,albon,Williams,Alexander,Albon,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,ALO,68.832,78.181157894,19,0.222,alonso,Alpine,Fernando,Alonso,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,BOT,69.251,75.82673913,23,0.641,bottas,Alfa Romeo,Valtteri,Bottas,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,GAS,69.579,73.912571428,35,0.969,gasly,AlphaTauri,Pierre,Gasly,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,HAM,69.35,78.822461538,13,0.74,hamilton,Mercedes,Lewis,Hamilton,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,LAT,70.261,75.492060606,33,1.651,latifi,Williams,Nicholas,Latifi,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,LEC,68.66,76.1589,40,0.05,leclerc,Ferrari,Charles,Leclerc,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,MAG,69.96,76.409774193,31,1.35,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,MSC,69.7,75.586931034,29,1.09,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,NOR,69.519,73.900171428,35,0.909,norris,McLaren,Lando,Norris,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,OCO,68.848,75.565590909,22,0.238,ocon,Alpine,Esteban,Ocon,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,PER,69.179,73.065764705,34,0.569,perez,Red Bull Racing,Sergio,Perez,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,RIC,69.852,75.029806451,31,1.242,ricciardo,McLaren,Daniel,Ricciardo,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,RUS,69.24,76.286133333,30,0.63,russell,Mercedes,George,Russell,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,SAI,68.61,76.428621621,37,0.0,sainz,Ferrari,Carlos,Sainz,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,STR,69.525,74.193410256,39,0.915,stroll,Aston Martin,Lance,Stroll,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,TSU,70.005,74.63154054,37,1.395,tsunoda,AlphaTauri,Yuki,Tsunoda,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,VER,68.778,75.203965517,29,0.168,max_verstappen,Red Bull Racing,Max,Verstappen,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,VET,69.602,74.687658536,41,0.992,vettel,Aston Martin,Sebastian,Vettel,19.8,34.5,42.2,1.7,False
+2022,11,Austrian Grand Prix,Spielberg,FP2,2022-07-10,ZHO,69.665,73.263030303,33,1.055,zhou,Alfa Romeo,Guanyu,Zhou,19.8,34.5,42.2,1.7,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,ALB,95.414,115.61945,20,1.484,albon,Williams,Alexander,Albon,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,ALO,95.875,114.94725,16,1.945,alonso,Alpine,Fernando,Alonso,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,DEV,95.426,108.425555555,18,1.496,nan,Mercedes,Nyck,De Vries,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,GAS,94.979,124.173866666,15,1.049,gasly,AlphaTauri,Pierre,Gasly,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,KUB,96.332,106.9133,10,2.402,nan,Alfa Romeo,Robert,Kubica,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,LAT,97.043,115.793578947,19,3.113,latifi,Williams,Nicholas,Latifi,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,LEC,93.93,111.0736,15,0.0,leclerc,Ferrari,Charles,Leclerc,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,MAG,96.104,115.522823529,17,2.174,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,MSC,96.022,118.113642857,14,2.092,mick_schumacher,Haas F1 Team,Mick,Schumacher,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,NOR,95.232,115.047266666,15,1.302,norris,McLaren,Lando,Norris,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,OCO,95.828,108.897428571,14,1.898,ocon,Alpine,Esteban,Ocon,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,PER,95.174,120.498166666,18,1.244,perez,Red Bull Racing,Sergio,Perez,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,RIC,95.66,115.219866666,15,1.73,ricciardo,McLaren,Daniel,Ricciardo,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,RUS,94.881,116.5369,20,0.951,russell,Mercedes,George,Russell,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,SAI,94.268,109.824357142,14,0.338,sainz,Ferrari,Carlos,Sainz,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,STR,95.81,107.4444,10,1.88,stroll,Aston Martin,Lance,Stroll,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,TSU,96.127,117.147428571,21,2.197,tsunoda,AlphaTauri,Yuki,Tsunoda,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,VER,94.021,109.379,11,0.091,max_verstappen,Red Bull Racing,Max,Verstappen,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,VET,95.851,110.571222222,18,1.921,vettel,Aston Martin,Sebastian,Vettel,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP1,2022-07-24,ZHO,95.676,112.135928571,14,1.746,zhou,Alfa Romeo,Guanyu,Zhou,29.5,57.1,48.2,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,ALB,94.653,111.133277777,18,2.126,albon,Williams,Alexander,Albon,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,ALO,94.259,110.513263157,19,1.732,alonso,Alpine,Fernando,Alonso,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,BOT,94.264,113.649095238,21,1.737,bottas,Alfa Romeo,Valtteri,Bottas,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,GAS,93.906,109.972705882,17,1.379,gasly,AlphaTauri,Pierre,Gasly,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,HAM,93.517,110.532071428,14,0.99,hamilton,Mercedes,Lewis,Hamilton,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,LAT,95.412,111.604863636,22,2.885,latifi,Williams,Nicholas,Latifi,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,LEC,92.628,107.98775,16,0.101,leclerc,Ferrari,Charles,Leclerc,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,MAG,93.928,109.316235294,17,1.401,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,MSC,95.195,110.827133333,15,2.668,mick_schumacher,Haas F1 Team,Mick,Schumacher,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,NOR,93.607,110.986266666,15,1.08,norris,McLaren,Lando,Norris,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,OCO,94.66,107.930631578,19,2.133,ocon,Alpine,Esteban,Ocon,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,PER,94.06,108.954181818,11,1.533,perez,Red Bull Racing,Sergio,Perez,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,RIC,93.984,108.4268125,16,1.457,ricciardo,McLaren,Daniel,Ricciardo,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,RUS,93.291,108.6378,10,0.764,russell,Mercedes,George,Russell,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,SAI,92.527,104.909,16,0.0,sainz,Ferrari,Carlos,Sainz,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,STR,94.595,111.88175,20,2.068,stroll,Aston Martin,Lance,Stroll,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,TSU,94.54,111.78285,20,2.013,tsunoda,AlphaTauri,Yuki,Tsunoda,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,VER,93.077,108.007272727,11,0.55,max_verstappen,Red Bull Racing,Max,Verstappen,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,VET,94.42,111.4883,20,1.893,vettel,Aston Martin,Sebastian,Vettel,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP2,2022-07-24,ZHO,94.654,114.621190476,21,2.127,zhou,Alfa Romeo,Guanyu,Zhou,30.5,53.4,32.0,1.8,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,ALB,93.558,122.941714285,14,1.286,albon,Williams,Alexander,Albon,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,ALO,93.505,113.021333333,12,1.233,alonso,Alpine,Fernando,Alonso,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,BOT,93.872,116.994214285,14,1.6,bottas,Alfa Romeo,Valtteri,Bottas,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,GAS,93.869,120.258666666,12,1.597,gasly,AlphaTauri,Pierre,Gasly,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,HAM,93.255,103.629727272,11,0.983,hamilton,Mercedes,Lewis,Hamilton,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,LAT,93.841,124.1185,12,1.569,latifi,Williams,Nicholas,Latifi,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,LEC,92.909,112.848642857,14,0.637,leclerc,Ferrari,Charles,Leclerc,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,MAG,94.031,110.338105263,19,1.759,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,MSC,94.222,110.953166666,6,1.95,mick_schumacher,Haas F1 Team,Mick,Schumacher,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,NOR,93.669,110.928125,8,1.397,norris,McLaren,Lando,Norris,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,OCO,94.122,112.685111111,9,1.85,ocon,Alpine,Esteban,Ocon,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,PER,93.293,107.234105263,19,1.021,perez,Red Bull Racing,Sergio,Perez,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,RIC,93.788,120.887818181,11,1.516,ricciardo,McLaren,Daniel,Ricciardo,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,RUS,93.376,121.322111111,9,1.104,russell,Mercedes,George,Russell,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,SAI,92.626,108.7992,5,0.354,sainz,Ferrari,Carlos,Sainz,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,STR,94.177,116.017461538,13,1.905,stroll,Aston Martin,Lance,Stroll,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,TSU,93.751,124.624384615,13,1.479,tsunoda,AlphaTauri,Yuki,Tsunoda,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,VER,92.272,104.8736875,16,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,VET,94.536,114.973285714,7,2.264,vettel,Aston Martin,Sebastian,Vettel,29.0,52.6,60.7,2.0,False
+2022,12,French Grand Prix,Le Castellet,FP3,2022-07-24,ZHO,93.911,114.954,12,1.639,zhou,Alfa Romeo,Guanyu,Zhou,29.0,52.6,60.7,2.0,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,ALB,80.834,101.3102,25,2.084,albon,Williams,Alexander,Albon,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,ALO,80.377,94.776583333,24,1.627,alonso,Alpine,Fernando,Alonso,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,GAS,80.456,102.18972,25,1.706,gasly,AlphaTauri,Pierre,Gasly,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,HAM,79.71,97.957190476,21,0.96,hamilton,Mercedes,Lewis,Hamilton,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,KUB,81.179,101.5755,16,2.429,nan,Alfa Romeo,Robert,Kubica,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,LAT,81.413,96.940083333,24,2.663,latifi,Williams,Nicholas,Latifi,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,LEC,79.039,103.473842105,19,0.289,leclerc,Ferrari,Charles,Leclerc,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,MAG,80.921,96.193095238,21,2.171,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,MSC,81.027,99.924136363,22,2.277,mick_schumacher,Haas F1 Team,Mick,Schumacher,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,NOR,79.299,102.238117647,17,0.549,norris,McLaren,Lando,Norris,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,OCO,80.348,100.545214285,28,1.598,ocon,Alpine,Esteban,Ocon,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,PER,79.622,104.109368421,19,0.872,perez,Red Bull Racing,Sergio,Perez,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,RIC,79.841,95.07972,25,1.091,ricciardo,McLaren,Daniel,Ricciardo,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,RUS,79.606,98.53472,25,0.856,russell,Mercedes,George,Russell,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,SAI,78.75,99.572111111,18,0.0,sainz,Ferrari,Carlos,Sainz,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,STR,80.414,103.409904761,21,1.664,stroll,Aston Martin,Lance,Stroll,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,TSU,80.695,100.769125,24,1.945,tsunoda,AlphaTauri,Yuki,Tsunoda,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,VER,78.88,92.433352941,17,0.13,max_verstappen,Red Bull Racing,Max,Verstappen,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,VET,80.383,102.675045454,22,1.633,vettel,Aston Martin,Sebastian,Vettel,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP1,2022-07-31,ZHO,80.81,98.290736842,19,2.06,zhou,Alfa Romeo,Guanyu,Zhou,32.1,50.8,27.7,1.5,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,ALB,80.615,99.167058823,17,2.17,albon,Williams,Alexander,Albon,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,ALO,79.049,94.200962962,27,0.604,alonso,Alpine,Fernando,Alonso,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,BOT,79.411,97.924384615,26,0.966,bottas,Alfa Romeo,Valtteri,Bottas,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,GAS,79.73,100.89628,25,1.285,gasly,AlphaTauri,Pierre,Gasly,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,HAM,79.547,103.077,18,1.102,hamilton,Mercedes,Lewis,Hamilton,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,LAT,80.488,96.689666666,27,2.043,latifi,Williams,Nicholas,Latifi,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,LEC,78.445,96.401619047,21,0.0,leclerc,Ferrari,Charles,Leclerc,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,MAG,79.818,97.35526923,26,1.373,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,MSC,79.985,97.84868,25,1.54,mick_schumacher,Haas F1 Team,Mick,Schumacher,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,NOR,78.662,91.641,26,0.217,norris,McLaren,Lando,Norris,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,OCO,79.614,96.799125,24,1.169,ocon,Alpine,Esteban,Ocon,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,PER,79.397,97.62992,25,0.952,perez,Red Bull Racing,Sergio,Perez,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,RIC,78.872,92.49225,24,0.427,ricciardo,McLaren,Daniel,Ricciardo,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,RUS,79.355,97.205083333,24,0.91,russell,Mercedes,George,Russell,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,SAI,78.676,99.120208333,24,0.231,sainz,Ferrari,Carlos,Sainz,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,STR,79.702,97.399807692,26,1.257,stroll,Aston Martin,Lance,Stroll,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,TSU,80.521,97.250321428,28,2.076,tsunoda,AlphaTauri,Yuki,Tsunoda,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,VER,78.728,97.632181818,22,0.283,max_verstappen,Red Bull Racing,Max,Verstappen,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,VET,79.253,97.500037037,27,0.808,vettel,Aston Martin,Sebastian,Vettel,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP2,2022-07-31,ZHO,79.605,97.899318181,22,1.16,zhou,Alfa Romeo,Guanyu,Zhou,33.2,47.7,25.2,1.7,False
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,ALB,102.381,113.695,15,0.901,albon,Williams,Alexander,Albon,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,ALO,103.57,113.475416666,12,2.09,alonso,Alpine,Fernando,Alonso,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,BOT,105.93,112.3604375,16,4.45,bottas,Alfa Romeo,Valtteri,Bottas,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,GAS,106.091,114.037545454,11,4.611,gasly,AlphaTauri,Pierre,Gasly,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,HAM,104.832,112.649142857,7,3.352,hamilton,Mercedes,Lewis,Hamilton,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,LAT,101.48,109.282333333,12,0.0,latifi,Williams,Nicholas,Latifi,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,LEC,102.141,115.162222222,9,0.661,leclerc,Ferrari,Charles,Leclerc,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,MAG,104.655,113.332357142,14,3.175,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,MSC,105.156,113.430583333,12,3.676,mick_schumacher,Haas F1 Team,Mick,Schumacher,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,NOR,103.743,112.564777777,9,2.263,norris,McLaren,Lando,Norris,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,OCO,105.57,114.618615384,13,4.09,ocon,Alpine,Esteban,Ocon,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,PER,108.24,114.833125,8,6.76,perez,Red Bull Racing,Sergio,Perez,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,RIC,105.624,115.127428571,7,4.144,ricciardo,McLaren,Daniel,Ricciardo,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,RUS,103.434,112.614,7,1.954,russell,Mercedes,George,Russell,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,SAI,103.589,112.231,10,2.109,sainz,Ferrari,Carlos,Sainz,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,STR,105.638,115.874833333,12,4.158,stroll,Aston Martin,Lance,Stroll,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,TSU,105.85,117.098416666,12,4.37,tsunoda,AlphaTauri,Yuki,Tsunoda,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,VER,103.205,113.719857142,7,1.725,max_verstappen,Red Bull Racing,Max,Verstappen,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,VET,104.178,114.8615,10,2.698,vettel,Aston Martin,Sebastian,Vettel,19.6,24.1,93.9,1.9,True
+2022,13,Hungarian Grand Prix,Budapest,FP3,2022-07-31,ZHO,105.691,114.748230769,13,4.211,zhou,Alfa Romeo,Guanyu,Zhou,19.6,24.1,93.9,1.9,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,ALB,107.835,122.907,9,1.297,albon,Williams,Alexander,Albon,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,ALO,109.664,126.319818181,11,3.126,alonso,Alpine,Fernando,Alonso,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,BOT,122.076,122.076,1,15.538,bottas,Alfa Romeo,Valtteri,Bottas,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,HAM,108.42,123.587666666,6,1.882,hamilton,Mercedes,Lewis,Hamilton,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,LAT,108.485,118.871833333,6,1.947,latifi,Williams,Nicholas,Latifi,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,LAW,112.065,118.52390909,11,5.527,nan,AlphaTauri,Liam,Lawson,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,LEC,106.607,116.033777777,9,0.069,leclerc,Ferrari,Charles,Leclerc,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,MAG,110.982,118.8588,5,4.444,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,MSC,111.259,134.811857142,7,4.721,mick_schumacher,Haas F1 Team,Mick,Schumacher,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,NOR,109.47,116.717,4,2.932,norris,McLaren,Lando,Norris,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,OCO,110.315,125.0695,2,3.777,ocon,Alpine,Esteban,Ocon,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,PER,108.474,122.966285714,7,1.936,perez,Red Bull Racing,Sergio,Perez,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,RIC,108.081,121.619714285,7,1.543,ricciardo,McLaren,Daniel,Ricciardo,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,RUS,107.396,120.460375,8,0.858,russell,Mercedes,George,Russell,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,SAI,106.538,120.1148,10,0.0,sainz,Ferrari,Carlos,Sainz,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,STR,107.437,116.756857142,7,0.899,stroll,Aston Martin,Lance,Stroll,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,TSU,108.31,124.816888888,9,1.772,tsunoda,AlphaTauri,Yuki,Tsunoda,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,VER,106.755,111.951,4,0.217,max_verstappen,Red Bull Racing,Max,Verstappen,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,VET,109.813,125.1675,6,3.275,vettel,Aston Martin,Sebastian,Vettel,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP1,2022-08-28,ZHO,108.672,119.775111111,9,2.134,zhou,Alfa Romeo,Guanyu,Zhou,17.9,21.6,89.5,1.8,True
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,ALB,107.52,120.980727272,11,2.013,albon,Williams,Alexander,Albon,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,ALO,106.975,121.458083333,12,1.468,alonso,Alpine,Fernando,Alonso,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,BOT,108.419,126.253428571,14,2.912,bottas,Alfa Romeo,Valtteri,Bottas,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,GAS,107.782,122.096727272,11,2.275,gasly,AlphaTauri,Pierre,Gasly,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,HAM,106.893,122.53476923,13,1.386,hamilton,Mercedes,Lewis,Hamilton,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,LAT,108.612,125.840818181,11,3.105,latifi,Williams,Nicholas,Latifi,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,LEC,106.369,119.300785714,14,0.862,leclerc,Ferrari,Charles,Leclerc,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,MAG,108.208,120.049727272,11,2.701,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,MSC,109.941,120.827,18,4.434,mick_schumacher,Haas F1 Team,Mick,Schumacher,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,NOR,106.589,121.90090909,11,1.082,norris,McLaren,Lando,Norris,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,OCO,107.944,121.018533333,15,2.437,ocon,Alpine,Esteban,Ocon,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,PER,107.346,125.458454545,11,1.839,perez,Red Bull Racing,Sergio,Perez,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,RIC,107.255,121.499272727,11,1.748,ricciardo,McLaren,Daniel,Ricciardo,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,RUS,107.042,121.198705882,17,1.535,russell,Mercedes,George,Russell,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,SAI,106.649,116.678166666,12,1.142,sainz,Ferrari,Carlos,Sainz,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,STR,106.635,119.5638,10,1.128,stroll,Aston Martin,Lance,Stroll,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,TSU,107.658,124.5645,10,2.151,tsunoda,AlphaTauri,Yuki,Tsunoda,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,VER,105.507,117.0535,12,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,VET,107.867,118.960166666,12,2.36,vettel,Aston Martin,Sebastian,Vettel,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP2,2022-08-28,ZHO,107.617,127.634333333,15,2.11,zhou,Alfa Romeo,Guanyu,Zhou,17.9,21.5,84.7,1.6,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,ALB,106.836,119.098692307,13,1.789,albon,Williams,Alexander,Albon,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,ALO,106.061,117.732666666,12,1.014,alonso,Alpine,Fernando,Alonso,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,BOT,106.881,117.924818181,11,1.834,bottas,Alfa Romeo,Valtteri,Bottas,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,GAS,106.604,118.853571428,14,1.557,gasly,AlphaTauri,Pierre,Gasly,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,HAM,106.769,113.867692307,13,1.722,hamilton,Mercedes,Lewis,Hamilton,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,LAT,106.811,121.318933333,15,1.764,latifi,Williams,Nicholas,Latifi,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,LEC,106.12,120.3464,5,1.073,leclerc,Ferrari,Charles,Leclerc,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,MAG,106.982,122.473285714,7,1.935,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,MSC,112.494,115.6714,5,7.447,mick_schumacher,Haas F1 Team,Mick,Schumacher,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,NOR,105.965,117.258785714,14,0.918,norris,McLaren,Lando,Norris,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,OCO,106.601,116.089428571,21,1.554,ocon,Alpine,Esteban,Ocon,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,PER,105.047,112.147090909,11,0.0,perez,Red Bull Racing,Sergio,Perez,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,RIC,106.646,115.731615384,13,1.599,ricciardo,McLaren,Daniel,Ricciardo,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,RUS,106.071,116.5495,12,1.024,russell,Mercedes,George,Russell,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,SAI,105.824,113.005166666,6,0.777,sainz,Ferrari,Carlos,Sainz,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,STR,106.975,121.816222222,9,1.928,stroll,Aston Martin,Lance,Stroll,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,TSU,107.035,116.906,18,1.988,tsunoda,AlphaTauri,Yuki,Tsunoda,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,VER,105.184,115.806142857,14,0.137,max_verstappen,Red Bull Racing,Max,Verstappen,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,VET,106.166,117.9316,10,1.119,vettel,Aston Martin,Sebastian,Vettel,15.4,20.2,84.0,1.3,False
+2022,14,Belgian Grand Prix,Spa-Francorchamps,FP3,2022-08-28,ZHO,107.089,123.543846153,13,2.042,zhou,Alfa Romeo,Guanyu,Zhou,15.4,20.2,84.0,1.3,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,ALB,74.063,90.93576,25,1.608,albon,Williams,Alexander,Albon,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,ALO,73.633,84.552357142,28,1.178,alonso,Alpine,Fernando,Alonso,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,BOT,74.695,87.566611111,18,2.24,bottas,Alfa Romeo,Valtteri,Bottas,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,GAS,74.474,88.84,24,2.019,gasly,AlphaTauri,Pierre,Gasly,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,HAM,72.695,89.821583333,24,0.24,hamilton,Mercedes,Lewis,Hamilton,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,LAT,75.122,87.38937931,29,2.667,latifi,Williams,Nicholas,Latifi,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,LEC,73.127,86.1238,25,0.672,leclerc,Ferrari,Charles,Leclerc,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,MAG,74.405,85.915851851,27,1.95,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,MSC,74.163,84.65228,25,1.708,mick_schumacher,Haas F1 Team,Mick,Schumacher,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,NOR,72.929,84.87875862,29,0.474,norris,McLaren,Lando,Norris,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,OCO,73.963,85.735862068,29,1.508,ocon,Alpine,Esteban,Ocon,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,PER,73.416,88.39668,25,0.961,perez,Red Bull Racing,Sergio,Perez,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,RIC,73.077,84.989928571,28,0.622,ricciardo,McLaren,Daniel,Ricciardo,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,RUS,72.455,84.58244,25,0.0,russell,Mercedes,George,Russell,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,SAI,72.845,88.497923076,26,0.39,sainz,Ferrari,Carlos,Sainz,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,STR,74.257,82.8498,25,1.802,stroll,Aston Martin,Lance,Stroll,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,TSU,74.63,85.042703703,27,2.175,tsunoda,AlphaTauri,Yuki,Tsunoda,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,VER,74.714,83.3432,5,2.259,max_verstappen,Red Bull Racing,Max,Verstappen,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,VET,74.5,86.52812,25,2.045,vettel,Aston Martin,Sebastian,Vettel,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP1,2022-09-04,ZHO,74.534,89.432615384,13,2.079,zhou,Alfa Romeo,Guanyu,Zhou,22.7,30.8,44.7,1.4,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,ALB,73.837,93.84905,20,1.492,albon,Williams,Alexander,Albon,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,ALO,72.848,88.48975,20,0.503,alonso,Alpine,Fernando,Alonso,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,BOT,74.167,91.38047619,21,1.822,bottas,Alfa Romeo,Valtteri,Bottas,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,GAS,73.666,91.640307692,13,1.321,gasly,AlphaTauri,Pierre,Gasly,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,HAM,72.417,95.494866666,15,0.072,hamilton,Mercedes,Lewis,Hamilton,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,LAT,74.797,94.304263157,19,2.452,latifi,Williams,Nicholas,Latifi,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,LEC,72.345,92.152857142,21,0.0,leclerc,Ferrari,Charles,Leclerc,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,MAG,74.282,89.40355,20,1.937,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,MSC,73.604,87.544727272,22,1.259,mick_schumacher,Haas F1 Team,Mick,Schumacher,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,NOR,72.448,89.926333333,18,0.103,norris,McLaren,Lando,Norris,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,OCO,73.305,87.529272727,22,0.96,ocon,Alpine,Esteban,Ocon,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,PER,73.493,89.782529411,17,1.148,perez,Red Bull Racing,Sergio,Perez,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,RIC,73.362,86.938875,8,1.017,ricciardo,McLaren,Daniel,Ricciardo,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,RUS,72.655,91.849090909,22,0.31,russell,Mercedes,George,Russell,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,SAI,72.349,88.34208,25,0.004,sainz,Ferrari,Carlos,Sainz,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,STR,72.746,89.059217391,23,0.401,stroll,Aston Martin,Lance,Stroll,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,TSU,73.419,90.684666666,15,1.074,tsunoda,AlphaTauri,Yuki,Tsunoda,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,VER,73.042,89.868117647,17,0.697,max_verstappen,Red Bull Racing,Max,Verstappen,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,VET,73.611,86.331173913,23,1.266,vettel,Aston Martin,Sebastian,Vettel,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP2,2022-09-04,ZHO,73.624,89.43225,20,1.279,zhou,Alfa Romeo,Guanyu,Zhou,26.1,36.4,30.2,1.2,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,ALB,72.775,89.2588,15,1.143,albon,Williams,Alexander,Albon,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,ALO,72.327,87.851307692,13,0.695,alonso,Alpine,Fernando,Alonso,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,BOT,73.359,93.329,13,1.727,bottas,Alfa Romeo,Valtteri,Bottas,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,GAS,73.046,98.85535,20,1.414,gasly,AlphaTauri,Pierre,Gasly,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,HAM,72.156,94.861666666,21,0.524,hamilton,Mercedes,Lewis,Hamilton,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,LAT,73.625,92.366052631,19,1.993,latifi,Williams,Nicholas,Latifi,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,LEC,71.632,91.726588235,17,0.0,leclerc,Ferrari,Charles,Leclerc,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,MAG,72.606,99.120307692,13,0.974,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,MSC,72.558,102.430692307,13,0.926,mick_schumacher,Haas F1 Team,Mick,Schumacher,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,NOR,72.591,86.9764,15,0.959,norris,McLaren,Lando,Norris,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,OCO,73.003,89.256647058,17,1.371,ocon,Alpine,Esteban,Ocon,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,PER,72.176,93.728038461,26,0.544,perez,Red Bull Racing,Sergio,Perez,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,RIC,73.299,91.654352941,17,1.667,ricciardo,McLaren,Daniel,Ricciardo,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,RUS,71.698,90.3884,20,0.066,russell,Mercedes,George,Russell,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,SAI,71.971,99.598428571,14,0.339,sainz,Ferrari,Carlos,Sainz,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,STR,72.773,97.242214285,14,1.141,stroll,Aston Martin,Lance,Stroll,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,TSU,73.256,92.986157894,19,1.624,tsunoda,AlphaTauri,Yuki,Tsunoda,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,VER,71.793,85.979526315,19,0.161,max_verstappen,Red Bull Racing,Max,Verstappen,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,VET,72.491,94.3739,20,0.859,vettel,Aston Martin,Sebastian,Vettel,23.8,31.4,37.8,1.7,False
+2022,15,Dutch Grand Prix,Zandvoort,FP3,2022-09-04,ZHO,73.421,94.021818181,11,1.789,zhou,Alfa Romeo,Guanyu,Zhou,23.8,31.4,37.8,1.7,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,ALB,83.529,98.23695238,21,1.119,nan,Williams,Alexander,Albon,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,ALO,83.099,96.497434782,23,0.689,alonso,Alpine,Fernando,Alonso,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,BOT,83.394,97.122041666,24,0.984,bottas,Alfa Romeo,Valtteri,Bottas,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,DEV,84.731,102.080117647,17,2.321,nan,Aston Martin,Nyck,De Vries,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,GAS,83.64,98.449130434,23,1.23,gasly,AlphaTauri,Pierre,Gasly,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,GIO,84.317,96.608681818,22,1.907,nan,Haas F1 Team,Antonio,Giovinazzi,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,HAM,82.831,101.9288,20,0.421,hamilton,Mercedes,Lewis,Hamilton,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,LAT,84.941,99.024047619,21,2.531,latifi,Williams,Nicholas,Latifi,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,LEC,82.41,98.74955,20,0.0,leclerc,Ferrari,Charles,Leclerc,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,MAG,84.006,100.481857142,21,1.596,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,NOR,83.856,98.77792,25,1.446,norris,McLaren,Lando,Norris,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,OCO,83.075,96.33188,25,0.665,ocon,Alpine,Esteban,Ocon,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,PER,83.661,105.267333333,18,1.251,perez,Red Bull Racing,Sergio,Perez,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,RIC,83.511,96.74090909,22,1.101,ricciardo,McLaren,Daniel,Ricciardo,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,RUS,82.689,93.73473913,23,0.279,russell,Mercedes,George,Russell,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,SAI,82.487,96.295157894,19,0.077,sainz,Ferrari,Carlos,Sainz,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,STR,83.688,102.11496,25,1.278,stroll,Aston Martin,Lance,Stroll,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,TSU,83.26,101.843272727,22,0.85,tsunoda,AlphaTauri,Yuki,Tsunoda,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,VER,82.84,94.95225,24,0.43,max_verstappen,Red Bull Racing,Max,Verstappen,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP1,2022-09-11,ZHO,83.57,99.70492,25,1.16,zhou,Alfa Romeo,Guanyu,Zhou,26.0,36.5,47.2,1.0,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,ALB,82.835,95.211315789,19,1.171,nan,Williams,Alexander,Albon,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,ALO,82.752,94.99525,24,1.088,alonso,Alpine,Fernando,Alonso,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,BOT,82.993,96.784458333,24,1.329,bottas,Alfa Romeo,Valtteri,Bottas,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,GAS,83.135,99.0109,20,1.471,gasly,AlphaTauri,Pierre,Gasly,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,HAM,82.503,94.0397,20,0.839,hamilton,Mercedes,Lewis,Hamilton,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,LAT,83.982,95.5971875,16,2.318,latifi,Williams,Nicholas,Latifi,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,LEC,81.857,101.362555555,18,0.193,leclerc,Ferrari,Charles,Leclerc,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,MAG,83.557,98.683272727,22,1.893,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,MSC,84.586,103.1435,6,2.922,mick_schumacher,Haas F1 Team,Mick,Schumacher,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,NOR,82.338,95.101461538,26,0.674,norris,McLaren,Lando,Norris,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,OCO,82.728,96.927041666,24,1.064,ocon,Alpine,Esteban,Ocon,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,PER,82.394,99.491761904,21,0.73,perez,Red Bull Racing,Sergio,Perez,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,RIC,82.911,94.542818181,22,1.247,ricciardo,McLaren,Daniel,Ricciardo,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,RUS,82.386,99.4776,20,0.722,russell,Mercedes,George,Russell,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,SAI,81.664,98.338263157,19,0.0,sainz,Ferrari,Carlos,Sainz,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,STR,83.785,96.694608695,23,2.121,stroll,Aston Martin,Lance,Stroll,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,TSU,83.217,95.623777777,27,1.553,tsunoda,AlphaTauri,Yuki,Tsunoda,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,VER,81.807,95.792,23,0.143,max_verstappen,Red Bull Racing,Max,Verstappen,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,VET,83.731,98.854136363,22,2.067,vettel,Aston Martin,Sebastian,Vettel,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP2,2022-09-11,ZHO,82.938,98.827384615,26,1.274,zhou,Alfa Romeo,Guanyu,Zhou,27.6,37.4,40.7,1.1,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,ALO,82.306,101.6375,14,1.054,alonso,Alpine,Fernando,Alonso,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,BOT,82.95,96.76790909,22,1.698,bottas,Alfa Romeo,Valtteri,Bottas,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,DEV,82.869,102.439473684,19,1.617,de_vries,Williams,Nyck,De Vries,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,GAS,82.755,106.748235294,17,1.503,gasly,AlphaTauri,Pierre,Gasly,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,HAM,82.567,102.061388888,18,1.315,hamilton,Mercedes,Lewis,Hamilton,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,LAT,82.776,107.6756875,16,1.524,latifi,Williams,Nicholas,Latifi,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,LEC,81.599,109.030454545,11,0.347,leclerc,Ferrari,Charles,Leclerc,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,MAG,83.203,97.182428571,14,1.951,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,MSC,83.392,104.881142857,7,2.14,mick_schumacher,Haas F1 Team,Mick,Schumacher,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,NOR,82.319,97.9286875,16,1.067,norris,McLaren,Lando,Norris,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,OCO,82.506,98.515785714,14,1.254,ocon,Alpine,Esteban,Ocon,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,PER,81.848,99.524608695,23,0.596,perez,Red Bull Racing,Sergio,Perez,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,RIC,82.871,101.343375,16,1.619,ricciardo,McLaren,Daniel,Ricciardo,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,RUS,82.357,98.84565,20,1.105,russell,Mercedes,George,Russell,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,SAI,81.897,99.865333333,12,0.645,sainz,Ferrari,Carlos,Sainz,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,STR,83.739,109.003,12,2.487,stroll,Aston Martin,Lance,Stroll,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,TSU,82.43,97.302608695,23,1.178,tsunoda,AlphaTauri,Yuki,Tsunoda,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,VER,81.252,98.7914,15,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,VET,83.104,105.4011875,16,1.852,vettel,Aston Martin,Sebastian,Vettel,25.9,40.9,41.3,1.2,False
+2022,16,Italian Grand Prix,Monza,FP3,2022-09-11,ZHO,82.657,108.307181818,11,1.405,zhou,Alfa Romeo,Guanyu,Zhou,25.9,40.9,41.3,1.2,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,ALB,106.119,122.522461538,13,3.086,albon,Williams,Alexander,Albon,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,ALO,105.336,118.9078,10,2.303,alonso,Alpine,Fernando,Alonso,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,BOT,105.725,115.704588235,17,2.692,bottas,Alfa Romeo,Valtteri,Bottas,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,GAS,105.258,119.9495,18,2.225,gasly,AlphaTauri,Pierre,Gasly,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,HAM,103.033,119.547357142,14,0.0,hamilton,Mercedes,Lewis,Hamilton,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,LAT,107.092,123.4655,10,4.059,latifi,Williams,Nicholas,Latifi,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,LEC,103.435,113.1693,10,0.402,leclerc,Ferrari,Charles,Leclerc,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,MAG,106.028,113.8618125,16,2.995,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,MSC,106.601,119.430705882,17,3.568,mick_schumacher,Haas F1 Team,Mick,Schumacher,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,NOR,106.68,119.3628,15,3.647,norris,McLaren,Lando,Norris,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,OCO,104.736,121.2913,20,1.703,ocon,Alpine,Esteban,Ocon,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,PER,103.839,115.679,8,0.806,perez,Red Bull Racing,Sergio,Perez,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,RIC,105.724,119.6326,15,2.691,ricciardo,McLaren,Daniel,Ricciardo,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,RUS,104.066,117.388,17,1.033,russell,Mercedes,George,Russell,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,SAI,104.138,115.985866666,15,1.105,sainz,Ferrari,Carlos,Sainz,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,STR,105.221,115.791571428,7,2.188,stroll,Aston Martin,Lance,Stroll,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,TSU,106.081,120.031523809,21,3.048,tsunoda,AlphaTauri,Yuki,Tsunoda,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,VER,103.117,112.935923076,13,0.084,max_verstappen,Red Bull Racing,Max,Verstappen,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,VET,105.354,116.175411764,17,2.321,vettel,Aston Martin,Sebastian,Vettel,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP1,2022-10-02,ZHO,106.408,119.900352941,17,3.375,zhou,Alfa Romeo,Guanyu,Zhou,29.6,36.6,72.0,0.8,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,ALB,105.144,119.85625,20,2.557,albon,Williams,Alexander,Albon,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,ALO,103.52,117.492833333,18,0.933,alonso,Alpine,Fernando,Alonso,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,BOT,103.431,118.876761904,21,0.844,bottas,Alfa Romeo,Valtteri,Bottas,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,GAS,104.469,116.568,15,1.882,gasly,AlphaTauri,Pierre,Gasly,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,HAM,103.182,116.878882352,17,0.595,hamilton,Mercedes,Lewis,Hamilton,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,LAT,106.553,118.912,17,3.966,latifi,Williams,Nicholas,Latifi,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,LEC,102.795,109.556833333,6,0.208,leclerc,Ferrari,Charles,Leclerc,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,MAG,104.422,116.868,17,1.835,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,MSC,105.623,119.017526315,19,3.036,mick_schumacher,Haas F1 Team,Mick,Schumacher,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,NOR,104.013,122.04190909,11,1.426,norris,McLaren,Lando,Norris,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,OCO,103.412,115.038,16,0.825,ocon,Alpine,Esteban,Ocon,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,PER,103.906,115.6925,6,1.319,perez,Red Bull Racing,Sergio,Perez,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,RIC,105.447,120.164285714,14,2.86,ricciardo,McLaren,Daniel,Ricciardo,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,RUS,102.911,120.580454545,22,0.324,russell,Mercedes,George,Russell,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,SAI,102.587,114.817133333,15,0.0,sainz,Ferrari,Carlos,Sainz,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,STR,103.982,113.863333333,15,1.395,stroll,Aston Martin,Lance,Stroll,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,TSU,105.211,121.715,6,2.624,tsunoda,AlphaTauri,Yuki,Tsunoda,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,VER,102.926,114.301,4,0.339,max_verstappen,Red Bull Racing,Max,Verstappen,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,VET,104.249,119.3153,20,1.662,vettel,Aston Martin,Sebastian,Vettel,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP2,2022-10-02,ZHO,104.524,121.5794,20,1.937,zhou,Alfa Romeo,Guanyu,Zhou,29.4,33.3,77.6,0.7,False
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,ALB,121.907,131.6284,10,4.125,albon,Williams,Alexander,Albon,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,ALO,119.429,124.470666666,6,1.647,alonso,Alpine,Fernando,Alonso,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,BOT,122.066,127.6602,5,4.284,bottas,Alfa Romeo,Valtteri,Bottas,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,GAS,121.245,131.635272727,11,3.463,gasly,AlphaTauri,Pierre,Gasly,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,HAM,121.22,129.0088,5,3.438,hamilton,Mercedes,Lewis,Hamilton,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,LAT,123.51,131.4592,5,5.728,latifi,Williams,Nicholas,Latifi,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,LEC,117.782,127.224,8,0.0,leclerc,Ferrari,Charles,Leclerc,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,MAG,121.089,125.985285714,7,3.307,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,MSC,121.502,129.439111111,9,3.72,mick_schumacher,Haas F1 Team,Mick,Schumacher,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,NOR,121.791,128.143888888,9,4.009,norris,McLaren,Lando,Norris,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,OCO,120.911,127.970857142,7,3.129,ocon,Alpine,Esteban,Ocon,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,PER,119.526,128.982444444,9,1.744,perez,Red Bull Racing,Sergio,Perez,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,RIC,121.036,130.782555555,9,3.254,ricciardo,McLaren,Daniel,Ricciardo,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,RUS,121.01,128.027166666,6,3.228,russell,Mercedes,George,Russell,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,SAI,118.848,130.276222222,9,1.066,sainz,Ferrari,Carlos,Sainz,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,STR,120.373,128.908833333,6,2.591,stroll,Aston Martin,Lance,Stroll,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,TSU,121.679,132.009777777,9,3.897,tsunoda,AlphaTauri,Yuki,Tsunoda,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,VER,118.308,127.9693,10,0.526,max_verstappen,Red Bull Racing,Max,Verstappen,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,VET,121.007,129.521714285,7,3.225,vettel,Aston Martin,Sebastian,Vettel,26.0,28.8,87.8,0.9,True
+2022,17,Singapore Grand Prix,Marina Bay,FP3,2022-10-02,ZHO,122.599,133.2345,8,4.817,zhou,Alfa Romeo,Guanyu,Zhou,26.0,28.8,87.8,0.9,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,ALB,104.791,117.446,7,2.543,albon,Williams,Alexander,Albon,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,ALO,102.248,114.15,4,0.0,alonso,Alpine,Fernando,Alonso,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,BOT,103.969,119.3157,10,1.721,bottas,Alfa Romeo,Valtteri,Bottas,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,GAS,104.878,122.180666666,9,2.63,gasly,AlphaTauri,Pierre,Gasly,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,HAM,104.558,111.136333333,3,2.31,hamilton,Mercedes,Lewis,Hamilton,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,LAT,105.424,123.958888888,9,3.176,latifi,Williams,Nicholas,Latifi,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,LEC,102.634,118.867454545,11,0.386,leclerc,Ferrari,Charles,Leclerc,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,MAG,103.258,114.272111111,9,1.01,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,MSC,103.761,114.031125,8,1.513,mick_schumacher,Haas F1 Team,Mick,Schumacher,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,NOR,103.889,111.5522,5,1.641,norris,McLaren,Lando,Norris,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,OCO,103.022,108.997666666,3,0.774,ocon,Alpine,Esteban,Ocon,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,PER,104.234,110.688333333,3,1.986,perez,Red Bull Racing,Sergio,Perez,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,RIC,104.486,112.719833333,6,2.238,ricciardo,McLaren,Daniel,Ricciardo,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,RUS,106.103,107.557333333,3,3.855,russell,Mercedes,George,Russell,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,SAI,102.563,114.8673,10,0.315,sainz,Ferrari,Carlos,Sainz,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,STR,104.57,118.389833333,6,2.322,stroll,Aston Martin,Lance,Stroll,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,TSU,106.192,121.188083333,12,3.944,tsunoda,AlphaTauri,Yuki,Tsunoda,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,VER,103.362,108.792,3,1.114,max_verstappen,Red Bull Racing,Max,Verstappen,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,VET,108.09,117.913,4,5.842,vettel,Aston Martin,Sebastian,Vettel,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP1,2022-10-09,ZHO,104.429,113.908454545,11,2.181,zhou,Alfa Romeo,Guanyu,Zhou,15.8,20.1,93.8,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,ALB,105.039,118.683545454,11,3.104,albon,Williams,Alexander,Albon,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,ALO,103.533,111.5762,10,1.598,alonso,Alpine,Fernando,Alonso,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,BOT,103.733,117.5745,16,1.798,bottas,Alfa Romeo,Valtteri,Bottas,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,GAS,107.109,118.965625,8,5.174,gasly,AlphaTauri,Pierre,Gasly,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,HAM,102.17,115.528333333,18,0.235,hamilton,Mercedes,Lewis,Hamilton,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,LAT,104.962,118.717090909,11,3.027,latifi,Williams,Nicholas,Latifi,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,LEC,104.709,109.077,7,2.774,leclerc,Ferrari,Charles,Leclerc,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,MAG,103.187,117.590727272,11,1.252,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,NOR,105.885,113.170666666,9,3.95,norris,McLaren,Lando,Norris,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,OCO,103.884,112.173142857,7,1.949,ocon,Alpine,Esteban,Ocon,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,PER,102.834,112.102227272,22,0.899,perez,Red Bull Racing,Sergio,Perez,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,RIC,106.03,118.738166666,6,4.095,ricciardo,McLaren,Daniel,Ricciardo,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,RUS,101.935,116.327,18,0.0,russell,Mercedes,George,Russell,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,SAI,103.204,114.362166666,18,1.269,sainz,Ferrari,Carlos,Sainz,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,STR,106.776,114.756222222,18,4.841,stroll,Aston Martin,Lance,Stroll,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,TSU,105.257,113.329818181,22,3.322,tsunoda,AlphaTauri,Yuki,Tsunoda,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,VER,102.786,113.20965,20,0.851,max_verstappen,Red Bull Racing,Max,Verstappen,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,VET,105.261,109.7036,20,3.326,vettel,Aston Martin,Sebastian,Vettel,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP2,2022-10-09,ZHO,104.525,115.923307692,13,2.59,zhou,Alfa Romeo,Guanyu,Zhou,15.8,18.9,94.6,1.2,True
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,ALB,91.946,109.914217391,23,1.275,albon,Williams,Alexander,Albon,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,ALO,91.32,104.779294117,17,0.649,alonso,Alpine,Fernando,Alonso,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,BOT,91.971,109.914619047,21,1.3,bottas,Alfa Romeo,Valtteri,Bottas,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,GAS,92.881,107.687368421,19,2.21,gasly,AlphaTauri,Pierre,Gasly,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,HAM,91.589,101.640571428,21,0.918,hamilton,Mercedes,Lewis,Hamilton,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,LAT,92.868,113.98473913,23,2.197,latifi,Williams,Nicholas,Latifi,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,LEC,90.98,108.035272727,22,0.309,leclerc,Ferrari,Charles,Leclerc,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,MAG,92.29,105.9885,18,1.619,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,MSC,92.366,107.377421052,19,1.695,mick_schumacher,Haas F1 Team,Mick,Schumacher,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,NOR,91.747,106.930434782,23,1.076,norris,McLaren,Lando,Norris,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,OCO,91.75,105.384888888,18,1.079,ocon,Alpine,Esteban,Ocon,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,PER,91.514,105.5268,20,0.843,perez,Red Bull Racing,Sergio,Perez,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,RIC,91.86,106.59475,24,1.189,ricciardo,McLaren,Daniel,Ricciardo,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,RUS,91.53,102.499375,24,0.859,russell,Mercedes,George,Russell,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,SAI,90.965,102.842619047,21,0.294,sainz,Ferrari,Carlos,Sainz,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,STR,91.838,106.08535,20,1.167,stroll,Aston Martin,Lance,Stroll,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,TSU,92.377,107.572454545,22,1.706,tsunoda,AlphaTauri,Yuki,Tsunoda,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,VER,90.671,103.3105,16,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,VET,92.222,107.42490909,22,1.551,vettel,Aston Martin,Sebastian,Vettel,21.2,29.8,52.0,3.8,False
+2022,18,Japanese Grand Prix,Suzuka,FP3,2022-10-09,ZHO,92.385,108.673105263,19,1.714,zhou,Alfa Romeo,Guanyu,Zhou,21.2,29.8,52.0,3.8,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,ALB,98.422,114.665466666,15,1.565,albon,Williams,Alexander,Albon,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,ALO,97.713,114.6489,20,0.856,alonso,Alpine,Fernando,Alonso,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,GAS,97.81,115.623647058,17,0.953,gasly,AlphaTauri,Pierre,Gasly,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,GIO,103.063,122.401,2,6.206,nan,Haas F1 Team,Antonio,Giovinazzi,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,HAM,97.332,107.857916666,12,0.475,hamilton,Mercedes,Lewis,Hamilton,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,MSC,98.922,115.4866,15,2.065,mick_schumacher,Haas F1 Team,Mick,Schumacher,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,NOR,97.856,113.533222222,18,0.999,norris,McLaren,Lando,Norris,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,OCO,98.102,113.863722222,18,1.245,ocon,Alpine,Esteban,Ocon,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,PAL,99.911,108.312111111,18,3.054,nan,McLaren,Alex,Palou,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,PER,97.515,104.4553,10,0.658,perez,Red Bull Racing,Sergio,Perez,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,POU,100.175,110.897533333,15,3.318,nan,Alfa Romeo,Theo,Pourchaire,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,RUS,97.802,113.842388888,18,0.945,russell,Mercedes,George,Russell,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,SAI,96.857,111.222846153,13,0.0,sainz,Ferrari,Carlos,Sainz,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,SAR,100.325,115.509823529,17,3.468,nan,Williams,Logan,Sargeant,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,SHW,98.951,117.5292,15,2.094,nan,Ferrari,Robert,Shwartzman,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,STR,97.46,109.190875,16,0.603,stroll,Aston Martin,Lance,Stroll,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,TSU,98.898,117.959823529,17,2.041,tsunoda,AlphaTauri,Yuki,Tsunoda,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,VER,97.081,111.772571428,7,0.224,max_verstappen,Red Bull Racing,Max,Verstappen,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,VET,98.041,107.217315789,19,1.184,vettel,Aston Martin,Sebastian,Vettel,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP1,2022-10-23,ZHO,98.276,114.5222,15,1.419,zhou,Alfa Romeo,Guanyu,Zhou,29.1,39.2,30.9,1.9,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,ALB,101.853,104.898681818,22,5.043,albon,Williams,Alexander,Albon,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,ALO,101.334,104.9905,22,4.524,alonso,Alpine,Fernando,Alonso,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,BOT,97.525,106.376774193,31,0.715,bottas,Alfa Romeo,Valtteri,Bottas,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,GAS,99.84,103.644,22,3.03,gasly,AlphaTauri,Pierre,Gasly,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,HAM,99.698,103.266227272,22,2.888,hamilton,Mercedes,Lewis,Hamilton,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,LAT,102.317,109.008454545,22,5.507,latifi,Williams,Nicholas,Latifi,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,LEC,96.81,104.409967741,31,0.0,leclerc,Ferrari,Charles,Leclerc,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,MAG,100.084,106.17595,20,3.274,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,MSC,99.507,105.249818181,22,2.697,mick_schumacher,Haas F1 Team,Mick,Schumacher,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,NOR,99.547,104.144227272,22,2.737,norris,McLaren,Lando,Norris,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,OCO,101.31,103.801681818,22,4.5,ocon,Alpine,Esteban,Ocon,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,PER,99.852,103.035863636,22,3.042,perez,Red Bull Racing,Sergio,Perez,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,RIC,97.627,106.100235294,34,0.817,ricciardo,McLaren,Daniel,Ricciardo,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,RUS,100.562,104.567863636,22,3.752,russell,Mercedes,George,Russell,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,SAI,98.232,101.958090909,22,1.422,sainz,Ferrari,Carlos,Sainz,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,STR,100.806,103.662045454,22,3.996,stroll,Aston Martin,Lance,Stroll,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,TSU,100.178,104.553545454,22,3.368,tsunoda,AlphaTauri,Yuki,Tsunoda,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,VER,99.575,102.561636363,22,2.765,max_verstappen,Red Bull Racing,Max,Verstappen,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,VET,101.857,104.995772727,22,5.047,vettel,Aston Martin,Sebastian,Vettel,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP2,2022-10-23,ZHO,100.664,104.513045454,22,3.854,zhou,Alfa Romeo,Guanyu,Zhou,29.3,34.5,28.4,2.2,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,ALB,97.904,121.451333333,15,2.079,albon,Williams,Alexander,Albon,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,ALO,96.928,114.048,10,1.103,alonso,Alpine,Fernando,Alonso,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,BOT,97.31,112.210647058,17,1.485,bottas,Alfa Romeo,Valtteri,Bottas,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,GAS,97.29,118.668166666,12,1.465,gasly,AlphaTauri,Pierre,Gasly,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,HAM,96.401,113.5379,10,0.576,hamilton,Mercedes,Lewis,Hamilton,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,LAT,98.028,119.669083333,12,2.203,latifi,Williams,Nicholas,Latifi,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,LEC,96.145,112.797444444,9,0.32,leclerc,Ferrari,Charles,Leclerc,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,MAG,97.519,113.300705882,17,1.694,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,MSC,98.132,115.752875,8,2.307,mick_schumacher,Haas F1 Team,Mick,Schumacher,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,NOR,97.449,117.229666666,15,1.624,norris,McLaren,Lando,Norris,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,OCO,97.468,117.838076923,13,1.643,ocon,Alpine,Esteban,Ocon,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,PER,96.397,121.320692307,13,0.572,perez,Red Bull Racing,Sergio,Perez,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,RIC,97.622,115.014076923,13,1.797,ricciardo,McLaren,Daniel,Ricciardo,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,RUS,97.064,118.006266666,15,1.239,russell,Mercedes,George,Russell,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,SAI,96.271,111.5125,18,0.446,sainz,Ferrari,Carlos,Sainz,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,STR,97.215,121.0246,15,1.39,stroll,Aston Martin,Lance,Stroll,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,TSU,97.888,120.098083333,12,2.063,tsunoda,AlphaTauri,Yuki,Tsunoda,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,VER,95.825,112.352133333,15,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,VET,97.151,123.263416666,12,1.326,vettel,Aston Martin,Sebastian,Vettel,29.2,39.7,40.9,4.0,False
+2022,19,United States Grand Prix,Austin,FP3,2022-10-23,ZHO,99.735,116.3465,2,3.91,zhou,Alfa Romeo,Guanyu,Zhou,29.2,39.7,40.9,4.0,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,ALO,80.899,90.277333333,21,0.192,alonso,Alpine,Fernando,Alonso,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,BOT,81.083,91.210466666,15,0.376,bottas,Alfa Romeo,Valtteri,Bottas,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,DEV,84.582,95.53825,16,3.875,nan,Mercedes,Nyck,De Vries,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,DOO,84.615,96.3492,10,3.908,nan,Alpine,Jack,Doohan,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,FIT,86.766,93.678,7,6.059,nan,Haas F1 Team,Pietro,Fittipaldi,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,GAS,81.31,90.63275,20,0.603,gasly,AlphaTauri,Pierre,Gasly,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,HAM,80.849,88.714538461,13,0.142,hamilton,Mercedes,Lewis,Hamilton,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,LAT,82.912,91.502866666,15,2.205,latifi,Williams,Nicholas,Latifi,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,LAW,83.861,93.174866666,15,3.154,nan,AlphaTauri,Liam,Lawson,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,LEC,80.753,92.732785714,14,0.046,leclerc,Ferrari,Charles,Leclerc,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,MSC,81.952,92.204722222,18,1.245,mick_schumacher,Haas F1 Team,Mick,Schumacher,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,NOR,81.12,90.671352941,17,0.413,norris,McLaren,Lando,Norris,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,PER,80.827,93.468235294,17,0.12,perez,Red Bull Racing,Sergio,Perez,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,RIC,81.762,88.91476923,13,1.055,ricciardo,McLaren,Daniel,Ricciardo,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,SAI,80.707,92.3994,20,0.0,sainz,Ferrari,Carlos,Sainz,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,SAR,84.246,88.800235294,17,3.539,nan,Williams,Logan,Sargeant,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,STR,81.865,90.1225,18,1.158,stroll,Aston Martin,Lance,Stroll,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,VER,80.827,91.799823529,17,0.12,max_verstappen,Red Bull Racing,Max,Verstappen,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,VET,81.525,88.361333333,18,0.818,vettel,Aston Martin,Sebastian,Vettel,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP1,2022-10-30,ZHO,81.82,94.056666666,15,1.113,zhou,Alfa Romeo,Guanyu,Zhou,25.1,46.6,41.2,1.6,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,ALB,82.447,87.974052631,19,2.477,albon,Williams,Alexander,Albon,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,ALO,82.337,85.81668,25,2.367,alonso,Alpine,Fernando,Alonso,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,BOT,81.993,85.463206896,29,2.023,bottas,Alfa Romeo,Valtteri,Bottas,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,GAS,82.104,85.184866666,30,2.134,gasly,AlphaTauri,Pierre,Gasly,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,HAM,81.509,84.336961538,26,1.539,hamilton,Mercedes,Lewis,Hamilton,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,LAT,83.32,86.387555555,27,3.35,latifi,Williams,Nicholas,Latifi,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,LEC,81.618,83.363444444,9,1.648,leclerc,Ferrari,Charles,Leclerc,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,MAG,83.316,86.3406875,16,3.346,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,MSC,82.879,87.162615384,26,2.909,mick_schumacher,Haas F1 Team,Mick,Schumacher,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,NOR,82.738,86.2946,25,2.768,norris,McLaren,Lando,Norris,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,OCO,81.177,90.080333333,24,1.207,ocon,Alpine,Esteban,Ocon,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,PER,81.579,85.714321428,28,1.609,perez,Red Bull Racing,Sergio,Perez,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,RIC,82.763,85.473,22,2.793,ricciardo,McLaren,Daniel,Ricciardo,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,RUS,79.97,86.23108,25,0.0,russell,Mercedes,George,Russell,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,SAI,81.693,84.580142857,28,1.723,sainz,Ferrari,Carlos,Sainz,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,STR,82.84,85.803294117,17,2.87,stroll,Aston Martin,Lance,Stroll,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,TSU,80.798,90.01640909,22,0.828,tsunoda,AlphaTauri,Yuki,Tsunoda,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,VER,81.588,84.630678571,28,1.618,max_verstappen,Red Bull Racing,Max,Verstappen,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,VET,82.371,85.640555555,27,2.401,vettel,Aston Martin,Sebastian,Vettel,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP2,2022-10-30,ZHO,83.369,86.955703703,27,3.399,zhou,Alfa Romeo,Guanyu,Zhou,25.9,32.8,34.6,1.5,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,ALB,79.917,98.914666666,15,1.518,albon,Williams,Alexander,Albon,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,ALO,80.037,91.166785714,14,1.638,alonso,Alpine,Fernando,Alonso,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,BOT,79.39,88.635583333,24,0.991,bottas,Alfa Romeo,Valtteri,Bottas,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,GAS,80.33,95.0535,22,1.931,gasly,AlphaTauri,Pierre,Gasly,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,HAM,78.543,99.827611111,18,0.144,hamilton,Mercedes,Lewis,Hamilton,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,LAT,80.848,97.297,18,2.449,latifi,Williams,Nicholas,Latifi,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,LEC,79.123,98.17635,20,0.724,leclerc,Ferrari,Charles,Leclerc,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,MAG,81.271,92.782454545,22,2.872,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,MSC,80.598,94.515714285,21,2.199,mick_schumacher,Haas F1 Team,Mick,Schumacher,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,NOR,79.317,94.701368421,19,0.918,norris,McLaren,Lando,Norris,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,OCO,79.96,97.458294117,17,1.561,ocon,Alpine,Esteban,Ocon,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,PER,79.241,100.528190476,21,0.842,perez,Red Bull Racing,Sergio,Perez,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,RIC,80.139,91.345842105,19,1.74,ricciardo,McLaren,Daniel,Ricciardo,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,RUS,78.399,93.860764705,17,0.0,russell,Mercedes,George,Russell,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,SAI,79.301,98.334058823,17,0.902,sainz,Ferrari,Carlos,Sainz,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,STR,80.477,106.772647058,17,2.078,stroll,Aston Martin,Lance,Stroll,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,TSU,79.882,94.605681818,22,1.483,tsunoda,AlphaTauri,Yuki,Tsunoda,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,VER,78.876,102.271133333,15,0.477,max_verstappen,Red Bull Racing,Max,Verstappen,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,VET,80.986,99.182368421,19,2.587,vettel,Aston Martin,Sebastian,Vettel,21.2,41.2,54.0,1.3,False
+2022,20,Mexico City Grand Prix,Mexico City,FP3,2022-10-30,ZHO,80.019,91.77775,20,1.62,zhou,Alfa Romeo,Guanyu,Zhou,21.2,41.2,54.0,1.3,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,ALB,72.633,85.960692307,26,0.78,albon,Williams,Alexander,Albon,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,ALO,72.554,85.239181818,22,0.701,alonso,Alpine,Fernando,Alonso,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,BOT,72.466,88.90325,28,0.613,bottas,Alfa Romeo,Valtteri,Bottas,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,GAS,72.467,88.769413793,29,0.614,gasly,AlphaTauri,Pierre,Gasly,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,HAM,72.04,92.47147619,21,0.187,hamilton,Mercedes,Lewis,Hamilton,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,LAT,73.019,89.326689655,29,1.166,latifi,Williams,Nicholas,Latifi,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,LEC,71.857,88.857535714,28,0.004,leclerc,Ferrari,Charles,Leclerc,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,MAG,72.997,89.593333333,21,1.144,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,MSC,72.314,90.069521739,23,0.461,mick_schumacher,Haas F1 Team,Mick,Schumacher,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,NOR,72.955,86.69456,25,1.102,norris,McLaren,Lando,Norris,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,OCO,72.705,86.181592592,27,0.852,ocon,Alpine,Esteban,Ocon,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,PER,71.853,86.49468,25,0.0,perez,Red Bull Racing,Sergio,Perez,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,RIC,73.359,84.82332,25,1.506,ricciardo,McLaren,Daniel,Ricciardo,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,RUS,72.055,87.5816,20,0.202,russell,Mercedes,George,Russell,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,SAI,72.039,88.334851851,27,0.186,sainz,Ferrari,Carlos,Sainz,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,STR,72.759,91.614318181,22,0.906,stroll,Aston Martin,Lance,Stroll,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,TSU,73.347,91.531,29,1.494,tsunoda,AlphaTauri,Yuki,Tsunoda,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,VER,71.861,86.249541666,24,0.008,max_verstappen,Red Bull Racing,Max,Verstappen,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,VET,72.157,88.205076923,26,0.304,vettel,Aston Martin,Sebastian,Vettel,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP1,2022-11-13,ZHO,73.115,89.02674074,27,1.262,zhou,Alfa Romeo,Guanyu,Zhou,23.6,48.3,70.3,1.7,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,ALO,75.049,82.608,26,0.445,alonso,Alpine,Fernando,Alonso,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,BOT,76.047,83.212870967,31,1.443,bottas,Alfa Romeo,Valtteri,Bottas,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,GAS,75.636,82.4449,30,1.032,gasly,AlphaTauri,Pierre,Gasly,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,HAM,75.137,79.2435,30,0.533,hamilton,Mercedes,Lewis,Hamilton,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,LAT,76.181,84.434096774,31,1.577,latifi,Williams,Nicholas,Latifi,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,LEC,75.868,80.677088235,34,1.264,leclerc,Ferrari,Charles,Leclerc,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,MAG,75.815,82.3105,36,1.211,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,MSC,75.684,80.226921052,38,1.08,mick_schumacher,Haas F1 Team,Mick,Schumacher,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,NOR,75.851,82.401347826,23,1.247,norris,McLaren,Lando,Norris,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,OCO,74.604,80.2558,25,0.0,ocon,Alpine,Esteban,Ocon,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,PER,74.788,79.669558823,34,0.184,perez,Red Bull Racing,Sergio,Perez,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,RIC,75.994,80.29956,25,1.39,ricciardo,McLaren,Daniel,Ricciardo,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,RUS,74.916,80.392357142,28,0.312,russell,Mercedes,George,Russell,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,SAI,75.856,82.803828571,35,1.252,sainz,Ferrari,Carlos,Sainz,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,SAR,76.48,79.07126923,26,1.876,nan,Williams,Logan,Sargeant,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,STR,76.263,82.915585365,41,1.659,stroll,Aston Martin,Lance,Stroll,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,TSU,75.865,81.406333333,30,1.261,tsunoda,AlphaTauri,Yuki,Tsunoda,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,VER,75.098,80.286607142,28,0.494,max_verstappen,Red Bull Racing,Max,Verstappen,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,VET,76.4,81.646428571,42,1.796,vettel,Aston Martin,Sebastian,Vettel,25.4,48.8,55.9,1.2,False
+2022,21,São Paulo Grand Prix,São Paulo,FP2,2022-11-13,ZHO,76.468,81.530852941,34,1.864,zhou,Alfa Romeo,Guanyu,Zhou,25.4,48.8,55.9,1.2,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,ALB,87.84,105.403045454,22,1.207,albon,Williams,Alexander,Albon,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,BOT,87.655,103.039421052,19,1.022,bottas,Alfa Romeo,Valtteri,Bottas,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,DOO,88.484,107.783619047,21,1.851,nan,Alpine,Jack,Doohan,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,DRU,88.672,105.594473684,19,2.039,nan,Aston Martin,Felipe,Drugovich,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,FIT,88.204,102.480217391,23,1.571,nan,Haas F1 Team,Pietro,Fittipaldi,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,GAS,87.845,108.18416,25,1.212,gasly,AlphaTauri,Pierre,Gasly,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,HAM,86.633,101.516266666,15,0.0,hamilton,Mercedes,Lewis,Hamilton,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,KUB,88.064,103.371066666,15,1.431,nan,Alfa Romeo,Robert,Kubica,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,LAW,87.201,109.379833333,18,0.568,nan,Red Bull Racing,Liam,Lawson,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,LEC,86.888,110.879066666,15,0.255,leclerc,Ferrari,Charles,Leclerc,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,MAG,88.142,105.468230769,13,1.509,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,OCO,87.891,105.943708333,24,1.258,ocon,Alpine,Esteban,Ocon,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,OWA,88.35,105.057842105,19,1.717,nan,McLaren,Patricio,O'Ward,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,PER,86.967,110.73445,20,0.334,perez,Red Bull Racing,Sergio,Perez,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,RIC,87.619,102.504444444,18,0.986,ricciardo,McLaren,Daniel,Ricciardo,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,RUS,86.853,99.019148148,27,0.22,russell,Mercedes,George,Russell,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,SAR,88.098,100.51768421,19,1.465,nan,Williams,Logan,Sargeant,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,SHW,87.429,107.92465,20,0.796,nan,Ferrari,Robert,Shwartzman,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,TSU,87.991,103.5715,24,1.358,tsunoda,AlphaTauri,Yuki,Tsunoda,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP1,2022-11-20,VET,87.268,107.929642857,14,0.635,vettel,Aston Martin,Sebastian,Vettel,34.0,45.9,25.6,1.8,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,ALB,86.75,101.745653846,26,1.604,albon,Williams,Alexander,Albon,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,ALO,86.043,102.402115384,26,0.897,alonso,Alpine,Fernando,Alonso,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,BOT,86.3,102.367307692,26,1.154,bottas,Alfa Romeo,Valtteri,Bottas,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,GAS,87.036,102.78956,25,1.89,gasly,AlphaTauri,Pierre,Gasly,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,HAM,85.761,107.506894736,19,0.615,hamilton,Mercedes,Lewis,Hamilton,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,LAT,87.262,103.749592592,27,2.116,latifi,Williams,Nicholas,Latifi,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,LEC,85.599,100.018416666,24,0.453,leclerc,Ferrari,Charles,Leclerc,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,MAG,86.915,101.276736842,19,1.769,kevin_magnussen,Haas F1 Team,Kevin,Magnussen,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,MSC,86.839,100.141285714,21,1.693,mick_schumacher,Haas F1 Team,Mick,Schumacher,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,NOR,86.377,103.10028,25,1.231,norris,McLaren,Lando,Norris,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,OCO,86.038,100.594666666,24,0.892,ocon,Alpine,Esteban,Ocon,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,PER,85.852,106.792809523,21,0.706,perez,Red Bull Racing,Sergio,Perez,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,RIC,86.124,106.2703,10,0.978,ricciardo,McLaren,Daniel,Ricciardo,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,RUS,85.487,103.455,24,0.341,russell,Mercedes,George,Russell,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,SAI,85.932,103.269615384,26,0.786,sainz,Ferrari,Carlos,Sainz,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,STR,86.547,99.463809523,21,1.401,stroll,Aston Martin,Lance,Stroll,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,TSU,86.68,101.452884615,26,1.534,tsunoda,AlphaTauri,Yuki,Tsunoda,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,VER,85.146,101.673,19,0.0,max_verstappen,Red Bull Racing,Max,Verstappen,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,VET,86.395,104.102916666,24,1.249,vettel,Aston Martin,Sebastian,Vettel,30.0,36.0,55.3,1.6,False
+2022,22,Abu Dhabi Grand Prix,Yas Island,FP2,2022-11-20,ZHO,86.479,105.345185185,27,1.333,zhou,Alfa Romeo,Guanyu,Zhou,30.0,36.0,55.3,1.6,False

@@ -216,3 +216,16 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Cache 
+cache/
+fastf1_cache/
+
+.DS_Store
+
+# Cache des calendriers généré par app.py
+data/schedule_cache/
+data/track_cache/
+data/accuracy_cache/
+
+webapp/static/teams/f1_teams/

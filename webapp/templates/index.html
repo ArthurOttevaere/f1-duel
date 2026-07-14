@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F1 Race Predictor</title>
+  <!-- Applique le thème avant le rendu pour éviter tout flash (sombre par défaut). -->
+  <script>
+    try {
+      var _t = new URLSearchParams(location.search).get('theme') || localStorage.getItem('f1-theme');
+      if (_t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <!-- Marque + emplacement logo : déposer webapp/static/logo.png pour le voir -->
+    <div class="nav-brand">
+      <span class="logo-slot" aria-hidden="true">
+        <img id="brand-logo" src="{{ url_for('static', filename='logo.png') }}" alt="" onerror="this.remove()" />
+        <span class="logo-ph">F1</span>
+      </span>
+      <span class="brand-text">Race&nbsp;Predictor</span>
+    </div>
+
+    <span class="nav-sep" aria-hidden="true"></span>
+
+    <nav class="nav-tabs" aria-label="Views">
+      <button type="button" id="standings-btn" class="nav-tab">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 14V2M2 14h12M5 11l3-4 2 2 4-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Standings</span>
+      </button>
+      <button type="button" id="contention-btn" class="nav-tab">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5 9.9 5.6l4.5.5-3.3 3 .9 4.4L8 11.3 4 13.5l.9-4.4-3.3-3 4.5-.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <span>Title&nbsp;race</span>
+      </button>
+    </nav>
+
+    <span class="nav-sep" aria-hidden="true"></span>
+
+    <form id="controls" class="nav-controls" autocomplete="off">
+      <label class="field field-year">
+        <select id="year" aria-label="Season"></select>
+      </label>
+
+      <!-- Race picker: searchable combobox -->
+      <div class="field field-race">
+        <div class="combo" id="combo">
+          <input type="text" id="race-search" placeholder="Search for a Grand Prix…"
+                 aria-label="Grand Prix"
+                 role="combobox" aria-expanded="false" aria-autocomplete="list"
+                 aria-controls="race-list" />
+          <input type="hidden" id="round" value="" />
+          <svg class="combo-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <ul class="combo-list" id="race-list" role="listbox" hidden></ul>
+        </div>
+      </div>
+    </form>
+
+    <span class="nav-sep" aria-hidden="true"></span>
+
+    <button type="button" id="theme-toggle" class="nav-icon-btn" aria-label="Toggle day / night mode" title="Day / night mode">
+      <svg class="icon-moon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5 5.5 5.5 0 1 0 13.5 9.5z" fill="currentColor"/></svg>
+      <svg class="icon-sun" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="3.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 1v1.6M8 13.4V15M15 8h-1.6M2.6 8H1M12.9 3.1l-1.1 1.1M4.2 11.8l-1.1 1.1M12.9 12.9l-1.1-1.1M4.2 4.2 3.1 3.1"/></g></svg>
+    </button>
+  </header>
+
+  <main id="stage" class="stage">
+    <!-- Carte course : compte à rebours + météo (visible dès qu'un GP est choisi) -->
+    <section id="race-info" class="race-info glass" hidden>
+      <div class="ri-track" id="ri-track" hidden>
+        <svg id="track-svg" viewBox="0 0 100 100" aria-hidden="true">
+          <path id="track-path" fill="none" stroke="currentColor" stroke-width="2.4"
+                stroke-linejoin="round" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div class="ri-head">
+        <h2 id="ri-name">—</h2>
+        <p id="ri-where" class="ri-where"></p>
+        <p id="track-meta" class="ri-track-meta"></p>
+      </div>
+
+      <div class="ri-countdown" id="ri-countdown">
+        <span class="ri-label" id="ri-cd-label">Starts in</span>
+        <div class="ri-clock" id="ri-clock">
+          <div class="cd-unit"><b id="cd-d">—</b><span>days</span></div>
+          <div class="cd-unit"><b id="cd-h">—</b><span>hrs</span></div>
+          <div class="cd-unit"><b id="cd-m">—</b><span>min</span></div>
+          <div class="cd-unit"><b id="cd-s">—</b><span>sec</span></div>
+        </div>
+        <span class="ri-when" id="ri-when"></span>
+      </div>
+
+      <div class="ri-weather" id="ri-weather" hidden>
+        <div class="wx-icon" id="wx-icon"></div>
+        <div class="wx-body">
+          <div class="wx-temp"><b id="wx-temp">—</b><span id="wx-range"></span></div>
+          <div class="wx-label" id="wx-label"></div>
+          <div class="wx-extra" id="wx-extra"></div>
+        </div>
+      </div>
+
+      <!-- Action de prédiction : rattachée au GP choisi -->
+      <div class="ri-actions">
+        <label class="toggle" title="Ignore qualifying results and estimate the grid from practice pace">
+          <input type="checkbox" id="prequali" />
+          <span class="track"><span class="thumb"></span></span>
+          <span class="toggle-label">Pre-qualifying</span>
+        </label>
+        <button type="button" id="run" class="btn-run">
+          <span class="btn-label">Predict</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Initial state -->
+    <section id="empty" class="empty">
+      <div class="empty-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="56" height="56"><path d="M10 6v36M10 8h26l-4 7 4 7H10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </div>
+      <h1>Grand Prix prediction</h1>
+      <p>Pick a season and a Grand Prix, then run the model's prediction.</p>
+    </section>
+
+    <!-- Loading -->
+    <section id="loading" class="loading" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <p id="loading-text">The model is analysing the session data…</p>
+    </section>
+
+    <!-- Erreur -->
+    <section id="error" class="error-box" hidden>
+      <p id="error-text"></p>
+    </section>
+
+    <!-- Résultats -->
+    <section id="results" class="results" hidden>
+      <div class="race-head">
+        <h2 id="race-name">—</h2>
+        <div class="race-meta">
+          <span id="race-circuit" class="chip"></span>
+          <span id="race-mode" class="chip chip-mode"></span>
+        </div>
+
+        <div class="results-tools">
+          <div class="whatif" id="whatif" title="Re-run the prediction under a forced weather scenario">
+            <span class="whatif-label">What-if</span>
+            <div class="seg" id="whatif-seg">
+              <button type="button" data-w="" class="active">Real</button>
+              <button type="button" data-w="dry">Dry</button>
+              <button type="button" data-w="wet">Wet</button>
+            </div>
+          </div>
+          <button type="button" id="share-btn" class="tool-btn">
+            <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M11 5a2 2 0 1 0-1.9-2.6L5.8 4.3a2 2 0 1 0 0 3.4l3.3 1.9a2 2 0 1 0 .6-1L6.4 6.7a2 2 0 0 0 0-1.4l3.3-1.9A2 2 0 0 0 11 5z" fill="currentColor"/></svg>
+            Share
+          </button>
+          <button type="button" id="session-data-btn" class="tool-btn">
+            <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 3h12M2 7h8M2 11h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Session data
+          </button>
+          <button type="button" id="season-btn" class="tool-btn">Season accuracy</button>
+        </div>
+
+        <div id="accuracy" class="accuracy" hidden></div>
+
+        <p class="legend">
+          <span class="lg-chip lg-start">Start</span> grid position ·
+          <span class="legend-move up">▲</span>/<span class="legend-move down">▼</span> places gained / lost from the start ·
+          <span class="lg-chip lg-pred">Pred</span> model's predicted finish ·
+          <span class="lg-chip lg-finish">Finish</span> actual result (past races) ·
+          <b>click any driver</b> to see why
+        </p>
+        <p class="legend legend-note" id="prequali-note" hidden>
+          * In pre-qualifying mode the start grid is estimated from practice pace (qualifying ignored),
+          so the arrows show movement relative to that estimated grid.
+        </p>
+      </div>
+
+      <div id="podium" class="podium"></div>
+      <ol id="ranking" class="ranking"></ol>
+
+      <button type="button" id="show-full" class="show-full" hidden>
+        <span id="show-full-label">Show full grid</span>
+        <svg viewBox="0 0 12 8" width="11" height="8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <ol id="ranking-rest" class="ranking ranking-rest" hidden></ol>
+    </section>
+  </main>
+
+  <!-- Season accuracy dashboard -->
+  <div id="season-modal" class="modal" hidden>
+    <div class="modal-scrim" id="season-scrim"></div>
+    <div class="modal-card glass modal-wide" role="dialog" aria-modal="true" aria-labelledby="season-title">
+      <button class="modal-close" id="season-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-name" id="season-title">Season accuracy</div>
+      <p class="modal-lede" id="season-lede">How close the model's predictions were to the actual results.</p>
+      <div class="stats-filter" id="stats-filter">
+        <button type="button" class="sf-pill active" data-zone="all">Total</button>
+        <button type="button" class="sf-pill" data-zone="top10">Top 10</button>
+        <button type="button" class="sf-pill" data-zone="top3">Podium</button>
+      </div>
+      <div id="season-progress" class="season-progress" hidden>
+        <div class="sp-bar"><span id="sp-fill"></span></div>
+        <span id="sp-text" class="sp-text"></span>
+      </div>
+      <div id="season-summary" class="season-summary"></div>
+      <div id="season-list" class="season-list"></div>
+      <p class="modal-foot">Each race is scored by comparing the predicted finishing order with the official result. Computed once, then cached.</p>
+    </div>
+  </div>
+
+  <!-- Championship standings + points-over-time chart -->
+  <div id="champ-modal" class="modal" hidden>
+    <div class="modal-scrim" id="champ-scrim"></div>
+    <div class="modal-card glass modal-xl" role="dialog" aria-modal="true" aria-labelledby="champ-title">
+      <button class="modal-close" id="champ-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-name" id="champ-title">Championship</div>
+      <p class="modal-lede" id="champ-lede">Points race by race — follow the title fight and position swaps.</p>
+      <div class="sd-tabs" id="champ-tabs">
+        <button type="button" class="sd-tab active" data-tab="drivers">Drivers</button>
+        <button type="button" class="sd-tab" data-tab="constructors">Constructors</button>
+      </div>
+      <div id="champ-progress" class="season-progress" hidden>
+        <div class="sp-bar"><span id="champ-fill"></span></div>
+        <span id="champ-text" class="sp-text"></span>
+      </div>
+      <div id="champ-chart" class="champ-chart"></div>
+      <div id="champ-table" class="champ-table"></div>
+      <p class="modal-foot">Cumulative points after each round (race + sprint). Hover the chart or a row to highlight a contender.</p>
+    </div>
+  </div>
+
+  <!-- Title race : who is still mathematically in contention -->
+  <div id="contention-modal" class="modal" hidden>
+    <div class="modal-scrim" id="contention-scrim"></div>
+    <div class="modal-card glass modal-xl" role="dialog" aria-modal="true" aria-labelledby="contention-title">
+      <button class="modal-close" id="contention-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-name" id="contention-title">Title race</div>
+      <p class="modal-lede" id="contention-lede">Who can still mathematically win the drivers' championship.</p>
+      <div id="contention-progress" class="season-progress" hidden>
+        <div class="sp-bar"><span id="contention-fill"></span></div>
+        <span id="contention-text" class="sp-text"></span>
+      </div>
+      <div id="contention-summary" class="cn-summary"></div>
+      <div id="contention-list" class="cn-list"></div>
+      <p class="modal-foot">A driver is <b>out</b> once their best possible total (winning every remaining race &amp; sprint) can no longer reach the current leader's points. Remaining points = races × <span id="cn-rpts">25</span> + sprints × <span id="cn-spts">8</span>.</p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" hidden></div>
+
+  <!-- Mini help popover (indicators / confidence) -->
+  <div id="help-pop" class="help-pop" hidden role="dialog" aria-live="polite"></div>
+
+  <!-- Modal explication pilote -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-scrim" id="modal-scrim"></div>
+    <div class="modal-card glass" role="dialog" aria-modal="true" aria-labelledby="m-name">
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-head">
+        <div id="m-avatar"></div>
+        <div class="modal-id">
+          <div class="modal-pos" id="m-pos"></div>
+          <div class="modal-name" id="m-name"></div>
+          <div class="modal-team" id="m-team"></div>
+        </div>
+      </div>
+      <p class="modal-lede" id="m-lede"></p>
+      <div class="modal-factors" id="m-factors"></div>
+      <p class="modal-foot">Factors come from the model (XGBoost · SHAP values). <b>Boost</b> = pushes forward, <b>penalty</b> = holds back.</p>
+    </div>
+  </div>
+
+  <!-- Session data modal (FP + quali standings used as model input) -->
+  <div id="session-data-modal" class="modal" hidden>
+    <div class="modal-scrim" id="session-data-scrim"></div>
+    <div class="modal-card glass modal-wide" role="dialog" aria-modal="true" aria-labelledby="sd-title">
+      <button class="modal-close" id="session-data-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" width="15" height="15"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-name" id="sd-title">Session data</div>
+      <p class="modal-lede" id="sd-lede">Practice and qualifying standings used as model input.</p>
+      <div class="sd-tabs" id="sd-tabs"></div>
+      <div id="sd-content"></div>
+      <p class="modal-foot">If fewer than 20 drivers appear, FastF1 may have incomplete session data cached — restart the server and try again after the session is fully uploaded.</p>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
