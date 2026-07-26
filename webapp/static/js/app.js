@@ -29,7 +29,6 @@ const els = {
   raceMode2: $('race-mode'),
   accuracy:  $('accuracy'),
   whatifSeg: $('whatif-seg'),
-  shareBtn:  $('share-btn'),
   exportBtn: $('export-btn'),
   exportMenu: $('export-menu'),
   seasonBtn: $('season-btn'),
@@ -46,6 +45,7 @@ const els = {
   seasonLede:     $('season-lede'),
   spFill:         $('sp-fill'),
   spText:         $('sp-text'),
+  spCount:        $('sp-count'),
   seasonSummary:  $('season-summary'),
   seasonList:     $('season-list'),
   statsFilter:    $('stats-filter'),
@@ -93,6 +93,7 @@ const els = {
   champProgress: $('champ-progress'),
   champFill:     $('champ-fill'),
   champText:     $('champ-text'),
+  champCount:    $('champ-count'),
   champChart:    $('champ-chart'),
   champTable:    $('champ-table'),
   // Title race (contention) modal
@@ -104,6 +105,7 @@ const els = {
   contentionProgress: $('contention-progress'),
   contentionFill:     $('contention-fill'),
   contentionText:     $('contention-text'),
+  contentionCount:    $('contention-count'),
   contentionSummary:  $('contention-summary'),
   contentionList:     $('contention-list'),
   cnRpts:    $('cn-rpts'),
@@ -164,11 +166,101 @@ function show(section) {
   for (const s of [els.empty, els.loading, els.error, els.results]) {
     s.hidden = s !== section;
   }
+  // Le texte du chargement principal défile tant qu'on est sur l'écran « loading ».
+  if (section === els.loading) ensureRotator(els.loadingText, LOAD_LINES_MODEL);
+  else stopRotator(els.loadingText);
 }
 
 function esc(s) {
   return String(s ?? '').replace(/[&<>"]/g, (c) =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+}
+
+// ─── Textes de chargement rotatifs (avec petites touches d'humour F1) ────────
+//
+// Deux registres : le chargement multi-courses (dashboards saison / champ /
+// titre) et la prédiction d'une seule course (le modèle qui « réfléchit »).
+
+const LOAD_LINES_RACES = [
+  'Loading races…',
+  'Warming up the tyres…',
+  'Sending it into turn one…',
+  'Undercutting the field…',
+  'Arguing with the stewards…',
+  'Counting every point…',
+  'Blaming the strategy…',
+  'Scrubbing the timing screens…',
+  'Chasing DRS…',
+  'Waiting for the safety car…',
+  'Checking for track limits…',
+  'Reticulating the splines…',
+  'Deploying full throttle…',
+];
+
+const LOAD_LINES_MODEL = [
+  'Analysing the session data…',
+  'Reading the tea leaves…',
+  'Simulating a thousand races…',
+  'Estimating from practice pace…',
+  'Consulting the crystal ball…',
+  'Crunching the numbers…',
+  'Arguing with the model…',
+  'Weighing the tyre gods…',
+  'Second-guessing the podium…',
+];
+
+const LOAD_LINES_SESSION = [
+  'Loading session data…',
+  'Fetching the timing screens…',
+  'Syncing with race control…',
+  'Downloading every lap…',
+  'Waking up FastF1…',
+  'Reading the sector times…',
+  'Untangling the telemetry…',
+];
+
+// Fait défiler des messages dans un élément ; renvoie une fonction d'arrêt.
+function makeTextRotator(el, lines, interval = 2200) {
+  let i = Math.floor(Math.random() * lines.length);
+  const step = () => {
+    el.textContent = lines[i % lines.length];
+    el.classList.remove('load-msg-in');
+    void el.offsetWidth;           // relance l'animation de fondu
+    el.classList.add('load-msg-in');
+    i += 1;
+  };
+  step();
+  const t = setInterval(step, interval);
+  return () => clearInterval(t);
+}
+
+// Démarre/arrête un rotateur attaché à l'élément (idempotent).
+function ensureRotator(el, lines) {
+  if (el && !el._rotStop) el._rotStop = makeTextRotator(el, lines);
+}
+function stopRotator(el) {
+  if (el && el._rotStop) { el._rotStop(); el._rotStop = null; }
+}
+
+// Pilote une barre de chargement à partir d'un job {status, done, total}.
+// - status ≠ 'running'  → barre masquée, rotateur stoppé.
+// - total connu         → progression réelle (largeur = done/total) + compteur.
+// - total inconnu encore → mode indéterminé (segment qui glisse) pour un
+//   retour visuel immédiat, avant même que le worker n'ait annoncé le total.
+function renderLoader(bar, fill, count, msg, lines, d) {
+  const running = d.status === 'running';
+  bar.hidden = !running;
+  if (!running) { stopRotator(msg); return; }
+  ensureRotator(msg, lines);
+  if (d.total) {
+    bar.classList.remove('load-indeterminate');
+    fill.style.width = `${Math.round((d.done / d.total) * 100)}%`;
+    if (count) { count.textContent = `${d.done}/${d.total} races`; count.hidden = false; }
+  } else {
+    bar.classList.add('load-indeterminate');
+    fill.style.removeProperty('width');
+    if (count) count.hidden = true;
+  }
 }
 
 // ─── Mini help popover (petit "i" cliquable) ────────────────────────────────
@@ -683,7 +775,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !els.sessionDataModal.hidden) closeSessionData();
 });
 
-// ─── Full grid · What-if · Share · Season ───────────────────────────────────
+// ─── Full grid · What-if · Season ───────────────────────────────────────────
 
 let currentWeatherMode = '';
 
@@ -716,21 +808,6 @@ function toast(msg) {
     setTimeout(() => { els.toast.hidden = true; }, 250);
   }, 2200);
 }
-
-els.shareBtn.addEventListener('click', async () => {
-  const u = new URL(location.origin + location.pathname);
-  u.searchParams.set('year', els.year.value);
-  u.searchParams.set('round', els.round.value);
-  if (els.prequali.checked) u.searchParams.set('pre_quali', 'true');
-  if (currentWeatherMode) u.searchParams.set('weather', currentWeatherMode);
-  const link = u.toString();
-  try {
-    await navigator.clipboard.writeText(link);
-    toast('Link copied to clipboard');
-  } catch {
-    toast(link);
-  }
-});
 
 // ─── Export image : affiche PNG partageable de la prédiction ────────────────
 //
@@ -1317,6 +1394,7 @@ function openSeason() {
 function closeSeason() {
   els.seasonModal.classList.remove('open');
   if (seasonTimer) { clearInterval(seasonTimer); seasonTimer = null; }
+  stopRotator(els.spText);
   setTimeout(() => { els.seasonModal.hidden = true; }, 200);
 }
 async function loadSeason() {
@@ -1334,17 +1412,11 @@ async function loadSeason() {
     } catch { /* ignore transient */ }
   };
   await tick();
-  if (!seasonTimer) seasonTimer = setInterval(tick, 3000);
+  if (!seasonTimer) seasonTimer = setInterval(tick, 1000);
 }
 
 function renderSeasonProgress(d) {
-  const running = d.status === 'running';
-  els.seasonProgress.hidden = !running || !d.total;
-  if (d.total) {
-    const pct = Math.round((d.done / d.total) * 100);
-    els.spFill.style.width = `${pct}%`;
-    els.spText.textContent = `Computing… ${d.done}/${d.total} races`;
-  }
+  renderLoader(els.seasonProgress, els.spFill, els.spCount, els.spText, LOAD_LINES_RACES, d);
 }
 
 function renderSeasonSummary() {
@@ -1457,6 +1529,7 @@ function openChamp() {
 function closeChamp() {
   els.champModal.classList.remove('open');
   if (champTimer) { clearInterval(champTimer); champTimer = null; }
+  stopRotator(els.champText);
   setTimeout(() => { els.champModal.hidden = true; }, 200);
 }
 
@@ -1474,16 +1547,11 @@ async function loadChamp() {
     } catch { /* transient */ }
   };
   await tick();
-  if (!champTimer) champTimer = setInterval(tick, 3000);
+  if (!champTimer) champTimer = setInterval(tick, 1000);
 }
 
 function renderChampProgress(d) {
-  const running = d.status === 'running';
-  els.champProgress.hidden = !running || !d.total;
-  if (d.total) {
-    els.champFill.style.width = `${Math.round((d.done / d.total) * 100)}%`;
-    els.champText.textContent = `Loading races… ${d.done}/${d.total}`;
-  }
+  renderLoader(els.champProgress, els.champFill, els.champCount, els.champText, LOAD_LINES_RACES, d);
 }
 
 const fmtPts = (v) => (Number.isInteger(v) ? String(v) : Number(v).toFixed(1));
@@ -1642,6 +1710,7 @@ function openContention() {
 function closeContention() {
   els.contentionModal.classList.remove('open');
   if (contentionTimer) { clearInterval(contentionTimer); contentionTimer = null; }
+  stopRotator(els.contentionText);
   setTimeout(() => { els.contentionModal.hidden = true; }, 200);
 }
 
@@ -1659,16 +1728,11 @@ async function loadContention() {
     } catch { /* transient */ }
   };
   await tick();
-  if (!contentionTimer) contentionTimer = setInterval(tick, 3000);
+  if (!contentionTimer) contentionTimer = setInterval(tick, 1000);
 }
 
 function renderContentionProgress(d) {
-  const running = d.status === 'running';
-  els.contentionProgress.hidden = !running || !d.total;
-  if (d.total) {
-    els.contentionFill.style.width = `${Math.round((d.done / d.total) * 100)}%`;
-    els.contentionText.textContent = `Loading races… ${d.done}/${d.total}`;
-  }
+  renderLoader(els.contentionProgress, els.contentionFill, els.contentionCount, els.contentionText, LOAD_LINES_RACES, d);
 }
 
 function renderContention() {
@@ -1752,19 +1816,40 @@ function openSessionData() {
   els.sessionDataModal.hidden = false;
   requestAnimationFrame(() => els.sessionDataModal.classList.add('open'));
   els.sdTitle.textContent  = 'Session data';
-  els.sdLede.textContent   = 'Loading…';
+  els.sdLede.textContent   = 'Fetching practice & qualifying from FastF1…';
   els.sdTabs.innerHTML     = '';
-  els.sdContent.innerHTML  = '';
+  showSdLoader();
 
   fetch(`/api/session_data?year=${encodeURIComponent(year)}&round=${encodeURIComponent(round)}`)
     .then((r) => r.json().then((d) => ({ ok: r.ok, d })))
     .then(({ ok, d }) => {
       if (!ok) throw new Error(d.error || 'Failed to load session data');
+      stopSdLoader();
       renderSessionData(d);
     })
     .catch((e) => {
+      stopSdLoader();
       els.sdContent.innerHTML = `<p class="modal-empty">Error: ${esc(e.message)}</p>`;
     });
+}
+
+// Loader indéterminé du modal Session data (chargement FastF1, souvent lent).
+let _sdLoaderMsg = null;
+function showSdLoader() {
+  els.sdContent.innerHTML = `
+    <div class="load-bar load-indeterminate">
+      <div class="load-head">
+        <span class="load-tyre" aria-hidden="true"></span>
+        <span class="load-msg" id="sd-load-msg">Loading session data…</span>
+      </div>
+      <div class="load-track"><span class="load-fill"></span></div>
+    </div>`;
+  _sdLoaderMsg = document.getElementById('sd-load-msg');
+  ensureRotator(_sdLoaderMsg, LOAD_LINES_SESSION);
+}
+function stopSdLoader() {
+  stopRotator(_sdLoaderMsg);
+  _sdLoaderMsg = null;
 }
 
 function renderSessionData(d) {
@@ -1850,6 +1935,7 @@ function qualiTable(drivers) {
 
 function closeSessionData() {
   els.sessionDataModal.classList.remove('open');
+  stopSdLoader();
   setTimeout(() => { els.sessionDataModal.hidden = true; }, 200);
 }
 
@@ -1894,10 +1980,7 @@ async function predict(ev) {
   }
 
   els.run.disabled = true;
-  els.loadingText.textContent = els.prequali.checked
-    ? 'Estimating from practice pace…'
-    : 'Analysing qualifying and session data…';
-  show(els.loading);
+  show(els.loading);   // le texte défile ensuite via le rotateur (LOAD_LINES_MODEL)
 
   const p = { year, round, pre_quali: els.prequali.checked ? 'true' : 'false' };
   if (currentWeatherMode) p.weather = currentWeatherMode;

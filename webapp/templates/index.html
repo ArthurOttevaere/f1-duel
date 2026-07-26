@@ -181,10 +181,6 @@
               <button type="button" data-w="wet">Wet</button>
             </div>
           </div>
-          <button type="button" id="share-btn" class="tool-btn">
-            <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M11 5a2 2 0 1 0-1.9-2.6L5.8 4.3a2 2 0 1 0 0 3.4l3.3 1.9a2 2 0 1 0 .6-1L6.4 6.7a2 2 0 0 0 0-1.4l3.3-1.9A2 2 0 0 0 11 5z" fill="currentColor"/></svg>
-            Share
-          </button>
           <button type="button" id="session-data-btn" class="tool-btn">
             <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 3h12M2 7h8M2 11h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             Session data
@@ -232,9 +228,13 @@
         <button type="button" class="sf-pill" data-zone="top10">Top 10</button>
         <button type="button" class="sf-pill" data-zone="top3">Podium</button>
       </div>
-      <div id="season-progress" class="season-progress" hidden>
-        <div class="sp-bar"><span id="sp-fill"></span></div>
-        <span id="sp-text" class="sp-text"></span>
+      <div id="season-progress" class="load-bar" hidden>
+        <div class="load-head">
+          <span class="load-tyre" aria-hidden="true"></span>
+          <span class="load-msg" id="sp-text">Loading races…</span>
+          <span class="load-count" id="sp-count"></span>
+        </div>
+        <div class="load-track"><span class="load-fill" id="sp-fill"></span></div>
       </div>
       <div id="season-summary" class="season-summary"></div>
       <div id="season-list" class="season-list"></div>
@@ -255,9 +255,13 @@
         <button type="button" class="sd-tab active" data-tab="drivers">Drivers</button>
         <button type="button" class="sd-tab" data-tab="constructors">Constructors</button>
       </div>
-      <div id="champ-progress" class="season-progress" hidden>
-        <div class="sp-bar"><span id="champ-fill"></span></div>
-        <span id="champ-text" class="sp-text"></span>
+      <div id="champ-progress" class="load-bar" hidden>
+        <div class="load-head">
+          <span class="load-tyre" aria-hidden="true"></span>
+          <span class="load-msg" id="champ-text">Loading races…</span>
+          <span class="load-count" id="champ-count"></span>
+        </div>
+        <div class="load-track"><span class="load-fill" id="champ-fill"></span></div>
       </div>
       <div id="champ-chart" class="champ-chart"></div>
       <div id="champ-table" class="champ-table"></div>
@@ -274,9 +278,13 @@
       </button>
       <div class="modal-name" id="contention-title">Title race</div>
       <p class="modal-lede" id="contention-lede">Who can still mathematically win the drivers' championship.</p>
-      <div id="contention-progress" class="season-progress" hidden>
-        <div class="sp-bar"><span id="contention-fill"></span></div>
-        <span id="contention-text" class="sp-text"></span>
+      <div id="contention-progress" class="load-bar" hidden>
+        <div class="load-head">
+          <span class="load-tyre" aria-hidden="true"></span>
+          <span class="load-msg" id="contention-text">Loading races…</span>
+          <span class="load-count" id="contention-count"></span>
+        </div>
+        <div class="load-track"><span class="load-fill" id="contention-fill"></span></div>
       </div>
       <div id="contention-summary" class="cn-summary"></div>
       <div id="contention-list" class="cn-list"></div>
