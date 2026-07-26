@@ -30,6 +30,8 @@ const els = {
   accuracy:  $('accuracy'),
   whatifSeg: $('whatif-seg'),
   shareBtn:  $('share-btn'),
+  exportBtn: $('export-btn'),
+  exportMenu: $('export-menu'),
   seasonBtn: $('season-btn'),
   toast:     $('toast'),
   // Track outline
@@ -543,6 +545,8 @@ let currentPreQuali = false;
 let fullShown = false;
 
 function render(data) {
+  lastPrediction = data;                    // mémorisé pour l'export image
+  invalidatePoster();                       // l'affiche sera reconstruite à la demande
   els.raceName.textContent = `${data.event_name} ${data.year}`;
   els.raceCircuit.textContent = data.circuit;
   els.raceMode.textContent = data.pre_quali
@@ -716,6 +720,567 @@ els.shareBtn.addEventListener('click', async () => {
   } catch {
     toast(link);
   }
+});
+
+// ─── Export image : affiche PNG partageable de la prédiction ────────────────
+//
+// Génère une affiche portrait (1080×1350) dessinée sur un <canvas> : podium,
+// grille P4–P10, mode, date et tracé du circuit en filigrane. Aucune
+// dépendance externe — tout est dessiné à la main pour un rendu net et stable.
+
+let lastPrediction = null;   // dernier payload /api/predict rendu
+let lastRaceInfo   = null;   // dernier payload /api/raceinfo (lieu, date)
+let lastTrackPath  = null;   // tracé SVG du circuit (viewBox 0 0 100 100)
+
+// Charge une image même origine ; résout à null si absente (jamais de rejet).
+function loadImage(src) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+}
+
+// Rectangle arrondi (polyfill léger si roundRect indisponible).
+function roundRectPath(ctx, x, y, w, h, r) {
+  if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); return; }
+  const rr = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + rr, y);
+  ctx.arcTo(x + w, y, x + w, y + h, rr);
+  ctx.arcTo(x + w, y + h, x, y + h, rr);
+  ctx.arcTo(x, y + h, x, y, rr);
+  ctx.arcTo(x, y, x + w, y, rr);
+  ctx.closePath();
+}
+
+// Réduit la taille de police jusqu'à ce que le texte tienne dans maxWidth.
+function fitFont(ctx, text, weight, maxSize, minSize, family, maxWidth) {
+  let size = maxSize;
+  while (size > minSize) {
+    ctx.font = `${weight} ${size}px ${family}`;
+    if (ctx.measureText(text).width <= maxWidth) break;
+    size -= 1;
+  }
+  return size;
+}
+
+// Photo pilote détourée en cercle avec anneau couleur écurie ; repli = initiales.
+function drawDriverCircle(ctx, img, d, cx, cy, radius) {
+  ctx.save();
+  // Fond du disque
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(255,255,255,0.06)';
+  ctx.fill();
+
+  if (img) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.clip();
+    // Couvre le cercle en gardant le ratio de l'image (cover).
+    const s = (radius * 2) / Math.min(img.width, img.height);
+    const w = img.width * s, h = img.height * s;
+    ctx.drawImage(img, cx - w / 2, cy - h / 2, w, h);
+    ctx.restore();
+  } else {
+    ctx.fillStyle = d.color || '#888';
+    ctx.font = `700 ${Math.round(radius * 0.8)}px Inter, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(d.abbr || '', cx, cy + 1);
+  }
+
+  // Anneau couleur écurie
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = d.color || '#888';
+  ctx.stroke();
+  ctx.restore();
+}
+
+const EX_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const EX_DAYS   = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+// Date locale lisible depuis l'ISO du circuit (offset inclus), sans conversion.
+function exportDateLabel(iso) {
+  const m = iso && iso.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if (!m) return '';
+  const [, y, mo, da, hh, mm] = m;
+  const dow = new Date(Date.UTC(+y, +mo - 1, +da)).getUTCDay();
+  return `${EX_DAYS[dow]} ${+da} ${EX_MONTHS[+mo - 1]} · ${hh}:${mm} local`;
+}
+
+const pctInt = (p) => (p == null ? '—' : `${Math.round(p * 100)}%`);
+
+// Dessine l'affiche de la prédiction courante sur un <canvas> et le renvoie.
+async function buildPosterCanvas() {
+  const data = lastPrediction;
+
+  // Précharge les polices utilisées par le canvas (sinon repli système).
+  if (document.fonts && document.fonts.load) {
+    await Promise.all([
+      document.fonts.load('800 60px Inter'),
+      document.fonts.load('700 30px Inter'),
+      document.fonts.load('600 22px Inter'),
+      document.fonts.load('600 22px "Geist Mono"'),
+    ]).catch(() => {});
+  }
+
+  {
+    const drivers = data.drivers;
+    const top3 = drivers.slice(0, 3);
+    const rest = drivers.slice(3, 10);       // P4 → P10
+
+    // Précharge les photos du top 10 en parallèle.
+    const photoFor = {};
+    await Promise.all(drivers.slice(0, 10).map(async (d) => {
+      if (d.has_photo && d.driver_id) {
+        photoFor[d.pos] = await loadImage(`/static/drivers/${encodeURIComponent(d.driver_id)}.png`);
+      }
+    }));
+
+    // ── Canvas (2× pour un rendu net type Retina) ──────────────────────────
+    const W = 1080, H = 1350, S = 2;
+    const canvas = document.createElement('canvas');
+    canvas.width = W * S;
+    canvas.height = H * S;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(S, S);
+    ctx.textBaseline = 'alphabetic';
+
+    const PAD = 72;
+    const INNER = W - PAD * 2;
+    const RED = '#ff1e3c';
+    const TXT = '#f4f6fa';
+    const DIM = '#a7adba';
+    const MUTE = '#6c7280';
+
+    // Fond : dégradé sombre + halo rouge diffus en haut.
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0d0f15');
+    bg.addColorStop(1, '#070810');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+    const glow = ctx.createRadialGradient(W / 2, -120, 60, W / 2, -120, 720);
+    glow.addColorStop(0, 'rgba(255,30,60,0.22)');
+    glow.addColorStop(1, 'rgba(255,30,60,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, 520);
+
+    // Filigrane du tracé du circuit (haut-droite, très discret).
+    if (lastTrackPath && typeof Path2D !== 'undefined') {
+      try {
+        const p = new Path2D(lastTrackPath);
+        ctx.save();
+        ctx.translate(W - 300, 150);
+        ctx.scale(3.1, 3.1);      // viewBox 100×100 → ~310px
+        ctx.globalAlpha = 0.10;
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1.4;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.stroke(p);
+        ctx.restore();
+      } catch { /* tracé ignoré si invalide */ }
+    }
+
+    // ── En-tête : marque + tag ────────────────────────────────────────────
+    let y = 78;
+    ctx.fillStyle = RED;
+    roundRectPath(ctx, PAD, y - 26, 40, 34, 8);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = '800 18px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('F1', PAD + 20, y - 3);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = TXT;
+    ctx.font = '700 20px Inter, sans-serif';
+    ctx.fillText('RACE PREDICTOR', PAD + 54, y - 4);
+
+    // Tag « MODEL PREDICTION » à droite
+    ctx.font = '700 13px Inter, sans-serif';
+    const tag = 'MODEL PREDICTION';
+    const tagW = ctx.measureText(tag).width + 26;
+    ctx.fillStyle = 'rgba(255,30,60,0.14)';
+    roundRectPath(ctx, W - PAD - tagW, y - 24, tagW, 28, 14);
+    ctx.fill();
+    ctx.fillStyle = '#ff8a9d';
+    ctx.textAlign = 'center';
+    ctx.fillText(tag, W - PAD - tagW / 2, y - 5);
+    ctx.textAlign = 'left';
+
+    // Ligne de séparation
+    y += 26;
+    ctx.strokeStyle = 'rgba(255,255,255,0.10)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
+
+    // ── Bloc titre : GP, contexte, date, mode ─────────────────────────────
+    y += 66;
+    const title = `${data.event_name}`;
+    const tSize = fitFont(ctx, title, 800, 60, 34, 'Inter, sans-serif', INNER);
+    ctx.font = `800 ${tSize}px Inter, sans-serif`;
+    ctx.fillStyle = TXT;
+    ctx.fillText(title, PAD, y);
+
+    y += 34;
+    ctx.font = '600 21px Inter, sans-serif';
+    ctx.fillStyle = DIM;
+    const ctxBits = [String(data.year), data.circuit,
+      lastRaceInfo && lastRaceInfo.country].filter(Boolean).join('   ·   ');
+    ctx.fillText(ctxBits, PAD, y);
+
+    const dateTxt = exportDateLabel(lastRaceInfo && (lastRaceInfo.start_local || lastRaceInfo.start_utc));
+    if (dateTxt) {
+      y += 30;
+      ctx.font = '600 18px Inter, sans-serif';
+      ctx.fillStyle = MUTE;
+      ctx.fillText(dateTxt, PAD, y);
+    }
+
+    // Chips de mode (post/pré-quali + scénario météo)
+    y += 34;
+    const chips = [];
+    chips.push(data.pre_quali
+      ? { t: 'PRE-QUALIFYING · EST. GRID', c: '#ffd75e' }
+      : { t: 'POST-QUALIFYING', c: '#7ee0a5' });
+    if (data.weather_mode === 'wet') chips.push({ t: 'WET SCENARIO', c: '#64c4ff' });
+    else if (data.weather_mode === 'dry') chips.push({ t: 'DRY SCENARIO', c: '#ffd75e' });
+
+    let cx = PAD;
+    ctx.font = '700 13px Inter, sans-serif';
+    chips.forEach((chip) => {
+      const w = ctx.measureText(chip.t).width + 26;
+      ctx.fillStyle = 'rgba(255,255,255,0.05)';
+      roundRectPath(ctx, cx, y - 18, w, 28, 14);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+      ctx.lineWidth = 1;
+      roundRectPath(ctx, cx, y - 18, w, 28, 14);
+      ctx.stroke();
+      ctx.fillStyle = chip.c;
+      ctx.textAlign = 'center';
+      ctx.fillText(chip.t, cx + w / 2, y + 1);
+      ctx.textAlign = 'left';
+      cx += w + 10;
+    });
+
+    // ── Podium (ordre visuel 2 — 1 — 3) ───────────────────────────────────
+    y += 58;
+    const colW = INNER / 3;
+    const centers = [PAD + colW * 0.5, PAD + colW * 1.5, PAD + colW * 2.5];
+    const podOrder = [top3[1], top3[0], top3[2]];   // slots gauche/centre/droite
+    const podRank  = [2, 1, 3];
+    const baseY = y + 150;
+
+    podOrder.forEach((d, i) => {
+      if (!d) return;
+      const isWin = podRank[i] === 1;
+      const r = isWin ? 66 : 54;
+      const px = centers[i];
+      const pcy = isWin ? y + 62 : y + 82;
+
+      drawDriverCircle(ctx, photoFor[d.pos], d, px, pcy, r);
+
+      // Médaillon de rang
+      const badgeY = pcy + r - 6;
+      ctx.beginPath();
+      ctx.arc(px, badgeY, 17, 0, Math.PI * 2);
+      ctx.fillStyle = isWin ? RED : '#1c1f28';
+      ctx.fill();
+      ctx.strokeStyle = isWin ? '#fff' : d.color || '#888';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.fillStyle = '#fff';
+      ctx.font = '800 18px "Geist Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(String(podRank[i]), px, badgeY + 1);
+      ctx.textBaseline = 'alphabetic';
+
+      // Nom
+      let ny = pcy + r + 44;
+      const nSize = fitFont(ctx, d.name, 700, isWin ? 26 : 23, 15, 'Inter, sans-serif', colW - 18);
+      ctx.font = `700 ${nSize}px Inter, sans-serif`;
+      ctx.fillStyle = TXT;
+      ctx.fillText(d.name, px, ny);
+
+      // Écurie + pastille couleur
+      ny += 24;
+      ctx.font = '600 14px Inter, sans-serif';
+      const teamW = ctx.measureText(d.team).width;
+      const dotX = px - (teamW + 14) / 2;
+      ctx.beginPath();
+      ctx.arc(dotX, ny - 4, 4, 0, Math.PI * 2);
+      ctx.fillStyle = d.color || '#888';
+      ctx.fill();
+      ctx.fillStyle = DIM;
+      ctx.textAlign = 'left';
+      ctx.fillText(d.team, dotX + 10, ny);
+      ctx.textAlign = 'center';
+
+      // % victoire
+      ny += 34;
+      ctx.font = `800 ${isWin ? 30 : 26}px "Geist Mono", monospace`;
+      ctx.fillStyle = TXT;
+      ctx.fillText(pctInt(d.p_win), px, ny);
+      ctx.font = '700 11px Inter, sans-serif';
+      ctx.fillStyle = MUTE;
+      ctx.fillText('WIN PROBABILITY', px, ny + 15);
+      ctx.textAlign = 'left';
+    });
+
+    // ── Grille P4 → P10 ───────────────────────────────────────────────────
+    let ry = baseY + 190;
+    const rowH = 64, rowGap = 8;
+    // En-têtes de colonnes
+    ctx.font = '700 11px Inter, sans-serif';
+    ctx.fillStyle = MUTE;
+    ctx.textAlign = 'left';
+    ctx.fillText('PREDICTED FINISH', PAD + 4, ry - 14);
+    ctx.fillText('MOVE', W - PAD - 120, ry - 14);
+    ctx.textAlign = 'right';
+    ctx.fillText('PODIUM', W - PAD - 4, ry - 14);
+    ctx.textAlign = 'left';
+
+    rest.forEach((d) => {
+      // Fond de ligne
+      ctx.fillStyle = 'rgba(255,255,255,0.035)';
+      roundRectPath(ctx, PAD, ry, INNER, rowH, 12);
+      ctx.fill();
+      // Barre couleur écurie
+      ctx.fillStyle = d.color || '#888';
+      roundRectPath(ctx, PAD, ry, 5, rowH, 3);
+      ctx.fill();
+
+      const midY = ry + rowH / 2;
+      // Position
+      ctx.font = '800 26px "Geist Mono", monospace';
+      ctx.fillStyle = TXT;
+      ctx.textAlign = 'center';
+      ctx.fillText(String(d.pos), PAD + 44, midY + 9);
+
+      // Nom + écurie
+      ctx.textAlign = 'left';
+      const nameX = PAD + 82;
+      ctx.font = '700 21px Inter, sans-serif';
+      ctx.fillStyle = TXT;
+      ctx.fillText(d.name, nameX, midY - 4);
+      ctx.font = '600 14px Inter, sans-serif';
+      ctx.fillStyle = MUTE;
+      ctx.fillText(d.team, nameX, midY + 17);
+
+      // Podium % (droite)
+      ctx.textAlign = 'right';
+      ctx.font = '700 19px "Geist Mono", monospace';
+      ctx.fillStyle = DIM;
+      ctx.fillText(pctInt(d.p_podium), W - PAD - 20, midY + 7);
+
+      // Mouvement grille → prédiction
+      const mvX = W - PAD - 120;
+      const dlt = d.delta;
+      ctx.textAlign = 'left';
+      ctx.font = '700 16px "Geist Mono", monospace';
+      if (dlt == null) {
+        ctx.fillStyle = MUTE;
+        ctx.fillText('—', mvX, midY + 6);
+      } else if (dlt > 0) {
+        ctx.fillStyle = '#7ee0a5';
+        ctx.fillText(`▲ ${dlt}`, mvX, midY + 6);
+      } else if (dlt < 0) {
+        ctx.fillStyle = '#ff6a7d';
+        ctx.fillText(`▼ ${Math.abs(dlt)}`, mvX, midY + 6);
+      } else {
+        ctx.fillStyle = MUTE;
+        ctx.fillText('•  0', mvX, midY + 6);
+      }
+
+      ry += rowH + rowGap;
+    });
+
+    // ── Pied de page ──────────────────────────────────────────────────────
+    const fy = H - 46;
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(PAD, fy - 24); ctx.lineTo(W - PAD, fy - 24); ctx.stroke();
+
+    ctx.textAlign = 'left';
+    ctx.font = '700 13px Inter, sans-serif';
+    ctx.fillStyle = DIM;
+    ctx.fillText('F1 Race Predictor · XGBoost + LightGBM ensemble', PAD, fy);
+    ctx.textAlign = 'right';
+    ctx.font = '600 13px Inter, sans-serif';
+    ctx.fillStyle = MUTE;
+    ctx.fillText('Machine-learning estimate — not an official result', W - PAD, fy);
+    ctx.textAlign = 'left';
+
+    return canvas;
+  }
+}
+
+// ─── PDF minimal : une page = l'affiche (JPEG embarqué, sans dépendance) ─────
+// Construit un PDF valide à la main : l'affiche est encodée en JPEG et posée
+// en pleine page via un XObject image (filtre DCTDecode, natif au format PDF).
+function jpegDataURLToBytes(dataURL) {
+  const b64 = dataURL.split(',')[1] || '';
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+function buildPdfBlob(jpeg, pxW, pxH) {
+  const ptW = 540, ptH = Math.round(ptW * pxH / pxW);   // page à ratio de l'affiche
+  const enc = new TextEncoder();
+  const parts = [];
+  const off = {};
+  let pos = 0;
+  const add = (d) => {
+    const u = (d instanceof Uint8Array) ? d : enc.encode(d);
+    parts.push(u); pos += u.length;
+  };
+  const mark = (n) => { off[n] = pos; };
+
+  add('%PDF-1.4\n');
+  add(new Uint8Array([0x25, 0xE2, 0xE3, 0xCF, 0xD3, 0x0A]));   // commentaire binaire
+  mark(1); add('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
+  mark(2); add('2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n');
+  mark(3); add(`3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${ptW} ${ptH}]`
+    + ` /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>\nendobj\n`);
+  mark(4);
+  add(`4 0 obj\n<< /Type /XObject /Subtype /Image /Width ${pxW} /Height ${pxH}`
+    + ` /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.length} >>\nstream\n`);
+  add(jpeg);
+  add('\nendstream\nendobj\n');
+  mark(5);
+  const content = enc.encode(`q ${ptW} 0 0 ${ptH} 0 0 cm /Im0 Do Q`);
+  add(`5 0 obj\n<< /Length ${content.length} >>\nstream\n`);
+  add(content);
+  add('\nendstream\nendobj\n');
+
+  const xrefPos = pos;
+  let xref = 'xref\n0 6\n0000000000 65535 f \n';
+  for (let i = 1; i <= 5; i++) xref += String(off[i]).padStart(10, '0') + ' 00000 n \n';
+  add(xref);
+  add(`trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xrefPos}\n%%EOF`);
+  return new Blob(parts, { type: 'application/pdf' });
+}
+
+// ─── Affiche : construite paresseusement, mise en cache jusqu'à la prochaine
+// prédiction — les actions du menu sont ainsi quasi instantanées. ────────────
+let _posterPromise = null;
+function invalidatePoster() { _posterPromise = null; }
+function getPoster() {
+  if (!_posterPromise) _posterPromise = buildPosterCanvas();
+  return _posterPromise;
+}
+
+const hasPrediction = () =>
+  !!(lastPrediction && lastPrediction.drivers && lastPrediction.drivers.length);
+
+function exportFileName(ext) {
+  const slug = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const d = lastPrediction || {};
+  return `f1-prediction-${slug(d.event_name)}-${d.year}.${ext}`;
+}
+
+function downloadBlob(blob, name) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
+
+// Action : télécharger l'affiche en PDF.
+async function exportPdf() {
+  const canvas = await getPoster();
+  const jpeg = jpegDataURLToBytes(canvas.toDataURL('image/jpeg', 0.92));
+  downloadBlob(buildPdfBlob(jpeg, canvas.width, canvas.height), exportFileName('pdf'));
+  toast('PDF downloaded');
+}
+
+// Action : envoyer via le partage natif (ou repli téléchargement PNG).
+async function sendPoster() {
+  const canvas = await getPoster();
+  const blob = await new Promise((r) => canvas.toBlob(r, 'image/png'));
+  const file = new File([blob], exportFileName('png'), { type: 'image/png' });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    await navigator.share({
+      files: [file],
+      title: `${lastPrediction.event_name} ${lastPrediction.year} — prediction`,
+    });
+    return;
+  }
+  downloadBlob(blob, exportFileName('png'));
+  toast('Sharing unavailable — image downloaded');
+}
+
+// Action : copier l'affiche (image PNG) dans le presse-papiers.
+async function copyPoster() {
+  if (!navigator.clipboard || !window.ClipboardItem) {
+    const canvas = await getPoster();
+    const blob = await new Promise((r) => canvas.toBlob(r, 'image/png'));
+    downloadBlob(blob, exportFileName('png'));
+    toast('Copy unsupported — image downloaded');
+    return;
+  }
+  // ClipboardItem accepte une Promise<Blob> : préserve l'activation utilisateur (Safari).
+  const blobPromise = getPoster().then((c) => new Promise((r) => c.toBlob(r, 'image/png')));
+  await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobPromise })]);
+  toast('Poster copied to clipboard');
+}
+
+const EXPORT_ACTIONS = { pdf: exportPdf, send: sendPoster, copy: copyPoster };
+
+// ─── Menu Export (Download PDF / Send / Copy image) ─────────────────────────
+function openExportMenu() {
+  if (!hasPrediction()) { toast('Run a prediction first'); return; }
+  els.exportMenu.hidden = false;
+  els.exportBtn.setAttribute('aria-expanded', 'true');
+  requestAnimationFrame(() => els.exportMenu.classList.add('open'));
+  getPoster().catch(() => {});   // pré-construit l'affiche pendant le choix
+}
+function closeExportMenu() {
+  els.exportMenu.classList.remove('open');
+  els.exportBtn.setAttribute('aria-expanded', 'false');
+  setTimeout(() => { els.exportMenu.hidden = true; }, 160);
+}
+
+els.exportBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (els.exportMenu.hidden) openExportMenu(); else closeExportMenu();
+});
+els.exportMenu.addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-act]');
+  if (!btn) return;
+  const act = EXPORT_ACTIONS[btn.dataset.act];
+  closeExportMenu();
+  if (!act || !hasPrediction()) return;
+  els.exportBtn.disabled = true;
+  try {
+    await act();
+  } catch (err) {
+    if (!(err && err.name === 'AbortError')) toast('Export failed — try again');
+  } finally {
+    els.exportBtn.disabled = false;
+  }
+});
+document.addEventListener('click', (e) => {
+  if (!els.exportMenu.hidden && !e.target.closest('#export-wrap')) closeExportMenu();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !els.exportMenu.hidden) closeExportMenu();
 });
 
 // Réinitialise le mode what-if quand on change de course (baseline = Real).
@@ -1289,12 +1854,14 @@ async function loadTrack(year, round) {
   const seq = ++trackSeq;
   els.riTrack.hidden = true;
   els.trackMeta.textContent = '';
+  lastTrackPath = null;
   try {
     const res = await fetch(`/api/track?year=${encodeURIComponent(year)}&round=${encodeURIComponent(round)}`);
     const d = await res.json();
     if (seq !== trackSeq) return;
     if (d && d.available && d.path) {
       els.trackPath.setAttribute('d', d.path);
+      lastTrackPath = d.path;               // filigrane du tracé sur l'export image
       els.riTrack.hidden = false;
       const bits = [];
       if (d.length_km) bits.push(`${d.length_km} km`);
@@ -1412,6 +1979,7 @@ function renderWeather(w) {
 }
 
 function renderRaceInfo(d) {
+  lastRaceInfo = d;                         // mémorisé pour l'export image
   els.riName.textContent = d.event_name;
   els.riWhere.textContent = [d.location, d.country].filter(Boolean).join(', ');
 

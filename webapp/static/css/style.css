@@ -1061,6 +1061,60 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
 @media (hover: hover) and (pointer: fine) {
   .tool-btn:hover { transform: translateY(-1px); }
 }
+/* ─── En-tête résultats : titre + action Export mise en évidence ──────────── */
+.race-head-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+}
+.export-wrap { position: relative; flex: none; }
+
+.btn-export {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: inherit; font-size: 13.5px; font-weight: 700; color: #fff;
+  background: linear-gradient(180deg, #ff2942, var(--red-deep));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 11px; padding: 9px 15px; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255, 30, 60, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition: transform 150ms var(--ease-out), box-shadow 160ms var(--ease-out), filter 160ms var(--ease-out);
+}
+.btn-export:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 9px 24px rgba(255, 30, 60, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.btn-export:active { transform: translateY(1px) scale(0.99); }
+.btn-export[disabled] { opacity: 0.6; cursor: progress; }
+.btn-export .be-caret { opacity: 0.85; transition: transform 180ms var(--ease-out); }
+.btn-export[aria-expanded="true"] .be-caret { transform: rotate(180deg); }
+
+.export-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 40;
+  width: 236px; padding: 6px;
+  background: var(--popover-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  opacity: 0; transform: translateY(-6px) scale(0.98);
+  transform-origin: top right;
+  transition: opacity 160ms var(--ease-out), transform 160ms var(--ease-out);
+}
+.export-menu.open { opacity: 1; transform: translateY(0) scale(1); }
+.export-menu button {
+  display: flex; align-items: center; gap: 11px; width: 100%;
+  font: inherit; text-align: left; color: var(--text);
+  background: transparent; border: none; border-radius: 9px;
+  padding: 9px 10px; cursor: pointer;
+  transition: background-color 130ms var(--ease-out), transform 130ms var(--ease-out);
+}
+.export-menu button:hover { background: var(--glass-strong); }
+.export-menu button:active { transform: scale(0.98); }
+.export-menu button > svg { color: var(--text-dim); flex: none; }
+.export-menu button:hover > svg { color: var(--red); }
+.export-menu button span { display: flex; flex-direction: column; line-height: 1.3; }
+.export-menu button b { font-size: 13.5px; font-weight: 600; }
+.export-menu button small { font-size: 11px; color: var(--text-mute); }
+
 #season-btn { margin-left: auto; }
 
 /* ─── Bandeau justesse (prédit vs réel) ───────────────────────────────────── */
