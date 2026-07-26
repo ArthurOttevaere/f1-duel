@@ -290,6 +290,16 @@ function renderList() {
   els.raceList.hidden = false;
   els.combo.classList.add('open');
   els.raceSearch.setAttribute('aria-expanded', 'true');
+
+  // Amène le GP sélectionné (par défaut : celui de la semaine courante) droit
+  // sous les yeux — plus besoin de scroller jusqu'en bas pour le retrouver.
+  if (selectedRound != null) {
+    const selEl = els.raceList.querySelector(`.combo-opt[data-round="${selectedRound}"]`);
+    if (selEl) {
+      els.raceList.scrollTop =
+        selEl.offsetTop - els.raceList.clientHeight / 2 + selEl.offsetHeight / 2;
+    }
+  }
 }
 
 function closeList() {
@@ -2043,7 +2053,8 @@ els.form.addEventListener('submit', predict);
 els.run.addEventListener('click', predict);
 
 // Au chargement : si l'URL porte ?year=&round= on lance directement (liens
-// partageables) ; sinon on pré-remplit avec le prochain GP de la saison.
+// partageables) ; sinon on pré-remplit avec le GP de la semaine courante
+// (ou, hors semaine de course, le dernier GP terminé).
 (async () => {
   populateYears();
   wireCombo();
@@ -2064,7 +2075,7 @@ els.run.addEventListener('click', predict);
     return;
   }
 
-  // Prochain GP → détermine l'année et le round à pré-sélectionner.
+  // GP par défaut → année + round de la semaine courante (sinon dernier terminé).
   // Un paramètre ?year= seul (sans round) force juste la saison (utile pour
   // un lien direct vers le classement d'une saison passée).
   let year = MAX_YEAR;
@@ -2073,7 +2084,7 @@ els.run.addEventListener('click', predict);
     year = q.get('year');
   } else {
     try {
-      const res = await fetch('/api/next');
+      const res = await fetch('/api/current');
       const d = await res.json();
       if (d.year)  year = d.year;
       if (d.round) round = d.round;

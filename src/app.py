@@ -1154,6 +1154,68 @@ def api_next():
     return jsonify({'year': year, 'round': rnd, 'event_name': name})
 
 
+def _current_race(year):
+    """(round, name) du GP de la *semaine courante* ; sinon le dernier GP terminé.
+
+    « Semaine courante » = la semaine calendaire (lundi→dimanche, en UTC) qui
+    contient aujourd'hui. Si un Grand Prix y tombe, on le renvoie — qu'il soit
+    encore à venir dans la semaine ou déjà couru. Sinon, on renvoie le dernier
+    GP dont la course est déjà passée. (None, None) si rien ne convient.
+    """
+    import pandas as pd
+    try:
+        sched = _get_schedule_df(year)
+    except Exception:
+        return None, None
+
+    now = pd.Timestamp.now(tz='UTC')
+    today = now.normalize()
+    week_start = today - pd.Timedelta(days=int(today.weekday()))   # lundi 00:00 UTC
+    week_end = week_start + pd.Timedelta(days=7)
+
+    current = None     # (ts, round, name) — GP de la semaine courante
+    last_past = None   # (ts, round, name) — dernier GP déjà couru
+    for _, ev in sched.iterrows():
+        try:
+            rnd = int(ev['RoundNumber'])
+        except (TypeError, ValueError):
+            continue
+        if rnd < 1:
+            continue
+        utc_dt, _ = _race_datetime(ev)
+        if utc_dt is None or (isinstance(utc_dt, float) and utc_dt != utc_dt):
+            continue
+        ts = pd.Timestamp(utc_dt)
+        if ts.tzinfo is None:
+            ts = ts.tz_localize('UTC')
+        name = str(ev.get('EventName', f'Round {rnd}'))
+        if week_start <= ts < week_end:
+            current = (ts, rnd, name)
+        if ts < now and (last_past is None or ts > last_past[0]):
+            last_past = (ts, rnd, name)
+
+    if current:
+        return current[1], current[2]
+    if last_past:
+        return last_past[1], last_past[2]
+    return None, None
+
+
+@app.route('/api/current')
+def api_current():
+    """GP à afficher par défaut : celui de la semaine courante, sinon le dernier terminé."""
+    from datetime import date
+    year = date.today().year
+    rnd, name = _current_race(year)
+    if rnd is None:
+        # Avant la 1re course de l'année → dernière course de la saison précédente.
+        prev = year - 1
+        rnd, name = _current_race(prev)
+        if rnd is not None:
+            year = prev
+    return jsonify({'year': year, 'round': rnd, 'event_name': name})
+
+
 @app.route('/api/schedule')
 def api_schedule():
     """Renvoie la liste des Grands Prix d'une saison (round + nom + lieu).
