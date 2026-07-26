@@ -17,6 +17,18 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body>
+  <!-- Écran de démarrage : masque le chargement initial du contenu (bandeau, calendrier…). -->
+  <div id="boot" class="boot" role="status" aria-live="polite">
+    <div class="boot-inner">
+      <div class="boot-brand">
+        <span class="boot-logo">F1</span>
+        <span class="boot-word">RACE&nbsp;PREDICTOR</span>
+      </div>
+      <div class="boot-msg" id="boot-msg">Starting the engines…</div>
+      <div class="boot-track"><span class="boot-fill" id="boot-fill"></span></div>
+    </div>
+  </div>
+
   <div class="bg-grid" aria-hidden="true"></div>
 
   <header class="topbar">

@@ -112,6 +112,10 @@ const els = {
   cnSpts:    $('cn-spts'),
   // Theme toggle
   themeToggle: $('theme-toggle'),
+  // Écran de démarrage (splash)
+  boot:     $('boot'),
+  bootMsg:  $('boot-msg'),
+  bootFill: $('boot-fill'),
 };
 
 // ─── Thème jour / nuit (sombre par défaut, choix mémorisé) ──────────────────
@@ -219,6 +223,17 @@ const LOAD_LINES_SESSION = [
   'Untangling the telemetry…',
 ];
 
+const LOAD_LINES_BOOT = [
+  'Starting the engines…',
+  'Rolling out of the garage…',
+  'Warming up the tyres…',
+  'Formation lap…',
+  'Checking the fuel load…',
+  'Syncing with race control…',
+  'Loading the season…',
+  'Lights out and away we go…',
+];
+
 // Fait défiler des messages dans un élément ; renvoie une fonction d'arrêt.
 function makeTextRotator(el, lines, interval = 2200) {
   let i = Math.floor(Math.random() * lines.length);
@@ -262,6 +277,37 @@ function renderLoader(bar, fill, count, msg, lines, d) {
     if (count) count.hidden = true;
   }
 }
+
+// ─── Écran de démarrage : progression + révélation du contenu une fois prêt ──
+const bootScreen = {
+  pct: 0, trickle: null, safety: null, done: false,
+  set(p) {
+    this.pct = Math.min(100, Math.max(this.pct, p));
+    els.bootFill.style.width = `${this.pct.toFixed(1)}%`;
+  },
+  start() {
+    ensureRotator(els.bootMsg, LOAD_LINES_BOOT);
+    this.set(12);
+    // Progression « qui rampe » entre les étapes réelles → toujours vivant.
+    this.trickle = setInterval(() => {
+      if (this.pct < 88) this.set(this.pct + Math.random() * 3.2);
+    }, 320);
+    // Filet de sécurité : ne jamais laisser l'écran bloqué.
+    this.safety = setTimeout(() => this.finish(), 9000);
+  },
+  finish() {
+    if (this.done) return;
+    this.done = true;
+    clearInterval(this.trickle);
+    clearTimeout(this.safety);
+    stopRotator(els.bootMsg);
+    this.set(100);
+    setTimeout(() => {
+      els.boot.classList.add('boot-hide');
+      setTimeout(() => { els.boot.hidden = true; }, 520);
+    }, 220);
+  },
+};
 
 // ─── Mini help popover (petit "i" cliquable) ────────────────────────────────
 
@@ -2139,45 +2185,54 @@ els.run.addEventListener('click', predict);
 // partageables) ; sinon on pré-remplit avec le GP de la semaine courante
 // (ou, hors semaine de course, le dernier GP terminé).
 (async () => {
+  bootScreen.start();
   populateYears();
   wireCombo();
 
   const q = new URLSearchParams(location.search);
-  if (q.get('year') && q.get('round')) {
-    els.year.value = q.get('year');
-    els.prequali.checked = ['1', 'true', 'yes'].includes((q.get('pre_quali') || '').toLowerCase());
-    await loadSchedule(q.get('year'), { keepRound: q.get('round') });
-    // Scénario météo éventuel (lien partagé) — appliqué après loadSchedule qui reset.
-    const wm = (q.get('weather') || '').toLowerCase();
-    if (wm === 'wet' || wm === 'dry') {
-      currentWeatherMode = wm;
-      els.whatifSeg.querySelectorAll('button').forEach((b) =>
-        b.classList.toggle('active', (b.dataset.w || '') === wm));
+  try {
+    if (q.get('year') && q.get('round')) {
+      els.year.value = q.get('year');
+      els.prequali.checked = ['1', 'true', 'yes'].includes((q.get('pre_quali') || '').toLowerCase());
+      bootScreen.set(40);
+      await loadSchedule(q.get('year'), { keepRound: q.get('round') });
+      bootScreen.set(75);
+      // Scénario météo éventuel (lien partagé) — appliqué après loadSchedule qui reset.
+      const wm = (q.get('weather') || '').toLowerCase();
+      if (wm === 'wet' || wm === 'dry') {
+        currentWeatherMode = wm;
+        els.whatifSeg.querySelectorAll('button').forEach((b) =>
+          b.classList.toggle('active', (b.dataset.w || '') === wm));
+      }
+      predict();                                           // en arrière-plan (spinner in-content)
+      await loadRaceInfo(q.get('year'), q.get('round'));   // bandeau prêt avant révélation
+    } else {
+      // GP par défaut → année + round de la semaine courante (sinon dernier terminé).
+      // Un paramètre ?year= seul (sans round) force juste la saison.
+      let year = MAX_YEAR;
+      let round = null;
+      if (q.get('year')) {
+        year = q.get('year');
+      } else {
+        try {
+          const res = await fetch('/api/current');
+          const d = await res.json();
+          if (d.year)  year = d.year;
+          if (d.round) round = d.round;
+        } catch { /* défauts conservés */ }
+      }
+      bootScreen.set(45);
+      els.year.value = String(year);
+      await loadSchedule(year, { keepRound: round });
+      bootScreen.set(80);
+      if (round) await loadRaceInfo(year, round);          // bandeau prêt avant révélation
+
+      // Deep-links : #standings → classement ; #title → course au titre.
+      if (location.hash === '#standings') openChamp();
+      if (location.hash === '#title') openContention();
     }
-    predict();
-    return;
+  } catch { /* on révèle le contenu quoi qu'il arrive */ }
+  finally {
+    bootScreen.finish();
   }
-
-  // GP par défaut → année + round de la semaine courante (sinon dernier terminé).
-  // Un paramètre ?year= seul (sans round) force juste la saison (utile pour
-  // un lien direct vers le classement d'une saison passée).
-  let year = MAX_YEAR;
-  let round = null;
-  if (q.get('year')) {
-    year = q.get('year');
-  } else {
-    try {
-      const res = await fetch('/api/current');
-      const d = await res.json();
-      if (d.year)  year = d.year;
-      if (d.round) round = d.round;
-    } catch { /* défauts conservés */ }
-  }
-
-  els.year.value = String(year);
-  await loadSchedule(year, { keepRound: round });
-
-  // Deep-links : #standings → classement ; #title → course au titre.
-  if (location.hash === '#standings') openChamp();
-  if (location.hash === '#title') openContention();
 })();
