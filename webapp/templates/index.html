@@ -61,12 +61,12 @@
         <select id="year" aria-label="Season"></select>
       </label>
 
-      <!-- Race picker: searchable combobox -->
+      <!-- Race picker: dropdown de sélection (clic pour ouvrir, pas de saisie) -->
       <div class="field field-race">
         <div class="combo" id="combo">
-          <input type="text" id="race-search" placeholder="Search for a Grand Prix…"
-                 aria-label="Grand Prix"
-                 role="combobox" aria-expanded="false" aria-autocomplete="list"
+          <input type="text" id="race-search" placeholder="Select a Grand Prix…"
+                 aria-label="Grand Prix" readonly
+                 role="combobox" aria-expanded="false" aria-autocomplete="none"
                  aria-controls="race-list" />
           <input type="hidden" id="round" value="" />
           <svg class="combo-caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>

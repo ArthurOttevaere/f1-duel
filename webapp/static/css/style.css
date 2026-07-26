@@ -216,6 +216,10 @@ body {
   color: var(--text);
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 14px;
+  /* Champ de sélection (readonly) : curseur pointeur, pas de saisie ni de caret. */
+  cursor: pointer;
+  caret-color: transparent;
+  user-select: none;
   transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
 }
 .field select:focus,

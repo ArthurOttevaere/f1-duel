@@ -1128,6 +1128,41 @@ def _prewarm_schedules():
             continue
 
 
+def _prewarm_tracks():
+    """Pré-construit les tracés de circuits en tâche de fond → visuels instantanés.
+
+    Sans ça, le tracé d'un circuit non encore vu (typiquement les GP à venir)
+    doit télécharger la télémétrie complète d'une édition passée à la volée —
+    une opération lente (dizaines de secondes) qui fait « disparaître » le
+    visuel. On priorise donc les courses à venir de la saison courante, puis
+    les passées. Chaque tracé est caché sur disque (coût unique)."""
+    from datetime import date
+    cur = date.today().year
+    try:
+        sched = _get_schedule_df(cur)
+        rounds = sorted(int(r) for r in sched['RoundNumber'] if int(r) >= 1)
+    except Exception:
+        return
+
+    # À venir d'abord (ce que l'utilisateur va consulter), puis passées.
+    upcoming, past = [], []
+    for rnd in rounds:
+        (past if _race_is_past(cur, rnd) else upcoming).append(rnd)
+
+    for rnd in upcoming + past:
+        try:
+            ev = sched[sched['RoundNumber'] == rnd]
+            circuit = str(ev.iloc[0].get('Location', '')) if not ev.empty else ''
+            if not circuit:
+                continue
+            disk = os.path.join(TRACK_CACHE_DIR, f'{_circuit_slug(circuit)}.json')
+            if os.path.isfile(disk):
+                continue                       # déjà en cache → rien à faire
+            _build_track_outline(cur, rnd, circuit)   # construit + met en cache disque
+        except Exception:
+            continue
+
+
 # ─── Routes ──────────────────────────────────────────────────────────────────
 
 @app.route('/')
@@ -1613,8 +1648,12 @@ if __name__ == '__main__':
     debug = os.environ.get('F1_NO_RELOAD') != '1'
 
     print(f'\n  Interface F1 → http://127.0.0.1:{port}\n')
-    # Pré-charge les calendriers en arrière-plan → changement d'année quasi instantané.
+    # Pré-charge calendriers + tracés de circuits en arrière-plan → changement
+    # d'année quasi instantané et visuel de circuit disponible partout.
     # (évité sous le reloader Flask pour ne pas pré-charger deux fois)
     if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-        threading.Thread(target=_prewarm_schedules, daemon=True).start()
+        def _prewarm():
+            _prewarm_schedules()
+            _prewarm_tracks()
+        threading.Thread(target=_prewarm, daemon=True).start()
     app.run(debug=debug, port=port)

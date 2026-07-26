@@ -510,12 +510,12 @@ async function loadSchedule(year, { keepRound = null } = {}) {
 
 // Câblage du combobox
 function wireCombo() {
-  els.raceSearch.addEventListener('focus', renderList);
-  els.raceSearch.addEventListener('input', () => {
-    activeIdx = -1;
-    selectedRound = null;     // l'utilisateur tape → la sélection n'est plus figée
-    els.round.value = '';
-    renderList();
+  // Champ non-éditable : un clic ouvre la liste, un second la referme (comme un select).
+  // On gère l'ouverture au clic (pas au focus) pour un vrai comportement de select.
+  els.raceSearch.addEventListener('mousedown', (e) => {
+    e.preventDefault();                 // pas de caret ni de sélection de texte
+    els.raceSearch.focus();
+    if (els.raceList.hidden) renderList(); else closeList();
   });
   els.raceSearch.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown') { e.preventDefault(); moveActive(1); }
