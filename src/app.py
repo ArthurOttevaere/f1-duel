@@ -1128,6 +1128,41 @@ def _prewarm_schedules():
             continue
 
 
+def _prewarm_tracks():
+    """Pré-construit les tracés de circuits en tâche de fond → visuels instantanés.
+
+    Sans ça, le tracé d'un circuit non encore vu (typiquement les GP à venir)
+    doit télécharger la télémétrie complète d'une édition passée à la volée —
+    une opération lente (dizaines de secondes) qui fait « disparaître » le
+    visuel. On priorise donc les courses à venir de la saison courante, puis
+    les passées. Chaque tracé est caché sur disque (coût unique)."""
+    from datetime import date
+    cur = date.today().year
+    try:
+        sched = _get_schedule_df(cur)
+        rounds = sorted(int(r) for r in sched['RoundNumber'] if int(r) >= 1)
+    except Exception:
+        return
+
+    # À venir d'abord (ce que l'utilisateur va consulter), puis passées.
+    upcoming, past = [], []
+    for rnd in rounds:
+        (past if _race_is_past(cur, rnd) else upcoming).append(rnd)
+
+    for rnd in upcoming + past:
+        try:
+            ev = sched[sched['RoundNumber'] == rnd]
+            circuit = str(ev.iloc[0].get('Location', '')) if not ev.empty else ''
+            if not circuit:
+                continue
+            disk = os.path.join(TRACK_CACHE_DIR, f'{_circuit_slug(circuit)}.json')
+            if os.path.isfile(disk):
+                continue                       # déjà en cache → rien à faire
+            _build_track_outline(cur, rnd, circuit)   # construit + met en cache disque
+        except Exception:
+            continue
+
+
 # ─── Routes ──────────────────────────────────────────────────────────────────
 
 @app.route('/')
@@ -1151,6 +1186,68 @@ def api_next():
             rnd, name = predictor.find_next_race(year)
         except Exception:
             rnd, name = None, None
+    return jsonify({'year': year, 'round': rnd, 'event_name': name})
+
+
+def _current_race(year):
+    """(round, name) du GP de la *semaine courante* ; sinon le dernier GP terminé.
+
+    « Semaine courante » = la semaine calendaire (lundi→dimanche, en UTC) qui
+    contient aujourd'hui. Si un Grand Prix y tombe, on le renvoie — qu'il soit
+    encore à venir dans la semaine ou déjà couru. Sinon, on renvoie le dernier
+    GP dont la course est déjà passée. (None, None) si rien ne convient.
+    """
+    import pandas as pd
+    try:
+        sched = _get_schedule_df(year)
+    except Exception:
+        return None, None
+
+    now = pd.Timestamp.now(tz='UTC')
+    today = now.normalize()
+    week_start = today - pd.Timedelta(days=int(today.weekday()))   # lundi 00:00 UTC
+    week_end = week_start + pd.Timedelta(days=7)
+
+    current = None     # (ts, round, name) — GP de la semaine courante
+    last_past = None   # (ts, round, name) — dernier GP déjà couru
+    for _, ev in sched.iterrows():
+        try:
+            rnd = int(ev['RoundNumber'])
+        except (TypeError, ValueError):
+            continue
+        if rnd < 1:
+            continue
+        utc_dt, _ = _race_datetime(ev)
+        if utc_dt is None or (isinstance(utc_dt, float) and utc_dt != utc_dt):
+            continue
+        ts = pd.Timestamp(utc_dt)
+        if ts.tzinfo is None:
+            ts = ts.tz_localize('UTC')
+        name = str(ev.get('EventName', f'Round {rnd}'))
+        if week_start <= ts < week_end:
+            current = (ts, rnd, name)
+        if ts < now and (last_past is None or ts > last_past[0]):
+            last_past = (ts, rnd, name)
+
+    if current:
+        return current[1], current[2]
+    if last_past:
+        return last_past[1], last_past[2]
+    return None, None
+
+
+@app.route('/api/current')
+def api_current():
+    """GP à afficher par défaut : celui de la semaine courante, sinon le dernier terminé."""
+    from datetime import date
+    year = date.today().year
+    rnd, name = _current_race(year)
+    if rnd is None:
+        # Avant la 1re course de l'année → dernière course de la saison précédente.
+        prev = year - 1
+        rnd, name = _current_race(prev)
+        if rnd is not None:
+            year = prev
     return jsonify({'year': year, 'round': rnd, 'event_name': name})
 
 
@@ -1551,8 +1648,12 @@ if __name__ == '__main__':
     debug = os.environ.get('F1_NO_RELOAD') != '1'
 
     print(f'\n  Interface F1 → http://127.0.0.1:{port}\n')
-    # Pré-charge les calendriers en arrière-plan → changement d'année quasi instantané.
+    # Pré-charge calendriers + tracés de circuits en arrière-plan → changement
+    # d'année quasi instantané et visuel de circuit disponible partout.
     # (évité sous le reloader Flask pour ne pas pré-charger deux fois)
     if not debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-        threading.Thread(target=_prewarm_schedules, daemon=True).start()
+        def _prewarm():
+            _prewarm_schedules()
+            _prewarm_tracks()
+        threading.Thread(target=_prewarm, daemon=True).start()
     app.run(debug=debug, port=port)

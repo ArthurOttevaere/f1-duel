@@ -216,6 +216,10 @@ body {
   color: var(--text);
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 14px;
+  /* Champ de sélection (readonly) : curseur pointeur, pas de saisie ni de caret. */
+  cursor: pointer;
+  caret-color: transparent;
+  user-select: none;
   transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
 }
 .field select:focus,
@@ -1061,6 +1065,60 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
 @media (hover: hover) and (pointer: fine) {
   .tool-btn:hover { transform: translateY(-1px); }
 }
+/* ─── En-tête résultats : titre + action Export mise en évidence ──────────── */
+.race-head-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+}
+.export-wrap { position: relative; flex: none; }
+
+.btn-export {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: inherit; font-size: 13.5px; font-weight: 700; color: #fff;
+  background: linear-gradient(180deg, #ff2942, var(--red-deep));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 11px; padding: 9px 15px; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255, 30, 60, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition: transform 150ms var(--ease-out), box-shadow 160ms var(--ease-out), filter 160ms var(--ease-out);
+}
+.btn-export:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 9px 24px rgba(255, 30, 60, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.btn-export:active { transform: translateY(1px) scale(0.99); }
+.btn-export[disabled] { opacity: 0.6; cursor: progress; }
+.btn-export .be-caret { opacity: 0.85; transition: transform 180ms var(--ease-out); }
+.btn-export[aria-expanded="true"] .be-caret { transform: rotate(180deg); }
+
+.export-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 40;
+  width: 236px; padding: 6px;
+  background: var(--popover-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  opacity: 0; transform: translateY(-6px) scale(0.98);
+  transform-origin: top right;
+  transition: opacity 160ms var(--ease-out), transform 160ms var(--ease-out);
+}
+.export-menu.open { opacity: 1; transform: translateY(0) scale(1); }
+.export-menu button {
+  display: flex; align-items: center; gap: 11px; width: 100%;
+  font: inherit; text-align: left; color: var(--text);
+  background: transparent; border: none; border-radius: 9px;
+  padding: 9px 10px; cursor: pointer;
+  transition: background-color 130ms var(--ease-out), transform 130ms var(--ease-out);
+}
+.export-menu button:hover { background: var(--glass-strong); }
+.export-menu button:active { transform: scale(0.98); }
+.export-menu button > svg { color: var(--text-dim); flex: none; }
+.export-menu button:hover > svg { color: var(--red); }
+.export-menu button span { display: flex; flex-direction: column; line-height: 1.3; }
+.export-menu button b { font-size: 13.5px; font-weight: 600; }
+.export-menu button small { font-size: 11px; color: var(--text-mute); }
+
 #season-btn { margin-left: auto; }
 
 /* ─── Bandeau justesse (prédit vs réel) ───────────────────────────────────── */
@@ -1098,10 +1156,132 @@ mark { background: rgba(255, 30, 60, 0.28); color: #fff; border-radius: 3px; pad
 
 /* ─── Dashboard saison ────────────────────────────────────────────────────── */
 .modal-wide { width: min(620px, 100%); }
-.season-progress { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
-.sp-bar { flex: 1; height: 6px; border-radius: 999px; background: var(--glass-strong); overflow: hidden; }
-.sp-bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--red), var(--red-deep)); border-radius: 999px; transition: width 400ms var(--ease-out); }
-.sp-text { font-size: 11.5px; color: var(--text-mute); font-family: 'Geist Mono', monospace; white-space: nowrap; }
+/* ─── Écran de démarrage (splash plein écran, toujours sombre) ────────────── */
+.boot {
+  position: fixed; inset: 0; z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(120% 90% at 50% -10%, rgba(255, 30, 60, 0.16), transparent 62%),
+    #050609;
+  transition: opacity 500ms var(--ease-out), visibility 500ms;
+}
+.boot.boot-hide { opacity: 0; visibility: hidden; pointer-events: none; }
+.boot-inner { width: min(340px, 76vw); text-align: center; }
+.boot-brand {
+  display: inline-flex; align-items: center; gap: 12px; margin-bottom: 26px;
+  animation: boot-pop 600ms var(--ease-out) both;
+}
+.boot-logo {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 36px; border-radius: 9px;
+  background: linear-gradient(180deg, #ff2942, var(--red-deep));
+  color: #fff; font-weight: 800; font-size: 18px;
+  box-shadow: 0 6px 22px rgba(255, 30, 60, 0.5);
+}
+.boot-word { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; color: #f4f6fa; }
+.boot-msg {
+  font-size: 14px; font-weight: 600; color: #a7adba;
+  margin-bottom: 18px; min-height: 20px; letter-spacing: -0.1px;
+}
+.boot-track {
+  position: relative; height: 6px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08); overflow: hidden;
+}
+.boot-fill {
+  display: block; height: 100%; width: 0%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--red-deep), var(--red));
+  box-shadow: 0 0 16px rgba(255, 30, 60, 0.6);
+  transition: width 380ms var(--ease-out);
+}
+.boot-track::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: translateX(-100%);
+  animation: load-sweep 1.5s ease-in-out infinite;
+}
+@keyframes boot-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .boot-brand { animation: none; }
+  .boot-track::after { animation: none; opacity: 0; }
+}
+
+/* ─── Chargement animé (dashboard saison / champ / course au titre) ────────── */
+.load-bar {
+  margin: 6px 0 18px;
+  padding: 13px 15px 15px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 30, 60, 0.08), rgba(255, 30, 60, 0.02));
+  border: 1px solid rgba(255, 30, 60, 0.18);
+  box-shadow: inset 0 1px 0 var(--glass-hi);
+}
+.load-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.load-tyre {
+  width: 16px; height: 16px; flex: none; border-radius: 50%;
+  border: 2.5px solid rgba(255, 255, 255, 0.14);
+  border-top-color: var(--red);
+  border-right-color: var(--red);
+  animation: spin 0.7s linear infinite;
+}
+.load-msg {
+  font-size: 13.5px; font-weight: 600; color: var(--text);
+  letter-spacing: -0.2px; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.load-count {
+  margin-left: auto; flex: none;
+  font-size: 11px; color: var(--text-dim);
+  font-family: 'Geist Mono', monospace;
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  padding: 3px 9px; border-radius: 999px;
+}
+.load-track {
+  position: relative; height: 9px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08); overflow: hidden;
+}
+.load-fill {
+  display: block; height: 100%; border-radius: 999px; min-width: 9px;
+  background: linear-gradient(90deg, var(--red-deep), var(--red));
+  box-shadow: 0 0 16px rgba(255, 30, 60, 0.6);
+  transition: width 500ms var(--ease-out);
+}
+/* Reflet qui balaie la barre en continu → montre que ça travaille, même à l'arrêt */
+.load-track::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transform: translateX(-100%);
+  animation: load-sweep 1.5s ease-in-out infinite;
+}
+@keyframes load-sweep { to { transform: translateX(100%); } }
+
+/* Mode indéterminé : total inconnu (ex. Session data, ou avant l'annonce du
+   total). Un segment glisse en boucle pour signaler l'activité. */
+.load-bar.load-indeterminate .load-fill {
+  width: 34%;
+  animation: load-indet 1.25s var(--ease-in-out) infinite;
+}
+.load-bar.load-indeterminate .load-track::after { animation: none; opacity: 0; }
+@keyframes load-indet {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(330%); }
+}
+
+/* Fondu du texte à chaque changement de message (barres + loading principal) */
+.load-msg-in { animation: load-msg-swap 400ms var(--ease-out); }
+@keyframes load-msg-swap {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .load-tyre { animation: none; }
+  .load-track::after { animation: none; opacity: 0; }
+  .load-msg-in { animation: none; }
+  .load-bar.load-indeterminate .load-fill { animation: none; transform: none; width: 40%; }
+}
 
 /* Filter pills */
 .stats-filter {
