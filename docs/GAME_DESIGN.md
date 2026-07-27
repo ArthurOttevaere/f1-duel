@@ -46,8 +46,27 @@ For each of the 10 predicted slots, compare with the official race classificatio
 | Driver finished elsewhere **inside the top 10** | **2** |
 | Driver finished outside the top 10 / not classified | 0 |
 
+**The model as an opponent (calibrated entry).** The model does not play its
+raw ML finishing order in the duel. Backtesting the scoring on 2025–2026
+(`jobs/backtest.py`) showed the raw order is a weak opponent — a human who
+simply copies the starting grid beats it most weekends, because grid position
+is a very strong predictor of the finish and exact-position hits dominate the
+score. So the model's duel entry is **calibrated**:
+
+- Its position-probability matrix blends the ML Monte-Carlo probabilities with
+  an empirical *P(finish | grid)* prior from past seasons (weight 0.25 on the
+  ML signal — `jobs/grid_prior.py`, `jobs/model_bridge.py`).
+- It plays the top 10 that **maximizes its own expected game score** under that
+  calibrated matrix.
+
+After calibration the model is a coin-flip-to-slight-favourite against a
+grid-copying human (grid vs model went from 8-0-3 to 3-5-3 across 2026), so the
+duel is winnable by *good* play but not by *lazy* play. A human beats it by
+deviating from the favourites where they have a genuine read — and the rarity
+multiplier pays exactly those correct deviations.
+
 **Rarity multiplier** — applied to *exact-position* hits only. Let `p` be the
-model's Monte-Carlo probability (frozen at lock time) that this driver finishes
+model's calibrated probability (frozen at lock time) that this driver finishes
 at exactly that position:
 
 | Model probability `p` | Multiplier |
@@ -201,9 +220,9 @@ league_members    league_id, user_id, joined_at
 1. **`sync-schedule`** (weekly): upserts the season calendar into `races` from
    FastF1.
 2. **`lock-race`** (hourly during race weekends): once qualifying results exist
-   and the race hasn't started → run `src/predict.py` (post-quali mode), upsert
-   `model_entries` (order + probability matrix). At `race_at`, set
-   `races.status = 'locked'`.
+   and the race hasn't started → run the model (`jobs/model_bridge.py`), upsert
+   `model_entries` (calibrated order + probability matrix, see §2.2). At
+   `race_at`, set `races.status = 'locked'`.
 3. **`score-race`** (hourly Sun–Tue): for locked races whose classification is
    available via FastF1 → write `results`, compute `scores` for every prediction
    and the model with the §2.2 formula, apply duel bonuses, set

@@ -1,0 +1,33 @@
+name: score-race
+
+on:
+  schedule:
+    # Hourly Sun-Tue (UTC): score as soon as the official classification lands,
+    # then re-score recent races so a late Driver-of-the-Day entry is applied.
+    - cron: "45 * * * 0,1,2"
+  workflow_dispatch:
+
+concurrency:
+  group: game-jobs
+  cancel-in-progress: false
+
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - uses: actions/cache@v4
+        with:
+          path: fastf1_cache
+          key: fastf1-${{ github.run_id }}
+          restore-keys: fastf1-
+      - run: pip install -r requirements.txt
+      - run: python jobs/score_race.py
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
