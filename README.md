@@ -8,6 +8,11 @@ The project trains a machine-learning ensemble on eight seasons of real F1 data
 grid, per-driver key factors, win/podium probabilities, live weather, circuit
 maps, championship standings and title-race scenarios.
 
+On top of the model sits **F1 Duel** — a game where players predict the top 10
+of every Grand Prix and battle the model all season long, with rarity-weighted
+scoring, leagues and season-long championship picks. Rules and architecture:
+[`docs/GAME_DESIGN.md`](docs/GAME_DESIGN.md).
+
 ---
 
 ## What it does
@@ -68,10 +73,17 @@ src/
   train.py      Tune + train the XGBoost/LightGBM ensemble (→ models/)
   predict.py    Predict a given race, in the terminal or as a library
   app.py        Flask web app exposing predictions and all the extras
-webapp/         Frontend (HTML / CSS / JS, driver & team assets)
+webapp/         Model-page frontend (HTML / CSS / JS, driver & team assets)
+web/            F1 Duel — Next.js site: home + game (deployed on Vercel)
+jobs/           Game automation: sync schedule, lock model entry, score races
+supabase/       Database schema + row-level-security policies
+docs/           Game design & platform foundation document
 models/         Trained models + metadata
 data/           Processed datasets and on-disk caches
 ```
+
+Model work and game work live in separate directories on a single `main`
+branch; day-to-day changes go through short-lived `feat/…` branches and PRs.
 
 ---
 
