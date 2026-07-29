@@ -37,8 +37,8 @@ export default function MobileNav({
   const overlay =
     open && mounted
       ? createPortal(
-          <div className="fixed inset-0 z-[100] flex flex-col bg-bg sm:hidden">
-            <div className="flex items-center justify-between px-5 py-4">
+          <div className="menu-in fixed inset-0 z-[100] flex flex-col bg-bg sm:hidden">
+            <div className="flex items-center justify-between px-6 py-5">
               <Link
                 href="/"
                 onClick={close}
@@ -50,14 +50,14 @@ export default function MobileNav({
                 type="button"
                 aria-label="Close menu"
                 onClick={close}
-                className="pressable flex size-10 items-center justify-center rounded-full text-3xl leading-none text-ink"
+                className="pressable -mr-2 flex size-10 items-center justify-center rounded-full text-3xl leading-none text-ink-dim transition-colors active:text-race"
               >
                 ×
               </button>
             </div>
 
-            <nav className="flex flex-1 flex-col gap-2 overflow-y-auto px-5 pt-4">
-              {NAV_LINKS.map((l) => {
+            <nav className="flex flex-1 flex-col items-center justify-center gap-7 text-center">
+              {NAV_LINKS.map((l, i) => {
                 const isActive = active === l.href;
                 return (
                   <Link
@@ -65,46 +65,47 @@ export default function MobileNav({
                     href={l.href}
                     onClick={close}
                     aria-current={isActive ? "page" : undefined}
-                    className={`rounded-2xl px-5 py-4 text-lg font-medium transition-colors ${
-                      isActive ? "bg-race text-white" : "glass-chip text-ink"
+                    style={{ animationDelay: `${50 + i * 45}ms` }}
+                    className={`menu-item pressable text-3xl font-semibold tracking-tight transition-colors ${
+                      isActive ? "text-race" : "text-ink-dim active:text-race"
                     }`}
                   >
                     {l.label}
                   </Link>
                 );
               })}
-
-              <div className="mt-auto flex flex-col gap-2 pb-8 pt-6">
-                {signedIn ? (
-                  <>
-                    <Link
-                      href={`/profile/${username ?? ""}`}
-                      onClick={close}
-                      className="glass-chip rounded-2xl px-5 py-4 text-center text-lg font-medium"
-                    >
-                      {username ? `${username} — your profile` : "Your profile"}
-                    </Link>
-                    <form action="/auth/signout" method="post">
-                      <button
-                        type="submit"
-                        onClick={close}
-                        className="w-full rounded-2xl border border-line px-5 py-4 text-center text-lg font-medium text-ink-dim"
-                      >
-                        Sign out
-                      </button>
-                    </form>
-                  </>
-                ) : (
-                  <Link
-                    href="/login"
-                    onClick={close}
-                    className="rounded-2xl bg-race px-5 py-4 text-center text-lg font-semibold text-white"
-                  >
-                    Sign in
-                  </Link>
-                )}
-              </div>
             </nav>
+
+            <div className="flex flex-col items-center gap-4 pb-14 text-center">
+              {signedIn ? (
+                <>
+                  <Link
+                    href={`/profile/${username ?? ""}`}
+                    onClick={close}
+                    className="pressable text-sm text-ink-dim transition-colors active:text-race"
+                  >
+                    {username ? `@${username}` : "Your profile"}
+                  </Link>
+                  <form action="/auth/signout" method="post">
+                    <button
+                      type="submit"
+                      onClick={close}
+                      className="pressable text-sm text-ink-mute transition-colors active:text-race"
+                    >
+                      Sign out
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={close}
+                  className="pressable text-lg font-semibold text-race"
+                >
+                  Sign in
+                </Link>
+              )}
+            </div>
           </div>,
           document.body,
         )
