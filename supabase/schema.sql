@@ -50,6 +50,8 @@ create table public.model_entries (
   predicted_order jsonb not null,      -- full ordered list of driver_ids
   prob_matrix     jsonb not null,      -- {driver_id: [p_pos1 … p_posN]}
   pre_quali       boolean not null default false,
+  sc_prob         numeric,             -- model P(safety car), circuit prior
+  sc_bet          boolean,             -- model's safety-car Yes/No bet
   total           numeric,             -- filled at scoring time
   breakdown       jsonb,
   locked_at       timestamptz not null default now()
@@ -70,6 +72,7 @@ create table public.predictions (
   race_id    bigint not null references public.races (id) on delete cascade,
   picks      jsonb  not null check (public.valid_picks(picks)),
   dotd       text,                     -- Driver of the Day vote (optional)
+  sc_bet     boolean,                  -- safety-car side bet: Yes/No (optional)
   updated_at timestamptz not null default now(),
   unique (user_id, race_id)
 );
@@ -78,6 +81,7 @@ create table public.results (
   race_id        bigint primary key references public.races (id) on delete cascade,
   classification jsonb not null,       -- {driver_id: official finish position}
   dotd           text,                 -- official Driver of the Day, entered manually
+  safety_car     boolean,              -- was a SC/VSC deployed during the race
   scored_at      timestamptz
 );
 

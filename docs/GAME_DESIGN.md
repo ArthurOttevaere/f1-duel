@@ -83,6 +83,7 @@ at exactly that position:
 | Exact podium (P1–P2–P3 all exact) | +15 |
 | Perfect top 10 (all exact) | +100 |
 | Correct Driver of the Day (players only, see §2.4) | +5 |
+| Correct safety-car side bet (see §2.6) | +8 |
 | Beating the model on this GP (players only) | +10 |
 | Draw with the model | +3 |
 
@@ -129,6 +130,24 @@ the next scoring pass.
 - **Duel record vs the model**: W-D-L, shown prominently on profiles.
 - **Leagues** (v1.1): private groups joined via a unique 6-character code; a
   league is just a filtered leaderboard, all scoring is global.
+
+### 2.6 Safety-car side bet
+
+Alongside the top 10, each player may bet **Yes/No** on whether a safety car —
+full **or** virtual (VSC) — will be deployed during the race. It locks at race
+start with the rest of the prediction. A correct call is **+8** and counts
+toward the duel total.
+
+Unlike Driver of the Day, **the model bets too**, so this is a genuine part of
+the head-to-head. The model has no live signal, so it plays the circuit's
+historical rate (`jobs/safety_car.py`): street/high-incident circuits are near
+certain, smooth permanent tracks less so; it bets Yes at ≥ 50 %. A human beats
+it by reading the specific weekend — weather, grid tension, rookies — the way
+the rarity multiplier rewards reading a specific race.
+
+The outcome is detected automatically from the official race-control messages
+via FastF1 (`src/predict.py::safety_car_occurred`); if it can't be determined at
+scoring time, no one is awarded the bonus (neither player nor model).
 
 ---
 
@@ -194,10 +213,13 @@ profiles          id (= auth.users.id), username UNIQUE, created_at
 races             id, season, round, name, circuit, country,
                   quali_at, race_at, status ∈ {scheduled, locked, scored}
 model_entries     race_id PK→races, predicted_order jsonb (10 codes),
-                  prob_matrix jsonb (driver × position probabilities), locked_at
+                  prob_matrix jsonb (driver × position probabilities),
+                  sc_prob numeric, sc_bet bool, locked_at
 predictions       id, user_id→profiles, race_id→races, picks jsonb (10 codes),
-                  dotd text NULL, updated_at, UNIQUE(user_id, race_id)
-results           race_id PK→races, classification jsonb, dotd text NULL, scored_at
+                  dotd text NULL, sc_bet bool NULL, updated_at,
+                  UNIQUE(user_id, race_id)
+results           race_id PK→races, classification jsonb, dotd text NULL,
+                  safety_car bool NULL, scored_at
 scores            race_id, user_id NULL = the model, total numeric,
                   breakdown jsonb, beat_model bool, PK(race_id, user_id)
 season_picks      user_id, season, champion_driver, champion_team,

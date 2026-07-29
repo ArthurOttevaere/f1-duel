@@ -27,6 +27,7 @@ sys.path.insert(0, os.path.join(ROOT, "src"))
 import predict as model  # noqa: E402  (src/predict.py)
 
 import grid_prior  # noqa: E402
+import safety_car  # noqa: E402
 
 SIGMA = 2.0
 N_SIMS = 10_000
@@ -120,10 +121,11 @@ def position_prob_matrix(scores, driver_ids, grid_positions=None,
 def model_entry(season: int, rnd: int) -> dict:
     """Run the model for a race and package its calibrated duel entry.
 
-    Returns {predicted_order, prob_matrix, pre_quali, event_name}. Raises if
-    the model cannot produce a prediction at all (caller handles fallback).
+    Returns {predicted_order, prob_matrix, pre_quali, event_name, sc_prob,
+    sc_bet}. Raises if the model cannot produce a prediction at all (caller
+    handles fallback).
     """
-    df, event_name, _circuit, used_pre_quali, _ = model.predict(season, rnd)
+    df, event_name, circuit, used_pre_quali, _ = model.predict(season, rnd)
     df = df.sort_values("PredPos")
     driver_ids = [str(d) for d in df["DriverId"]]
     scores = [float(s) for s in df["score"]]
@@ -138,15 +140,23 @@ def model_entry(season: int, rnd: int) -> dict:
         for i in range(len(driver_ids))
     }
     order = _strategic_order(matrix, driver_ids)
+    sc_prob, sc_bet = safety_car.model_bet(event_name, circuit)
 
     return {
         "predicted_order": order,
         "prob_matrix": prob_matrix,
         "pre_quali": bool(used_pre_quali),
         "event_name": event_name,
+        "sc_prob": round(float(sc_prob), 4),
+        "sc_bet": bool(sc_bet),
     }
 
 
 def actual_classification(season: int, rnd: int) -> dict[str, int]:
     """Official race classification, {} if not available yet."""
     return model.load_actual_results(season, rnd)
+
+
+def safety_car_occurred(season: int, rnd: int) -> bool | None:
+    """True/False if a safety car was deployed, None if data isn't in yet."""
+    return model.safety_car_occurred(season, rnd)
