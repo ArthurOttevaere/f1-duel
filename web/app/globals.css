@@ -165,6 +165,41 @@ body {
   }
 }
 
+/* Mobile menu — a quick fade so it feels immediate, and a light per-item
+   stagger so it reads as intentional rather than a hard pop-in. */
+.menu-in {
+  animation: menuIn 170ms var(--ease-out-strong);
+}
+@keyframes menuIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.menu-item {
+  opacity: 0;
+  animation: menuItem 300ms var(--ease-out-strong) forwards;
+}
+@keyframes menuItem {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-item {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
 /* ─── Entrances (rare, first-view only) ────────────────────────────────── */
 
 .rise-in {
