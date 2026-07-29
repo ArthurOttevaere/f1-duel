@@ -56,6 +56,18 @@ body {
   backdrop-filter: blur(14px);
 }
 
+/* A distinct content zone that eases in and out instead of hard section edges,
+   so scrolling between sections stays fluid (no abrupt colour steps). */
+.zone-fade {
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(255 255 255 / 0.055) 20%,
+    rgb(255 255 255 / 0.055) 80%,
+    transparent
+  );
+}
+
 /* Pressable affordance: everything clickable answers the press. */
 .pressable {
   transition: transform 160ms var(--ease-out-strong);

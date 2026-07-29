@@ -118,7 +118,7 @@ export default function Home() {
       </section>
 
       {/* ─── The model ────────────────────────────────────────────────── */}
-      <section className="border-y border-line bg-glass">
+      <section className="zone-fade">
         <div className="mx-auto grid w-[min(64rem,calc(100%-2rem))] gap-12 py-24 sm:grid-cols-2 sm:items-center">
           <div>
             <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
