@@ -16,14 +16,19 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
 
-  // Surface the ?error=auth redirect. Runs once after mount because the query
-  // string is only known on the client (avoids useSearchParams + Suspense).
+  // Surface redirect params. Runs once after mount because the query string is
+  // only known on the client (avoids useSearchParams + Suspense).
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get("error") === "auth") {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("error") === "auth") {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time client-only URL read
       setStatus("error");
       setError("That sign-in link was invalid or expired. Try again.");
+    }
+    if (params.get("signedout") === "1") {
+      setNotice("You've been signed out.");
     }
   }, []);
 
@@ -149,6 +154,12 @@ export default function LoginPage() {
           </div>
         ) : (
           <>
+            {notice && (
+              <div className="mb-5 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-300">
+                {notice}
+              </div>
+            )}
+
             {/* Mode toggle */}
             <div className="glass-chip flex rounded-full p-1 text-sm">
               {(["signin", "signup"] as Mode[]).map((m) => (

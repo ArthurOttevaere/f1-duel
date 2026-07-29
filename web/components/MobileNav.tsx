@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { NAV_LINKS, activeHref } from "@/lib/nav";
 
 export default function MobileNav({
@@ -16,12 +16,20 @@ export default function MobileNav({
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const active = activeHref(pathname);
   const close = () => setOpen(false);
 
   // Portals need the DOM; only render into document.body after mount.
   // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time mount flag for the portal
   useEffect(() => setMounted(true), []);
+
+  // Warm every destination the moment the menu opens, so the tap that follows
+  // shows the loading spinner instantly and the page data is already in flight.
+  useEffect(() => {
+    if (!open) return;
+    for (const l of NAV_LINKS) router.prefetch(l.href);
+  }, [open, router]);
 
   // Lock background scroll while the menu is open.
   useEffect(() => {
@@ -86,10 +94,12 @@ export default function MobileNav({
                   >
                     {username ? `@${username}` : "Your profile"}
                   </Link>
+                  {/* No onClick here: closing the menu unmounts this form
+                      (it lives in a portal) and cancels the POST. The submit
+                      does a full-page navigation, so the menu goes away anyway. */}
                   <form action="/auth/signout" method="post">
                     <button
                       type="submit"
-                      onClick={close}
                       className="pressable text-sm text-ink-mute transition-colors active:text-race"
                     >
                       Sign out
