@@ -10,7 +10,13 @@ const LINKS = [
   { href: "/model", label: "The model" },
 ];
 
-export default function MobileNav({ username }: { username: string | null }) {
+export default function MobileNav({
+  signedIn,
+  username,
+}: {
+  signedIn: boolean;
+  username: string | null;
+}) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
@@ -64,12 +70,27 @@ export default function MobileNav({ username }: { username: string | null }) {
               </Link>
             ))}
             <Link
-              href={username ? `/profile/${username}` : "/login"}
+              href={signedIn ? `/profile/${username ?? ""}` : "/login"}
               onClick={close}
               className="mt-2 rounded-2xl bg-race px-5 py-4 text-center text-lg font-semibold text-white"
             >
-              {username ? `${username} — your profile` : "Sign in"}
+              {signedIn
+                ? username
+                  ? `${username} — your profile`
+                  : "Your profile"
+                : "Sign in"}
             </Link>
+            {signedIn && (
+              <form action="/auth/signout" method="post">
+                <button
+                  type="submit"
+                  onClick={close}
+                  className="glass-chip mt-1 w-full rounded-2xl px-5 py-4 text-center text-lg font-medium text-ink-dim"
+                >
+                  Sign out
+                </button>
+              </form>
+            )}
           </nav>
         </div>
       )}

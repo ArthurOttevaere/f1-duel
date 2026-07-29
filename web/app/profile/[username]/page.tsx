@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, shortName } from "@/lib/format";
 import type { Driver, Profile, Race, Score, SeasonPick } from "@/lib/types";
@@ -24,6 +24,9 @@ export default async function ProfilePage({
     .maybeSingle();
   const profile = profileRow as Profile | null;
   if (!profile) notFound();
+
+  const viewer = await getUser();
+  const isOwner = viewer?.id === profile.id;
 
   const [{ data: pickRow }, { data: scoreRows }, { data: raceRows }, { data: rosterRows }] =
     await Promise.all([
@@ -78,6 +81,20 @@ export default async function ProfilePage({
             className="absolute inset-x-0 top-0 h-1"
             style={{ background: `linear-gradient(90deg, ${theme}, transparent 70%)` }}
           />
+          {isOwner && (
+            <form
+              action="/auth/signout"
+              method="post"
+              className="absolute right-6 top-6"
+            >
+              <button
+                type="submit"
+                className="pressable glass-chip rounded-full px-4 py-1.5 text-sm text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
+              >
+                Sign out
+              </button>
+            </form>
+          )}
           <h1 className="text-3xl font-bold tracking-tight">{profile.username}</h1>
           {pick ? (
             <p className="mt-2 text-sm text-ink-dim">
