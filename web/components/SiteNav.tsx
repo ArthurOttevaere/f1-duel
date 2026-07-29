@@ -46,13 +46,13 @@ export default async function SiteNav() {
         </div>
 
         <div className="flex items-center gap-2">
-          {username ? (
+          {user ? (
             <>
               <Link
-                href={`/profile/${username}`}
-                className="pressable glass-chip rounded-full px-4 py-1.5 text-sm font-medium hover:border-line-hi"
+                href={`/profile/${username ?? ""}`}
+                className="pressable glass-chip hidden rounded-full px-4 py-1.5 text-sm font-medium hover:border-line-hi sm:block"
               >
-                {username}
+                {username ?? "Profile"}
               </Link>
               <form action="/auth/signout" method="post" className="hidden sm:block">
                 <button
@@ -72,7 +72,7 @@ export default async function SiteNav() {
               Sign in
             </Link>
           )}
-          <MobileNav username={username} />
+          <MobileNav signedIn={Boolean(user)} username={username} />
         </div>
       </nav>
     </header>
