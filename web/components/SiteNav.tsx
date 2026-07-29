@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient, getUser } from "@/lib/supabase/server";
 import MobileNav from "@/components/MobileNav";
+import NavLinks from "@/components/NavLinks";
 
 export default async function SiteNav() {
   const user = await getUser();
@@ -27,23 +28,7 @@ export default async function SiteNav() {
           <span>DUEL</span>
         </Link>
 
-        <div className="hidden items-center gap-6 text-sm text-ink-dim sm:flex">
-          <Link href="/game" className="transition-colors hover:text-ink">
-            The game
-          </Link>
-          <Link
-            href="/game/standings"
-            className="transition-colors hover:text-ink"
-          >
-            Standings
-          </Link>
-          <Link href="/rules" className="transition-colors hover:text-ink">
-            Rules
-          </Link>
-          <Link href="/model" className="transition-colors hover:text-ink">
-            The model
-          </Link>
-        </div>
+        <NavLinks />
 
         <div className="flex items-center gap-2">
           {user ? (

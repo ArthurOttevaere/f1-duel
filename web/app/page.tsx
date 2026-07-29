@@ -40,15 +40,18 @@ export default function Home() {
       <SiteNav />
 
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 text-center">
+      <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-24 text-center sm:pt-24">
         <div className="aurora" />
         <div className="hero-grid" />
+        {/* Fade the bottom to the page background so the glow never gets cut
+            at the transition into the next section. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-bg" />
 
-        <p className="rise-in glass-chip rounded-full px-4 py-1.5 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+        <p className="rise-in glass-chip max-w-[90vw] rounded-full px-4 py-1.5 font-mono text-[0.65rem] tracking-[0.15em] text-ink-dim uppercase sm:text-xs sm:tracking-[0.2em]">
           2026 season · one duel per Grand Prix
         </p>
 
-        <h1 className="rise-in rise-in-2 mt-6 max-w-4xl text-5xl leading-[1.02] font-extrabold tracking-tight sm:text-7xl">
+        <h1 className="rise-in rise-in-2 mt-6 max-w-4xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-7xl sm:leading-[1.02]">
           Beat the model.
           <br />
           <span className="bg-gradient-to-r from-race to-[#ff7a5c] bg-clip-text text-transparent">
@@ -56,7 +59,7 @@ export default function Home() {
           </span>
         </h1>
 
-        <p className="rise-in rise-in-3 mt-6 max-w-xl text-lg text-ink-dim">
+        <p className="rise-in rise-in-3 mt-6 max-w-xl text-base text-ink-dim sm:text-lg">
           Predict the top 10 of every Grand Prix and go head-to-head with a
           machine-learning model — all season long. Bold calls score big.
           Safe ones don&apos;t.
