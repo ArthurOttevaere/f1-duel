@@ -18,6 +18,7 @@ from datetime import datetime, timedelta, timezone
 
 import db
 import model_bridge
+import safety_car
 import scoring  # noqa: F401  (kept close: scoring reads the matrix written here)
 
 
@@ -36,6 +37,8 @@ def refresh_entry(race: dict) -> bool:
         "predicted_order": entry["predicted_order"],
         "prob_matrix": entry["prob_matrix"],
         "pre_quali": entry["pre_quali"],
+        "sc_prob": entry["sc_prob"],
+        "sc_bet": entry["sc_bet"],
         "locked_at": datetime.now(timezone.utc).isoformat(),
     }, on_conflict="race_id")
     mode = "pre-quali" if entry["pre_quali"] else "post-quali"
@@ -49,11 +52,15 @@ def grid_fallback(race: dict) -> None:
     if not order:
         print(f"round {race['round']}: NO fallback available — left unlocked")
         return
+    sc_prob, sc_bet = safety_car.model_bet(
+        race.get("name"), race.get("circuit"), race.get("country"))
     db.upsert("model_entries", {
         "race_id": race["id"],
         "predicted_order": order,
         "prob_matrix": {},
         "pre_quali": False,
+        "sc_prob": round(float(sc_prob), 4),
+        "sc_bet": bool(sc_bet),
         "locked_at": datetime.now(timezone.utc).isoformat(),
     }, on_conflict="race_id")
     print(f"round {race['round']}: grid-order fallback entry stored")

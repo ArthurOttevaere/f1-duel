@@ -1,7 +1,6 @@
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
-import { MODEL_URL } from "@/lib/constants";
 
 const DUEL_STEPS = [
   {
@@ -70,14 +69,12 @@ export default function Home() {
           >
             Play F1 Duel
           </Link>
-          <a
-            href={MODEL_URL}
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            href="/model"
             className="pressable glass-chip rounded-full px-8 py-3.5 text-base font-semibold text-ink transition-colors hover:border-line-hi"
           >
             Explore the model
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -136,14 +133,12 @@ export default function Home() {
               circuit maps, championship scenarios — and the reasoning behind
               every predicted position.
             </p>
-            <a
-              href={MODEL_URL}
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              href="/model"
               className="pressable mt-8 inline-block rounded-full border border-line-hi px-6 py-3 text-sm font-semibold transition-colors hover:bg-glass-strong"
             >
-              Open the prediction platform ↗
-            </a>
+              Explore the prediction platform →
+            </Link>
           </div>
 
           <ul className="flex flex-col gap-4">

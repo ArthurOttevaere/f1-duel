@@ -38,13 +38,21 @@ def score_race(race: dict) -> bool:
     existing = db.select("results", {"race_id": f"eq.{race['id']}"})
     dotd = existing[0]["dotd"] if existing else None
 
+    sc_actual = model_bridge.safety_car_occurred(race["season"], race["round"])
+
+    # Model total includes its own safety-car side bet, so the duel is fair.
     model_table = scoring.score_table(entry["predicted_order"][:10],
                                       classification, prob_matrix)
+    model_sc = scoring.sc_bonus(entry.get("sc_bet"), sc_actual)
+    model_table["bonuses"]["safety_car"] = model_sc
+    model_table["total"] += model_sc
     db.upsert("model_entries", {
         "race_id": race["id"],
         "predicted_order": entry["predicted_order"],
         "prob_matrix": entry["prob_matrix"],
         "pre_quali": entry["pre_quali"],
+        "sc_prob": entry.get("sc_prob"),
+        "sc_bet": entry.get("sc_bet"),
         "total": model_table["total"],
         "breakdown": model_table,
     }, on_conflict="race_id")
@@ -53,7 +61,8 @@ def score_race(race: dict) -> bool:
     score_rows = []
     for pred in predictions:
         table = scoring.score_table(pred["picks"], classification, prob_matrix)
-        final = scoring.finalize(table, pred["dotd"], dotd, model_table["total"])
+        final = scoring.finalize(table, pred["dotd"], dotd, model_table["total"],
+                                 pred.get("sc_bet"), sc_actual)
         score_rows.append({
             "race_id": race["id"],
             "user_id": pred["user_id"],
@@ -68,6 +77,7 @@ def score_race(race: dict) -> bool:
         "race_id": race["id"],
         "classification": classification,
         "dotd": dotd,
+        "safety_car": sc_actual,
         "scored_at": now.isoformat(),
     }, on_conflict="race_id")
     db.update("races", {"id": f"eq.{race['id']}"}, {"status": "scored"})

@@ -19,6 +19,7 @@ BASE_IN_TOP10 = 2.0   # driver elsewhere inside the actual top 10
 BONUS_PODIUM = 15.0   # P1-P2-P3 all exact
 BONUS_PERFECT = 100.0 # all ten exact
 BONUS_DOTD = 5.0      # correct Driver of the Day vote (players only)
+BONUS_SAFETY_CAR = 8.0  # correct safety-car (SC/VSC) side bet — model bets too
 BONUS_BEAT_MODEL = 10.0
 BONUS_DRAW_MODEL = 3.0
 
@@ -39,6 +40,17 @@ def rarity_multiplier(p: float | None) -> float:
         if p >= threshold:
             return mult
     return RARITY_MAX
+
+
+def sc_bonus(bet: bool | None, actual: bool | None) -> float:
+    """Points for the safety-car side bet — awarded to whoever calls it right.
+
+    `bet` is the Yes/No prediction (None = no bet placed), `actual` is whether a
+    safety car was deployed (None = outcome unknown/unavailable → no points).
+    """
+    if bet is None or actual is None:
+        return 0.0
+    return BONUS_SAFETY_CAR if bool(bet) == bool(actual) else 0.0
 
 
 def _prob_at(prob_matrix: dict | None, driver: str, position: int) -> float | None:
@@ -109,19 +121,22 @@ def score_table(picks: list[str], classification: dict[str, int],
 
 
 def finalize(table: dict, dotd_pick: str | None, dotd_actual: str | None,
-             model_total: float | None) -> dict:
-    """Apply the player-only bonuses (DotD, duel) on top of a scored table.
+             model_total: float | None, sc_bet: bool | None = None,
+             sc_actual: bool | None = None) -> dict:
+    """Apply the player bonuses (DotD, safety-car bet, duel) on top of a table.
 
-    The duel is decided on the player's table + DotD total versus the model's
-    table total. Returns the full breakdown to persist in scores.breakdown.
+    The duel is decided on the player's table + DotD + safety-car total versus
+    the model's table + its own safety-car total (`model_total` already includes
+    it). Returns the full breakdown to persist in scores.breakdown.
     """
     bonuses = dict(table["bonuses"])
     bonuses["dotd"] = (
         BONUS_DOTD if dotd_pick and dotd_actual and dotd_pick == dotd_actual
         else 0.0
     )
+    bonuses["safety_car"] = sc_bonus(sc_bet, sc_actual)
 
-    comparable = table["total"] + bonuses["dotd"]
+    comparable = table["total"] + bonuses["dotd"] + bonuses["safety_car"]
     beat_model = drew_model = False
     bonuses["duel"] = 0.0
     if model_total is not None:
@@ -136,6 +151,7 @@ def finalize(table: dict, dotd_pick: str | None, dotd_actual: str | None,
         "slots": table["slots"],
         "bonuses": bonuses,
         "dotd_pick": dotd_pick,
+        "sc_bet": sc_bet,
         "model_total": model_total,
         "total": comparable + bonuses["duel"],
         "beat_model": beat_model,

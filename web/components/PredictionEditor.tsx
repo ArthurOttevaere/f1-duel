@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   DndContext,
@@ -97,6 +97,7 @@ export default function PredictionEditor({
   roster,
   initialPicks,
   initialDotd,
+  initialScBet,
   canPlay,
   signedIn,
 }: {
@@ -104,21 +105,25 @@ export default function PredictionEditor({
   roster: Driver[];
   initialPicks: string[];
   initialDotd: string | null;
+  initialScBet: boolean | null;
   canPlay: boolean;
   signedIn: boolean;
 }) {
   const [picks, setPicks] = useState<string[]>(initialPicks);
   const [dotd, setDotd] = useState<string | null>(initialDotd);
+  const [scBet, setScBet] = useState<boolean | null>(initialScBet);
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [error, setError] = useState<string | null>(null);
-  const savedSnapshot = useRef(JSON.stringify([initialPicks, initialDotd]));
+  const [savedSnapshot, setSavedSnapshot] = useState(
+    JSON.stringify([initialPicks, initialDotd, initialScBet]),
+  );
 
   const byId = useMemo(
     () => new Map(roster.map((d) => [d.driver_id, d])),
     [roster],
   );
   const pool = roster.filter((d) => d.active && !picks.includes(d.driver_id));
-  const dirty = JSON.stringify([picks, dotd]) !== savedSnapshot.current;
+  const dirty = JSON.stringify([picks, dotd, scBet]) !== savedSnapshot;
   const complete = picks.length === 10;
 
   const sensors = useSensors(
@@ -157,14 +162,14 @@ export default function PredictionEditor({
       return;
     }
     const { error: err } = await supabase.from("predictions").upsert(
-      { user_id: user.id, race_id: race.id, picks, dotd },
+      { user_id: user.id, race_id: race.id, picks, dotd, sc_bet: scBet },
       { onConflict: "user_id,race_id" },
     );
     if (err) {
       setSaveState("error");
       setError(err.message);
     } else {
-      savedSnapshot.current = JSON.stringify([picks, dotd]);
+      setSavedSnapshot(JSON.stringify([picks, dotd, scBet]));
       setSaveState("saved");
     }
   }
@@ -263,6 +268,38 @@ export default function PredictionEditor({
                 {d.code}
               </button>
             ))}
+        </div>
+
+        <h3 className="mt-6 mb-2 text-sm font-semibold tracking-wide text-ink-dim">
+          SAFETY CAR{" "}
+          <span className="font-normal text-ink-mute">
+            · +8 pts · the model bets too
+          </span>
+        </h3>
+        <p className="mb-2 text-xs text-ink-mute">
+          Will a safety car (full or virtual) come out this race?
+        </p>
+        <div className="flex gap-1.5">
+          {(
+            [
+              { val: true, label: "Yes" },
+              { val: false, label: "No" },
+            ] as const
+          ).map((o) => (
+            <button
+              key={o.label}
+              type="button"
+              disabled={!canPlay}
+              onClick={() => setScBet(scBet === o.val ? null : o.val)}
+              className={`pressable flex-1 rounded-xl border px-4 py-2 text-sm font-medium transition-colors disabled:opacity-45 ${
+                scBet === o.val
+                  ? "border-race bg-race/15 text-race"
+                  : "border-line text-ink-dim hover:border-line-hi"
+              }`}
+            >
+              {o.label}
+            </button>
+          ))}
         </div>
 
         {canPlay && (

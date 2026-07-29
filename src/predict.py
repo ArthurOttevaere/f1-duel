@@ -691,6 +691,28 @@ def load_actual_results(year, round_number):
         return {}
 
 
+def safety_car_occurred(year, round_number):
+    """Was a safety car (full or virtual) deployed during the race?
+
+    Returns True/False from the official race-control messages, or None when the
+    race data isn't available yet (so the caller can wait and retry).
+    """
+    try:
+        session = fastf1.get_session(year, round_number, 'R')
+        session.load(laps=False, telemetry=False, weather=False, messages=True)
+        if session.results is None or session.results.empty:
+            return None  # race not run / not published yet
+        rcm = session.race_control_messages
+        if rcm is None or rcm.empty:
+            return False
+        text = ' '.join(str(m) for m in rcm.get('Message', [])).upper()
+        cats = ' '.join(str(c) for c in rcm.get('Category', [])).upper()
+        deployed = 'DEPLOYED' in text or 'SAFETYCAR' in cats.replace(' ', '')
+        return bool(('SAFETY CAR' in text or 'VIRTUAL SAFETY CAR' in text) and deployed)
+    except Exception:
+        return None
+
+
 def predict(year, round_number, pre_quali=False, weather_override=None):
     # Charger modèles
     xgb_model, lgb_model, meta, encoders = load_models()

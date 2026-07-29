@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, multiplierLabel, shortName } from "@/lib/format";
 import type {
@@ -84,9 +84,7 @@ export default async function RaceReviewPage({
   if (!race) notFound();
   if (race.status === "scheduled") redirect("/game");
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getUser();
 
   const [entryRes, resultRes, rosterRes, scoresRes, predsRes, profilesRes] =
     await Promise.all([
@@ -230,6 +228,35 @@ export default async function RaceReviewPage({
             <span className="ml-2 text-emerald-400">you called it, +5</span>
           )}
         </p>
+      )}
+
+      {result && result.safety_car !== null && (
+        <section className="glass-card flex flex-wrap items-center gap-x-6 gap-y-2 p-5 text-sm">
+          <span className="text-ink-dim">
+            Safety car:{" "}
+            <span className="font-semibold text-ink">
+              {result.safety_car ? "Yes — deployed" : "No — none"}
+            </span>
+          </span>
+          {myPrediction && myPrediction.sc_bet !== null && (
+            <span
+              className={
+                myPrediction.sc_bet === result.safety_car
+                  ? "text-emerald-400"
+                  : "text-race"
+              }
+            >
+              You bet {myPrediction.sc_bet ? "Yes" : "No"}
+              {myPrediction.sc_bet === result.safety_car ? " · +8" : " · missed"}
+            </span>
+          )}
+          {entry && entry.sc_bet !== null && (
+            <span className="text-ink-mute">
+              Model bet {entry.sc_bet ? "Yes" : "No"}
+              {entry.sc_bet === result.safety_car ? " ✓" : " ✗"}
+            </span>
+          )}
+        </section>
       )}
 
       {/* ── Everyone's race ── */}
