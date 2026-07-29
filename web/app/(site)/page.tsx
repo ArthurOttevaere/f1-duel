@@ -1,6 +1,4 @@
 import Link from "next/link";
-import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 
 const DUEL_STEPS = [
   {
@@ -36,9 +34,7 @@ const MODEL_FACTS = [
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col">
-      <SiteNav />
-
+    <>
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
       <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-24 text-center sm:pt-24">
         <div className="aurora" />
@@ -157,8 +153,6 @@ export default function Home() {
           </ul>
         </div>
       </section>
-
-      <SiteFooter />
-    </div>
+    </>
   );
 }

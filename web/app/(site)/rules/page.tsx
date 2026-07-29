@@ -1,6 +1,4 @@
 import Link from "next/link";
-import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 
 export const metadata = {
   title: "Rules",
@@ -30,11 +28,8 @@ const SECTIONS = [
 
 export default function RulesPage() {
   return (
-    <div className="flex flex-1 flex-col">
-      <SiteNav />
-
-      <main className="mx-auto w-[min(64rem,calc(100%-2rem))] flex-1 pt-28 pb-8">
-        <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
+    <main className="mx-auto w-[min(64rem,calc(100%-2rem))] flex-1 pt-28 pb-8">
+      <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
           The manual
         </p>
         <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
@@ -226,9 +221,6 @@ export default function RulesPage() {
             Play F1 Duel
           </Link>
         </div>
-      </main>
-
-      <SiteFooter />
-    </div>
+    </main>
   );
 }

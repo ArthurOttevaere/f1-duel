@@ -1,6 +1,4 @@
 import Link from "next/link";
-import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 import { LIVE_MODEL_URL } from "@/lib/constants";
 
 export const metadata = {
@@ -43,11 +41,8 @@ const FEATURE_GROUPS = [
 
 export default function ModelPage() {
   return (
-    <div className="flex flex-1 flex-col">
-      <SiteNav />
-
-      <main className="mx-auto w-[min(64rem,calc(100%-2rem))] flex-1 pt-28 pb-8">
-        {/* ── Intro ── */}
+    <main className="mx-auto w-[min(64rem,calc(100%-2rem))] flex-1 pt-28 pb-8">
+      {/* ── Intro ── */}
         <section className="relative overflow-hidden">
           <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
             The opponent
@@ -167,9 +162,6 @@ export default function ModelPage() {
             Play F1 Duel
           </Link>
         </section>
-      </main>
-
-      <SiteFooter />
-    </div>
+    </main>
   );
 }

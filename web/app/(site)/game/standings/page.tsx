@@ -7,19 +7,47 @@ import type { LeaderboardRow, Race } from "@/lib/types";
 export const metadata = { title: "Standings" };
 export const revalidate = 120;
 
-export default async function StandingsPage() {
+export default async function StandingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ league?: string }>;
+}) {
   const supabase = await createClient();
+  const { league: leagueParam } = await searchParams;
 
-  const [{ data: rows }, { data: races }, { data: entries }, user] =
-    await Promise.all([
-      supabase
-        .from("leaderboard")
-        .select("*")
-        .order("points", { ascending: false }),
-      supabase.from("races").select("id, round, name, status").eq("season", CURRENT_SEASON),
-      supabase.from("model_entries").select("race_id, total"),
-      getUser(),
-    ]);
+  const [
+    { data: rows },
+    { data: races },
+    { data: entries },
+    user,
+    { data: leaguesData },
+  ] = await Promise.all([
+    supabase
+      .from("leaderboard")
+      .select("*")
+      .order("points", { ascending: false }),
+    supabase.from("races").select("id, round, name, status").eq("season", CURRENT_SEASON),
+    supabase.from("model_entries").select("race_id, total"),
+    getUser(),
+    // RLS returns only the leagues the viewer belongs to.
+    supabase.from("leagues").select("id, name").order("name"),
+  ]);
+
+  const myLeagues = (leaguesData as { id: number; name: string }[]) ?? [];
+  const selectedLeague =
+    myLeagues.find((l) => String(l.id) === leagueParam) ?? null;
+
+  // A league view is the global board filtered to that league's members.
+  let memberIds: Set<string> | null = null;
+  if (selectedLeague) {
+    const { data: members } = await supabase
+      .from("league_members")
+      .select("user_id")
+      .eq("league_id", selectedLeague.id);
+    memberIds = new Set(
+      ((members as { user_id: string }[]) ?? []).map((m) => m.user_id),
+    );
+  }
 
   const seasonRaceIds = new Set(((races as Race[]) ?? []).map((r) => r.id));
   const modelTotal = ((entries as { race_id: number; total: number | null }[]) ?? [])
@@ -30,6 +58,7 @@ export default async function StandingsPage() {
   // points, then name for a stable order among newcomers on 0.
   const board = ((rows as LeaderboardRow[]) ?? [])
     .slice()
+    .filter((r) => !memberIds || memberIds.has(r.user_id))
     .sort(
       (a, b) =>
         Number(b.points) - Number(a.points) ||
@@ -61,6 +90,40 @@ export default async function StandingsPage() {
         </p>
         <h1 className="mt-1 text-3xl font-bold tracking-tight">Standings</h1>
       </header>
+
+      {myLeagues.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/game/standings"
+            className={`pressable rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+              selectedLeague === null
+                ? "bg-race text-white"
+                : "glass-chip text-ink-dim hover:text-ink"
+            }`}
+          >
+            Global
+          </Link>
+          {myLeagues.map((l) => (
+            <Link
+              key={l.id}
+              href={`/game/standings?league=${l.id}`}
+              className={`pressable rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                selectedLeague?.id === l.id
+                  ? "bg-race text-white"
+                  : "glass-chip text-ink-dim hover:text-ink"
+              }`}
+            >
+              {l.name}
+            </Link>
+          ))}
+          <Link
+            href="/game/leagues"
+            className="pressable glass-chip rounded-full px-4 py-1.5 text-sm text-ink-mute transition-colors hover:text-ink"
+          >
+            + League
+          </Link>
+        </div>
+      )}
 
       <section className="glass-card overflow-x-auto p-2">
         <table className="w-full min-w-[30rem] border-separate border-spacing-0 text-sm">

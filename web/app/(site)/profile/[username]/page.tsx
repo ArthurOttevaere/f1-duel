@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, shortName } from "@/lib/format";
@@ -66,9 +64,7 @@ export default async function ProfilePage({
   const theme = championDriver?.team_color ?? "#ff1e3c";
 
   return (
-    <div className="flex flex-1 flex-col">
-      <SiteNav />
-      <main className="mx-auto w-[min(64rem,calc(100%-2rem))] flex-1 pt-28 pb-8">
+    <main className="mx-auto w-[min(64rem,calc(100%-2rem))] flex-1 pt-28 pb-8">
         {/* ── Identity ── */}
         <header
           className="glass-card relative overflow-hidden p-8"
@@ -175,8 +171,6 @@ export default async function ProfilePage({
             </ol>
           )}
         </section>
-      </main>
-      <SiteFooter />
-    </div>
+    </main>
   );
 }
