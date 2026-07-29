@@ -47,12 +47,23 @@ export default async function SiteNav() {
 
         <div className="flex items-center gap-2">
           {username ? (
-            <Link
-              href={`/profile/${username}`}
-              className="pressable glass-chip rounded-full px-4 py-1.5 text-sm font-medium hover:border-line-hi"
-            >
-              {username}
-            </Link>
+            <>
+              <Link
+                href={`/profile/${username}`}
+                className="pressable glass-chip rounded-full px-4 py-1.5 text-sm font-medium hover:border-line-hi"
+              >
+                {username}
+              </Link>
+              <form action="/auth/signout" method="post" className="hidden sm:block">
+                <button
+                  type="submit"
+                  aria-label="Sign out"
+                  className="pressable glass-chip rounded-full px-3 py-1.5 text-sm text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
+                >
+                  Sign out
+                </button>
+              </form>
+            </>
           ) : (
             <Link
               href="/login"

@@ -70,6 +70,17 @@ export default function MobileNav({ username }: { username: string | null }) {
             >
               {username ? `${username} — your profile` : "Sign in"}
             </Link>
+            {username && (
+              <form action="/auth/signout" method="post">
+                <button
+                  type="submit"
+                  onClick={close}
+                  className="glass-chip mt-1 w-full rounded-2xl px-5 py-4 text-center text-lg font-medium text-ink-dim"
+                >
+                  Sign out
+                </button>
+              </form>
+            )}
           </nav>
         </div>
       )}

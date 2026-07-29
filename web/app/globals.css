@@ -124,15 +124,34 @@ body {
   mask-image: radial-gradient(ellipse 90% 65% at 50% 30%, black 25%, transparent 78%);
 }
 
-/* Checkered ribbon — a quiet nod, not a costume. */
+/* Finish line — two rows of checkered flag separating the footer from the site.
+   Near-white squares against the dark background read as a start/finish band. */
 .checker-edge {
-  height: 6px;
+  height: 20px;
   background-image: repeating-conic-gradient(
-    rgb(255 255 255 / 0.16) 0% 25%,
-    transparent 0% 50%
+    rgb(244 246 250 / 0.92) 0% 25%,
+    rgb(7 8 11 / 1) 0% 50%
   );
-  background-size: 12px 12px;
-  mask-image: linear-gradient(90deg, transparent, black 20%, black 80%, transparent);
+  background-size: 20px 20px; /* 10px squares → 2 rows */
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.25),
+    inset 0 -1px 0 rgb(255 255 255 / 0.12);
+  mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+}
+
+/* Loader phrase — a soft fade as each line swaps in. */
+.loader-phrase {
+  animation: loaderFade 340ms var(--ease-out-strong);
+}
+@keyframes loaderFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ─── Entrances (rare, first-view only) ────────────────────────────────── */
