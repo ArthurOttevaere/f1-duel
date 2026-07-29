@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints } from "@/lib/format";
 import type { LeaderboardRow, Race } from "@/lib/types";
@@ -10,7 +10,7 @@ export const revalidate = 120;
 export default async function StandingsPage() {
   const supabase = await createClient();
 
-  const [{ data: rows }, { data: races }, { data: entries }] =
+  const [{ data: rows }, { data: races }, { data: entries }, user] =
     await Promise.all([
       supabase
         .from("leaderboard")
@@ -18,6 +18,7 @@ export default async function StandingsPage() {
         .order("points", { ascending: false }),
       supabase.from("races").select("id, round, name, status").eq("season", CURRENT_SEASON),
       supabase.from("model_entries").select("race_id, total"),
+      getUser(),
     ]);
 
   const seasonRaceIds = new Set(((races as Race[]) ?? []).map((r) => r.id));
@@ -25,9 +26,15 @@ export default async function StandingsPage() {
     .filter((e) => seasonRaceIds.has(e.race_id) && e.total !== null)
     .reduce((sum, e) => sum + Number(e.total), 0);
 
-  const board = ((rows as LeaderboardRow[]) ?? []).filter(
-    (r) => r.races_played > 0 || r.points > 0,
-  );
+  // Every registered player appears — even before a single race — sorted by
+  // points, then name for a stable order among newcomers on 0.
+  const board = ((rows as LeaderboardRow[]) ?? [])
+    .slice()
+    .sort(
+      (a, b) =>
+        Number(b.points) - Number(a.points) ||
+        a.username.localeCompare(b.username),
+    );
 
   // Insert the model at its rank.
   type Line =
@@ -81,7 +88,12 @@ export default async function StandingsPage() {
                   </td>
                 </tr>
               ) : (
-                <tr key={line.row.user_id} className="border-t border-line">
+                <tr
+                  key={line.row.user_id}
+                  className={`border-t border-line ${
+                    user && line.row.user_id === user.id ? "bg-glass" : ""
+                  }`}
+                >
                   <td className="px-3 py-2.5 font-mono text-ink-mute">{i + 1}</td>
                   <td className="px-3 py-2.5">
                     <Link
@@ -90,6 +102,11 @@ export default async function StandingsPage() {
                     >
                       {line.row.username}
                     </Link>
+                    {user && line.row.user_id === user.id && (
+                      <span className="ml-2 rounded-full bg-race/15 px-2 py-0.5 font-mono text-[0.65rem] text-race">
+                        YOU
+                      </span>
+                    )}
                   </td>
                   <td className="px-3 py-2.5 text-right text-ink-dim">
                     {line.row.races_played}
