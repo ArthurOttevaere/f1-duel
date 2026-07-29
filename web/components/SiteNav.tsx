@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { MODEL_URL } from "@/lib/constants";
+import MobileNav from "@/components/MobileNav";
 
 export default async function SiteNav() {
   const supabase = await createClient();
@@ -39,31 +39,32 @@ export default async function SiteNav() {
           >
             Standings
           </Link>
-          <a
-            href={MODEL_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="transition-colors hover:text-ink"
-          >
-            The model ↗
-          </a>
+          <Link href="/rules" className="transition-colors hover:text-ink">
+            Rules
+          </Link>
+          <Link href="/model" className="transition-colors hover:text-ink">
+            The model
+          </Link>
         </div>
 
-        {username ? (
-          <Link
-            href={`/profile/${username}`}
-            className="pressable glass-chip rounded-full px-4 py-1.5 text-sm font-medium hover:border-line-hi"
-          >
-            {username}
-          </Link>
-        ) : (
-          <Link
-            href="/login"
-            className="pressable rounded-full bg-race px-4 py-1.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgb(255_30_60/0.35)] hover:bg-race-deep"
-          >
-            Sign in
-          </Link>
-        )}
+        <div className="flex items-center gap-2">
+          {username ? (
+            <Link
+              href={`/profile/${username}`}
+              className="pressable glass-chip rounded-full px-4 py-1.5 text-sm font-medium hover:border-line-hi"
+            >
+              {username}
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="pressable hidden rounded-full bg-race px-4 py-1.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgb(255_30_60/0.35)] hover:bg-race-deep sm:inline-block"
+            >
+              Sign in
+            </Link>
+          )}
+          <MobileNav username={username} />
+        </div>
       </nav>
     </header>
   );

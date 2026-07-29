@@ -43,39 +43,53 @@ export default async function GamePage() {
     );
   }
 
-  const [{ data: roster }, { data: entry }, predictionRes, lastScoredRes] =
-    await Promise.all([
-      supabase
-        .from("drivers")
-        .select("*")
-        .eq("season", race.season)
-        .eq("active", true)
-        .order("team"),
-      supabase
-        .from("model_entries")
-        .select("race_id, pre_quali, locked_at")
-        .eq("race_id", race.id)
-        .maybeSingle(),
-      user
-        ? supabase
-            .from("predictions")
-            .select("picks, dotd")
-            .eq("race_id", race.id)
-            .eq("user_id", user.id)
-            .maybeSingle()
-        : Promise.resolve({ data: null }),
-      supabase
-        .from("races")
-        .select("*")
-        .eq("season", CURRENT_SEASON)
-        .eq("status", "scored")
-        .order("round", { ascending: false })
-        .limit(1),
-    ]);
+  const [
+    { data: roster },
+    { data: entry },
+    predictionRes,
+    lastScoredRes,
+    seasonPickRes,
+  ] = await Promise.all([
+    supabase
+      .from("drivers")
+      .select("*")
+      .eq("season", race.season)
+      .eq("active", true)
+      .order("team"),
+    supabase
+      .from("model_entries")
+      .select("race_id, pre_quali, locked_at")
+      .eq("race_id", race.id)
+      .maybeSingle(),
+    user
+      ? supabase
+          .from("predictions")
+          .select("picks, dotd, sc_bet")
+          .eq("race_id", race.id)
+          .eq("user_id", user.id)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    supabase
+      .from("races")
+      .select("*")
+      .eq("season", CURRENT_SEASON)
+      .eq("status", "scored")
+      .order("round", { ascending: false })
+      .limit(1),
+    user
+      ? supabase
+          .from("season_picks")
+          .select("season")
+          .eq("user_id", user.id)
+          .eq("season", CURRENT_SEASON)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+  ]);
 
   const prediction = predictionRes.data as {
     picks: string[];
     dotd: string | null;
+    sc_bet: boolean | null;
   } | null;
   const lastScored = (lastScoredRes.data?.[0] as Race | undefined) ?? null;
 
@@ -105,17 +119,7 @@ export default async function GamePage() {
   }
 
   const raceOpen = new Date(race.race_at ?? 0).getTime() > Date.now();
-
-  let needsPicks = false;
-  if (user) {
-    const { data: pick } = await supabase
-      .from("season_picks")
-      .select("season")
-      .eq("user_id", user.id)
-      .eq("season", CURRENT_SEASON)
-      .maybeSingle();
-    needsPicks = !pick;
-  }
+  const needsPicks = Boolean(user) && !seasonPickRes.data;
 
   return (
     <div className="flex flex-col gap-6">
@@ -203,6 +207,7 @@ export default async function GamePage() {
           roster={(roster as Driver[]) ?? []}
           initialPicks={prediction?.picks ?? []}
           initialDotd={prediction?.dotd ?? null}
+          initialScBet={prediction?.sc_bet ?? null}
           canPlay={Boolean(user) && raceOpen}
           signedIn={Boolean(user)}
         />
@@ -211,9 +216,10 @@ export default async function GamePage() {
       <p className="text-xs leading-relaxed text-ink-mute">
         Scoring: 10 pts exact position (×1.5–×3 the less the model believed in
         it), 5 pts one off, 2 pts anywhere in the top 10. Podium +15, perfect
-        top 10 +100, Driver of the Day +5. Beat the model: +10.{" "}
-        <Link href="/game/standings" className="underline">
-          Standings →
+        top 10 +100, Driver of the Day +5, safety-car bet +8. Beat the model:
+        +10.{" "}
+        <Link href="/rules" className="underline">
+          Full rules →
         </Link>
       </p>
     </div>

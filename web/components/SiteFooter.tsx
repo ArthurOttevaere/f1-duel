@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { MODEL_URL } from "@/lib/constants";
 
 export default function SiteFooter() {
   return (
@@ -30,15 +29,13 @@ export default function SiteFooter() {
             </Link>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-medium text-ink-dim">The model</p>
-            <a
-              href={MODEL_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-ink-mute transition-colors hover:text-ink"
-            >
-              Predictions ↗
-            </a>
+            <p className="font-medium text-ink-dim">More</p>
+            <Link href="/rules" className="text-ink-mute transition-colors hover:text-ink">
+              Rules
+            </Link>
+            <Link href="/model" className="text-ink-mute transition-colors hover:text-ink">
+              The model
+            </Link>
             <a
               href="https://github.com/ArthurOttevaere/f1_race_predictor"
               target="_blank"

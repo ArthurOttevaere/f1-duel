@@ -29,6 +29,8 @@ export interface ModelEntry {
   predicted_order: string[];
   prob_matrix: Record<string, number[]>;
   pre_quali: boolean;
+  sc_prob: number | null;
+  sc_bet: boolean | null;
   total: number | null;
   breakdown: ScoreBreakdown | null;
   locked_at: string;
@@ -40,6 +42,7 @@ export interface Prediction {
   race_id: number;
   picks: string[];
   dotd: string | null;
+  sc_bet: boolean | null;
   updated_at: string;
 }
 
@@ -47,6 +50,7 @@ export interface RaceResult {
   race_id: number;
   classification: Record<string, number>;
   dotd: string | null;
+  safety_car: boolean | null;
   scored_at: string | null;
 }
 
@@ -65,6 +69,7 @@ export interface ScoreBreakdown {
   slots: SlotScore[];
   bonuses: Record<string, number>;
   dotd_pick?: string | null;
+  sc_bet?: boolean | null;
   model_total?: number | null;
   total: number;
   beat_model?: boolean;

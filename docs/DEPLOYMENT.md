@@ -8,6 +8,9 @@ credentials to the next. Estimated time: ~45 min.
 1. Create a project at [supabase.com](https://supabase.com) (pick a region near
    you). Save the database password.
 2. **SQL editor** → paste and run [`../supabase/schema.sql`](../supabase/schema.sql).
+   On an **existing** project, also run any newer files in
+   [`../supabase/migrations/`](../supabase/migrations/) in order (e.g.
+   `0001_safety_car.sql`). Fresh installs get everything from `schema.sql`.
 3. **Authentication → Providers**:
    - **Email**: enable (magic link is on by default).
    - **Google**: create an OAuth client at
@@ -46,13 +49,22 @@ workflow). After that the three workflows run on their own schedule
    |---|---|
    | `NEXT_PUBLIC_SUPABASE_URL` | the Project URL |
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | the `anon public` key |
-   | `NEXT_PUBLIC_MODEL_URL` | your Render URL (step 4) |
+   | `NEXT_PUBLIC_MODEL_URL` | *(optional)* your Render URL (step 4) |
    | `NEXT_PUBLIC_SEASON` | `2026` |
+
+   The site has a built-in `/model` page explaining the opponent, so
+   `NEXT_PUBLIC_MODEL_URL` is **optional** — set it only to add a link out to
+   the live Flask platform. A `localhost` value is ignored, so leaving it unset
+   is safe.
 
 4. Deploy. Copy the resulting `*.vercel.app` URL back into Supabase step 1.4
    (Site URL + redirect list).
 
-## 4. Render (the model page — optional but recommended)
+## 4. Render (the live model platform — optional)
+
+The site's `/model` page already explains the opponent without any extra
+service. This step is only for hosting the **interactive** Flask prediction
+platform and linking to it from the site.
 
 The existing Flask app in `src/app.py`. On [render.com](https://render.com) →
 New → Web Service → point at this repo:
