@@ -83,10 +83,6 @@ body {
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  /* Fade the whole glow out toward the bottom so it eases into the next
-     section instead of being clipped into a hard horizontal seam. */
-  -webkit-mask-image: linear-gradient(to bottom, black 68%, transparent 96%);
-  mask-image: linear-gradient(to bottom, black 68%, transparent 96%);
 }
 .aurora::before,
 .aurora::after {
@@ -98,12 +94,6 @@ body {
   filter: blur(72px);
 }
 
-/* The aurora is decorative; skip its paint cost on small screens entirely. */
-@media (max-width: 640px) {
-  .aurora::after {
-    display: none;
-  }
-}
 .aurora::before {
   width: 60rem;
   height: 60rem;
@@ -116,15 +106,18 @@ body {
     transparent 75%
   );
 }
+/* Bottom-left counterweight to the red glow up top. Sits inside the hero and
+   fades out well before the bottom (the hero's bottom overlay blends the rest),
+   so it's never clipped by the section change. */
 .aurora::after {
-  width: 46rem;
-  height: 46rem;
-  bottom: -24rem;
-  left: -14rem;
+  width: 44rem;
+  height: 44rem;
+  bottom: -8rem;
+  left: -12rem;
   background: radial-gradient(
     closest-side,
-    rgb(64 84 255 / 0.16),
-    rgb(64 84 255 / 0.05) 55%,
+    rgb(72 92 255 / 0.22),
+    rgb(72 92 255 / 0.07) 55%,
     transparent 75%
   );
 }
