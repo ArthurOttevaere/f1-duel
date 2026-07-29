@@ -1,15 +1,13 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getUser } from "@/lib/supabase/server";
 import MobileNav from "@/components/MobileNav";
 
 export default async function SiteNav() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getUser();
 
   let username: string | null = null;
   if (user) {
+    const supabase = await createClient();
     const { data } = await supabase
       .from("profiles")
       .select("username")

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, multiplierLabel, shortName } from "@/lib/format";
 import type {
@@ -84,9 +84,7 @@ export default async function RaceReviewPage({
   if (!race) notFound();
   if (race.status === "scheduled") redirect("/game");
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getUser();
 
   const [entryRes, resultRes, rosterRes, scoresRes, predsRes, profilesRes] =
     await Promise.all([

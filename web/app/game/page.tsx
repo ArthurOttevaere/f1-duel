@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, formatRaceDate, formatRaceTime } from "@/lib/format";
 import type { Driver, ModelEntry, Race, Score } from "@/lib/types";
@@ -13,9 +13,7 @@ export default async function GamePage() {
   const supabase = await createClient();
   const nowIso = new Date().toISOString();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getUser();
 
   const { data: nextRaces } = await supabase
     .from("races")

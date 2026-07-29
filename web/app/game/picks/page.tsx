@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import type { Driver, SeasonPick } from "@/lib/types";
 import SeasonPicksForm from "@/components/SeasonPicksForm";
@@ -9,9 +9,7 @@ export const metadata = { title: "Championship picks" };
 
 export default async function PicksPage() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getUser();
 
   const [{ data: rosterRows }, pickRes] = await Promise.all([
     supabase

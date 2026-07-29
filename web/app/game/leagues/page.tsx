@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getUser } from "@/lib/supabase/server";
 import { formatPoints } from "@/lib/format";
 import type { LeaderboardRow, League } from "@/lib/types";
 import LeagueActions from "@/components/LeagueActions";
@@ -8,9 +8,7 @@ export const metadata = { title: "Leagues" };
 
 export default async function LeaguesPage() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getUser();
 
   if (!user) {
     return (
