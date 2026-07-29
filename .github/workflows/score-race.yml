@@ -16,18 +16,36 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      # Skip cleanly (green, no failure email) until the Supabase secrets exist.
+      - name: Check configuration
+        id: guard
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_KEY" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Supabase secrets not set — skipping score-race. Add SUPABASE_URL and SUPABASE_SERVICE_KEY in repo settings to enable it."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.guard.outputs.configured == 'true'
+        uses: actions/checkout@v4
+      - if: steps.guard.outputs.configured == 'true'
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
-      - uses: actions/cache@v4
+      - if: steps.guard.outputs.configured == 'true'
+        uses: actions/cache@v4
         with:
           path: fastf1_cache
           key: fastf1-${{ github.run_id }}
           restore-keys: fastf1-
-      - run: pip install -r requirements.txt
-      - run: python jobs/score_race.py
+      - if: steps.guard.outputs.configured == 'true'
+        run: pip install -r requirements.txt
+      - if: steps.guard.outputs.configured == 'true'
+        run: python jobs/score_race.py
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
