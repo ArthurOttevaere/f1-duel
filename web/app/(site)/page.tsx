@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NextRaceWidget from "@/components/NextRaceWidget";
 
 const DUEL_STEPS = [
   {
@@ -43,9 +44,7 @@ export default function Home() {
             at the transition into the next section. */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-bg" />
 
-        <p className="rise-in glass-chip max-w-[90vw] rounded-full px-4 py-1.5 font-mono text-[0.65rem] tracking-[0.15em] text-ink-dim uppercase sm:text-xs sm:tracking-[0.2em]">
-          2026 season · one duel per Grand Prix
-        </p>
+        <NextRaceWidget />
 
         <h1 className="rise-in rise-in-2 mt-6 max-w-4xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-7xl sm:leading-[1.02]">
           Beat the model.
