@@ -17,6 +17,7 @@ export default function Countdown({ to, label }: { to: string; label: string }) 
   const [now, setNow] = useState<ReturnType<typeof remaining> | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only first tick
     setNow(remaining(target));
     const id = setInterval(() => setNow(remaining(target)), 1000);
     return () => clearInterval(id);

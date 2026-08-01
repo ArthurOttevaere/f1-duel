@@ -14,8 +14,14 @@
 create table public.profiles (
   id         uuid primary key references auth.users (id) on delete cascade,
   username   text not null unique check (username ~ '^[A-Za-z0-9_]{3,20}$'),
+  -- false while the name is only a suggestion (OAuth signup): the app then
+  -- sends the player through /welcome to choose one.
+  username_set boolean not null default true,
   created_at timestamptz not null default now()
 );
+
+-- "Max" and "max" are the same identity to a reader, so reserve both.
+create unique index profiles_username_ci_key on public.profiles (lower(username));
 
 -- Season roster, synced weekly from FastF1 (also powers profile theming).
 create table public.drivers (
@@ -133,19 +139,44 @@ create index on public.league_members (user_id);
 
 -- ─── Auth: auto-create a profile on signup ─────────────────────────────────
 
+-- Keeps the username from the sign-up form; for OAuth sign-ups (no form) it
+-- seeds a unique suggestion and flags it as not-yet-chosen. See migration 0002.
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql security definer set search_path = public
 as $$
+declare
+  chosen    text := nullif(new.raw_user_meta_data ->> 'username', '');
+  suggested text;
+  candidate text;
+  n         int  := 0;
 begin
-  insert into public.profiles (id, username)
-  values (
-    new.id,
-    coalesce(
-      nullif(new.raw_user_meta_data ->> 'username', ''),
-      'player_' || substr(replace(new.id::text, '-', ''), 1, 8)
-    )
-  )
+  if chosen is not null and chosen ~ '^[A-Za-z0-9_]{3,20}$' then
+    suggested := chosen;
+  else
+    suggested := coalesce(
+      nullif(new.raw_user_meta_data ->> 'name', ''),
+      nullif(new.raw_user_meta_data ->> 'full_name', ''),
+      split_part(coalesce(new.email, ''), '@', 1),
+      ''
+    );
+    suggested := left(regexp_replace(suggested, '[^A-Za-z0-9_]', '_', 'g'), 20);
+    if length(suggested) < 3 then
+      suggested := 'player_' || substr(replace(new.id::text, '-', ''), 1, 8);
+    end if;
+  end if;
+
+  -- A clash gets a numeric suffix rather than failing the signup outright;
+  -- /welcome then lets the player pick the name they actually wanted.
+  candidate := suggested;
+  while exists (select 1 from public.profiles p
+                 where lower(p.username) = lower(candidate)) loop
+    n := n + 1;
+    candidate := left(suggested, 16) || n::text;
+  end loop;
+
+  insert into public.profiles (id, username, username_set)
+  values (new.id, candidate, candidate is not distinct from chosen)
   on conflict (id) do nothing;
   return new;
 end;
@@ -154,6 +185,19 @@ $$;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
+
+-- Availability check for the username form.
+create or replace function public.username_available(p_username text)
+returns boolean
+language sql stable security definer set search_path = public
+as $$
+  select p_username ~ '^[A-Za-z0-9_]{3,20}$'
+     and not exists (
+       select 1 from public.profiles
+        where lower(username) = lower(trim(p_username))
+          and id is distinct from auth.uid()
+     );
+$$;
 
 -- ─── Predictions housekeeping ───────────────────────────────────────────────
 

@@ -116,6 +116,7 @@ export default async function GamePage() {
     };
   }
 
+  // eslint-disable-next-line react-hooks/purity -- server render: "now" is the request time
   const raceOpen = new Date(race.race_at ?? 0).getTime() > Date.now();
   const needsPicks = Boolean(user) && !seasonPickRes.data;
 
