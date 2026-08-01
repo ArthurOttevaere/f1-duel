@@ -415,6 +415,7 @@ export default function PredictionEditor({
   function clearSlot(i: number) {
     setSlots((s) => s.map((id, j) => (j === i ? null : id)));
     setActive(i);
+    replacing.current = false;
   }
 
   /** Put a driver in the active slot — swapping if they are already in the top 10. */
@@ -438,6 +439,8 @@ export default function PredictionEditor({
     const after = replacing.current ? -1 : nextEmpty(active + 1, next);
     if (after === -1) setSheetOpen(false);
     else setActive(after);
+    // One targeted edit only — the next pick resumes filling forward.
+    replacing.current = false;
   }
 
   function onDragEnd(event: DragEndEvent) {
