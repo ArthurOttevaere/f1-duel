@@ -46,7 +46,10 @@ export default function Home() {
 
         <NextRaceWidget />
 
-        <h1 className="rise-in rise-in-2 mt-6 max-w-4xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-7xl sm:leading-[1.02]">
+        {/* Wider gap than the rest of the hero's rhythm on purpose: the
+            headline is 72px on desktop, and 24px under it left the widget
+            looking stuck to it rather than introducing it. */}
+        <h1 className="rise-in rise-in-2 mt-10 max-w-4xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:mt-14 sm:text-7xl sm:leading-[1.02]">
           Beat the model.
           <br />
           <span className="bg-gradient-to-r from-race to-[#ff7a5c] bg-clip-text text-transparent">
