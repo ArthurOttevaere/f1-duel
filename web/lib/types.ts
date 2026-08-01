@@ -88,6 +88,8 @@ export interface Score {
 export interface Profile {
   id: string;
   username: string;
+  /** false while the name is only a suggestion (OAuth signup, see /welcome). */
+  username_set: boolean;
   created_at: string;
 }
 

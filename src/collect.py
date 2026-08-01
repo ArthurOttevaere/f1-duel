@@ -34,6 +34,8 @@ SEASONS_DIR = os.path.join(OUTPUT_DIR, 'seasons')
 
 ALL_SEASONS = range(2018, 2027)  # 2018 → 2026 included
 
+# Idem predict.py : le cache est gitignoré, donc absent sur une machine fraîche.
+os.makedirs(CACHE_DIR, exist_ok=True)
 fastf1.Cache.enable_cache(CACHE_DIR)
 
 _DROP_COLS = ['HeadShot', 'BroadcastName', 'TeamColor', 'CountryCode', 'FullName']

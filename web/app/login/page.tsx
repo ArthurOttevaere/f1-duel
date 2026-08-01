@@ -58,13 +58,24 @@ export default function LoginPage() {
       return;
     }
 
+    // Say it now rather than handing out `name1` after the account exists.
+    const name = username.trim();
+    const { data: free } = await supabase.rpc("username_available", {
+      p_username: name,
+    });
+    if (free === false) {
+      setStatus("error");
+      setError("That username is already taken — pick another.");
+      return;
+    }
+
     // Sign up: verify email once, then it's password-only forever after.
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: `${location.origin}/auth/confirm?next=/game`,
-        data: { username },
+        data: { username: name },
       },
     });
     if (error) {

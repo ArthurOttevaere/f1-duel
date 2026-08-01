@@ -39,6 +39,9 @@ DATA       = os.path.join(ROOT, 'data', 'processed')
 MODELS_DIR = os.path.join(ROOT, 'models')
 CACHE_DIR  = os.path.join(ROOT, 'fastf1_cache')
 
+# Le cache est gitignoré : sur une machine fraîche (CI notamment) le dossier
+# n'existe pas encore et enable_cache() lève NotADirectoryError.
+os.makedirs(CACHE_DIR, exist_ok=True)
 fastf1.Cache.enable_cache(CACHE_DIR)
 
 STREET_CIRCUITS = {

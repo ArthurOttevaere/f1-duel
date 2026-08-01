@@ -1,21 +1,13 @@
 import Link from "next/link";
-import { createClient, getUser } from "@/lib/supabase/server";
+import { getUser } from "@/lib/supabase/server";
+import { getOwnProfile } from "@/lib/auth";
 import MobileNav from "@/components/MobileNav";
 import NavLinks from "@/components/NavLinks";
 
 export default async function SiteNav() {
   const user = await getUser();
-
-  let username: string | null = null;
-  if (user) {
-    const supabase = await createClient();
-    const { data } = await supabase
-      .from("profiles")
-      .select("username")
-      .eq("id", user.id)
-      .single();
-    username = data?.username ?? null;
-  }
+  // Request-cached: the game layout guard reads the same row.
+  const username = (await getOwnProfile())?.username ?? null;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">

@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import {
   DndContext,
@@ -26,71 +27,326 @@ import type { Driver, Race } from "@/lib/types";
 import { DriverAvatar } from "@/components/DriverChip";
 
 type SaveState = "idle" | "saving" | "saved" | "error";
+/** A fixed 10-slot grid: `null` = still empty. */
+type Slots = (string | null)[];
 
-function SortableSlot({
+const DESKTOP = "(min-width: 1024px)";
+
+function isDesktop() {
+  return (
+    typeof window !== "undefined" && window.matchMedia(DESKTOP).matches
+  );
+}
+
+function toSlots(picks: string[]): Slots {
+  return Array.from({ length: 10 }, (_, i) => picks[i] ?? null);
+}
+
+/** A short tick of haptic feedback where the platform offers it (Android). */
+function tick() {
+  if (typeof navigator !== "undefined") navigator.vibrate?.(8);
+}
+
+// ─── One row of the top 10 ───────────────────────────────────────────────────
+
+function Slot({
   driver,
   position,
-  onRemove,
+  active,
   disabled,
+  onSelect,
+  onClear,
 }: {
-  driver: Driver;
+  driver: Driver | null;
   position: number;
-  onRemove: () => void;
+  active: boolean;
   disabled: boolean;
+  onSelect: () => void;
+  onClear: () => void;
 }) {
   const {
     attributes,
     listeners,
     setNodeRef,
+    setActivatorNodeRef,
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: driver.driver_id, disabled });
+  } = useSortable({ id: driver?.driver_id ?? `empty-${position}`, disabled: disabled || !driver });
 
-  const color = driver.team_color ?? "#6c7280";
+  const color = driver?.team_color ?? "#6c7280";
 
   return (
     <li
       ref={setNodeRef}
-      style={{
-        transform: CSS.Transform.toString(transform),
-        transition,
-      }}
-      className={`flex items-center gap-3 rounded-xl border border-line bg-glass px-3 py-2 select-none ${
-        isDragging ? "z-10 border-line-hi shadow-lg" : ""
-      } ${disabled ? "" : "cursor-grab active:cursor-grabbing"}`}
-      {...attributes}
-      {...listeners}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
+      className={`relative flex items-center gap-2.5 rounded-xl border px-2.5 py-2 transition-colors sm:gap-3 sm:px-3 ${
+        driver
+          ? "border-line bg-glass"
+          : "border-dashed border-line bg-transparent"
+      } ${isDragging ? "z-10 border-line-hi shadow-lg" : ""} ${
+        active ? "border-race/70 bg-race/5" : ""
+      }`}
     >
-      <span className="w-7 shrink-0 font-mono text-sm text-ink-mute">
+      <span
+        className={`w-7 shrink-0 font-mono text-sm ${
+          active ? "text-race" : "text-ink-mute"
+        }`}
+      >
         P{position}
       </span>
-      <span
-        aria-hidden
-        className="h-6 w-1 shrink-0 rounded-full"
-        style={{ background: color }}
-      />
-      <DriverAvatar driver={driver} size={32} />
-      <span className="flex-1 truncate text-sm font-medium">
-        {shortName(driver.driver_id)}
-        <span className="ml-2 hidden text-xs text-ink-mute sm:inline">
-          {driver.team}
-        </span>
-      </span>
-      {!disabled && (
+
+      {driver ? (
+        <>
+          <span
+            aria-hidden
+            className="h-7 w-1 shrink-0 rounded-full"
+            style={{ background: color }}
+          />
+          <DriverAvatar driver={driver} size={32} />
+          <button
+            type="button"
+            onClick={onSelect}
+            disabled={disabled}
+            className="flex min-w-0 flex-1 items-baseline gap-2 py-1 text-left disabled:cursor-default"
+          >
+            <span className="truncate text-sm font-medium">
+              {shortName(driver.driver_id)}
+            </span>
+            <span className="hidden truncate text-xs text-ink-mute sm:inline">
+              {driver.team}
+            </span>
+          </button>
+          {!disabled && (
+            <>
+              <button
+                type="button"
+                onClick={onClear}
+                aria-label={`Clear P${position}`}
+                className="pressable -m-1 rounded-full p-2 text-ink-mute transition-colors hover:text-ink"
+              >
+                <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden>
+                  <path
+                    d="M3 3l10 10M13 3L3 13"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+              {/* Drag lives on the handle alone so touch-scrolling the list
+                  never gets hijacked into a drag. */}
+              <button
+                type="button"
+                ref={setActivatorNodeRef}
+                aria-label={`Reorder ${shortName(driver.driver_id)}`}
+                style={{ touchAction: "none" }}
+                className="-m-1 cursor-grab rounded-full p-2 text-ink-mute active:cursor-grabbing"
+                {...attributes}
+                {...listeners}
+              >
+                <svg viewBox="0 0 16 16" className="size-4" aria-hidden>
+                  <path
+                    d="M3 5h10M3 8h10M3 11h10"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </>
+          )}
+        </>
+      ) : (
         <button
           type="button"
-          onPointerDown={(e) => e.stopPropagation()}
-          onClick={onRemove}
-          aria-label={`Remove ${shortName(driver.driver_id)}`}
-          className="pressable rounded-full px-2 py-1 text-ink-mute transition-colors hover:text-ink"
+          onClick={onSelect}
+          disabled={disabled}
+          className="flex flex-1 items-center justify-between py-1.5 text-left text-sm text-ink-mute disabled:cursor-default"
         >
-          ✕
+          <span>{active ? "Choose a driver…" : "Tap to choose a driver"}</span>
+          <span aria-hidden className="text-ink-mute">
+            +
+          </span>
         </button>
       )}
     </li>
   );
 }
+
+// ─── The roster, used inline on desktop and inside the sheet on mobile ───────
+
+function DriverPool({
+  roster,
+  slots,
+  disabled,
+  onPick,
+  compact,
+}: {
+  roster: Driver[];
+  slots: Slots;
+  disabled: boolean;
+  onPick: (driverId: string) => void;
+  compact?: boolean;
+}) {
+  const positionOf = useMemo(() => {
+    const m = new Map<string, number>();
+    slots.forEach((id, i) => id && m.set(id, i + 1));
+    return m;
+  }, [slots]);
+
+  return (
+    <div
+      className={`grid gap-1.5 ${compact ? "grid-cols-2" : "grid-cols-2 xl:grid-cols-3"}`}
+    >
+      {roster.map((d) => {
+        const at = positionOf.get(d.driver_id);
+        return (
+          <button
+            key={d.driver_id}
+            type="button"
+            onClick={() => onPick(d.driver_id)}
+            disabled={disabled}
+            aria-pressed={Boolean(at)}
+            className={`pressable flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition-colors disabled:opacity-45 ${
+              at
+                ? "border-race/50 bg-race/10"
+                : "border-line bg-glass hover:border-line-hi"
+            }`}
+          >
+            <DriverAvatar driver={d} size={30} />
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-xs font-medium">
+                {shortName(d.driver_id)}
+              </span>
+              <span className="block truncate text-[0.65rem] text-ink-mute">
+                {d.team}
+              </span>
+            </span>
+            {at && (
+              <span className="shrink-0 rounded-md bg-race px-1.5 py-0.5 font-mono text-[0.65rem] font-semibold text-white">
+                P{at}
+              </span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── Mobile bottom sheet ─────────────────────────────────────────────────────
+
+function PickerSheet({
+  open,
+  slot,
+  slots,
+  roster,
+  onPick,
+  onClose,
+}: {
+  open: boolean;
+  slot: number;
+  slots: Slots;
+  roster: Driver[];
+  onPick: (driverId: string) => void;
+  onClose: () => void;
+}) {
+  // Lock the page behind the sheet so only the sheet scrolls.
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  // `open` only ever flips on a client event, so the portal never runs on the
+  // server and no mounted flag is needed.
+  if (!open) return null;
+
+  const filled = slots.filter(Boolean).length;
+
+  return createPortal(
+    <div className="fixed inset-0 z-[60] lg:hidden" role="dialog" aria-modal="true">
+      <button
+        type="button"
+        aria-label="Close driver picker"
+        onClick={onClose}
+        className="sheet-backdrop absolute inset-0 bg-black/65"
+      />
+      <div className="sheet-panel absolute inset-x-0 bottom-0 flex max-h-[85svh] flex-col rounded-t-3xl border-t border-line bg-[#0d0f14] shadow-[0_-20px_50px_rgb(0_0_0/0.6)]">
+        <div className="shrink-0 px-4 pt-3">
+          <span
+            aria-hidden
+            className="mx-auto block h-1 w-10 rounded-full bg-line-hi"
+          />
+          <div className="mt-3 flex items-center justify-between">
+            <div>
+              <p className="font-mono text-xs tracking-[0.15em] text-race uppercase">
+                Filling P{slot + 1}
+              </p>
+              <p className="mt-0.5 text-sm text-ink-dim">
+                {filled}/10 picked · tap a driver
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="pressable glass-chip rounded-full px-4 py-1.5 text-sm font-medium"
+            >
+              Done
+            </button>
+          </div>
+
+          {/* Live progress: the pick lands here, in view, without closing. */}
+          <div className="no-scrollbar -mx-4 mt-3 flex gap-1.5 overflow-x-auto px-4 pb-3">
+            {slots.map((id, i) => (
+              <span
+                key={i}
+                className={`flex h-7 shrink-0 items-center gap-1 rounded-lg border px-2 font-mono text-[0.65rem] ${
+                  i === slot
+                    ? "border-race bg-race/15 text-race"
+                    : id
+                      ? "border-line bg-glass text-ink-dim"
+                      : "border-dashed border-line text-ink-mute"
+                }`}
+              >
+                {i + 1}
+                {id && (
+                  <span className="font-sans font-medium text-ink">
+                    {shortName(id)}
+                  </span>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 pt-1 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+          <DriverPool
+            roster={roster}
+            slots={slots}
+            disabled={false}
+            onPick={onPick}
+            compact
+          />
+          <p className="mt-4 text-center text-xs text-ink-mute">
+            Tapping a driver who is already in your top 10 swaps the two
+            positions.
+          </p>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
+// ─── Editor ──────────────────────────────────────────────────────────────────
 
 export default function PredictionEditor({
   race,
@@ -109,44 +365,89 @@ export default function PredictionEditor({
   canPlay: boolean;
   signedIn: boolean;
 }) {
-  const [picks, setPicks] = useState<string[]>(initialPicks);
+  const [slots, setSlots] = useState<Slots>(() => toSlots(initialPicks));
   const [dotd, setDotd] = useState<string | null>(initialDotd);
   const [scBet, setScBet] = useState<boolean | null>(initialScBet);
+  const [active, setActive] = useState(() => {
+    const i = toSlots(initialPicks).findIndex((id) => !id);
+    return i === -1 ? 0 : i;
+  });
+  const [sheetOpen, setSheetOpen] = useState(false);
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [error, setError] = useState<string | null>(null);
   const [savedSnapshot, setSavedSnapshot] = useState(
-    JSON.stringify([initialPicks, initialDotd, initialScBet]),
+    JSON.stringify([toSlots(initialPicks), initialDotd, initialScBet]),
   );
+  // Whether the slot we are filling was empty when the sheet opened — an empty
+  // slot means "keep going", a filled one means the player wanted that one row.
+  const replacing = useRef(false);
 
   const byId = useMemo(
     () => new Map(roster.map((d) => [d.driver_id, d])),
     [roster],
   );
-  const pool = roster.filter((d) => d.active && !picks.includes(d.driver_id));
-  const dirty = JSON.stringify([picks, dotd, scBet]) !== savedSnapshot;
-  const complete = picks.length === 10;
+  const activeRoster = useMemo(() => roster.filter((d) => d.active), [roster]);
+  const filled = slots.filter(Boolean).length;
+  const complete = filled === 10;
+  const dirty = JSON.stringify([slots, dotd, scBet]) !== savedSnapshot;
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
-  function onDragEnd(event: DragEndEvent) {
-    const { active, over } = event;
-    if (over && active.id !== over.id) {
-      setPicks((p) =>
-        arrayMove(p, p.indexOf(String(active.id)), p.indexOf(String(over.id))),
-      );
+  const nextEmpty = useCallback(
+    (from: number, current: Slots) => {
+      for (let i = from; i < 10; i++) if (!current[i]) return i;
+      for (let i = 0; i < from; i++) if (!current[i]) return i;
+      return -1;
+    },
+    [],
+  );
+
+  function selectSlot(i: number) {
+    if (!canPlay) return;
+    setActive(i);
+    replacing.current = Boolean(slots[i]);
+    if (!isDesktop()) setSheetOpen(true);
+  }
+
+  function clearSlot(i: number) {
+    setSlots((s) => s.map((id, j) => (j === i ? null : id)));
+    setActive(i);
+  }
+
+  /** Put a driver in the active slot — swapping if they are already in the top 10. */
+  function pick(driverId: string) {
+    if (!canPlay) return;
+    tick();
+
+    const next = [...slots];
+    const from = next.indexOf(driverId);
+    if (from === active) {
+      next[active] = null; // tapping the current pick clears it
+      setSlots(next);
+      return;
     }
+    if (from !== -1) next[from] = next[active]; // swap, never duplicate
+    next[active] = driverId;
+    setSlots(next);
+
+    // Filling an empty slot means "keep going"; replacing one was a targeted
+    // edit, so the sheet gets out of the way.
+    const after = replacing.current ? -1 : nextEmpty(active + 1, next);
+    if (after === -1) setSheetOpen(false);
+    else setActive(after);
   }
 
-  function add(driverId: string) {
-    if (!canPlay || picks.length >= 10) return;
-    setPicks((p) => [...p, driverId]);
-  }
-
-  function remove(driverId: string) {
-    setPicks((p) => p.filter((id) => id !== driverId));
+  function onDragEnd(event: DragEndEvent) {
+    const { active: a, over } = event;
+    if (!over || a.id === over.id) return;
+    const ids = slots.map((id, i) => id ?? `empty-${i + 1}`);
+    const from = ids.indexOf(String(a.id));
+    const to = ids.indexOf(String(over.id));
+    if (from === -1 || to === -1) return;
+    setSlots((s) => arrayMove(s, from, to));
   }
 
   async function save() {
@@ -162,96 +463,113 @@ export default function PredictionEditor({
       return;
     }
     const { error: err } = await supabase.from("predictions").upsert(
-      { user_id: user.id, race_id: race.id, picks, dotd, sc_bet: scBet },
+      {
+        user_id: user.id,
+        race_id: race.id,
+        picks: slots.filter(Boolean) as string[],
+        dotd,
+        sc_bet: scBet,
+      },
       { onConflict: "user_id,race_id" },
     );
     if (err) {
       setSaveState("error");
       setError(err.message);
     } else {
-      setSavedSnapshot(JSON.stringify([picks, dotd, scBet]));
+      setSavedSnapshot(JSON.stringify([slots, dotd, scBet]));
       setSaveState("saved");
     }
   }
 
+  const sortableIds = slots.map((id, i) => id ?? `empty-${i + 1}`);
+
   return (
-    <div className="relative grid gap-6 lg:grid-cols-[1fr_1.1fr]">
-      {/* ── Your top 10 ── */}
-      <section>
-        <h3 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
-          YOUR TOP 10
-        </h3>
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={onDragEnd}
-        >
-          <SortableContext items={picks} strategy={verticalListSortingStrategy}>
-            <ol className="flex flex-col gap-1.5">
-              {picks.map((id, i) => {
-                const driver = byId.get(id);
-                if (!driver) return null;
-                return (
-                  <SortableSlot
-                    key={id}
-                    driver={driver}
-                    position={i + 1}
-                    onRemove={() => remove(id)}
-                    disabled={!canPlay}
-                  />
-                );
-              })}
-              {Array.from({ length: 10 - picks.length }, (_, i) => (
-                <li
-                  key={`empty-${i}`}
-                  className="flex items-center gap-3 rounded-xl border border-dashed border-line px-3 py-2.5 text-sm text-ink-mute"
-                >
-                  <span className="w-7 font-mono">P{picks.length + i + 1}</span>
-                  <span className="text-xs">
-                    {i === 0 ? "Tap a driver to add →" : ""}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </SortableContext>
-        </DndContext>
-      </section>
+    <div className="relative flex flex-col gap-6">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+        {/* ── Your top 10 ── */}
+        <section>
+          <div className="mb-3 flex items-baseline justify-between gap-3">
+            <h3 className="text-sm font-semibold tracking-wide text-ink-dim">
+              YOUR TOP 10
+            </h3>
+            <span className="font-mono text-xs text-ink-mute">
+              {filled}/10
+            </span>
+          </div>
 
-      {/* ── Driver pool + DotD + save ── */}
-      <section className="flex flex-col">
-        <h3 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
-          DRIVERS
-        </h3>
-        <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
-          {pool.map((d) => (
-            <button
-              key={d.driver_id}
-              type="button"
-              onClick={() => add(d.driver_id)}
-              disabled={!canPlay || picks.length >= 10}
-              className="pressable flex items-center gap-2 rounded-xl border border-line bg-glass px-2.5 py-1.5 text-left transition-colors hover:border-line-hi disabled:opacity-45"
+          {/* Progress rail: 10 ticks that fill as the grid comes together. */}
+          <div aria-hidden className="mb-3 flex gap-1">
+            {slots.map((id, i) => (
+              <span
+                key={i}
+                className={`h-1 flex-1 rounded-full transition-colors ${
+                  id ? "bg-race" : "bg-line"
+                }`}
+              />
+            ))}
+          </div>
+
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={onDragEnd}
+          >
+            <SortableContext
+              items={sortableIds}
+              strategy={verticalListSortingStrategy}
             >
-              <DriverAvatar driver={d} size={28} />
-              <span className="truncate text-xs font-medium">
-                {shortName(d.driver_id)}
-              </span>
-            </button>
-          ))}
-          {pool.length === 0 && (
-            <p className="col-span-full rounded-xl border border-dashed border-line p-4 text-center text-xs text-ink-mute">
-              Full house — your top 10 is complete.
-            </p>
-          )}
-        </div>
+              <ol className="flex flex-col gap-1.5">
+                {slots.map((id, i) => (
+                  <Slot
+                    key={sortableIds[i]}
+                    driver={id ? (byId.get(id) ?? null) : null}
+                    position={i + 1}
+                    active={canPlay && active === i}
+                    disabled={!canPlay}
+                    onSelect={() => selectSlot(i)}
+                    onClear={() => clearSlot(i)}
+                  />
+                ))}
+              </ol>
+            </SortableContext>
+          </DndContext>
 
-        <h3 className="mt-6 mb-2 text-sm font-semibold tracking-wide text-ink-dim">
-          DRIVER OF THE DAY{" "}
-          <span className="font-normal text-ink-mute">· +5 pts, optional</span>
-        </h3>
-        <div className="flex flex-wrap gap-1.5">
-          {roster
-            .filter((d) => d.active)
-            .map((d) => (
+          {canPlay && (
+            <button
+              type="button"
+              onClick={() => selectSlot(complete ? active : nextEmpty(0, slots))}
+              className="pressable mt-3 w-full rounded-xl border border-line-hi py-3 text-sm font-semibold transition-colors hover:bg-glass-strong lg:hidden"
+            >
+              {complete
+                ? "Change a driver"
+                : `Choose drivers (${10 - filled} left)`}
+            </button>
+          )}
+        </section>
+
+        {/* ── Roster (desktop) + side bets ── */}
+        <section className="flex flex-col">
+          <div className="hidden lg:block">
+            <h3 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
+              DRIVERS{" "}
+              <span className="font-normal text-ink-mute">
+                · click to place in P{active + 1}
+              </span>
+            </h3>
+            <DriverPool
+              roster={activeRoster}
+              slots={slots}
+              disabled={!canPlay}
+              onPick={pick}
+            />
+          </div>
+
+          <h3 className="mb-2 text-sm font-semibold tracking-wide text-ink-dim lg:mt-6">
+            DRIVER OF THE DAY{" "}
+            <span className="font-normal text-ink-mute">· +5 pts, optional</span>
+          </h3>
+          <div className="flex flex-wrap gap-1.5">
+            {activeRoster.map((d) => (
               <button
                 key={d.driver_id}
                 type="button"
@@ -259,7 +577,7 @@ export default function PredictionEditor({
                 onClick={() =>
                   setDotd(dotd === d.driver_id ? null : d.driver_id)
                 }
-                className={`pressable rounded-full border px-3 py-1 font-mono text-xs transition-colors disabled:opacity-45 ${
+                className={`pressable rounded-full border px-3 py-1.5 font-mono text-xs transition-colors disabled:opacity-45 ${
                   dotd === d.driver_id
                     ? "border-race bg-race/15 text-race"
                     : "border-line text-ink-dim hover:border-line-hi"
@@ -268,61 +586,74 @@ export default function PredictionEditor({
                 {d.code}
               </button>
             ))}
-        </div>
-
-        <h3 className="mt-6 mb-2 text-sm font-semibold tracking-wide text-ink-dim">
-          SAFETY CAR{" "}
-          <span className="font-normal text-ink-mute">
-            · +8 pts · the model bets too
-          </span>
-        </h3>
-        <p className="mb-2 text-xs text-ink-mute">
-          Will a safety car (full or virtual) come out this race?
-        </p>
-        <div className="flex gap-1.5">
-          {(
-            [
-              { val: true, label: "Yes" },
-              { val: false, label: "No" },
-            ] as const
-          ).map((o) => (
-            <button
-              key={o.label}
-              type="button"
-              disabled={!canPlay}
-              onClick={() => setScBet(scBet === o.val ? null : o.val)}
-              className={`pressable flex-1 rounded-xl border px-4 py-2 text-sm font-medium transition-colors disabled:opacity-45 ${
-                scBet === o.val
-                  ? "border-race bg-race/15 text-race"
-                  : "border-line text-ink-dim hover:border-line-hi"
-              }`}
-            >
-              {o.label}
-            </button>
-          ))}
-        </div>
-
-        {canPlay && (
-          <div className="mt-6 flex items-center gap-4">
-            <button
-              type="button"
-              onClick={save}
-              disabled={!complete || !dirty || saveState === "saving"}
-              className="pressable rounded-full bg-race px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgb(255_30_60/0.35)] transition-colors hover:bg-race-deep disabled:opacity-45 disabled:shadow-none"
-            >
-              {saveState === "saving"
-                ? "Saving…"
-                : complete
-                  ? "Lock in prediction"
-                  : `Pick ${10 - picks.length} more`}
-            </button>
-            <span aria-live="polite" className="text-sm text-ink-mute">
-              {saveState === "saved" && !dirty && "Saved ✓ (editable until lights out)"}
-              {error}
-            </span>
           </div>
-        )}
-      </section>
+
+          <h3 className="mt-6 mb-2 text-sm font-semibold tracking-wide text-ink-dim">
+            SAFETY CAR{" "}
+            <span className="font-normal text-ink-mute">
+              · +8 pts · the model bets too
+            </span>
+          </h3>
+          <p className="mb-2 text-xs text-ink-mute">
+            Will a safety car (full or virtual) come out this race?
+          </p>
+          <div className="flex gap-1.5">
+            {(
+              [
+                { val: true, label: "Yes" },
+                { val: false, label: "No" },
+              ] as const
+            ).map((o) => (
+              <button
+                key={o.label}
+                type="button"
+                disabled={!canPlay}
+                onClick={() => setScBet(scBet === o.val ? null : o.val)}
+                className={`pressable flex-1 rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-45 ${
+                  scBet === o.val
+                    ? "border-race bg-race/15 text-race"
+                    : "border-line text-ink-dim hover:border-line-hi"
+                }`}
+              >
+                {o.label}
+              </button>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* ── Save — rides the bottom of the viewport while the editor is in
+             view, so the button is never a scroll away. The negative margins
+             bleed it to the edges of the `glass-card p-6` it sits in. ── */}
+      {canPlay && (
+        <div className="sticky bottom-0 -mx-6 -mb-6 flex items-center gap-4 rounded-b-[1.25rem] border-t border-line bg-[#0d0f14]/95 px-6 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur-sm">
+          <button
+            type="button"
+            onClick={save}
+            disabled={!complete || !dirty || saveState === "saving"}
+            className="pressable flex-1 rounded-full bg-race px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgb(255_30_60/0.35)] transition-colors hover:bg-race-deep disabled:opacity-45 disabled:shadow-none sm:flex-none"
+          >
+            {saveState === "saving"
+              ? "Saving…"
+              : complete
+                ? "Lock in prediction"
+                : `Pick ${10 - filled} more`}
+          </button>
+          <span aria-live="polite" className="text-xs text-ink-mute sm:text-sm">
+            {saveState === "saved" && !dirty && "Saved ✓ editable until lights out"}
+            {error}
+          </span>
+        </div>
+      )}
+
+      <PickerSheet
+        open={sheetOpen && canPlay}
+        slot={active}
+        slots={slots}
+        roster={activeRoster}
+        onPick={pick}
+        onClose={() => setSheetOpen(false)}
+      />
 
       {/* ── Sign-in gate ── */}
       {!signedIn && (

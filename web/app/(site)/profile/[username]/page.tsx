@@ -4,6 +4,7 @@ import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, shortName } from "@/lib/format";
 import type { Driver, Profile, Race, Score, SeasonPick } from "@/lib/types";
+import UsernameEditor from "@/components/UsernameEditor";
 
 export const revalidate = 120;
 
@@ -92,6 +93,7 @@ export default async function ProfilePage({
             </form>
           )}
           <h1 className="text-3xl font-bold tracking-tight">{profile.username}</h1>
+          {isOwner && <UsernameEditor username={profile.username} />}
           {pick ? (
             <p className="mt-2 text-sm text-ink-dim">
               Backing{" "}

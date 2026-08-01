@@ -1,6 +1,7 @@
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { destinationFor } from "@/lib/auth";
 
 // Email OTP verification (used when the magic link carries a token_hash).
 export async function GET(request: Request) {
@@ -13,7 +14,9 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { error } = await supabase.auth.verifyOtp({ type, token_hash });
     if (!error) {
-      return NextResponse.redirect(`${origin}${next}`);
+      return NextResponse.redirect(
+        `${origin}${await destinationFor(supabase, next)}`,
+      );
     }
   }
   return NextResponse.redirect(`${origin}/login?error=auth`);
