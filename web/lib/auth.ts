@@ -20,6 +20,25 @@ export const getOwnProfile = cache(async () => {
   return (data as { id: string; username: string; username_set?: boolean } | null) ?? null;
 });
 
+/**
+ * Whether the player still owes us their details, deduplicated per request.
+ *
+ * A query error means the 0003 migration hasn't landed on this project yet —
+ * report "nothing owed" rather than trapping every account in a /welcome loop
+ * it has no table to write to.
+ */
+export const hasDetails = cache(async (): Promise<boolean> => {
+  const user = await getUser();
+  if (!user) return true;
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("player_details")
+    .select("id")
+    .eq("id", user.id)
+    .maybeSingle();
+  return error ? true : Boolean(data);
+});
+
 /** Only ever bounce back inside the app. */
 export function safePath(next: string | undefined | null): string {
   return next && next.startsWith("/") && !next.startsWith("//") ? next : "/game";
@@ -29,9 +48,9 @@ export function safePath(next: string | undefined | null): string {
  * Where a freshly authenticated session should land.
  *
  * Google and magic-link sign-ups never see the sign-up form, so their profile
- * carries a suggested username rather than a chosen one. Those accounts get
- * one pass through /welcome before anything else. Takes the client that just
- * performed the exchange, whose session is already in memory.
+ * carries a suggested username rather than a chosen one and no details row.
+ * Those accounts get one pass through /welcome before anything else. Takes the
+ * client that just performed the exchange, whose session is already in memory.
  */
 export async function destinationFor(
   supabase: SupabaseClient,
@@ -51,7 +70,17 @@ export async function destinationFor(
 
   // A missing profile means the signup trigger hasn't landed yet: don't trap
   // anyone in a redirect loop over it.
-  return data?.username_set === false
+  if (data?.username_set === false) {
+    return `/welcome?next=${encodeURIComponent(safe)}`;
+  }
+
+  const { data: details, error } = await supabase
+    .from("player_details")
+    .select("id")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  return !error && !details
     ? `/welcome?next=${encodeURIComponent(safe)}`
     : safe;
 }
@@ -59,4 +88,10 @@ export async function destinationFor(
 /** True when the signed-in player still carries an auto-generated username. */
 export async function needsUsername(): Promise<boolean> {
   return (await getOwnProfile())?.username_set === false;
+}
+
+/** True when /welcome still has something to ask the signed-in player. */
+export async function needsOnboarding(): Promise<boolean> {
+  if (await needsUsername()) return true;
+  return !(await hasDetails());
 }

@@ -3,8 +3,16 @@ import { notFound } from "next/navigation";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, shortName } from "@/lib/format";
-import type { Driver, Profile, Race, Score, SeasonPick } from "@/lib/types";
+import type {
+  Driver,
+  PlayerDetails,
+  Profile,
+  Race,
+  Score,
+  SeasonPick,
+} from "@/lib/types";
 import UsernameEditor from "@/components/UsernameEditor";
+import PlayerDetailsEditor from "@/components/PlayerDetailsEditor";
 
 export const revalidate = 120;
 
@@ -39,6 +47,18 @@ export default async function ProfilePage({
       supabase.from("races").select("*").eq("season", CURRENT_SEASON),
       supabase.from("drivers").select("*").eq("season", CURRENT_SEASON),
     ]);
+
+  // Only fetched for the owner: RLS would hand a visitor nothing anyway, so
+  // the round-trip is pure waste on someone else's profile.
+  const details = isOwner
+    ? ((
+        await supabase
+          .from("player_details")
+          .select("*")
+          .eq("id", profile.id)
+          .maybeSingle()
+      ).data as PlayerDetails | null)
+    : null;
 
   const pick = pickRow as SeasonPick | null;
   const races = new Map(((raceRows as Race[]) ?? []).map((r) => [r.id, r]));
@@ -123,6 +143,18 @@ export default async function ProfilePage({
             ))}
           </dl>
         </header>
+
+        {/* ── Personal details (owner only) ── */}
+        {isOwner && (
+          <PlayerDetailsEditor
+            initial={{
+              firstName: details?.first_name ?? "",
+              lastName: details?.last_name ?? "",
+              country: details?.country ?? "",
+              birthYear: details?.birth_year ? String(details.birth_year) : "",
+            }}
+          />
+        )}
 
         {/* ── Duel history ── */}
         <section className="mt-8">

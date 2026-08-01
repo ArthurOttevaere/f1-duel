@@ -2,6 +2,17 @@
 
 export type RaceStatus = "scheduled" | "locked" | "scored";
 
+/** Private per-player data, readable only by its owner (and the service role). */
+export interface PlayerDetails {
+  id: string;
+  first_name: string;
+  last_name: string;
+  country: string | null;   // ISO 3166-1 alpha-2
+  birth_year: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Race {
   id: number;
   season: number;

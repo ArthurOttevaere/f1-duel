@@ -23,6 +23,20 @@ create table public.profiles (
 -- "Max" and "max" are the same identity to a reader, so reserve both.
 create unique index profiles_username_ci_key on public.profiles (lower(username));
 
+-- Who the player actually is. Kept out of `profiles` on purpose: that table is
+-- world-readable, and a legal name and age are not game data. Owner-only under
+-- RLS — the service role (SQL editor) is what reads this in aggregate.
+create table public.player_details (
+  id         uuid primary key references public.profiles (id) on delete cascade,
+  first_name text not null check (char_length(btrim(first_name)) between 1 and 60),
+  last_name  text not null check (char_length(btrim(last_name))  between 1 and 60),
+  country    text check (country ~ '^[A-Z]{2}$'),   -- ISO 3166-1 alpha-2
+  -- Year rather than age: an age is wrong again twelve months later.
+  birth_year int  check (birth_year between 1900 and 2100),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 -- Season roster, synced weekly from FastF1 (also powers profile theming).
 create table public.drivers (
   season     int  not null,
@@ -139,8 +153,10 @@ create index on public.league_members (user_id);
 
 -- ─── Auth: auto-create a profile on signup ─────────────────────────────────
 
--- Keeps the username from the sign-up form; for OAuth sign-ups (no form) it
--- seeds a unique suggestion and flags it as not-yet-chosen. See migration 0002.
+-- Keeps the username and the details from the sign-up form; for OAuth sign-ups
+-- (no form) it seeds a unique username suggestion, flags it as not-yet-chosen
+-- and writes no details, so the app collects both at /welcome instead.
+-- See migrations 0002 and 0003.
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql security definer set search_path = public
@@ -150,6 +166,10 @@ declare
   suggested text;
   candidate text;
   n         int  := 0;
+  f_name    text := nullif(btrim(new.raw_user_meta_data ->> 'first_name'), '');
+  l_name    text := nullif(btrim(new.raw_user_meta_data ->> 'last_name'), '');
+  ctry      text := nullif(upper(btrim(new.raw_user_meta_data ->> 'country')), '');
+  b_year    int;
 begin
   if chosen is not null and chosen ~ '^[A-Za-z0-9_]{3,20}$' then
     suggested := chosen;
@@ -178,6 +198,26 @@ begin
   insert into public.profiles (id, username, username_set)
   values (new.id, candidate, candidate is not distinct from chosen)
   on conflict (id) do nothing;
+
+  -- Never let a malformed metadata field fail the whole signup.
+  begin
+    b_year := nullif(new.raw_user_meta_data ->> 'birth_year', '')::int;
+  exception when others then
+    b_year := null;
+  end;
+
+  if f_name is not null and l_name is not null then
+    insert into public.player_details (id, first_name, last_name, country, birth_year)
+    values (
+      new.id,
+      left(f_name, 60),
+      left(l_name, 60),
+      case when ctry ~ '^[A-Z]{2}$' then ctry end,
+      case when b_year between 1900 and 2100 then b_year end
+    )
+    on conflict (id) do nothing;
+  end if;
+
   return new;
 end;
 $$;
@@ -211,6 +251,10 @@ $$;
 
 create trigger predictions_touch
   before update on public.predictions
+  for each row execute function public.touch_updated_at();
+
+create trigger player_details_touch
+  before update on public.player_details
   for each row execute function public.touch_updated_at();
 
 -- ─── Leagues: membership helpers ────────────────────────────────────────────
@@ -263,6 +307,7 @@ create trigger league_owner_joins
 -- ─── Row Level Security ─────────────────────────────────────────────────────
 
 alter table public.profiles       enable row level security;
+alter table public.player_details enable row level security;
 alter table public.drivers        enable row level security;
 alter table public.races          enable row level security;
 alter table public.model_entries  enable row level security;
@@ -283,6 +328,15 @@ create policy "public read" on public.scores        for select using (true);
 create policy "public read" on public.season_picks  for select using (true);
 
 create policy "update own profile" on public.profiles
+  for update using (auth.uid() = id) with check (auth.uid() = id);
+
+-- Personal data: private by construction, no public read. Only the owner (and
+-- the service role, which bypasses RLS) ever sees a player_details row.
+create policy "read own details" on public.player_details
+  for select using (auth.uid() = id);
+create policy "insert own details" on public.player_details
+  for insert with check (auth.uid() = id);
+create policy "update own details" on public.player_details
   for update using (auth.uid() = id) with check (auth.uid() = id);
 
 -- Fair play: your prediction is yours until the race locks, then it's public.

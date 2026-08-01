@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient, getUser } from "@/lib/supabase/server";
+import { hasDetails } from "@/lib/auth";
 import UsernameForm from "@/components/UsernameForm";
+import PlayerDetailsForm from "@/components/PlayerDetailsForm";
 
-export const metadata = { title: "Choose your name" };
+export const metadata = { title: "Welcome" };
 
 /** Only ever bounce back inside the app. */
 function safeNext(next: string | undefined): string {
@@ -26,8 +28,15 @@ export default async function WelcomePage({
     .eq("id", user.id)
     .maybeSingle();
 
-  // Already chose one — nothing to do here.
-  if (data?.username_set) redirect(safeNext(next));
+  const needsName = data?.username_set === false;
+  const needsDetails = !(await hasDetails());
+
+  // Nothing left to ask.
+  if (!needsName && !needsDetails) redirect(safeNext(next));
+
+  // The name goes first — it's the one thing other players see. Claiming it
+  // comes back here, where only the details step is left standing.
+  const backHere = `/welcome?next=${encodeURIComponent(safeNext(next))}`;
 
   return (
     <main className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 py-16">
@@ -42,21 +51,44 @@ export default async function WelcomePage({
 
       <div className="glass-card w-full max-w-sm p-6 sm:p-8">
         <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
-          One last thing
-        </p>
-        <h1 className="mt-2 text-xl font-bold">Pick your name</h1>
-        <p className="mt-2 text-sm text-ink-dim">
-          This is how you appear on the standings, in leagues and on your
-          profile. You can change it later from your profile.
+          {needsName && needsDetails ? "Step 1 of 2" : "One last thing"}
         </p>
 
-        <div className="mt-6">
-          <UsernameForm
-            initial={data?.username ?? ""}
-            mode="choose"
-            next={safeNext(next)}
-          />
-        </div>
+        {needsName ? (
+          <>
+            <h1 className="mt-2 text-xl font-bold">Pick your name</h1>
+            <p className="mt-2 text-sm text-ink-dim">
+              This is how you appear on the standings, in leagues and on your
+              profile. You can change it later from your profile.
+            </p>
+
+            <div className="mt-6">
+              <UsernameForm
+                initial={data?.username ?? ""}
+                mode="choose"
+                next={backHere}
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <h1 className="mt-2 text-xl font-bold">Tell us who you are</h1>
+            <p className="mt-2 text-sm text-ink-dim">
+              So we know who&apos;s actually playing. This stays private — your
+              username is the only thing other players ever see.
+            </p>
+
+            <div className="mt-6">
+              <PlayerDetailsForm next={safeNext(next)} />
+            </div>
+
+            <p className="mt-4 text-center text-xs text-ink-mute">
+              <Link href="/privacy" className="underline">
+                What we do with your data
+              </Link>
+            </p>
+          </>
+        )}
       </div>
     </main>
   );

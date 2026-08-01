@@ -36,6 +36,9 @@ export default function SiteFooter() {
             <Link href="/model" className="text-ink-mute transition-colors hover:text-ink">
               The model
             </Link>
+            <Link href="/privacy" className="text-ink-mute transition-colors hover:text-ink">
+              Privacy
+            </Link>
             <a
               href="https://github.com/ArthurOttevaere/f1_race_predictor"
               target="_blank"
