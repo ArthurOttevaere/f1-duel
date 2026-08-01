@@ -54,7 +54,7 @@ export default function NextRaceCountdown({ to }: { to: string }) {
   // without shifting a single pixel around them.
   if (!left) {
     return (
-      <div className="flex items-start gap-4" aria-hidden>
+      <div className="flex items-start gap-4 sm:gap-5" aria-hidden>
         <Segment value="--" unit="days" />
         <Segment value="--" unit="hrs" />
         <Segment value="--" unit="min" />
@@ -73,7 +73,7 @@ export default function NextRaceCountdown({ to }: { to: string }) {
 
   return (
     <div
-      className="flex items-start gap-4"
+      className="flex items-start gap-4 sm:gap-5"
       role="timer"
       aria-label={`${left.d} days, ${left.h} hours, ${left.m} minutes until the race`}
     >
