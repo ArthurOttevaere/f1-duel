@@ -16,6 +16,14 @@ import type {
 
 export const revalidate = 120;
 
+/**
+ * How many players "THE FIELD" lists. The page used to render every score for
+ * the race, which is unbounded in the number of players and silently truncated
+ * at 1000 by PostgREST anyway. Your own row is fetched separately, so you
+ * always see yourself even when you finish outside this cut.
+ */
+const FIELD_LIMIT = 100;
+
 function slotTone(kind: SlotScore["kind"] | undefined): string {
   switch (kind) {
     case "exact":
@@ -86,18 +94,39 @@ export default async function RaceReviewPage({
 
   const user = await getUser();
 
-  const [entryRes, resultRes, rosterRes, scoresRes, predsRes, profilesRes] =
+  const [entryRes, resultRes, rosterRes, scoresRes, myScoreRes, myPredRes] =
     await Promise.all([
       supabase.from("model_entries").select("*").eq("race_id", race.id).maybeSingle(),
       supabase.from("results").select("*").eq("race_id", race.id).maybeSingle(),
       supabase.from("drivers").select("*").eq("season", race.season),
+      // The field, capped. Usernames come along the foreign key rather than
+      // from a second unfiltered read of every profile on the site.
       supabase
         .from("scores")
-        .select("*")
+        .select("*, profiles!inner(id, username, created_at)")
         .eq("race_id", race.id)
-        .order("total", { ascending: false }),
-      supabase.from("predictions").select("*").eq("race_id", race.id),
-      supabase.from("profiles").select("id, username, created_at"),
+        .order("total", { ascending: false })
+        .limit(FIELD_LIMIT),
+      // Your own row separately: past FIELD_LIMIT players it is not in the
+      // page above, and it is the one row you actually came here for.
+      user
+        ? supabase
+            .from("scores")
+            .select("*")
+            .eq("race_id", race.id)
+            .eq("user_id", user.id)
+            .maybeSingle()
+        : Promise.resolve({ data: null }),
+      // Only your prediction. The page never rendered anyone else's — it just
+      // used to download all of them to find this one.
+      user
+        ? supabase
+            .from("predictions")
+            .select("*")
+            .eq("race_id", race.id)
+            .eq("user_id", user.id)
+            .maybeSingle()
+        : Promise.resolve({ data: null }),
     ]);
 
   const entry = entryRes.data as ModelEntry | null;
@@ -105,16 +134,19 @@ export default async function RaceReviewPage({
   const drivers = new Map(
     ((rosterRes.data as Driver[]) ?? []).map((d) => [d.driver_id, d]),
   );
-  const scores = (scoresRes.data as Score[]) ?? [];
-  const predictions = (predsRes.data as Prediction[]) ?? [];
+
+  type ScoreWithProfile = Score & { profiles: Profile | null };
+  const scoreRows = (scoresRes.data as ScoreWithProfile[]) ?? [];
+  const scores = scoreRows as Score[];
   const profiles = new Map(
-    ((profilesRes.data as Profile[]) ?? []).map((p) => [p.id, p]),
+    scoreRows
+      .map((s) => s.profiles)
+      .filter((p): p is Profile => p !== null)
+      .map((p) => [p.id, p]),
   );
 
-  const myScore = user ? scores.find((s) => s.user_id === user.id) : undefined;
-  const myPrediction = user
-    ? predictions.find((p) => p.user_id === user.id)
-    : undefined;
+  const myScore = (myScoreRes.data as Score | null) ?? undefined;
+  const myPrediction = (myPredRes.data as Prediction | null) ?? undefined;
 
   const actualOrder: (string | undefined)[] = Array.from({ length: 10 }, (_, i) => {
     if (!result) return undefined;
@@ -264,6 +296,11 @@ export default async function RaceReviewPage({
         <section>
           <h2 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
             THE FIELD
+            {scores.length === FIELD_LIMIT && (
+              <span className="ml-2 font-normal text-ink-mute normal-case">
+                — top {FIELD_LIMIT}
+              </span>
+            )}
           </h2>
           <ol className="flex flex-col gap-1.5">
             {scores.map((s, i) => {

@@ -41,12 +41,66 @@ def _check(resp: requests.Response) -> None:
                            f"-> {resp.status_code}: {resp.text[:500]}")
 
 
+PAGE = 1000
+
+
+def _content_range_total(resp: requests.Response) -> int | None:
+    """The `*` in `Content-Range: 0-999/*` means PostgREST didn't count."""
+    header = resp.headers.get("Content-Range", "")
+    total = header.rpartition("/")[2]
+    return int(total) if total.isdigit() else None
+
+
 def select(table: str, params: dict | None = None) -> list[dict]:
-    """PostgREST filters, e.g. select('races', {'status': 'eq.locked'})."""
-    resp = requests.get(f"{_base()}/{table}", headers=_headers(),
-                        params=params or {}, timeout=30)
+    """PostgREST filters, e.g. select('races', {'status': 'eq.locked'}).
+
+    Pages until the table is exhausted. PostgREST truncates at `db-max-rows`
+    (1000 by default on Supabase) and says nothing about it, so a single
+    unpaged GET quietly returns "the first thousand" — which is how a race
+    with more than a thousand entries would have scored only a thousand
+    players, with no error anywhere.
+    """
+    rows: list[dict] = []
+    offset = 0
+    while True:
+        resp = requests.get(
+            f"{_base()}/{table}",
+            headers=_headers({
+                "Range-Unit": "items",
+                "Range": f"{offset}-{offset + PAGE - 1}",
+                "Prefer": "count=exact",
+            }),
+            params=params or {}, timeout=30,
+        )
+        _check(resp)
+        page = resp.json()
+        rows.extend(page)
+
+        total = _content_range_total(resp)
+        if total is not None and len(rows) >= total:
+            return rows
+        # A short page means the end, whether or not the server counted.
+        if len(page) < PAGE:
+            return rows
+        offset += len(page)
+        if offset > 500_000:
+            raise RuntimeError(f"select({table}) exceeded 500k rows — "
+                               f"refusing to keep paging")
+
+
+def count(table: str, params: dict | None = None) -> int:
+    """Server-side row count, used to verify a paged read is complete."""
+    resp = requests.get(
+        f"{_base()}/{table}",
+        headers=_headers({"Range-Unit": "items", "Range": "0-0",
+                          "Prefer": "count=exact"}),
+        params=params or {}, timeout=30,
+    )
     _check(resp)
-    return resp.json()
+    total = _content_range_total(resp)
+    if total is None:
+        raise RuntimeError(f"count({table}): server returned no exact count")
+    return total
 
 
 def upsert(table: str, rows: list[dict] | dict, on_conflict: str | None = None) -> None:
