@@ -59,3 +59,18 @@ the numbered files in `migrations/` in order, in the SQL editor:
 | `0001_safety_car.sql` | Safety-car side bet |
 | `0002_username_choice.sql` | Player-chosen usernames, incl. OAuth sign-ups |
 | `0003_player_details.sql` | Private `player_details` (name, country, birth year) |
+| `0004_standings_pagination.sql` | `standings_page/count/rank_at` — paged standings past 1000 players |
+
+## The 1000-row cap
+
+Supabase's Data API truncates every response at **`db-max-rows` (1000 by
+default)** and returns no error when it does. Any read that can grow with the
+number of players must therefore page explicitly:
+
+- `jobs/db.py` `select()` pages until the table is exhausted, and `count()`
+  exists so `score_race.py` can refuse to score a partially-read field.
+- The standings and league boards go through `standings_page()`, which does the
+  filtering, ordering and limiting in SQL.
+
+Do not add an unfiltered `.select()` on `profiles`, `predictions`, `scores` or
+`leaderboard` — it will look fine until the thousand-and-first row.

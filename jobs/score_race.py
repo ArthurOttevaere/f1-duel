@@ -57,7 +57,19 @@ def score_race(race: dict) -> bool:
         "breakdown": model_table,
     }, on_conflict="race_id")
 
-    predictions = db.select("predictions", {"race_id": f"eq.{race['id']}"})
+    race_filter = {"race_id": f"eq.{race['id']}"}
+    predictions = db.select("predictions", race_filter)
+
+    # Scoring a partial field is worse than not scoring at all: the standings
+    # would look finished while some players silently got nothing. If the read
+    # and the server disagree, stop and leave the race locked.
+    expected = db.count("predictions", race_filter)
+    if len(predictions) != expected:
+        raise RuntimeError(
+            f"round {race['round']}: read {len(predictions)} predictions but "
+            f"the server counts {expected} — refusing to score a partial field"
+        )
+
     score_rows = []
     for pred in predictions:
         table = scoring.score_table(pred["picks"], classification, prob_matrix)

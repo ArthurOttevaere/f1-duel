@@ -7,76 +7,122 @@ import type { LeaderboardRow, Race } from "@/lib/types";
 export const metadata = { title: "Standings" };
 export const revalidate = 120;
 
+/** Players per page. Keeps the HTML bounded however many sign up. */
+const PER_PAGE = 100;
+
+function PageLink({
+  page,
+  leagueId,
+  disabled,
+  label,
+}: {
+  page: number;
+  leagueId: number | null;
+  disabled: boolean;
+  label: string;
+}) {
+  if (disabled) {
+    return <span className="text-ink-mute opacity-40">{label}</span>;
+  }
+  const params = new URLSearchParams();
+  if (leagueId !== null) params.set("league", String(leagueId));
+  if (page > 1) params.set("page", String(page));
+  const query = params.toString();
+  return (
+    <Link
+      href={`/game/standings${query ? `?${query}` : ""}`}
+      className="pressable glass-chip rounded-full px-4 py-1.5 text-ink-dim transition-colors hover:text-ink"
+    >
+      {label}
+    </Link>
+  );
+}
+
 export default async function StandingsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ league?: string }>;
+  searchParams: Promise<{ league?: string; page?: string }>;
 }) {
   const supabase = await createClient();
-  const { league: leagueParam } = await searchParams;
+  const { league: leagueParam, page: pageParam } = await searchParams;
 
-  const [
-    { data: rows },
-    { data: races },
-    { data: entries },
-    user,
-    { data: leaguesData },
-  ] = await Promise.all([
-    supabase
-      .from("leaderboard")
-      .select("*")
-      .order("points", { ascending: false }),
-    supabase.from("races").select("id, round, name, status").eq("season", CURRENT_SEASON),
-    supabase.from("model_entries").select("race_id, total"),
-    getUser(),
-    // RLS returns only the leagues the viewer belongs to.
-    supabase.from("leagues").select("id, name").order("name"),
-  ]);
+  const [{ data: races }, { data: entries }, user, { data: leaguesData }] =
+    await Promise.all([
+      supabase.from("races").select("id, round, name, status").eq("season", CURRENT_SEASON),
+      supabase.from("model_entries").select("race_id, total"),
+      getUser(),
+      // RLS returns only the leagues the viewer belongs to.
+      supabase.from("leagues").select("id, name").order("name"),
+    ]);
 
   const myLeagues = (leaguesData as { id: number; name: string }[]) ?? [];
   const selectedLeague =
     myLeagues.find((l) => String(l.id) === leagueParam) ?? null;
-
-  // A league view is the global board filtered to that league's members.
-  let memberIds: Set<string> | null = null;
-  if (selectedLeague) {
-    const { data: members } = await supabase
-      .from("league_members")
-      .select("user_id")
-      .eq("league_id", selectedLeague.id);
-    memberIds = new Set(
-      ((members as { user_id: string }[]) ?? []).map((m) => m.user_id),
-    );
-  }
+  const leagueId = selectedLeague?.id ?? null;
 
   const seasonRaceIds = new Set(((races as Race[]) ?? []).map((r) => r.id));
   const modelTotal = ((entries as { race_id: number; total: number | null }[]) ?? [])
     .filter((e) => seasonRaceIds.has(e.race_id) && e.total !== null)
     .reduce((sum, e) => sum + Number(e.total), 0);
 
-  // Every registered player appears — even before a single race — sorted by
-  // points, then name for a stable order among newcomers on 0.
-  const board = ((rows as LeaderboardRow[]) ?? [])
-    .slice()
-    .filter((r) => !memberIds || memberIds.has(r.user_id))
-    .sort(
-      (a, b) =>
-        Number(b.points) - Number(a.points) ||
-        a.username.localeCompare(b.username),
-    );
+  // Filtering, ordering, counting and ranking all happen in SQL now. Reading
+  // the whole board to slice it here stopped working at 1000 players, which is
+  // where PostgREST silently truncates — and a league whose members sat below
+  // that cut came back empty.
+  const [{ data: countData }, { data: rankData }] = await Promise.all([
+    supabase.rpc("standings_count", { p_league_id: leagueId }),
+    supabase.rpc("standings_rank_at", {
+      p_points: modelTotal,
+      p_league_id: leagueId,
+    }),
+  ]);
 
-  // Insert the model at its rank.
-  type Line =
-    | { kind: "player"; row: LeaderboardRow }
-    | { kind: "model"; points: number };
-  const lines: Line[] = board.map((row) => ({ kind: "player", row }));
-  const modelIndex = lines.findIndex(
-    (l) => l.kind === "player" && l.row.points < modelTotal,
+  const totalPlayers = Number(countData ?? 0);
+  // Players at or above the model's score: the index its line sits at, and one
+  // less than the position number printed beside it.
+  const modelIndex = Number(rankData ?? 0);
+
+  const totalPages = Math.max(1, Math.ceil((totalPlayers + 1) / PER_PAGE));
+  const page = Math.min(
+    Math.max(Number.parseInt(pageParam ?? "1", 10) || 1, 1),
+    totalPages,
   );
-  lines.splice(modelIndex === -1 ? lines.length : modelIndex, 0, {
-    kind: "model",
-    points: modelTotal,
+  const offset = (page - 1) * PER_PAGE;
+
+  // The model occupies a line of its own, so a page that sits after it needs
+  // one fewer player to fill the same number of rows.
+  const modelOnAnEarlierPage = modelIndex < offset;
+  const playerOffset = modelOnAnEarlierPage ? offset - 1 : offset;
+
+  const { data: rows } = await supabase.rpc("standings_page", {
+    p_league_id: leagueId,
+    p_limit: PER_PAGE,
+    p_offset: playerOffset,
   });
+  const board = (rows as LeaderboardRow[]) ?? [];
+
+  type Line =
+    | { kind: "player"; row: LeaderboardRow; rank: number }
+    | { kind: "model"; points: number; rank: number };
+  const lines: Line[] = board.map((row, i) => ({
+    kind: "player",
+    row,
+    rank: playerOffset + i + 1,
+  }));
+
+  // Splice the model in only on the page it actually falls on.
+  if (modelIndex >= offset && modelIndex < offset + PER_PAGE) {
+    lines.splice(modelIndex - offset, 0, {
+      kind: "model",
+      points: modelTotal,
+      rank: modelIndex + 1,
+    });
+  }
+  // Ranks after the model's line shift down by one.
+  lines.forEach((l, i) => {
+    l.rank = offset + i + 1;
+  });
+  lines.length = Math.min(lines.length, PER_PAGE);
 
   const scoredRaces = ((races as Race[]) ?? [])
     .filter((r) => r.status === "scored")
@@ -137,10 +183,12 @@ export default async function StandingsPage({
             </tr>
           </thead>
           <tbody>
-            {lines.map((line, i) =>
+            {lines.map((line) =>
               line.kind === "model" ? (
                 <tr key="model" className="border-t border-line bg-race/[0.06]">
-                  <td className="px-3 py-2.5 font-mono text-ink-mute">{i + 1}</td>
+                  <td className="px-3 py-2.5 font-mono text-ink-mute">
+                    {line.rank}
+                  </td>
                   <td className="px-3 py-2.5 font-mono font-semibold tracking-wider">
                     <span className="text-race">THE MODEL</span>
                   </td>
@@ -157,7 +205,9 @@ export default async function StandingsPage({
                     user && line.row.user_id === user.id ? "bg-glass" : ""
                   }`}
                 >
-                  <td className="px-3 py-2.5 font-mono text-ink-mute">{i + 1}</td>
+                  <td className="px-3 py-2.5 font-mono text-ink-mute">
+                    {line.rank}
+                  </td>
                   <td className="px-3 py-2.5">
                     <Link
                       href={`/profile/${line.row.username}`}
@@ -194,6 +244,27 @@ export default async function StandingsPage({
           </tbody>
         </table>
       </section>
+
+      {totalPages > 1 && (
+        <nav className="flex items-center justify-between text-sm">
+          <PageLink
+            page={page - 1}
+            leagueId={leagueId}
+            disabled={page === 1}
+            label="← Previous"
+          />
+          <span className="font-mono text-xs text-ink-mute">
+            Page {page} of {totalPages} · {totalPlayers} player
+            {totalPlayers === 1 ? "" : "s"}
+          </span>
+          <PageLink
+            page={page + 1}
+            leagueId={leagueId}
+            disabled={page === totalPages}
+            label="Next →"
+          />
+        </nav>
+      )}
 
       {scoredRaces.length > 0 && (
         <section>

@@ -6,6 +6,9 @@ import LeagueActions from "@/components/LeagueActions";
 
 export const metadata = { title: "Leagues" };
 
+/** Rows shown per league card; the full board lives on /game/standings. */
+const LEAGUE_PREVIEW = 50;
+
 export default async function LeaguesPage() {
   const supabase = await createClient();
   const user = await getUser();
@@ -29,18 +32,16 @@ export default async function LeaguesPage() {
   const { data: leagueRows } = await supabase.from("leagues").select("*");
   const leagues = (leagueRows as League[]) ?? [];
 
+  // One call per league instead of two, and the member list never travels in
+  // the URL: `?user_id=in.(<uuid>,…)` blew past the request-line limit at
+  // roughly 200 members, and the leaderboard read was capped at 1000 rows.
   const leagueBoards = await Promise.all(
     leagues.map(async (league) => {
-      const { data: members } = await supabase
-        .from("league_members")
-        .select("user_id")
-        .eq("league_id", league.id);
-      const ids = (members ?? []).map((m) => m.user_id);
-      const { data: rows } = await supabase
-        .from("leaderboard")
-        .select("*")
-        .in("user_id", ids)
-        .order("points", { ascending: false });
+      const { data: rows } = await supabase.rpc("standings_page", {
+        p_league_id: league.id,
+        p_limit: LEAGUE_PREVIEW,
+        p_offset: 0,
+      });
       return { league, rows: (rows as LeaderboardRow[]) ?? [] };
     }),
   );
