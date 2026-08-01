@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import PlayerDetailsFields, {
+  detailsError,
+  detailsPayload,
+  EMPTY_DETAILS,
+  type Details,
+} from "@/components/PlayerDetailsFields";
 
 type Mode = "signin" | "signup";
 type Status = "idle" | "working" | "sent-link" | "sent-verify" | "error";
@@ -14,6 +20,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [details, setDetails] = useState<Details>(EMPTY_DETAILS);
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -58,6 +65,13 @@ export default function LoginPage() {
       return;
     }
 
+    const invalid = detailsError(details);
+    if (invalid) {
+      setStatus("error");
+      setError(invalid);
+      return;
+    }
+
     // Say it now rather than handing out `name1` after the account exists.
     const name = username.trim();
     const { data: free } = await supabase.rpc("username_available", {
@@ -69,13 +83,15 @@ export default function LoginPage() {
       return;
     }
 
-    // Sign up: verify email once, then it's password-only forever after.
+    // Sign up: verify email once, then it's password-only forever after. The
+    // details ride along as user metadata — handle_new_user() copies them into
+    // player_details, which only exists once the account does.
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: `${location.origin}/auth/confirm?next=/game`,
-        data: { username: name },
+        data: { username: name, ...detailsPayload(details) },
       },
     });
     if (error) {
@@ -198,7 +214,7 @@ export default function LoginPage() {
             <p className="mt-1 text-sm text-ink-dim">
               {mode === "signin"
                 ? "Sign in with your email and password."
-                : "Verify your email once — then it's password-only."}
+                : "Your username is what other players see — the rest stays private."}
             </p>
 
             <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-3">
@@ -216,19 +232,30 @@ export default function LoginPage() {
               />
 
               {mode === "signup" && (
-                <input
-                  type="text"
-                  required
-                  value={username}
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                    resetMessages();
-                  }}
-                  placeholder="Username"
-                  pattern="[A-Za-z0-9_]{3,20}"
-                  title="3–20 characters: letters, numbers, underscore"
-                  className="rounded-xl border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi"
-                />
+                <>
+                  <input
+                    type="text"
+                    required
+                    value={username}
+                    onChange={(e) => {
+                      setUsername(e.target.value);
+                      resetMessages();
+                    }}
+                    placeholder="Username"
+                    pattern="[A-Za-z0-9_]{3,20}"
+                    title="3–20 characters: letters, numbers, underscore"
+                    className="rounded-xl border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi"
+                  />
+
+                  <PlayerDetailsFields
+                    value={details}
+                    onChange={(d) => {
+                      setDetails(d);
+                      resetMessages();
+                    }}
+                    disabled={working}
+                  />
+                </>
               )}
 
               <input
@@ -295,6 +322,10 @@ export default function LoginPage() {
         By continuing you agree this is an unofficial fan project.{" "}
         <Link href="/rules" className="underline">
           Read the rules
+        </Link>{" "}
+        or{" "}
+        <Link href="/privacy" className="underline">
+          what we do with your data
         </Link>
       </p>
     </main>

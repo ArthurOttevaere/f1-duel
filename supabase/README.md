@@ -30,3 +30,32 @@ model app never touches it; the game frontend (`web/`) and the automation
 
 The `join_league` RPC is `security definer` so league codes never have to be
 readable client-side — you join by code without being able to enumerate leagues.
+
+## Personal data
+
+`profiles` is world-readable — it is the standings. Real names, countries and
+birth years therefore live in `player_details`, the one table with **no public
+read policy**: only the row's owner sees it through the anon key. To look at who
+is playing, query it from the SQL editor (service role):
+
+```sql
+select p.username, d.first_name, d.last_name, d.country, d.birth_year, d.created_at
+  from public.player_details d
+  join public.profiles p on p.id = d.id
+ order by d.created_at desc;
+```
+
+Collecting this makes you a data controller under the GDPR: say what you collect
+and why on the site, and be able to delete it on request (deleting the auth user
+cascades to both tables).
+
+## Migrations
+
+`schema.sql` is the state of record for a fresh project. Existing projects apply
+the numbered files in `migrations/` in order, in the SQL editor:
+
+| File | What it adds |
+| --- | --- |
+| `0001_safety_car.sql` | Safety-car side bet |
+| `0002_username_choice.sql` | Player-chosen usernames, incl. OAuth sign-ups |
+| `0003_player_details.sql` | Private `player_details` (name, country, birth year) |
