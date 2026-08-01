@@ -50,8 +50,12 @@ export function detailsPayload(d: Details) {
   };
 }
 
+// No width here on purpose: each field sets its own below. A `w-full` in the
+// shared base loses to nothing and beats `w-32` in the generated CSS, which
+// silently collapsed the country select to zero width next to a `shrink-0`
+// sibling that had taken the whole row.
 const FIELD =
-  "w-full rounded-xl border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi";
+  "min-w-0 rounded-xl border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi";
 
 /**
  * First/last name (required), country and birth year (optional). Controlled so
@@ -80,7 +84,7 @@ export default function PlayerDetailsFields({
           value={value.firstName}
           onChange={(e) => set({ firstName: e.target.value })}
           placeholder="First name"
-          className={FIELD}
+          className={`${FIELD} flex-1`}
         />
         <input
           type="text"
@@ -91,7 +95,7 @@ export default function PlayerDetailsFields({
           value={value.lastName}
           onChange={(e) => set({ lastName: e.target.value })}
           placeholder="Last name"
-          className={FIELD}
+          className={`${FIELD} flex-1`}
         />
       </div>
 
@@ -101,7 +105,7 @@ export default function PlayerDetailsFields({
           autoComplete="country"
           value={value.country}
           onChange={(e) => set({ country: e.target.value })}
-          className={`${FIELD} ${value.country ? "" : "text-ink-mute"}`}
+          className={`${FIELD} flex-1 ${value.country ? "" : "text-ink-mute"}`}
         >
           <option value="">Country (optional)</option>
           {COUNTRIES.map((c) => (
@@ -121,7 +125,7 @@ export default function PlayerDetailsFields({
           value={value.birthYear}
           onChange={(e) => set({ birthYear: e.target.value })}
           placeholder="Birth year"
-          className={`${FIELD} w-32 shrink-0`}
+          className={`${FIELD} w-28 shrink-0`}
         />
       </div>
     </>
