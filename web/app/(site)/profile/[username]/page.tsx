@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, shortName } from "@/lib/format";
+import { countryFlag, countryName } from "@/lib/countries";
 import type {
   Driver,
   PlayerDetails,
@@ -80,6 +81,9 @@ export default async function ProfilePage({
     null,
   );
 
+  // Empty string when there's no country on file, or for a visitor.
+  const flag = countryFlag(details?.country);
+
   // Profile themed with the championship pick's team colors (docs §2.3).
   const championDriver = pick ? roster.get(pick.champion_driver) : null;
   const theme = championDriver?.team_color ?? "#ff1e3c";
@@ -112,7 +116,21 @@ export default async function ProfilePage({
               </button>
             </form>
           )}
-          <h1 className="text-3xl font-bold tracking-tight">{profile.username}</h1>
+          <h1 className="flex items-center gap-3 text-3xl font-bold tracking-tight">
+            {/* Owner-only: `details` is never fetched for a visitor, and the
+                country stays out of every public table, so no one else sees
+                this flag whatever they ask the page for. */}
+            {flag && (
+              <span
+                title={`${countryName(details?.country)} — only you can see this`}
+                aria-label={countryName(details?.country) ?? undefined}
+                className="text-2xl leading-none"
+              >
+                {flag}
+              </span>
+            )}
+            {profile.username}
+          </h1>
           {isOwner && <UsernameEditor username={profile.username} />}
           {pick ? (
             <p className="mt-2 text-sm text-ink-dim">
