@@ -1,0 +1,88 @@
+name: keepalive
+
+# Two clocks can quietly switch this project off, and neither one warns loudly:
+#
+#   1. GitHub disables scheduled workflows in a public repository after 60 days
+#      with no repository activity. A workflow *run* is not activity — a commit
+#      is. So the hourly score-race cron cannot keep itself alive.
+#   2. Supabase pauses a free project after 7 days with no database request.
+#      Today score-race covers that by querying `races` every hour on Sun-Tue,
+#      but only for as long as clock 1 has not stopped it.
+#
+# Clock 1 is therefore the one that matters: stop it and the other follows a
+# week later, taking the site with it. This job resets both, monthly.
+
+on:
+  schedule:
+    # 06:00 UTC on the 1st of each month — half of GitHub's 60-day window, so a
+    # single skipped run (they are best-effort under load) is not fatal.
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+
+concurrency:
+  # Deliberately NOT the `game-jobs` group: a pending run in a group is
+  # cancelled when the next one is queued, and score-race queues hourly on
+  # Sun-Tue. Sharing the lock would let the very run we cannot afford to miss
+  # be dropped. This job writes no game state, so it needs no shared lock.
+  group: keepalive
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # push the dated commit that resets the 60-day clock
+  actions: write    # re-enable the scheduled workflows if they were disabled
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      # The load-bearing step. Nothing else in this repo writes a commit on a
+      # schedule, so without this the 60-day counter only ever resets when a
+      # human pushes — which is exactly what stops happening between seasons.
+      - name: Reset the repository-activity clock
+        run: |
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > .github/keepalive
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/keepalive
+          # Nothing to do if the timestamp somehow did not change.
+          git diff --staged --quiet && echo "no change" && exit 0
+          git commit -m "chore: keepalive $(cat .github/keepalive)"
+          git push
+
+      # Belt and braces. A push authenticated with GITHUB_TOKEN does not trigger
+      # further workflow runs, and sources disagree on whether it counts as
+      # repository activity, so also ask GitHub explicitly to keep the schedules
+      # on. This is a no-op when they are already enabled, and the recovery path
+      # when they are not.
+      - name: Re-enable the scheduled workflows
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for wf in lock-race.yml score-race.yml sync-schedule.yml keepalive.yml; do
+            gh api -X PUT "repos/${GITHUB_REPOSITORY}/actions/workflows/$wf/enable" \
+              && echo "enabled $wf" \
+              || echo "::warning::could not enable $wf"
+          done
+
+      # Independently of the above, touch the database so Supabase's own 7-day
+      # idle timer restarts even if every other job is skipped or disabled.
+      - name: Ping Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_KEY" ]; then
+            echo "::notice::Supabase secrets not set — skipping the database ping."
+            exit 0
+          fi
+          code=$(curl -s -o /dev/null -w '%{http_code}' \
+            -H "apikey: $SUPABASE_SERVICE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_SERVICE_KEY" \
+            "$SUPABASE_URL/rest/v1/races?select=id&limit=1")
+          echo "Supabase responded $code"
+          # A paused project answers 5xx: fail loudly rather than pretend the
+          # ping worked, because at that point it needs a human in the dashboard.
+          [ "$code" = "200" ] || exit 1
