@@ -13,6 +13,10 @@ of every Grand Prix and battle the model all season long, with rarity-weighted
 scoring, leagues and season-long championship picks. Rules and architecture:
 [`docs/GAME_DESIGN.md`](docs/GAME_DESIGN.md).
 
+**Working on this project?** [`docs/ALMANAC.md`](docs/ALMANAC.md) is the
+complete internal manual — every component, why it exists, how it is wired, and
+what to do when it breaks.
+
 ---
 
 ## What it does
@@ -77,7 +81,7 @@ webapp/         Model-page frontend (HTML / CSS / JS, driver & team assets)
 web/            F1 Duel — Next.js site: home + game (deployed on Vercel)
 jobs/           Game automation: sync schedule, lock model entry, score races
 supabase/       Database schema + row-level-security policies
-docs/           Game design & platform foundation document
+docs/           Almanac (full internal manual), game design, deployment
 models/         Trained models + metadata
 data/           Processed datasets and on-disk caches
 ```
