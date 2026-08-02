@@ -184,21 +184,28 @@ function ReceiptCard({
   );
 }
 
-function Cell({ entry }: { entry: BreakdownEntry | null }) {
-  if (!entry) return <td className="px-3 py-2 text-ink-mute">—</td>;
+/** Columns are separated by a hairline so a score can't read as the next one's. */
+const DIVIDER = "border-l border-line";
+
+function Cell({ entry, divider }: { entry: BreakdownEntry | null; divider?: boolean }) {
+  const cell = `px-3 py-2 ${divider ? DIVIDER : ""}`;
+  if (!entry) return <td className={`${cell} text-ink-mute`}>—</td>;
   return (
-    <td className="px-3 py-2">
+    <td className={cell}>
       <span className="flex items-center gap-2">
         <span
           aria-hidden
-          className="h-4 w-0.5 rounded-full"
+          className="h-4 w-0.5 shrink-0 rounded-full"
           style={{ background: entry.color }}
         />
         <span className={`truncate text-sm ${TONE[entry.kind]}`}>
           {entry.name}
         </span>
+        {/* Pinned to the name, not to the right edge of the column: pushed
+            out there it sat against the next column and read as that
+            column's score. */}
         {entry.points > 0 && (
-          <span className="ml-auto font-mono text-xs text-ink-dim">
+          <span className="shrink-0 rounded-md bg-white/[0.06] px-1.5 py-0.5 font-mono text-[0.7rem] text-ink-dim">
             +{formatPoints(entry.points)}
             {entry.multiplier > 1 && (
               <span className="ml-1 text-race">
@@ -231,9 +238,16 @@ export default function RaceBreakdown({
           <thead>
             <tr className="text-left font-mono text-xs tracking-wider text-ink-mute uppercase">
               <th className="px-3 py-2 font-medium">Pos</th>
-              <th className="px-3 py-2 font-medium">You</th>
-              <th className="px-3 py-2 font-medium">Model</th>
-              <th className="px-3 py-2 font-medium">Official</th>
+              <th className={`px-3 py-2 font-medium ${DIVIDER}`}>You</th>
+              <th className={`px-3 py-2 font-medium ${DIVIDER}`}>Model</th>
+              <th className={`px-3 py-2 font-medium ${DIVIDER}`}>
+                Official
+                {/* Hidden on phones, where the header would wrap inside a
+                    column you reach by scrolling sideways anyway. */}
+                <span className="ml-2 hidden font-sans text-[0.65rem] normal-case sm:inline">
+                  (no points — the result)
+                </span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -276,14 +290,14 @@ export default function RaceBreakdown({
                       </span>
                     </button>
                   </td>
-                  <Cell entry={r.mine} />
-                  <Cell entry={r.model} />
+                  <Cell entry={r.mine} divider />
+                  <Cell entry={r.model} divider />
                   {r.official ? (
-                    <td className="px-3 py-2">
+                    <td className={`px-3 py-2 ${DIVIDER}`}>
                       <span className="flex items-center gap-2">
                         <span
                           aria-hidden
-                          className="h-4 w-0.5 rounded-full"
+                          className="h-4 w-0.5 shrink-0 rounded-full"
                           style={{ background: r.official.color }}
                         />
                         <span className="truncate text-sm">
@@ -292,7 +306,7 @@ export default function RaceBreakdown({
                       </span>
                     </td>
                   ) : (
-                    <td className="px-3 py-2 text-ink-mute">—</td>
+                    <td className={`px-3 py-2 text-ink-mute ${DIVIDER}`}>—</td>
                   )}
                 </tr>
               );
