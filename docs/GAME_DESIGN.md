@@ -128,8 +128,12 @@ the next scoring pass.
 
 - **Season leaderboard**: total points across all scored GPs (+ bonuses).
 - **Duel record vs the model**: W-D-L, shown prominently on profiles.
-- **Leagues** (v1.1): private groups joined via a unique 6-character code; a
-  league is just a filtered leaderboard, all scoring is global.
+- **Leagues**: private groups joined via a unique 6-character code or, more
+  usually, an invite link (`/join/<code>`) shared by message. A league is just
+  a filtered leaderboard — all scoring is global. Members can leave; the owner
+  can delete the league for everyone. Holding a code is the credential: any
+  code resolves to its league's name, owner and size (`league_by_code()`), and
+  nothing more.
 
 ### 2.6 Safety-car side bet
 
@@ -193,12 +197,12 @@ timing — GitHub Actions cron + Supabase is deterministic and free.
 | Route | Content |
 |---|---|
 | `/` | Hero (full-bleed high-quality F1 photo, headline, 2 CTAs: **Play the duel** / **Explore the model**), scroll sections explaining the game and the model, footer. |
-| `/game` | Dashboard: next GP countdown, prediction editor (drag-and-drop ordered top 10 + DotD pick), current duel status, season summary strip. |
+| `/game` | Dashboard: next GP countdown, prediction editor (ordered top 10 + DotD pick — drag the grip, or press and hold a row on touch), current duel status, season summary strip. |
 | `/game/races/[round]` | Duel review: player vs model vs actual, side-by-side. Tapping a position explains that row in words — base points, the driver's actual finish, and the rarity multiplier with the model's own probability — and two receipts underneath account for every point in both totals. **Export poster**: a 1080×1350 sheet of the race (your call vs the official result, stats band, finish line) as PNG/PDF/share, with the model's column and the duel verdict optional. |
 | `/game/standings` | Global leaderboard + duel records; league filter. |
 | `/game/leagues` | Create / join a league by code or invite link; per-league board, share link (Web Share / copy), leave or delete. |
 | `/join/<code>` | The far end of an invite link: shows the league, its owner and its size, then joins — signing in first if needed. |
-| `/profile/[username]` | Stats, duel history, championship picks — themed with the picked team/driver colors. |
+| `/profile/[username]` | Stats, duel history, championship picks — themed with the picked team/driver colors. Owner only: edit username and private details, and delete the account (`delete_account()`, cascades to everything including leagues you own). |
 | `/login` | Supabase auth (magic link + Google). |
 
 Design language: dark, premium motorsport aesthetic consistent with the existing
