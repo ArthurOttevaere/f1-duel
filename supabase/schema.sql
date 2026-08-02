@@ -289,6 +289,37 @@ begin
 end;
 $$;
 
+-- What an invite link is worth before you accept it: the name, the owner and
+-- the size for one code, and nothing else. security definer because the person
+-- opening the link is not a member yet, so league RLS would give them nothing.
+-- See migration 0005.
+create or replace function public.league_by_code(p_code text)
+returns table (
+  id             bigint,
+  name           text,
+  member_count   bigint,
+  owner_username text,
+  is_member      boolean
+)
+language sql stable security definer set search_path = public
+as $$
+  select
+    l.id,
+    l.name,
+    (select count(*) from public.league_members m where m.league_id = l.id),
+    p.username,
+    exists (
+      select 1 from public.league_members m
+       where m.league_id = l.id and m.user_id = auth.uid()
+    )
+  from public.leagues l
+  join public.profiles p on p.id = l.owner_id
+  where l.code = upper(btrim(p_code));
+$$;
+
+revoke all on function public.league_by_code(text) from public;
+grant execute on function public.league_by_code(text) to anon, authenticated;
+
 create or replace function public.add_owner_as_member()
 returns trigger language plpgsql security definer set search_path = public
 as $$
@@ -303,6 +334,28 @@ $$;
 create trigger league_owner_joins
   after insert on public.leagues
   for each row execute function public.add_owner_as_member();
+
+-- ─── Deleting your own account ──────────────────────────────────────────────
+
+-- security definer so it can reach auth.users, which the anon role cannot
+-- touch; it only ever deletes the caller's own row. Everything else follows
+-- the foreign keys — profiles cascades from auth.users and takes details,
+-- predictions, season picks, scores, league membership and owned leagues with
+-- it. See migration 0005.
+create or replace function public.delete_account()
+returns void
+language plpgsql security definer set search_path = public, auth
+as $$
+begin
+  if auth.uid() is null then
+    raise exception 'Not signed in';
+  end if;
+  delete from auth.users where id = auth.uid();
+end;
+$$;
+
+revoke all on function public.delete_account() from public;
+grant execute on function public.delete_account() to authenticated;
 
 -- ─── Row Level Security ─────────────────────────────────────────────────────
 

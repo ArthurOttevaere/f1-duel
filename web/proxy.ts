@@ -36,6 +36,9 @@ export const config = {
   matcher: [
     "/game/:path*",
     "/profile/:path*",
+    // Invite links land signed-in players here after hours away; without the
+    // refresh they'd be told to sign in again to join.
+    "/join/:path*",
     "/login",
     "/welcome",
     "/auth/:path*",

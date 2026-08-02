@@ -137,7 +137,9 @@ export default async function StandingsPage({
         <h1 className="mt-1 text-3xl font-bold tracking-tight">Standings</h1>
       </header>
 
-      {myLeagues.length > 0 && (
+      {/* Shown to anyone signed in, not just people already in a league: this
+          row is where most players find out leagues exist at all. */}
+      {user && (
         <div className="flex flex-wrap gap-2">
           <Link
             href="/game/standings"
@@ -166,7 +168,7 @@ export default async function StandingsPage({
             href="/game/leagues"
             className="pressable glass-chip rounded-full px-4 py-1.5 text-sm text-ink-mute transition-colors hover:text-ink"
           >
-            + League
+            {myLeagues.length > 0 ? "+ League" : "Play with friends →"}
           </Link>
         </div>
       )}

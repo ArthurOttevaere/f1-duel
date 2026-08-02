@@ -4,6 +4,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
+/** Accepts a bare code or a pasted invite link — both are "what my friend sent me". */
+function codeFrom(value: string): string {
+  const trimmed = value.trim();
+  const fromLink = trimmed.match(/\/join\/([A-Za-z0-9]+)/);
+  return (fromLink ? fromLink[1] : trimmed).toUpperCase();
+}
+
 export default function LeagueActions() {
   const router = useRouter();
   const [mode, setMode] = useState<"idle" | "create" | "join">("idle");
@@ -17,6 +24,7 @@ export default function LeagueActions() {
     setError(null);
     const supabase = createClient();
 
+    let failure: string | null = null;
     if (mode === "create") {
       const {
         data: { user },
@@ -24,28 +32,34 @@ export default function LeagueActions() {
       const { error: err } = await supabase
         .from("leagues")
         .insert({ name: value.trim(), owner_id: user?.id });
-      if (err) setError(err.message);
+      failure = err?.message ?? null;
     } else {
       const { error: err } = await supabase.rpc("join_league", {
-        p_code: value.trim(),
+        p_code: codeFrom(value),
       });
-      if (err)
-        setError(
-          err.message.includes("Unknown") ? "No league with that code." : err.message,
-        );
+      failure = err
+        ? err.message.includes("Unknown")
+          ? "No league with that code."
+          : err.message
+        : null;
     }
 
     setBusy(false);
-    if (!error) {
-      setMode("idle");
-      setValue("");
-      router.refresh();
+    // Read the failure we just got rather than the `error` state, which is
+    // still the previous render's value here: a failed join used to close the
+    // form and look exactly like a successful one.
+    if (failure) {
+      setError(failure);
+      return;
     }
+    setMode("idle");
+    setValue("");
+    router.refresh();
   }
 
   if (mode === "idle") {
     return (
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setMode("create")}
           className="pressable rounded-full bg-race px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-race-deep"
@@ -63,16 +77,21 @@ export default function LeagueActions() {
   }
 
   return (
-    <form onSubmit={submit} className="flex items-center gap-2">
+    <form onSubmit={submit} className="flex flex-wrap items-center gap-2">
       <input
         autoFocus
         value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder={mode === "create" ? "League name" : "6-letter code"}
+        onChange={(e) => {
+          setValue(e.target.value);
+          setError(null);
+        }}
+        placeholder={mode === "create" ? "League name" : "Code or invite link"}
         minLength={mode === "create" ? 3 : 6}
-        maxLength={mode === "create" ? 30 : 6}
+        maxLength={mode === "create" ? 30 : 200}
+        autoCapitalize={mode === "create" ? "words" : "characters"}
+        autoComplete="off"
         required
-        className="rounded-full border border-line bg-black/25 px-4 py-2 text-sm outline-none placeholder:text-ink-mute focus:border-line-hi"
+        className="min-w-0 flex-1 rounded-full border border-line bg-black/25 px-4 py-2 text-sm outline-none placeholder:text-ink-mute focus:border-line-hi sm:flex-none"
       />
       <button
         type="submit"
@@ -91,7 +110,7 @@ export default function LeagueActions() {
       >
         Cancel
       </button>
-      {error && <span className="text-xs text-race">{error}</span>}
+      {error && <span className="w-full text-xs text-race sm:w-auto">{error}</span>}
     </form>
   );
 }
