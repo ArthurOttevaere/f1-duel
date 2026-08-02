@@ -31,6 +31,21 @@ function Segment({ value, unit }: { value: string; unit: string }) {
 }
 
 /**
+ * Phone-sized rendering: one line, no unit labels under the digits.
+ *
+ * Four labelled columns are most of the widget's height on a phone, and the
+ * widget sits above the headline — so below `sm` the clock collapses to
+ * `12d 04:33:12`, which says the same thing in one line of small type.
+ */
+function Compact({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="font-mono text-sm font-semibold tabular-nums sm:hidden">
+      {children}
+    </span>
+  );
+}
+
+/**
  * The ticking half of the hero's next-race widget.
  *
  * Deliberately unanimated: this updates once a second, forever, and anything
@@ -54,18 +69,21 @@ export default function NextRaceCountdown({ to }: { to: string }) {
   // without shifting a single pixel around them.
   if (!left) {
     return (
-      <div className="flex items-start gap-4 sm:gap-5" aria-hidden>
-        <Segment value="--" unit="days" />
-        <Segment value="--" unit="hrs" />
-        <Segment value="--" unit="min" />
-        <Segment value="--" unit="sec" />
+      <div className="flex items-center sm:items-start" aria-hidden>
+        <Compact>--d --:--:--</Compact>
+        <div className="hidden gap-4 sm:flex sm:gap-5">
+          <Segment value="--" unit="days" />
+          <Segment value="--" unit="hrs" />
+          <Segment value="--" unit="min" />
+          <Segment value="--" unit="sec" />
+        </div>
       </div>
     );
   }
 
   if (left.ms === 0) {
     return (
-      <p className="font-mono text-sm font-semibold tracking-wider text-race uppercase">
+      <p className="font-mono text-xs font-semibold tracking-wider text-race uppercase sm:text-sm">
         Lights out
       </p>
     );
@@ -73,14 +91,19 @@ export default function NextRaceCountdown({ to }: { to: string }) {
 
   return (
     <div
-      className="flex items-start gap-4 sm:gap-5"
+      className="flex items-center sm:items-start"
       role="timer"
       aria-label={`${left.d} days, ${left.h} hours, ${left.m} minutes until the race`}
     >
-      <Segment value={pad(left.d)} unit="days" />
-      <Segment value={pad(left.h)} unit="hrs" />
-      <Segment value={pad(left.m)} unit="min" />
-      <Segment value={pad(left.s)} unit="sec" />
+      <Compact>
+        {left.d}d {pad(left.h)}:{pad(left.m)}:{pad(left.s)}
+      </Compact>
+      <div className="hidden gap-4 sm:flex sm:gap-5">
+        <Segment value={pad(left.d)} unit="days" />
+        <Segment value={pad(left.h)} unit="hrs" />
+        <Segment value={pad(left.m)} unit="min" />
+        <Segment value={pad(left.s)} unit="sec" />
+      </div>
     </div>
   );
 }
