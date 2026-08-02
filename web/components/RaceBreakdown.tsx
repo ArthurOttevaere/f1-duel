@@ -120,16 +120,24 @@ function Side({
 }) {
   const subject = who === "You" ? "you" : "the model";
   const possessive = who === "You" ? "your" : "its";
+  const mine = who === "You";
   return (
-    <div>
-      <p className="font-mono text-[0.65rem] tracking-[0.2em] text-ink-mute uppercase">
-        {who}
+    // Each side is its own panel: stacked on a phone, the two explanations ran
+    // together under labels small enough to skip, and you couldn't tell whose
+    // points you were reading.
+    <div className="rounded-xl border border-line bg-glass p-4">
+      <p className="flex items-center gap-2 font-mono text-sm font-bold tracking-wider uppercase">
+        <span
+          aria-hidden
+          className={`h-4 w-1 rounded-full ${mine ? "bg-race" : "bg-ink-mute"}`}
+        />
+        <span className={mine ? "text-ink" : "text-ink-dim"}>{who}</span>
       </p>
       {!entry ? (
-        <p className="mt-1 text-sm text-ink-mute">No pick for this position.</p>
+        <p className="mt-2 text-sm text-ink-mute">No pick for this position.</p>
       ) : (
         <>
-          <p className="mt-1 flex flex-wrap items-baseline gap-x-2 text-sm">
+          <p className="mt-2 flex flex-wrap items-baseline gap-x-2 text-sm">
             <span className={`font-semibold ${TONE[entry.kind]}`}>
               {KIND_LABEL[entry.kind]}
             </span>
