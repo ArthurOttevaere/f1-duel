@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-08-01 (commit `be62293`).
+**Last reviewed:** 2026-08-02 (commit `be62293`, plus `fix/grid-fallback-tuple`).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -878,14 +878,20 @@ anything more than 3 days out:
 The 1h30 delay after qualifying is a pragmatic buffer for FastF1 to publish the
 session.
 
-> ⚠️ **Known bug — the grid fallback is broken.** `grid_fallback()` calls
-> `model.load_qualifying()`, which returns a **tuple** `(df, weather)`, then
-> subscripts it as `quali["DriverId"]` → `TypeError`. The `is not None` guard
-> never fires because a tuple isn't `None`. In practice this path is only
-> reached when the model failed *and* has no stored entry, but when it is
-> reached the job crashes instead of degrading. Fix: unpack
-> `quali_df, _ = model.load_qualifying(...)` and guard on
-> `quali_df is not None and not quali_df.empty`. See §13.
+**The fallback** (`quali_order()` + `grid_fallback()`) stores the qualifying
+classification as the model's entry, with an empty `prob_matrix` — so every
+rarity multiplier on that race is ×1 (`rarity_multiplier(None) == 1.0`). It
+sorts explicitly by `Position` rather than trusting frame order, and skips rows
+with a null `DriverId`, which FastF1 emits for brand-new entrants. In a `Q`
+session `GridPosition` is NaN for everyone, so the qualifying order is the
+correct stand-in for the starting grid (before penalties).
+
+> ⚠️ **Residual gap.** If qualifying data is unavailable too, no entry is
+> stored — but `main()` locks the race regardless, which is right for fairness
+> (predictions must close at lights-out). `score_race.py` will then refuse that
+> race forever with "no model entry — run lock_race first", and `lock-race`
+> won't retry because it only scans `scheduled` races. Recovery is manual: set
+> `races.status='scheduled'` in SQL, run `lock-race`, then `score-race`.
 
 ### 8.4 `score_race.py` — hourly Sun–Tue
 
@@ -1265,6 +1271,10 @@ In order: is it `race_at + 2h` yet? Does FastF1 have the classification
 (`python -c "import sys;sys.path.insert(0,'src');import predict;print(predict.load_actual_results(2026,13))"`)?
 Is there a `model_entries` row? Did the count check abort ("refusing to score a
 partial field")? Each prints a distinct message in the job log.
+If the cause is a **missing model entry**, `lock-race` will not retry on its own
+(it only scans `scheduled` races). Recover with
+`update races set status='scheduled' where season=<Y> and round=<R>;`, run
+**lock-race**, then **score-race**.
 
 **Scores look wrong / all multipliers are ×1.**
 `prob_matrix` is empty — the race was locked with the grid-order fallback.
@@ -1324,12 +1334,22 @@ cd web && npx tsc --noEmit && npm run lint
 
 ## 13. Part X — Known issues, debt and roadmap
 
-### 13.1 Bugs
+### 13.1 Open
 
 | # | Issue | Impact | Fix |
 | --- | --- | --- | --- |
-| 1 | `lock_race.grid_fallback()` subscripts the tuple returned by `load_qualifying()` (§8.3) | The last-resort fallback raises `TypeError` instead of storing a grid entry; the job fails for that race | Unpack `quali_df, _ = …` and guard on `not quali_df.empty` |
+| 1 | A race locked with **no** model entry can never be scored (§8.3) | `score_race` refuses it forever; `lock-race` only scans `scheduled` races, so it never retries | Let `lock_race` backfill entries for `locked`-but-unscored races. Until then, recovery is manual (§8.3) |
 | 2 | README says Optuna runs 50 trials; `train.py` uses 60 | Documentation only | Align the README |
+
+### 13.1.1 Fixed
+
+- **`lock_race.grid_fallback()` crashed instead of falling back** (fixed
+  2026-08-02, `fix/grid-fallback-tuple`). It subscripted the tuple returned by
+  `load_qualifying()` as `quali["DriverId"]` → `TypeError`, and the
+  `is not None` guard never fired because a tuple is not `None`. The one path
+  that guarantees "the duel always happens" took the job down instead. Now
+  unpacked in `quali_order()`, which also sorts by position and tolerates
+  missing sessions, empty frames and null `DriverId`s.
 
 ### 13.2 Debt and limitations
 
