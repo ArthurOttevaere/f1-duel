@@ -3,6 +3,8 @@ import { notFound, redirect } from "next/navigation";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, multiplierLabel, shortName } from "@/lib/format";
+import { buildPosterData } from "@/lib/poster/data";
+import PosterExport from "@/components/PosterExport";
 import type {
   Driver,
   ModelEntry,
@@ -108,11 +110,12 @@ export default async function RaceReviewPage({
         .order("total", { ascending: false })
         .limit(FIELD_LIMIT),
       // Your own row separately: past FIELD_LIMIT players it is not in the
-      // page above, and it is the one row you actually came here for.
+      // page above, and it is the one row you actually came here for. The
+      // username rides along for the poster, which signs itself with it.
       user
         ? supabase
             .from("scores")
-            .select("*")
+            .select("*, profiles!inner(id, username, created_at)")
             .eq("race_id", race.id)
             .eq("user_id", user.id)
             .maybeSingle()
@@ -145,8 +148,24 @@ export default async function RaceReviewPage({
       .map((p) => [p.id, p]),
   );
 
-  const myScore = (myScoreRes.data as Score | null) ?? undefined;
+  const myScoreRow = myScoreRes.data as ScoreWithProfile | null;
+  const myScore = (myScoreRow as Score | null) ?? undefined;
   const myPrediction = (myPredRes.data as Prediction | null) ?? undefined;
+
+  // Everything the shareable poster needs, or null when there is nothing to
+  // show off yet (race not scored, or you sat this one out).
+  const poster =
+    race.status === "scored"
+      ? buildPosterData({
+          race,
+          drivers,
+          prediction: myPrediction,
+          score: myScore,
+          entry,
+          result,
+          player: myScoreRow?.profiles?.username ?? "you",
+        })
+      : null;
 
   const actualOrder: (string | undefined)[] = Array.from({ length: 10 }, (_, i) => {
     if (!result) return undefined;
@@ -161,11 +180,14 @@ export default async function RaceReviewPage({
         </Link>
       </nav>
 
-      <header>
-        <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
-          Round {race.round} · {race.country}
-        </p>
-        <h1 className="mt-1 text-3xl font-bold tracking-tight">{race.name}</h1>
+      <header className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
+            Round {race.round} · {race.country}
+          </p>
+          <h1 className="mt-1 text-3xl font-bold tracking-tight">{race.name}</h1>
+        </div>
+        {poster && <PosterExport data={poster} />}
       </header>
 
       {/* ── Duel banner ── */}
