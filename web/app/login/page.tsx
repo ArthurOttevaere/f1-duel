@@ -24,19 +24,30 @@ export default function LoginPage() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+  // Where to land afterwards. An invite link sends people here with
+  // ?next=/join/<code>, and dropping them on /game instead would lose the
+  // league they came to join.
+  const [next, setNext] = useState("/game");
 
   // Surface redirect params. Runs once after mount because the query string is
   // only known on the client (avoids useSearchParams + Suspense).
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- one-time client-only URL read */
     const params = new URLSearchParams(window.location.search);
+    const to = params.get("next");
+    // Only ever bounce back inside the app.
+    if (to && to.startsWith("/") && !to.startsWith("//")) setNext(to);
     if (params.get("error") === "auth") {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time client-only URL read
       setStatus("error");
       setError("That sign-in link was invalid or expired. Try again.");
     }
     if (params.get("signedout") === "1") {
       setNotice("You've been signed out.");
     }
+    if (params.get("deleted") === "1") {
+      setNotice("Your account and everything attached to it are gone.");
+    }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   function resetMessages() {
@@ -60,7 +71,7 @@ export default function LoginPage() {
         setError(error.message);
         return;
       }
-      router.push("/game");
+      router.push(next);
       router.refresh();
       return;
     }
@@ -90,7 +101,7 @@ export default function LoginPage() {
       email,
       password,
       options: {
-        emailRedirectTo: `${location.origin}/auth/confirm?next=/game`,
+        emailRedirectTo: `${location.origin}/auth/confirm?next=${encodeURIComponent(next)}`,
         data: { username: name, ...detailsPayload(details) },
       },
     });
@@ -101,7 +112,7 @@ export default function LoginPage() {
     }
     // If email confirmation is off, Supabase returns a live session — go straight in.
     if (data.session) {
-      router.push("/game");
+      router.push(next);
       router.refresh();
       return;
     }
@@ -119,7 +130,9 @@ export default function LoginPage() {
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: `${location.origin}/auth/callback?next=/game` },
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+      },
     });
     if (error) {
       setStatus("error");
@@ -133,7 +146,9 @@ export default function LoginPage() {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${location.origin}/auth/callback?next=/game` },
+      options: {
+        redirectTo: `${location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+      },
     });
   }
 

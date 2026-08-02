@@ -14,6 +14,7 @@ import type {
 } from "@/lib/types";
 import UsernameEditor from "@/components/UsernameEditor";
 import PlayerDetailsEditor from "@/components/PlayerDetailsEditor";
+import DeleteAccount from "@/components/DeleteAccount";
 
 export const revalidate = 120;
 
@@ -223,6 +224,9 @@ export default async function ProfilePage({
             </ol>
           )}
         </section>
+
+        {/* ── Leaving for good (owner only) ── */}
+        {isOwner && <DeleteAccount username={profile.username} />}
     </main>
   );
 }

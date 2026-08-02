@@ -196,7 +196,8 @@ timing — GitHub Actions cron + Supabase is deterministic and free.
 | `/game` | Dashboard: next GP countdown, prediction editor (drag-and-drop ordered top 10 + DotD pick), current duel status, season summary strip. |
 | `/game/races/[round]` | Duel review: player vs model vs actual, side-by-side, per-slot point breakdown, rarity multipliers highlighted. **Export poster**: a 1080×1350 sheet of the race (your call vs the official result, stats band, finish line) as PNG/PDF/share, with the model's column and the duel verdict optional. |
 | `/game/standings` | Global leaderboard + duel records; league filter. |
-| `/game/leagues` | Create / join a league by code (v1.1). |
+| `/game/leagues` | Create / join a league by code or invite link; per-league board, share link (Web Share / copy), leave or delete. |
+| `/join/<code>` | The far end of an invite link: shows the league, its owner and its size, then joins — signing in first if needed. |
 | `/profile/[username]` | Stats, duel history, championship picks — themed with the picked team/driver colors. |
 | `/login` | Supabase auth (magic link + Google). |
 

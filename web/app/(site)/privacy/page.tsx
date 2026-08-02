@@ -126,12 +126,15 @@ export default function PrivacyPage() {
           </h2>
           <p className="mt-4">
             You can see and correct your details yourself, any time, from your
-            profile page. You also have the right to a copy of your data, to
-            have it deleted, to object to the processing, and to complain to
+            profile page — and delete the whole account from the same page,
+            which removes your details, predictions, scores and league
+            membership immediately and for good. You also have the right to a
+            copy of your data, to object to the processing, and to complain to
             your national data protection authority.
           </p>
           <p className="mt-3">
-            For deletion or a copy, email{" "}
+            For a copy of your data, or anything the delete button doesn&apos;t
+            cover, email{" "}
             <a
               href="mailto:arthurottevaere7@gmail.com"
               className="text-race underline"

@@ -3,6 +3,7 @@ import { createClient, getUser } from "@/lib/supabase/server";
 import { formatPoints } from "@/lib/format";
 import type { LeaderboardRow, League } from "@/lib/types";
 import LeagueActions from "@/components/LeagueActions";
+import LeagueCardActions from "@/components/LeagueCardActions";
 
 export const metadata = { title: "Leagues" };
 
@@ -37,12 +38,23 @@ export default async function LeaguesPage() {
   // roughly 200 members, and the leaderboard read was capped at 1000 rows.
   const leagueBoards = await Promise.all(
     leagues.map(async (league) => {
-      const { data: rows } = await supabase.rpc("standings_page", {
-        p_league_id: league.id,
-        p_limit: LEAGUE_PREVIEW,
-        p_offset: 0,
-      });
-      return { league, rows: (rows as LeaderboardRow[]) ?? [] };
+      const [{ data: rows }, { count }] = await Promise.all([
+        supabase.rpc("standings_page", {
+          p_league_id: league.id,
+          p_limit: LEAGUE_PREVIEW,
+          p_offset: 0,
+        }),
+        // Counted rather than derived from the preview, which stops at 50.
+        supabase
+          .from("league_members")
+          .select("user_id", { count: "exact", head: true })
+          .eq("league_id", league.id),
+      ]);
+      return {
+        league,
+        rows: (rows as LeaderboardRow[]) ?? [],
+        members: count ?? 0,
+      };
     }),
   );
 
@@ -59,23 +71,50 @@ export default async function LeaguesPage() {
       </header>
 
       {leagueBoards.length === 0 ? (
-        <p className="glass-chip rounded-2xl px-5 py-4 text-sm text-ink-mute">
-          You&apos;re not in a league yet. Create one and share the code, or
-          paste a code a friend sent you.
-        </p>
+        // The empty state is the whole feature for a new player: say what a
+        // league is, then put both doors right there.
+        <section className="glass-card flex flex-col items-start gap-4 p-6 sm:p-8">
+          <div>
+            <h2 className="text-lg font-semibold">
+              You&apos;re not in a league yet
+            </h2>
+            <p className="mt-2 max-w-prose text-sm text-ink-dim">
+              A league is a private board scored exactly like the global one —
+              you just see your friends instead of everyone. Create one and
+              send the invite link, or paste the link a friend sent you.
+            </p>
+          </div>
+          <LeagueActions />
+          <Link
+            href="/game/standings"
+            className="text-sm text-ink-mute underline transition-colors hover:text-ink"
+          >
+            Meanwhile, the global standings →
+          </Link>
+        </section>
       ) : (
-        leagueBoards.map(({ league, rows }) => (
+        leagueBoards.map(({ league, rows, members }) => (
           <section key={league.id} className="glass-card p-6">
-            <div className="flex items-baseline justify-between gap-4">
-              <h2 className="text-lg font-semibold">{league.name}</h2>
-              <p className="font-mono text-xs text-ink-mute">
-                code{" "}
-                <span className="rounded-md border border-line bg-black/25 px-2 py-0.5 text-ink select-all">
-                  {league.code}
-                </span>
-              </p>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h2 className="text-lg font-semibold">{league.name}</h2>
+                <p className="mt-1 font-mono text-xs text-ink-mute">
+                  {members} {members === 1 ? "player" : "players"} · code{" "}
+                  <span className="rounded-md border border-line bg-black/25 px-2 py-0.5 text-ink select-all">
+                    {league.code}
+                  </span>
+                </p>
+              </div>
+              <LeagueCardActions
+                leagueId={league.id}
+                name={league.name}
+                code={league.code}
+                isOwner={league.owner_id === user.id}
+                viewerId={user.id}
+              />
             </div>
-            <ol className="mt-4 flex flex-col gap-1.5">
+
+            <ol className="mt-5 flex flex-col gap-1.5">
               {rows.map((row, i) => (
                 <li
                   key={row.user_id}
@@ -99,6 +138,15 @@ export default async function LeaguesPage() {
                 </li>
               ))}
             </ol>
+
+            {members > rows.length && (
+              <Link
+                href={`/game/standings?league=${league.id}`}
+                className="mt-4 inline-block text-sm text-ink-mute underline transition-colors hover:text-ink"
+              >
+                Full board ({members} players) →
+              </Link>
+            )}
           </section>
         ))
       )}

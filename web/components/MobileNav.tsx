@@ -45,7 +45,7 @@ export default function MobileNav({
   const overlay =
     open && mounted
       ? createPortal(
-          <div className="menu-in fixed inset-0 z-[100] flex flex-col bg-bg sm:hidden">
+          <div className="menu-in fixed inset-0 z-[100] flex flex-col bg-bg md:hidden">
             <div className="flex items-center justify-between px-6 py-5">
               <Link
                 href="/"
@@ -122,7 +122,7 @@ export default function MobileNav({
       : null;
 
   return (
-    <div className="sm:hidden">
+    <div className="md:hidden">
       <button
         type="button"
         aria-label="Open menu"

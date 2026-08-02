@@ -133,3 +133,12 @@ export interface League {
   owner_id: string;
   created_at: string;
 }
+
+/** What an invite link can show before you accept it — see `league_by_code()`. */
+export interface LeaguePreview {
+  id: number;
+  name: string;
+  member_count: number;
+  owner_username: string;
+  is_member: boolean;
+}

@@ -30,6 +30,15 @@ model app never touches it; the game frontend (`web/`) and the automation
 
 The `join_league` RPC is `security definer` so league codes never have to be
 readable client-side — you join by code without being able to enumerate leagues.
+`league_by_code()` (migration 0005) is the same trade for invite links: it
+returns the name, owner and size of the single league whose code you already
+hold, so `/join/<code>` can say what it is inviting you to. Holding a code is
+the credential in both cases — treat a league link like a party invite, not a
+password.
+
+`delete_account()` (also 0005) is `security definer` so it can reach
+`auth.users`, which the anon role cannot; it deletes the caller's own row and
+nothing else, and the foreign keys cascade from there.
 
 ## Personal data
 
@@ -60,6 +69,7 @@ the numbered files in `migrations/` in order, in the SQL editor:
 | `0002_username_choice.sql` | Player-chosen usernames, incl. OAuth sign-ups |
 | `0003_player_details.sql` | Private `player_details` (name, country, birth year) |
 | `0004_standings_pagination.sql` | `standings_page/count/rank_at` — paged standings past 1000 players |
+| `0005_league_invites_and_account_deletion.sql` | `league_by_code()` (invite links) and `delete_account()` (self-serve deletion) |
 
 ## The 1000-row cap
 
