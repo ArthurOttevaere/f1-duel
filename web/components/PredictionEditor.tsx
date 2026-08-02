@@ -5,8 +5,9 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import {
   DndContext,
-  PointerSensor,
   KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
   closestCenter,
   useSensor,
   useSensors,
@@ -42,6 +43,16 @@ function toSlots(picks: string[]): Slots {
   return Array.from({ length: 10 }, (_, i) => picks[i] ?? null);
 }
 
+/**
+ * Marks the grip button. A touch that starts on it skips the press-and-hold
+ * delay — a handle exists to be dragged, and waiting on it would feel broken.
+ */
+const HANDLE_ATTR = "data-drag-handle";
+
+function fromHandle(target: EventTarget | null) {
+  return target instanceof Element && Boolean(target.closest(`[${HANDLE_ATTR}]`));
+}
+
 /** A short tick of haptic feedback where the platform offers it (Android). */
 function tick() {
   if (typeof navigator !== "undefined") navigator.vibrate?.(8);
@@ -75,17 +86,44 @@ function Slot({
   } = useSortable({ id: driver?.driver_id ?? `empty-${position}`, disabled: disabled || !driver });
 
   const color = driver?.team_color ?? "#6c7280";
+  // dnd-kit types its listener map as Record<string, Function>, which React's
+  // props are stricter than.
+  const onRowTouchStart = listeners?.onTouchStart as
+    | React.TouchEventHandler<HTMLLIElement>
+    | undefined;
 
   return (
     <li
       ref={setNodeRef}
-      style={{ transform: CSS.Transform.toString(transform), transition }}
-      className={`relative flex items-center gap-2.5 rounded-xl border px-2.5 py-2 transition-colors sm:gap-3 sm:px-3 ${
-        driver
-          ? "border-line bg-glass"
-          : "border-dashed border-line bg-transparent"
-      } ${isDragging ? "z-10 border-line-hi shadow-lg" : ""} ${
-        active ? "border-race/70 bg-race/5" : ""
+      style={{
+        // A touch of scale while it travels: with a finger on the row instead
+        // of a grip, the lift is the only confirmation the hold registered.
+        transform: CSS.Transform.toString(
+          transform && isDragging
+            ? { ...transform, scaleX: 1.02, scaleY: 1.02 }
+            : transform,
+        ),
+        transition,
+      }}
+      // Touch only: press and hold anywhere on the row to pick it up. The
+      // mouse listeners stay on the grip, so a click on the name or the cross
+      // is never at risk of turning into a drag on desktop.
+      onTouchStart={onRowTouchStart}
+      // A long press on iOS otherwise raises the text-selection callout on top
+      // of the drag.
+      className={`relative flex touch-manipulation items-center gap-2.5 rounded-xl border px-2.5 py-2 transition-colors select-none [-webkit-touch-callout:none] sm:gap-3 sm:px-3 ${
+        // Exactly one background: a dragged row travels over its neighbours,
+        // and the translucent bg-glass showed both at once. #16181f is the
+        // card colour composited onto the page background.
+        isDragging
+          ? "z-10 border-line-hi bg-[#16181f] shadow-lg"
+          : driver
+            ? active
+              ? "border-race/70 bg-race/5"
+              : "border-line bg-glass"
+            : active
+              ? "border-dashed border-race/70 bg-race/5"
+              : "border-dashed border-line bg-transparent"
       }`}
     >
       <span
@@ -134,14 +172,15 @@ function Slot({
                   />
                 </svg>
               </button>
-              {/* Drag lives on the handle alone so touch-scrolling the list
-                  never gets hijacked into a drag. */}
+              {/* The grip stays: it is the keyboard activator, the mouse's
+                  only way in, and the visible sign that rows move at all. */}
               <button
                 type="button"
                 ref={setActivatorNodeRef}
                 aria-label={`Reorder ${shortName(driver.driver_id)}`}
                 style={{ touchAction: "none" }}
                 className="-m-1 cursor-grab rounded-full p-2 text-ink-mute active:cursor-grabbing"
+                {...{ [HANDLE_ATTR]: "" }}
                 {...attributes}
                 {...listeners}
               >
@@ -391,8 +430,16 @@ export default function PredictionEditor({
   const complete = filled === 10;
   const dirty = JSON.stringify([slots, dotd, scBet]) !== savedSnapshot;
 
+  // Mouse and touch are split on purpose (rather than one PointerSensor): they
+  // want different gestures. A mouse drags from the grip after a few pixels; a
+  // finger picks a row up by pressing and holding it anywhere, which leaves a
+  // plain swipe free to scroll the list.
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(MouseSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 220, tolerance: 8 },
+      bypassActivationConstraint: ({ event }) => fromHandle(event.target),
+    }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
@@ -515,6 +562,9 @@ export default function PredictionEditor({
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
+            // The row lifting under your finger is the only sign the hold
+            // worked; on Android a tick confirms it before you look.
+            onDragStart={tick}
             onDragEnd={onDragEnd}
           >
             <SortableContext
@@ -536,6 +586,12 @@ export default function PredictionEditor({
               </ol>
             </SortableContext>
           </DndContext>
+
+          {canPlay && filled > 1 && (
+            <p className="mt-2 text-center text-xs text-ink-mute lg:hidden">
+              Hold a driver to move them
+            </p>
+          )}
 
           {canPlay && (
             <button
