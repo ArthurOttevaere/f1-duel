@@ -55,8 +55,11 @@ select p.username, d.first_name, d.last_name, d.country, d.birth_year, d.created
 ```
 
 Collecting this makes you a data controller under the GDPR: say what you collect
-and why on the site, and be able to delete it on request (deleting the auth user
-cascades to both tables).
+and why on the site, and be able to delete it on request. Players do this
+themselves from their profile page — `delete_account()` (migration 0005) deletes
+their `auth.users` row, which cascades to `profiles`, `player_details`,
+`predictions`, `season_picks`, `scores`, league membership and any league they
+own. Deleting the auth user from the dashboard has exactly the same effect.
 
 ## Migrations
 
