@@ -2,9 +2,14 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
-import { formatPoints, multiplierLabel, shortName } from "@/lib/format";
+import { formatPoints, shortName } from "@/lib/format";
 import { buildPosterData } from "@/lib/poster/data";
 import PosterExport from "@/components/PosterExport";
+import RaceBreakdown, {
+  type BreakdownEntry,
+  type BreakdownRow,
+  type Receipt,
+} from "@/components/RaceBreakdown";
 import type {
   Driver,
   ModelEntry,
@@ -26,55 +31,28 @@ export const revalidate = 120;
  */
 const FIELD_LIMIT = 100;
 
-function slotTone(kind: SlotScore["kind"] | undefined): string {
-  switch (kind) {
-    case "exact":
-      return "text-emerald-400";
-    case "near":
-      return "text-amber-300";
-    case "in_top10":
-      return "text-ink-dim";
-    default:
-      return "text-ink-mute";
-  }
+/** One cell of the side-by-side, in the shape the breakdown component wants. */
+function entryFor(
+  driverId: string | undefined,
+  slot: SlotScore | undefined,
+  drivers: Map<string, Driver>,
+): BreakdownEntry | null {
+  const id = slot?.driver ?? driverId;
+  if (!id) return null;
+  return {
+    name: shortName(id),
+    color: drivers.get(id)?.team_color ?? "#6c7280",
+    kind: slot?.kind ?? "miss",
+    actual: slot?.actual ?? null,
+    base: slot?.base ?? 0,
+    probability: slot?.probability ?? null,
+    multiplier: slot?.multiplier ?? 1,
+    points: slot?.points ?? 0,
+  };
 }
 
-function PickCell({
-  driverId,
-  slot,
-  drivers,
-}: {
-  driverId: string | undefined;
-  slot: SlotScore | undefined;
-  drivers: Map<string, Driver>;
-}) {
-  if (!driverId) return <td className="px-3 py-2 text-ink-mute">—</td>;
-  const d = drivers.get(driverId);
-  return (
-    <td className="px-3 py-2">
-      <span className="flex items-center gap-2">
-        <span
-          aria-hidden
-          className="h-4 w-0.5 rounded-full"
-          style={{ background: d?.team_color ?? "#6c7280" }}
-        />
-        <span className={`truncate text-sm ${slotTone(slot?.kind)}`}>
-          {shortName(driverId)}
-        </span>
-        {slot && slot.points > 0 && (
-          <span className="ml-auto font-mono text-xs text-ink-dim">
-            +{formatPoints(slot.points)}
-            {slot.multiplier > 1 && (
-              <span className="ml-1 text-race">
-                {multiplierLabel(slot.multiplier)}
-              </span>
-            )}
-          </span>
-        )}
-      </span>
-    </td>
-  );
-}
+const slotsTotal = (slots: SlotScore[] | undefined) =>
+  (slots ?? []).reduce((sum, s) => sum + s.points, 0);
 
 export default async function RaceReviewPage({
   params,
@@ -172,6 +150,43 @@ export default async function RaceReviewPage({
     return Object.entries(result.classification).find(([, p]) => p === i + 1)?.[0];
   });
 
+  // The side-by-side, flattened for the client component that explains it.
+  const breakdownRows: BreakdownRow[] = Array.from({ length: 10 }, (_, i) => {
+    const official = actualOrder[i];
+    return {
+      position: i + 1,
+      mine: entryFor(myPrediction?.picks[i], myScore?.breakdown.slots[i], drivers),
+      model: entryFor(
+        entry?.predicted_order[i],
+        entry?.breakdown?.slots?.[i],
+        drivers,
+      ),
+      official: official
+        ? {
+            name: shortName(official),
+            color: drivers.get(official)?.team_color ?? "#6c7280",
+          }
+        : null,
+    };
+  });
+
+  // The receipts add up exactly: both totals are the ten positions plus the
+  // bonuses that fired, which is the question the page kept failing to answer.
+  const myReceipt: Receipt | null = myScore
+    ? {
+        slots: slotsTotal(myScore.breakdown.slots),
+        bonuses: myScore.breakdown.bonuses ?? {},
+        total: myScore.total,
+      }
+    : null;
+  const modelReceipt: Receipt | null = entry?.breakdown
+    ? {
+        slots: slotsTotal(entry.breakdown.slots),
+        bonuses: entry.breakdown.bonuses ?? {},
+        total: entry.total ?? 0,
+      }
+    : null;
+
   return (
     <div className="flex flex-col gap-6">
       <nav className="text-sm text-ink-mute">
@@ -232,47 +247,8 @@ export default async function RaceReviewPage({
         </p>
       )}
 
-      {/* ── Side-by-side ── */}
-      <section className="glass-card overflow-x-auto p-2">
-        <table className="w-full min-w-[36rem] border-separate border-spacing-0">
-          <thead>
-            <tr className="text-left font-mono text-xs tracking-wider text-ink-mute uppercase">
-              <th className="px-3 py-2 font-medium">Pos</th>
-              <th className="px-3 py-2 font-medium">You</th>
-              <th className="px-3 py-2 font-medium">Model</th>
-              <th className="px-3 py-2 font-medium">Official</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({ length: 10 }, (_, i) => {
-              const mySlot = myScore?.breakdown.slots[i];
-              const modelSlot = entry?.breakdown?.slots?.[i];
-              return (
-                <tr key={i} className="border-t border-line">
-                  <td className="w-12 px-3 py-2 font-mono text-sm text-ink-mute">
-                    P{i + 1}
-                  </td>
-                  <PickCell
-                    driverId={myPrediction?.picks[i]}
-                    slot={mySlot}
-                    drivers={drivers}
-                  />
-                  <PickCell
-                    driverId={entry?.predicted_order[i]}
-                    slot={modelSlot}
-                    drivers={drivers}
-                  />
-                  <PickCell
-                    driverId={actualOrder[i]}
-                    slot={undefined}
-                    drivers={drivers}
-                  />
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </section>
+      {/* ── Side-by-side, with the arithmetic on demand ── */}
+      <RaceBreakdown rows={breakdownRows} me={myReceipt} model={modelReceipt} />
 
       {result?.dotd && (
         <p className="text-sm text-ink-dim">
