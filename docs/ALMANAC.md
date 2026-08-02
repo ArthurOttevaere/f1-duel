@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-08-02 (commit `be62293`, plus `fix/grid-fallback-tuple`).
+**Last reviewed:** 2026-08-03 (commit `e003f3b`, PRs #15–#23).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -223,8 +223,9 @@ f1_race_predictor/
 │   └── migrations/000N_*.sql Incremental changes for a live project
 ├── web/                     Next.js 16 App Router (the game)
 │   ├── app/                 Routes (see §9.2)
-│   ├── components/          19 components
+│   ├── components/          23 components
 │   ├── lib/                 supabase clients, types, helpers
+│   │   └── poster/          The shareable race poster (see §9.9)
 │   └── proxy.ts             Session refresh (Next 16's "middleware")
 ├── .github/workflows/       4 workflows (see §8.6)
 ├── docs/                    GAME_DESIGN.md, DEPLOYMENT.md, ALMANAC.md
@@ -737,7 +738,16 @@ Indexes: `predictions(race_id)`, `scores(user_id)`, `league_members(user_id)`.
   can check membership without recursing into `league_members`' own policy.
 - **`join_league(code)`** — `security definer`. You join **by code without
   being able to read the leagues table**, so codes are never enumerable.
+- **`league_by_code(code)`** — `security definer`. The read half of an invite
+  link: for one code it returns that league's name, owner and member count and
+  nothing else, so `/join/<code>` can say what it is inviting you to while the
+  leagues table stays unreadable to non-members. Holding a code is the
+  credential — treat a league link like a party invite, not a password.
 - **`add_owner_as_member()`** — trigger; creating a league joins you to it.
+- **`delete_account()`** — `security definer`, granted to `authenticated` only.
+  Deletes `auth.users` for `auth.uid()` and nothing else; every table follows
+  by foreign key, including leagues the player owns (which therefore disappear
+  for their members). Called from the profile page (§9.4).
 - **`leaderboard`** view (`security_invoker`) — per player: `races_played`,
   `points` (sum of scores + awarded season-pick points), `duel_wins/draws/losses`.
 - **`standings_page(league, limit, offset)`**, **`standings_count(league)`**,
@@ -796,11 +806,15 @@ editor.
 | `0002_username_choice.sql` | `profiles.username_set` + rewritten signup trigger + `username_available()` | ⚠️ **verify before assuming** — the app degrades quietly without it (`select("*")` everywhere), but `/welcome` never triggers |
 | `0003_player_details.sql` | `player_details` table + policies + trigger extension | ⚠️ verify |
 | `0004_standings_pagination.sql` | `standings_page/count/rank_at` | ⚠️ verify |
+| `0005_league_invites_and_account_deletion.sql` | `league_by_code()`, `delete_account()` | ✅ confirmed 2026-08-02 |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
 `hasDetails()` treats a query **error** as "nothing owed" so a missing
-`player_details` table can't trap every account in a `/welcome` loop.
+`player_details` table can't trap every account in a `/welcome` loop. The 0005
+features fail closed the same way: without the migration every invite link
+reads "this invite has expired" and the delete button reports that deletion
+isn't enabled, rather than throwing.
 
 To check what's applied, run in the SQL editor:
 
@@ -816,7 +830,10 @@ select proname from pg_proc where proname like 'standings%';
 `profiles` is world-readable (it *is* the standings). Real names, countries and
 birth years therefore live in `player_details`, owner-read only. Collecting
 this makes you a data controller: `/privacy` explains what is collected and
-why, and deleting the auth user cascades to both tables. To see who is playing,
+why, and deleting the auth user cascades to both tables. **Deletion is
+self-serve** since 0005 — the profile page calls `delete_account()`, guarded by
+typing your username — so a request should almost never reach you by email. To
+see who is playing,
 query from the SQL editor (service role):
 
 ```sql
@@ -1006,13 +1023,14 @@ app/
 │   ├── rules/page.tsx         The full rulebook
 │   ├── privacy/page.tsx       GDPR notice
 │   ├── profile/[username]/    Stats, duel history, themed by champion pick
+│   ├── join/[code]/           The far end of a league invite link
 │   └── game/
 │       ├── layout.tsx         onboarding gate + content width
 │       ├── loading.tsx        skeleton
 │       ├── page.tsx           THE dashboard: next GP, editor, last duel
 │       ├── races/[round]/     Duel review: you vs model vs official
 │       ├── standings/page.tsx Paged leaderboard with the model spliced in
-│       ├── leagues/page.tsx   Create / join / league boards
+│       ├── leagues/page.tsx   Create / join / invite / leave, league boards
 │       └── picks/page.tsx     Championship picks (one shot)
 ├── login/page.tsx             email+password / magic link / Google
 ├── welcome/page.tsx           one-time onboarding (username + details)
@@ -1040,9 +1058,11 @@ Three ways in, all Supabase Auth:
    `/auth/confirm`.
 3. **Google OAuth** — `signInWithOAuth`, lands on `/auth/callback`.
 
-**Session plumbing:** `proxy.ts` runs on `/game/*`, `/profile/*`, `/login`,
-`/welcome`, `/auth/*` and calls `supabase.auth.getUser()` purely to refresh the
-session cookie for server components. Server components use
+**Session plumbing:** `proxy.ts` runs on `/game/*`, `/profile/*`, `/join/*`,
+`/login`, `/welcome`, `/auth/*` and calls `supabase.auth.getUser()` purely to
+refresh the session cookie for server components. `/join/*` is on that list
+because invite links are opened hours after the last visit: without the refresh
+a returning member would be told to sign in again to join. Server components use
 `lib/supabase/server.ts`; browser components use `lib/supabase/client.ts`.
 
 **Performance note:** `getUser()` is a network round-trip to the Auth server.
@@ -1057,7 +1077,22 @@ there's no `player_details` row; otherwise to the requested `next` (validated by
 `app/(site)/game/layout.tsx` re-checks with `needsOnboarding()` so nobody lands
 in the standings as `player_3f9a…`.
 
+**`?next=`** is honoured end to end: `/login` reads it (validating it the same
+way `safePath()` does) and passes it to password sign-in, `signUp`'s
+`emailRedirectTo`, the magic link and the Google `redirectTo`. This is what
+lets `/join/<code>` survive a sign-up: you land back on the invite, not on
+`/game` having forgotten why you came.
+
 ### 9.4 Page-by-page behaviour
+
+**`/`** — the hero opens with `NextRaceWidget`: a server-rendered strip naming
+the next Grand Prix (round, circuit, country) above a client-side countdown
+(`NextRaceCountdown`). Only the digits are client-side, so the race is in the
+HTML whether or not the clock ever starts, and the placeholder holds the same
+width so hydration shifts nothing. Between seasons it falls back to the plain
+season line it replaced. Below `sm` it stays one row — the place is dropped,
+the name truncates and the clock collapses to `12d 04:33:12` — because stacked
+it ate a third of the viewport before the headline got a word in.
 
 **`/game`** (`revalidate = 60`) — finds the next `scheduled` race with
 `race_at > now`, then fetches in parallel: the active roster, the model entry
@@ -1067,11 +1102,33 @@ season picks. Renders the countdown, a "last duel" strip, and the editor.
 `canPlay = signed in && race_at is in the future`.
 
 **`/game/races/[round]`** (`revalidate = 120`) — redirects to `/game` if the
-race is still `scheduled`. Shows the duel banner (win/draw/loss + duel bonus), a
-4-column table (Pos / You / Model / Official) with per-slot points and the
-rarity multiplier highlighted, DotD, the safety-car outcome with both bets, and
-"THE FIELD" (top 100 by score, usernames joined via the FK rather than a second
-unfiltered read of every profile).
+race is still `scheduled`. Shows the duel banner (win/draw/loss + duel bonus),
+the side-by-side breakdown (below), DotD, the safety-car outcome with both bets,
+and "THE FIELD" (top 100 by score, usernames joined via the FK rather than a
+second unfiltered read of every profile). Your own score row is read separately
+**with the profile attached**, so the poster can sign itself with your username.
+
+`RaceBreakdown` (client, 376 lines) owns the 4-column table — Pos / You / Model
+/ Official — and makes the arithmetic inspectable, which it was not: the table
+said "Norris +20 ×2" and the three things that decide a slot's score (base
+points, where the driver actually finished, how unlikely the model thought the
+call was) were all invisible. Tapping a position opens one explanation per
+side — outcome sentence, `10 base ×2 = 20 pts`, and the model's own
+probability behind the multiplier, including the "a favourite, so no
+multiplier" case. Two decisions worth keeping:
+
+- the panel sits **outside** the horizontally scrolling table, because prose in
+  a 36rem grid would have to be read sideways on a phone;
+- the trigger sits in the **first** column next to the position, because a
+  control parked past the last column is one nobody finds on a phone. The whole
+  row is tappable too.
+
+Underneath, two receipts account for both totals line by line: the ten
+positions, then each bonus that fired (exact podium, DotD, safety car, duel),
+then the total. Every number was already in `scores.breakdown` and
+`model_entries.breakdown` — none of it was surfaced. Scores are drawn as chips
+**pinned to their own driver's name**; right-aligned in the cell they sat
+against the next column and read as its score.
 
 **`/game/standings`** (`revalidate = 120`) — 100 players per page via
 `standings_page`. The model's season total is the sum of `model_entries.total`
@@ -1080,28 +1137,65 @@ above it, and the model line is **spliced into the exact page it belongs on**,
 with ranks after it shifted by one. League filter chips come from RLS (you only
 see leagues you're in).
 
-**`/game/leagues`** — one `standings_page` RPC per league (50-row preview).
+**`/game/leagues`** — one `standings_page` RPC per league (50-row preview) plus
+an exact `count` of members. Each card carries the code, **Invite a friend**
+(the native share sheet — one tap to a text message) and **Copy invite link**,
+both pointing at `/join/<code>`, and leave (or, for the owner, delete the
+league) behind an inline confirm. "Join with a code" also accepts a pasted
+invite link.
+
 Historical note: it used to filter with `?user_id=in.(<every uuid>)`, which blew
-past the HTTP request-line limit at ~200 members.
+past the HTTP request-line limit at ~200 members. And until 2026-08-02 the page
+was **unreachable** — nothing gated it, it was simply missing from `NAV_LINKS`
+and linked only from the footer, so players concluded leagues weren't for them.
+Discoverability is a feature: it is now a nav entry, and the standings' league
+filter renders for anyone signed in rather than only for existing members.
+
+**`/join/<code>`** — resolves the code through `league_by_code()` and shows the
+league's name, owner and size, then one button. Signed out it shows the same
+card and carries `?next=/join/<code>` through sign-in; already a member, it
+links to the board instead; unknown code, it says the invite has expired.
+Joining goes through `join_league()` and lands on
+`/game/standings?league=<id>` — the board is the answer to "what did I just
+join".
 
 **`/game/picks`** — if a `season_picks` row exists it renders read-only, because
 the pick is immutable at the database level.
 
 **`/profile/[username]`** — totals, W-D-L, best race, duel history, championship
 pick theming. `player_details` is fetched **only for the owner** (RLS would
-return nothing to a visitor anyway, so the round-trip would be pure waste).
+return nothing to a visitor anyway, so the round-trip would be pure waste). The
+owner also gets the **delete-account** panel: typing your username arms it, it
+calls `delete_account()`, signs out and leaves through a full navigation to
+`/login?deleted=1` so no server-rendered page is left holding dead cookies.
 
 **`/model`** — a native explanation of the opponent. It exists so the site never
 depends on the Flask app being deployed; `LIVE_MODEL_URL` adds an outbound link
 only when `NEXT_PUBLIC_MODEL_URL` is set to a real remote URL (a `localhost`
 value is ignored on purpose).
 
-### 9.5 `PredictionEditor` — the most complex component (677 lines)
+### 9.5 `PredictionEditor` — the most complex component (733 lines)
 
 - A fixed **10-slot list**, `null` = empty, so positions are stable while you
   fill them.
-- **Desktop:** drag-and-drop reordering (`@dnd-kit`, pointer + keyboard
-  sensors, `closestCenter`, `arrayMove`).
+- **Reordering** uses `@dnd-kit` with **`MouseSensor` + `TouchSensor` rather
+  than one `PointerSensor`**, because the two inputs want different gestures:
+
+  | Input | Gesture |
+  | --- | --- |
+  | Mouse | drag from the grip after 6px |
+  | Touch, on the row | press and hold 220ms (8px tolerance), then drag |
+  | Touch, on the grip | drags immediately, via `bypassActivationConstraint` |
+  | Keyboard | `KeyboardSensor` + `sortableKeyboardCoordinates` |
+
+  Only the touch listener goes on the `<li>`; the mouse listeners stay on the
+  grip, so desktop behaviour is unchanged and a click on the name or the cross
+  can never become a drag. The 220ms delay is what leaves a plain swipe free to
+  scroll and a tap free to open the picker — dnd-kit cancels a pending
+  activation past the tolerance and swallows the click once a drag starts.
+  Because a finger on the row has no grip to confirm the gesture, the lifted
+  row scales 2%, turns opaque (translucent `bg-glass` let the row underneath
+  show through) and ticks the haptics.
 - **Mobile:** tap a slot → bottom-sheet driver picker (rendered through a
   **portal**, see §9.7), with `navigator.vibrate(8)` haptics where available.
 - Forward-fill by default; a targeted replacement sets `replacing.current` so
@@ -1133,7 +1227,13 @@ Shared classes: `.glass-card` (the card surface), `.glass-chip` (blurred pill),
 separator), `.rise-in` (staggered hero entrance).
 
 The palette is carried over from `webapp/static/css/style.css` so the game and
-the model page read as one product.
+the model page read as one product — and redrawn by hand on canvas for the
+poster (§9.9), which is why `.checker-edge`'s finish line has a twin in
+`lib/poster/draw.ts`.
+
+The desktop nav and the account buttons appear at **`md`**, not `sm`: six nav
+entries plus the profile pill do not fit a 640px bar. Below that everything is
+the `MobileNav` overlay.
 
 ### 9.7 Two gotchas that cost real debugging time
 
@@ -1155,6 +1255,38 @@ preview often isn't recognised server-side: no sign-out button appears,
 navigations hard-reload, the loading spinner never shows. **Always validate
 auth-dependent UI on production** (`f1-race-predictor-one.vercel.app`), never on
 a preview deployment.
+
+### 9.9 The race poster (`lib/poster/`, `components/PosterExport.tsx`)
+
+A scored race can be exported as a shareable 1080×1350 sheet: your top 10
+against the official classification, per-slot points with rarity multipliers, a
+stats band (points, exact hits, drivers landed in the top 10, average positions
+missed) and the two side bets, over the site's own dark base, red aurora and
+checkered finish line.
+
+- **Drawn on a canvas, not screenshotted from the DOM.** No html-to-image
+  dependency: the same sheet comes out of every browser, and the same canvas
+  feeds the PNG, the clipboard, the share sheet and the PDF. The approach and
+  the PDF writer are ported from the model platform's export
+  (`webapp/static/js/app.js`).
+- `pdf.ts` writes a **one-page PDF by hand** — five objects, an xref table and
+  the JPEG as an image XObject (`DCTDecode`). A PDF library would cost more
+  bundle than the sixty lines it takes to emit.
+- `data.ts` builds the payload on the server from rows the review page already
+  loaded, carrying only the drivers that appear (the object is serialized into
+  the HTML). Driver photos are always offered and the drawing falls back to the
+  three-letter code when one 404s, so a mid-season rookie can't break it.
+- **next/font hashes its family names** (`__Inter_e8ce0c`), so the canvas can't
+  ask for "Inter". `draw.ts` reads `--font-inter` / `--font-geist-mono` off
+  `<html>` and preloads them through `document.fonts.load` — without this the
+  poster silently renders in a system fallback.
+- The dialog's one option is **Include the model**: off, the model's column,
+  the duel verdict and the margin all go, the two remaining columns widen and
+  the card reads `FINAL SCORE`. It's for showing your race rather than the duel,
+  and it's disabled outright when the race has no model entry.
+- Layout is **self-fitting**: the table's row height is derived from the space
+  left between the verdict card and the stats band, so no arithmetic slip can
+  push content off the sheet.
 
 ---
 
@@ -1255,6 +1387,13 @@ e.g. `feat(web): next-race countdown widget in place of the season banner`,
 
 ### 12.2 Troubleshooting — symptom → cause → fix
 
+**Every invite link says "this invite has expired", or the delete-account
+button reports that deletion isn't enabled.**
+Migration `0005` hasn't been applied to this project — `league_by_code()` /
+`delete_account()` don't exist, and both features fail closed by design. → Run
+the file in the SQL editor (§7.5). Codes and `join_league()` keep working
+meanwhile, so "join with a code" is the fallback.
+
 **"No upcoming race" on `/game`.**
 Either the season is over, or `races` has no `scheduled` row with
 `race_at > now` for `NEXT_PUBLIC_SEASON`. → Run `sync-schedule`; check
@@ -1328,7 +1467,29 @@ curl -s -o /dev/null -w '%{http_code}\n' \
 
 # Frontend typechecks + lints
 cd web && npx tsc --noEmit && npm run lint
+
+# Frontend builds (catches what tsc alone doesn't: route types, RSC boundaries)
+cd web && npm run build
 ```
+
+**Looking at front-end work.** There is no browser on the dev machine and no
+test suite, so visual changes are checked by driving a headless Chrome:
+
+```bash
+npx -y @puppeteer/browsers install chrome@stable --path /tmp/browsers
+"/tmp/browsers/chrome/<ver>/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing" \
+  --headless=new --disable-gpu --window-size=1100,900 \
+  --virtual-time-budget=15000 --screenshot=out.png http://localhost:3000/<route>
+```
+
+Two things to know. Headless Chrome enforces a **minimum 500px window width**
+on macOS — a `--window-size=390,844` run lays out at 500 and merely crops the
+capture, so phone-width "bugs" seen that way are usually false. And pages that
+need auth or scored rows are best rendered through a **throwaway route** under
+`web/app/dev-*/` holding mock data, deleted before committing; that is how the
+poster, the points explanation and the press-and-hold gesture were verified
+(the gesture with `puppeteer-core` touch emulation, asserting that a quick
+swipe does *not* reorder and a hold does).
 
 ---
 
@@ -1343,6 +1504,15 @@ cd web && npx tsc --noEmit && npm run lint
 
 ### 13.1.1 Fixed
 
+- **Leagues were invisible** (fixed 2026-08-02, PR #21). Nothing gated them:
+  `/game/leagues` was missing from `NAV_LINKS` and linked only from the footer,
+  so new players never found the page and concluded the feature wasn't for
+  them. The lesson is worth more than the fix — RLS being correct says nothing
+  about a feature being reachable.
+- **A failed league join looked like a success** (fixed 2026-08-02, PR #21).
+  `LeagueActions` read the `error` state immediately after setting it — still
+  the previous render's value — so the form closed and refreshed as though the
+  join had worked. Read the value you just computed, not the state you just set.
 - **`lock_race.grid_fallback()` crashed instead of falling back** (fixed
   2026-08-02, `fix/grid-fallback-tuple`). It subscripted the tuple returned by
   `load_qualifying()` as `quali["DriverId"]` → `TypeError`, and the
@@ -1365,8 +1535,16 @@ cd web && npx tsc --noEmit && npm run lint
   Identified, not attempted.
 - **`FIELD_LIMIT = 100`** on the race review means players outside the top 100
   see only their own row in context.
+- **League codes are 6 hex characters** (~16M combinations) and both
+  `join_league()` and `league_by_code()` answer for any code. Enumeration is
+  theoretically possible; for a friends-and-family game the trade (a link that
+  works with no account lookup) is deliberate. Rate-limiting or longer codes
+  are the fix if a league ever needs to be private in earnest.
+- **Deleting an account deletes the leagues that account owns**, for everyone
+  in them. Said plainly in the confirm dialog, but there is no hand-over.
 - **No automated test suite.** `backtest.py` is the closest thing, and it
-  covers only the scoring rules.
+  covers only the scoring rules. Front-end work in this repo is verified by
+  driving headless Chrome against a throwaway harness route (see §12.3).
 - **The model retrains manually.** There's no scheduled retraining job; the
   committed artifacts are whatever was last trained locally.
 
@@ -1439,7 +1617,11 @@ Also refresh the **Last reviewed** line and commit hash at the top.
 | A game page | `web/app/(site)/…` |
 | Nav links | `web/lib/nav.ts` |
 | Colours, spacing, motion | `web/app/globals.css` |
-| The prediction UX | `web/components/PredictionEditor.tsx` |
+| The prediction UX (incl. the press-and-hold reorder) | `web/components/PredictionEditor.tsx` |
+| How a race's points are explained | `web/components/RaceBreakdown.tsx` |
+| The shareable poster | `web/lib/poster/{draw,data,pdf,types}.ts`, `web/components/PosterExport.tsx` |
+| League invites and the join flow | `web/app/(site)/join/[code]/page.tsx`, `web/components/{LeagueCardActions,JoinLeagueButton}.tsx` |
+| Account deletion | `web/components/DeleteAccount.tsx` + `delete_account()` |
 | Row types shared by the frontend | `web/lib/types.ts` |
 
 ### C. Feature quick reference (39)
