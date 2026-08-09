@@ -21,10 +21,13 @@ function canvasBlob(canvas: HTMLCanvasElement): Promise<Blob> {
 function ModelToggle({
   on,
   disabled,
+  played,
   onChange,
 }: {
   on: boolean;
   disabled: boolean;
+  /** Whether you picked this race — without it there is no duel to include. */
+  played: boolean;
   onChange: (next: boolean) => void;
 }) {
   return (
@@ -42,8 +45,12 @@ function ModelToggle({
           {disabled
             ? "No model entry for this race"
             : on
-              ? "Its picks, its score and the duel verdict"
-              : "Your prediction and the result only"}
+              ? played
+                ? "Its picks, its score and the duel verdict"
+                : "Its picks and its score against the result"
+              : played
+                ? "Your prediction and the result only"
+                : "The official classification only"}
         </span>
       </span>
       <span
@@ -245,6 +252,7 @@ export default function PosterExport({ data }: { data: PosterData }) {
                   <ModelToggle
                     on={withModel && data.modelTotal !== null}
                     disabled={data.modelTotal === null}
+                    played={data.total !== null}
                     onChange={(next) => show(() => setWithModel(next))}
                   />
 

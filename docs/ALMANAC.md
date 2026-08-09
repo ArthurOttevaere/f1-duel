@@ -1106,7 +1106,9 @@ race is still `scheduled`. Shows the duel banner (win/draw/loss + duel bonus),
 the side-by-side breakdown (below), DotD, the safety-car outcome with both bets,
 and "THE FIELD" (top 100 by score, usernames joined via the FK rather than a
 second unfiltered read of every profile). Your own score row is read separately
-**with the profile attached**, so the poster can sign itself with your username.
+**with the profile attached**, so the poster can sign itself with your username;
+on a race you skipped there is no such row, and the name falls back to
+`getOwnProfile()` (cached per request, so the nav doesn't pay for it twice).
 
 `RaceBreakdown` (client, 376 lines) owns the 4-column table — Pos / You / Model
 / Official — and makes the arithmetic inspectable, which it was not: the table
@@ -1258,11 +1260,12 @@ a preview deployment.
 
 ### 9.9 The race poster (`lib/poster/`, `components/PosterExport.tsx`)
 
-A scored race can be exported as a shareable 1080×1350 sheet: your top 10
+Any scored race can be exported as a shareable 1080×1350 sheet: your top 10
 against the official classification, per-slot points with rarity multipliers, a
 stats band (points, exact hits, drivers landed in the top 10, average positions
 missed) and the two side bets, over the site's own dark base, red aurora and
-checkered finish line.
+checkered finish line. Races you skipped export the same way, minus your
+column — see the third bullet.
 
 - **Drawn on a canvas, not screenshotted from the DOM.** No html-to-image
   dependency: the same sheet comes out of every browser, and the same canvas
@@ -1276,14 +1279,27 @@ checkered finish line.
   loaded, carrying only the drivers that appear (the object is serialized into
   the HTML). Driver photos are always offered and the drawing falls back to the
   three-letter code when one 404s, so a mid-season rookie can't break it.
+- **A race you never picked exports too**, and that is the reason the table is
+  column-driven rather than a fixed You / Official / Model triple. `data.ts`
+  needs only the official classification: `total`, `stats` and `verdict` go
+  null, your column disappears, and the official one takes the lead (portraits,
+  team names, the row's colour stripe). The points column follows whoever is
+  actually being scored — you, or the model on a race you sat out (hence
+  `modelPoints`/`modelMultiplier` on each slot) — and vanishes when neither is.
+  The verdict card reads `THE MODEL'S RACE` with the model's total, or
+  `OFFICIAL RESULT` with the winner's name when there is no model entry either;
+  the stats band shows the model's numbers, or nothing at all, and the legend
+  goes with it since no column is graded. The point is that the button means the
+  same thing on every scored race instead of appearing only where you played.
 - **next/font hashes its family names** (`__Inter_e8ce0c`), so the canvas can't
   ask for "Inter". `draw.ts` reads `--font-inter` / `--font-geist-mono` off
   `<html>` and preloads them through `document.fonts.load` — without this the
   poster silently renders in a system fallback.
 - The dialog's one option is **Include the model**: off, the model's column,
-  the duel verdict and the margin all go, the two remaining columns widen and
-  the card reads `FINAL SCORE`. It's for showing your race rather than the duel,
-  and it's disabled outright when the race has no model entry.
+  the duel verdict and the margin all go, the remaining columns widen and the
+  card reads `FINAL SCORE` (or `OFFICIAL RESULT` on a race you skipped). It's
+  for showing your race rather than the duel, and it's disabled outright when
+  the race has no model entry.
 - Layout is **self-fitting**: the table's row height is derived from the space
   left between the verdict card and the stats band, so no arithmetic slip can
   push content off the sheet.

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { getOwnProfile } from "@/lib/auth";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, shortName } from "@/lib/format";
@@ -74,8 +75,15 @@ export default async function RaceReviewPage({
 
   const user = await getUser();
 
-  const [entryRes, resultRes, rosterRes, scoresRes, myScoreRes, myPredRes] =
-    await Promise.all([
+  const [
+    entryRes,
+    resultRes,
+    rosterRes,
+    scoresRes,
+    myScoreRes,
+    myPredRes,
+    ownProfile,
+  ] = await Promise.all([
       supabase.from("model_entries").select("*").eq("race_id", race.id).maybeSingle(),
       supabase.from("results").select("*").eq("race_id", race.id).maybeSingle(),
       supabase.from("drivers").select("*").eq("season", race.season),
@@ -108,6 +116,10 @@ export default async function RaceReviewPage({
             .eq("user_id", user.id)
             .maybeSingle()
         : Promise.resolve({ data: null }),
+      // The poster signs itself with your username, and on a race you skipped
+      // there is no score row to carry one. Cached per request, so the nav and
+      // the layout don't pay for this read twice.
+      getOwnProfile(),
     ]);
 
   const entry = entryRes.data as ModelEntry | null;
@@ -130,8 +142,9 @@ export default async function RaceReviewPage({
   const myScore = (myScoreRow as Score | null) ?? undefined;
   const myPrediction = (myPredRes.data as Prediction | null) ?? undefined;
 
-  // Everything the shareable poster needs, or null when there is nothing to
-  // show off yet (race not scored, or you sat this one out).
+  // Everything the shareable poster needs, or null when the race isn't scored
+  // yet. A race you sat out still exports — the sheet becomes the official
+  // result and the model's race, so the button doesn't come and go.
   const poster =
     race.status === "scored"
       ? buildPosterData({
@@ -141,7 +154,8 @@ export default async function RaceReviewPage({
           score: myScore,
           entry,
           result,
-          player: myScoreRow?.profiles?.username ?? "you",
+          player:
+            myScoreRow?.profiles?.username ?? ownProfile?.username ?? "you",
         })
       : null;
 

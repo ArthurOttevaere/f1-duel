@@ -35,8 +35,9 @@ function statsFor(slots: SlotScore[] | undefined): PosterStats {
 
 /**
  * Assembles everything the poster draws from the rows the review page already
- * loaded. Returns null when the race has nothing to show off yet — the export
- * button is hidden in that case rather than producing an empty sheet.
+ * loaded. Returns null only when there is no official classification to print —
+ * a race you never picked still exports, as the result plus the model's race,
+ * so the button doesn't come and go depending on whether you played.
  *
  * Only the drivers that actually appear on the poster are carried over: this
  * object is serialized into the page's HTML, and the full roster would be most
@@ -59,7 +60,10 @@ export function buildPosterData({
   result: RaceResult | null;
   player: string;
 }): PosterData | null {
-  if (!result || !score || !prediction) return null;
+  if (!result) return null;
+  // A prediction without a score (or the other way round) is a race mid-scoring:
+  // treat it as unplayed rather than drawing half a duel.
+  const played = Boolean(prediction && score);
 
   const actualOrder: (string | null)[] = Array.from({ length: 10 }, (_, i) => {
     const hit = Object.entries(result.classification).find(([, p]) => p === i + 1);
@@ -67,17 +71,19 @@ export function buildPosterData({
   });
 
   const slots: PosterSlot[] = Array.from({ length: 10 }, (_, i) => {
-    const mine = score.breakdown.slots[i];
+    const mine = played ? score?.breakdown.slots[i] : undefined;
     const model = entry?.breakdown?.slots?.[i];
     return {
       position: i + 1,
-      mine: prediction.picks[i] ?? null,
+      mine: (played ? prediction?.picks[i] : null) ?? null,
       official: actualOrder[i],
       model: entry?.predicted_order[i] ?? null,
       kind: (mine?.kind as SlotKind | undefined) ?? null,
       modelKind: (model?.kind as SlotKind | undefined) ?? null,
       points: mine?.points ?? 0,
       multiplier: mine?.multiplier ?? 1,
+      modelPoints: model?.points ?? 0,
+      modelMultiplier: model?.multiplier ?? 1,
     };
   });
 
@@ -86,7 +92,7 @@ export function buildPosterData({
     for (const id of [s.mine, s.official, s.model]) if (id) used.add(id);
   }
   if (result.dotd) used.add(result.dotd);
-  if (prediction.dotd) used.add(prediction.dotd);
+  if (played && prediction?.dotd) used.add(prediction.dotd);
 
   const roster: Record<string, PosterDriver> = {};
   for (const id of used) {
@@ -103,24 +109,28 @@ export function buildPosterData({
     };
   }
 
+  const myDotd = played ? prediction?.dotd : null;
   const dotd: PosterCall | null = result.dotd
     ? {
         actual: roster[result.dotd]?.name ?? shortName(result.dotd),
-        mine: prediction.dotd
-          ? (roster[prediction.dotd]?.name ?? shortName(prediction.dotd))
-          : null,
-        hit: prediction.dotd === result.dotd,
+        mine: myDotd ? (roster[myDotd]?.name ?? shortName(myDotd)) : null,
+        hit: myDotd === result.dotd,
+        // The model never calls a Driver of the Day.
+        model: null,
+        modelHit: false,
       }
     : null;
 
+  const myScBet = played ? (prediction?.sc_bet ?? null) : null;
   const safetyCar: PosterCall | null =
     result.safety_car === null
       ? null
       : {
           actual: result.safety_car ? "Yes" : "No",
-          mine:
-            prediction.sc_bet === null ? null : prediction.sc_bet ? "Yes" : "No",
-          hit: prediction.sc_bet === result.safety_car,
+          mine: myScBet === null ? null : myScBet ? "Yes" : "No",
+          hit: myScBet === result.safety_car,
+          model: entry?.sc_bet == null ? null : entry.sc_bet ? "Yes" : "No",
+          modelHit: entry?.sc_bet === result.safety_car,
         };
 
   return {
@@ -131,12 +141,19 @@ export function buildPosterData({
     country: race.country,
     raceAt: race.race_at,
     player,
-    total: score.total,
+    total: played ? (score?.total ?? null) : null,
     modelTotal: entry?.total ?? null,
-    verdict: score.beat_model ? "beat" : score.drew_model ? "drew" : "lost",
-    duelBonus: score.breakdown.bonuses?.duel ?? 0,
+    verdict:
+      !played || !score
+        ? null
+        : score.beat_model
+          ? "beat"
+          : score.drew_model
+            ? "drew"
+            : "lost",
+    duelBonus: (played && score?.breakdown.bonuses?.duel) || 0,
     slots,
-    stats: statsFor(score.breakdown.slots),
+    stats: played && score ? statsFor(score.breakdown.slots) : null,
     modelStats: entry?.breakdown?.slots ? statsFor(entry.breakdown.slots) : null,
     dotd,
     safetyCar,

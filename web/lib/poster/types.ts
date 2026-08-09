@@ -29,6 +29,9 @@ export interface PosterSlot {
   modelKind: SlotKind | null;
   points: number;
   multiplier: number;
+  /** The model's own arithmetic — what the points column shows when you sat the race out. */
+  modelPoints: number;
+  modelMultiplier: number;
 }
 
 export interface PosterStats {
@@ -44,8 +47,17 @@ export interface PosterCall {
   actual: string;
   mine: string | null;
   hit: boolean;
+  /** The model's call, where it makes one (the safety car; never the DOTD). */
+  model: string | null;
+  modelHit: boolean;
 }
 
+/**
+ * A race you never picked still exports: the sheet becomes the official
+ * classification, with the model's race alongside it when it entered. The
+ * fields that only exist because you played are null in that case — `total`
+ * is the one the drawing keys off.
+ */
 export interface PosterData {
   season: number;
   round: number;
@@ -54,12 +66,12 @@ export interface PosterData {
   country: string | null;
   raceAt: string | null;
   player: string;
-  total: number;
+  total: number | null;
   modelTotal: number | null;
   verdict: "beat" | "drew" | "lost" | null;
   duelBonus: number;
   slots: PosterSlot[];
-  stats: PosterStats;
+  stats: PosterStats | null;
   modelStats: PosterStats | null;
   dotd: PosterCall | null;
   safetyCar: PosterCall | null;
