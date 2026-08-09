@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-08-03 (commit `e003f3b`, PRs #15–#23).
+**Last reviewed:** 2026-08-09 (commit `bc32610`, PRs #15–#26).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -1136,22 +1136,46 @@ against the next column and read as its score.
 `standings_page`. The model's season total is the sum of `model_entries.total`
 for this season's races; `standings_rank_at` says how many players are at or
 above it, and the model line is **spliced into the exact page it belongs on**,
-with ranks after it shifted by one. League filter chips come from RLS (you only
-see leagues you're in).
+with ranks after it shifted by one. That splice is why the model appears inside
+every league board and not only the global one: `standings_rank_at` takes the
+same `p_league_id`, so the model is ranked against whichever field is on screen.
 
-**`/game/leagues`** — one `standings_page` RPC per league (50-row preview) plus
-an exact `count` of members. Each card carries the code, **Invite a friend**
-(the native share sheet — one tap to a text message) and **Copy invite link**,
-both pointing at `/join/<code>`, and leave (or, for the owner, delete the
-league) behind an inline confirm. "Join with a code" also accepts a pasted
-invite link.
+Since PR #26 this page **is** the leagues page (see below). Three parts:
 
-Historical note: it used to filter with `?user_id=in.(<every uuid>)`, which blew
-past the HTTP request-line limit at ~200 members. And until 2026-08-02 the page
-was **unreachable** — nothing gated it, it was simply missing from `NAV_LINKS`
-and linked only from the footer, so players concluded leagues weren't for them.
-Discoverability is a feature: it is now a nav entry, and the standings' league
-filter renders for anyone signed in rather than only for existing members.
+1. **The filter row** (`LeagueSwitcher`, client) — Global, one pill per league
+   from RLS (you only see leagues you're in), then `LeagueActions`. Pills are
+   real `<Link>`s, but a plain click is intercepted and re-issued as
+   `router.push` inside a `useTransition`. Switching costs a server round-trip
+   (the board is ranked in SQL), and a bare `<Link>` spends it showing the
+   *previous* league — the site read as frozen. The transition gives a
+   `pending` flag for exactly that window: the board dims and a spinner sits
+   over it. Modified clicks (⌘, ctrl, shift, alt, middle) fall through to the
+   browser so "open in new tab" still works.
+2. **The league panel** — rendered when a league is selected: name, player
+   count (`standings_count`, which counts league members, so no extra query),
+   the code, and `LeagueCardActions`. **Invite a friend** (the native share
+   sheet — one tap to a text message) and **Copy invite link** both point at
+   `/join/<code>`; leave (or, for the owner, delete the league) sits behind an
+   inline confirm and then `router.replace`s back to Global, because the URL
+   still names a league that no longer exists.
+3. **Race by race** — one card per scored race (a responsive 1/2/3-column
+   grid), each carrying the round, the circuit and, for a signed-in viewer,
+   their own score and duel verdict from a single `scores` read. It used to be
+   a wrap of identical pills, which at 24 rounds read as one heap. Deliberately
+   rendered *outside* the switcher: the season's races are the same whichever
+   league you look at, so they must not blink on every switch.
+
+**`/game/leagues`** — a `redirect()` to `/game/standings`, nothing more. Kept
+because invite links, bookmarks and messages players already sent point at it.
+
+Historical note: the leagues page used to filter with
+`?user_id=in.(<every uuid>)`, which blew past the HTTP request-line limit at
+~200 members. Until 2026-08-02 it was also **unreachable** — missing from
+`NAV_LINKS`, linked only from the footer — so it was promoted to a nav entry
+(PR #21). PR #26 went further and removed it: two tabs answering one question
+("where do I stand?" / "…among my friends?") with two different-looking boards
+was the actual discoverability problem. There is one board now, and the filter
+is the league.
 
 **`/join/<code>`** — resolves the code through `league_by_code()` and shows the
 league's name, owner and size, then one button. Signed out it shows the same

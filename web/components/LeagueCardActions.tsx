@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { standingsHref } from "@/lib/nav";
 import { createClient } from "@/lib/supabase/client";
 
 /**
@@ -85,6 +86,9 @@ export default function LeagueCardActions({
       return;
     }
     setConfirming(false);
+    // Back to Global first: the URL still names a league that is now gone, and
+    // refreshing alone would leave `?league=…` pointing at nothing.
+    router.replace(standingsHref(null), { scroll: false });
     router.refresh();
   }
 

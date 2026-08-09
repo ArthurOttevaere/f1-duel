@@ -21,11 +21,10 @@ export default function SiteFooter() {
             <Link href="/game" className="text-ink-mute transition-colors hover:text-ink">
               This weekend
             </Link>
+            {/* Leagues live inside the standings filter now, so there is no
+                separate destination to link to. */}
             <Link href="/game/standings" className="text-ink-mute transition-colors hover:text-ink">
-              Standings
-            </Link>
-            <Link href="/game/leagues" className="text-ink-mute transition-colors hover:text-ink">
-              Leagues
+              Standings &amp; leagues
             </Link>
           </div>
           <div className="flex flex-col gap-2">
