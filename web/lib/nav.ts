@@ -3,14 +3,21 @@
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/game", label: "The game" },
+  // Leagues had their own tab and it split the same question in two — "where
+  // do I stand?" answered in one place, "where do I stand among my friends?"
+  // in another, with two different-looking boards. Standings now owns both:
+  // the league filter also carries everything you can do to that league.
   { href: "/game/standings", label: "Standings" },
-  // Leagues used to be reachable from the footer alone, which is to say not
-  // reachable: players signed up, never found them, and concluded the feature
-  // was not for them.
-  { href: "/game/leagues", label: "Leagues" },
   { href: "/rules", label: "Rules" },
   { href: "/model", label: "The model" },
 ] as const;
+
+/** The board, global (null) or filtered to one league. */
+export function standingsHref(leagueId: number | null): string {
+  return leagueId === null
+    ? "/game/standings"
+    : `/game/standings?league=${leagueId}`;
+}
 
 /**
  * The nav entry that best matches the current path, or null. The most specific

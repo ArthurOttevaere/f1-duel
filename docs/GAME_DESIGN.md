@@ -199,8 +199,8 @@ timing — GitHub Actions cron + Supabase is deterministic and free.
 | `/` | Hero (full-bleed high-quality F1 photo, headline, 2 CTAs: **Play the duel** / **Explore the model**), scroll sections explaining the game and the model, footer. |
 | `/game` | Dashboard: next GP countdown, prediction editor (ordered top 10 + DotD pick — drag the grip, or press and hold a row on touch), current duel status, season summary strip. |
 | `/game/races/[round]` | Duel review: player vs model vs actual, side-by-side. Tapping a position explains that row in words — base points, the driver's actual finish, and the rarity multiplier with the model's own probability — and two receipts underneath account for every point in both totals. **Export poster**: a 1080×1350 sheet of the race (your call vs the official result, stats band, finish line) as PNG/PDF/share, with the model's column and the duel verdict optional. |
-| `/game/standings` | Global leaderboard + duel records; league filter. |
-| `/game/leagues` | Create / join a league by code or invite link; per-league board, share link (Web Share / copy), leave or delete. |
+| `/game/standings` | Global leaderboard + duel records, and **the leagues page too**: the filter switches Global ↔ one of your leagues, and picking a league also brings up its code, invite link (Web Share / copy) and leave-or-delete. Create / join a league by code or invite link happens from the same row. Below the board, one card per scored Grand Prix with your score and the duel verdict. |
+| `/game/leagues` | Redirect to `/game/standings` — kept alive for links players already sent each other. |
 | `/join/<code>` | The far end of an invite link: shows the league, its owner and its size, then joins — signing in first if needed. |
 | `/profile/[username]` | Stats, duel history, championship picks — themed with the picked team/driver colors. Owner only: edit username and private details, and delete the account (`delete_account()`, cascades to everything including leagues you own). |
 | `/login` | Supabase auth (magic link + Google). |
