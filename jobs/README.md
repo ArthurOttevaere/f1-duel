@@ -25,7 +25,9 @@ Supabase SQL editor do the same thing. The one you'll want at launch is
 `python jobs/admin.py model-reset` — the model has been scoring every Grand
 Prix with nobody watching, and this zeroes its **season total** (never a race
 result, never a duel record) so newcomers don't start several hundred points
-down. `python jobs/admin.py --help` lists the rest.
+down. `python jobs/admin.py --help` lists the rest, and
+[`../docs/DATABASE.md`](../docs/DATABASE.md) is the full operator guide — every
+action against the live database with the exact command.
 
 `scoring.py` is the pure rules engine (docs/GAME_DESIGN.md §2.2) — the only
 place scoring logic lives. `model_bridge.py` wraps `src/predict.py` as a duel

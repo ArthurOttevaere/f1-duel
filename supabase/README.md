@@ -66,6 +66,10 @@ delete-player <username>` is the same call from a terminal.
 
 ## Operator controls (migration 0006)
 
+> Every command in this section, plus players, races, leagues and GDPR
+> requests, is laid out task-by-task in [`../docs/DATABASE.md`](../docs/DATABASE.md).
+
+
 The model plays every Grand Prix whether or not anyone else is on the platform,
 so it arrives at launch with a season of points against humans who have none.
 `model_entries.counts_in_standings` decides whether a race feeds its **season
