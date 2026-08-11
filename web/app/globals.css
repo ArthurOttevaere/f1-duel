@@ -150,6 +150,107 @@ body {
   mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 }
 
+/* ─── Waiting ──────────────────────────────────────────────────────────── */
+
+/* Inline spinner for any control that is busy (components/Spinner.tsx).
+   1em square and drawn in currentColor, so it matches the text it sits next to
+   at whatever size and colour that happens to be. */
+.spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: none;
+  border-radius: 9999px;
+  border: 2px solid color-mix(in srgb, currentColor 22%, transparent);
+  border-top-color: currentColor;
+  animation: spin 620ms linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 1.6s;
+  }
+}
+
+/* The start-light gantry (components/StartLights.tsx). Five columns of two
+   bulbs fill left to right, then every light drops at once. */
+.start-lights {
+  --sl-bulb: 0.8rem;
+  --sl-cycle: 2.6s;
+  position: relative;
+  display: inline-flex;
+  gap: 0.55rem;
+  padding-top: 0.6rem;
+}
+/* The gantry beam the lights hang from — one hairline, nothing more. */
+.start-lights::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -0.35rem;
+  right: -0.35rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.22) 15%,
+    rgb(255 255 255 / 0.22) 85%,
+    transparent
+  );
+}
+.sl-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.sl-bulb {
+  position: relative;
+  width: var(--sl-bulb);
+  height: var(--sl-bulb);
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 0.05);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.09);
+}
+/* The lit face of a bulb, faded in by the column's keyframes below. */
+.sl-bulb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-race);
+  box-shadow: 0 0 12px rgb(255 30 60 / 0.55);
+  opacity: 0;
+  animation: var(--sl-cycle) step-end infinite;
+}
+/* One set of keyframes per column rather than a shared one with a delay: the
+   lights come on in sequence but must go out together, and a delay would
+   stagger the blackout too. Both bulbs of a column share the column's name, so
+   they always light as a pair. */
+.sl-col:nth-child(1) .sl-bulb::after { animation-name: sl-1; }
+.sl-col:nth-child(2) .sl-bulb::after { animation-name: sl-2; }
+.sl-col:nth-child(3) .sl-bulb::after { animation-name: sl-3; }
+.sl-col:nth-child(4) .sl-bulb::after { animation-name: sl-4; }
+.sl-col:nth-child(5) .sl-bulb::after { animation-name: sl-5; }
+
+@keyframes sl-1 { 0% { opacity: 0 } 10% { opacity: 1 } 80% { opacity: 0 } }
+@keyframes sl-2 { 0% { opacity: 0 } 22% { opacity: 1 } 80% { opacity: 0 } }
+@keyframes sl-3 { 0% { opacity: 0 } 34% { opacity: 1 } 80% { opacity: 0 } }
+@keyframes sl-4 { 0% { opacity: 0 } 46% { opacity: 1 } 80% { opacity: 0 } }
+@keyframes sl-5 { 0% { opacity: 0 } 58% { opacity: 1 } 80% { opacity: 0 } }
+
+/* Reduced motion: the gantry still reads as a gantry, it just stops running. */
+@media (prefers-reduced-motion: reduce) {
+  .sl-bulb::after {
+    animation: none;
+    opacity: 0.8;
+  }
+}
+
 /* Loader phrase — a soft fade as each line swaps in. */
 .loader-phrase {
   animation: loaderFade 340ms var(--ease-out-strong);
@@ -261,10 +362,11 @@ body {
   }
 }
 
-/* ─── Boot screen (mobile only, first paint) ───────────────────────────── */
-/* The home page paints its glow, grid and glass cards in one go; on a phone
-   that first frame can flash. Hold the site behind an opaque screen until the
-   load event, then fade it away. Desktop never sees it. */
+/* ─── Boot screen (first paint of a session) ───────────────────────────── */
+/* The home page paints its glow, grid and glass cards in one go, and that
+   first frame can flash — worst on a phone, but visible anywhere on a cold
+   load. Hold the site behind an opaque screen running the start lights until
+   the load event, then fade it away. Once per session, every viewport. */
 #boot-screen {
   position: fixed;
   inset: 0;
@@ -283,11 +385,6 @@ body {
 #boot-screen.boot-done {
   opacity: 0;
   pointer-events: none;
-}
-@media (min-width: 768px) {
-  #boot-screen {
-    display: none;
-  }
 }
 
 /* ─── Entrances (rare, first-view only) ────────────────────────────────── */

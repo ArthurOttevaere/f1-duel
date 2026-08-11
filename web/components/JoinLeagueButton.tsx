@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import Spinner from "@/components/Spinner";
 
 /** The one button on an invite page. Lands you on the board you just joined. */
 export default function JoinLeagueButton({
@@ -44,8 +45,9 @@ export default function JoinLeagueButton({
         type="button"
         onClick={join}
         disabled={busy}
-        className="pressable mt-6 rounded-full bg-race px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-60"
+        className="pressable mt-6 inline-flex items-center gap-2 rounded-full bg-race px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-60"
       >
+        {busy && <Spinner />}
         {busy ? "Joining…" : `Join ${name}`}
       </button>
       {error && <p className="mt-3 text-sm text-race">{error}</p>}

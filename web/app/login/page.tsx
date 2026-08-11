@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import Spinner from "@/components/Spinner";
 import PlayerDetailsFields, {
   detailsError,
   detailsPayload,
@@ -294,8 +295,9 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={working}
-                className="pressable rounded-xl bg-race py-3 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-60"
+                className="pressable flex items-center justify-center gap-2 rounded-xl bg-race py-3 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-60"
               >
+                {working && <Spinner />}
                 {working
                   ? "Please wait…"
                   : mode === "signin"

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { driverPhoto } from "@/lib/format";
+import { driverColor, tint } from "@/lib/teams";
 import type { Driver } from "@/lib/types";
 
 export function DriverAvatar({
@@ -12,7 +13,8 @@ export function DriverAvatar({
   size?: number;
 }) {
   const [broken, setBroken] = useState(false);
-  const color = driver.team_color ?? "#6c7280";
+  const color = driverColor(driver);
+  const wash = tint(color, 0.2);
 
   if (broken) {
     return (
@@ -21,7 +23,7 @@ export function DriverAvatar({
         style={{
           width: size,
           height: size,
-          background: `${color}33`,
+          background: wash,
           color,
         }}
       >
@@ -38,7 +40,7 @@ export function DriverAvatar({
       height={size}
       onError={() => setBroken(true)}
       className="shrink-0 rounded-full object-cover"
-      style={{ background: `${color}33`, width: size, height: size }}
+      style={{ background: wash, width: size, height: size }}
     />
   );
 }

@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import Spinner from "@/components/Spinner";
+import { driverColor } from "@/lib/teams";
 import {
   DndContext,
   KeyboardSensor,
@@ -85,7 +87,7 @@ function Slot({
     isDragging,
   } = useSortable({ id: driver?.driver_id ?? `empty-${position}`, disabled: disabled || !driver });
 
-  const color = driver?.team_color ?? "#6c7280";
+  const color = driverColor(driver);
   // dnd-kit types its listener map as Record<string, Function>, which React's
   // props are stricter than.
   const onRowTouchStart = listeners?.onTouchStart as
@@ -690,8 +692,9 @@ export default function PredictionEditor({
             type="button"
             onClick={save}
             disabled={!complete || !dirty || saveState === "saving"}
-            className="pressable flex-1 rounded-full bg-race px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgb(255_30_60/0.35)] transition-colors hover:bg-race-deep disabled:opacity-45 disabled:shadow-none sm:flex-none"
+            className="pressable flex flex-1 items-center justify-center gap-2 rounded-full bg-race px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgb(255_30_60/0.35)] transition-colors hover:bg-race-deep disabled:opacity-45 disabled:shadow-none sm:flex-none"
           >
+            {saveState === "saving" && <Spinner />}
             {saveState === "saving"
               ? "Saving…"
               : complete
