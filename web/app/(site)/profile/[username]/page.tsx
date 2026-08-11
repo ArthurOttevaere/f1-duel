@@ -4,6 +4,7 @@ import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, shortName } from "@/lib/format";
 import { countryFlag, countryName } from "@/lib/countries";
+import { seasonPickColor, tint } from "@/lib/teams";
 import type {
   Driver,
   PlayerDetails,
@@ -86,8 +87,10 @@ export default async function ProfilePage({
   const flag = countryFlag(details?.country);
 
   // Profile themed with the championship pick's team colors (docs §2.3).
+  // The colour comes from the pick, never from the site's red: a roster row
+  // with no `team_color` used to make every profile look like a Ferrari pick.
   const championDriver = pick ? roster.get(pick.champion_driver) : null;
-  const theme = championDriver?.team_color ?? "#ff1e3c";
+  const theme = seasonPickColor(pick, (rosterRows as Driver[]) ?? []);
 
   return (
     <main className="mx-auto w-[min(64rem,calc(100%-2rem))] flex-1 pt-28 pb-8">
@@ -95,7 +98,7 @@ export default async function ProfilePage({
         <header
           className="glass-card relative overflow-hidden p-8"
           style={{
-            backgroundImage: `radial-gradient(60rem 18rem at 20% -40%, ${theme}2e, transparent 70%)`,
+            backgroundImage: `radial-gradient(60rem 18rem at 20% -40%, ${tint(theme, 0.18)}, transparent 70%)`,
           }}
         >
           <div

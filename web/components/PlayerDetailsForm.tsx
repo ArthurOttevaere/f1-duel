@@ -9,6 +9,7 @@ import PlayerDetailsFields, {
   EMPTY_DETAILS,
   type Details,
 } from "@/components/PlayerDetailsFields";
+import Spinner from "@/components/Spinner";
 
 /**
  * Read/write the player's own `player_details` row, under the owner-only RLS
@@ -104,8 +105,9 @@ export default function PlayerDetailsForm({
       <button
         type="submit"
         disabled={saving}
-        className="pressable rounded-xl bg-race py-3 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-45"
+        className="pressable flex items-center justify-center gap-2 rounded-xl bg-race py-3 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-45"
       >
+        {saving && <Spinner />}
         {saving ? "Saving…" : mode === "edit" ? "Save details" : "Finish"}
       </button>
     </form>

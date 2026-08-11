@@ -114,7 +114,9 @@ The bonus is **prorated by the fraction of the season remaining at lock**
 system works for a mid-season launch.
 
 The champion picks also define the player's **profile theme** (team colors,
-driver imagery) — see §4.
+driver imagery) — see §4. The theme follows the pick, never the site red: the
+picked driver's team colour, else a team-mate's, else the picked constructor's,
+and only a neutral grey if the roster knows neither (`web/lib/teams.ts`).
 
 ### 2.4 Driver of the Day
 
@@ -128,6 +130,16 @@ the next scoring pass.
 
 - **Season leaderboard**: total points across all scored GPs (+ bonuses).
 - **Duel record vs the model**: W-D-L, shown prominently on profiles.
+- **The model's season total is the operator's to set.** It plays every Grand
+  Prix whether or not anyone else is on the platform, so at launch it would
+  meet its first human with a full season of points already banked. Any race
+  can be dropped from its season total (`model_entries.counts_in_standings`),
+  which is how "the model starts from zero today" is expressed. This changes
+  **only** the standings line: the race pages keep showing what it really
+  scored that weekend, and every duel W/D/L stands. Players' totals are never
+  touched this way — a player is removed or not, there is no half-counting.
+  Operator commands: `jobs/admin.py model-reset | model-count-from N |
+  model-restore`.
 - **Leagues**: private groups joined via a unique 6-character code or, more
   usually, an invite link (`/join/<code>`) shared by message. A league is just
   a filtered leaderboard — all scoring is global. Members can leave; the owner
@@ -203,6 +215,7 @@ timing — GitHub Actions cron + Supabase is deterministic and free.
 | `/game/leagues` | Redirect to `/game/standings` — kept alive for links players already sent each other. |
 | `/join/<code>` | The far end of an invite link: shows the league, its owner and its size, then joins — signing in first if needed. |
 | `/profile/[username]` | Stats, duel history, championship picks — themed with the picked team/driver colors. Owner only: edit username and private details, and delete the account (`delete_account()`, cascades to everything including leagues you own). |
+| `/contact` | Contact & FAQ: how to report a bug or suggest a feature (issue tracker + optional mailbox), the questions players actually ask, and the credits. |
 | `/login` | Supabase auth (magic link + Google). |
 
 Design language: dark, premium motorsport aesthetic consistent with the existing

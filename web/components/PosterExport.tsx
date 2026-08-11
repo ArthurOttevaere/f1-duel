@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { drawPoster, posterFileName } from "@/lib/poster/draw";
 import { downloadBlob, posterToPdf } from "@/lib/poster/pdf";
 import type { PosterData } from "@/lib/poster/types";
+import Spinner from "@/components/Spinner";
 
 type Busy = null | "png" | "pdf" | "share" | "copy";
 
@@ -244,7 +245,17 @@ export default function PosterExport({ data }: { data: PosterData }) {
                       className="max-h-[45vh] w-auto max-w-full rounded-xl border border-line object-contain shadow-2xl sm:max-h-[60vh]"
                     />
                   ) : (
-                    <div className="aspect-[1080/1350] w-full max-w-[min(100%,16rem)] animate-pulse rounded-xl border border-line bg-glass" />
+                    // The poster is redrawn on open and on every toggle, and on
+                    // a phone that is long enough to look like nothing is
+                    // happening. Same frame as the finished poster, with the
+                    // wait spelled out inside it.
+                    <div
+                      role="status"
+                      className="flex aspect-[1080/1350] w-full max-w-[min(100%,16rem)] flex-col items-center justify-center gap-3 rounded-xl border border-line bg-glass text-ink-mute"
+                    >
+                      <Spinner className="text-base" />
+                      <p className="text-xs">Developing the poster…</p>
+                    </div>
                   )}
                 </div>
 
@@ -264,9 +275,10 @@ export default function PosterExport({ data }: { data: PosterData }) {
                         type="button"
                         disabled={!preview || busy !== null}
                         onClick={() => run("share")}
-                        className={`${actionClass} w-full bg-race text-white hover:bg-race-deep`}
+                        className={`${actionClass} flex w-full items-center justify-center gap-2 bg-race text-white hover:bg-race-deep`}
                       >
-                        {busy === "share" ? "…" : "Share"}
+                        {busy === "share" && <Spinner />}
+                        Share
                       </button>
                     )}
                     <div className={`grid gap-2 ${copyable ? "grid-cols-3" : "grid-cols-2"}`}>
@@ -282,13 +294,17 @@ export default function PosterExport({ data }: { data: PosterData }) {
                           type="button"
                           disabled={!preview || busy !== null}
                           onClick={() => run(action)}
-                          className={`${actionClass} ${
+                          className={`${actionClass} flex items-center justify-center gap-1.5 ${
                             !shareable && action === "png"
                               ? "bg-race text-white hover:bg-race-deep"
                               : "glass-chip hover:border-line-hi"
                           }`}
                         >
-                          {busy === action ? "…" : label}
+                          {/* The label stays put and the spinner joins it —
+                              swapping the label out makes the row of buttons
+                              jump about mid-export. */}
+                          {busy === action && <Spinner className="text-xs" />}
+                          {label}
                         </button>
                       ))}
                     </div>

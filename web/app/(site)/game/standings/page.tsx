@@ -12,6 +12,36 @@ export const revalidate = 120;
 /** Players per page. Keeps the HTML bounded however many sign up. */
 const PER_PAGE = 100;
 
+interface ModelRaceEntry {
+  race_id: number;
+  total: number | null;
+  counts_in_standings: boolean;
+}
+
+/**
+ * The model's scored races, and whether each one counts towards its season
+ * total (migration 0006: the operator can drop past races so the machine
+ * doesn't meet new players 400 points up — race pages still show the real
+ * score either way).
+ *
+ * Falls back to counting everything if the column isn't there, because a
+ * migration that hasn't been applied yet should cost the board its newest
+ * behaviour, not its ability to render.
+ */
+async function modelEntries(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+): Promise<ModelRaceEntry[]> {
+  const flagged = await supabase
+    .from("model_entries")
+    .select("race_id, total, counts_in_standings");
+  if (!flagged.error) return (flagged.data as ModelRaceEntry[]) ?? [];
+
+  const plain = await supabase.from("model_entries").select("race_id, total");
+  return ((plain.data as Omit<ModelRaceEntry, "counts_in_standings">[]) ?? []).map(
+    (e) => ({ ...e, counts_in_standings: true }),
+  );
+}
+
 /** Your own line in a race card: points, and whether you took the model down. */
 interface MyRace {
   total: number;
@@ -55,13 +85,13 @@ export default async function StandingsPage({
   const supabase = await createClient();
   const { league: leagueParam, page: pageParam } = await searchParams;
 
-  const [{ data: races }, { data: entries }, user, { data: leaguesData }] =
+  const [{ data: races }, entries, user, { data: leaguesData }] =
     await Promise.all([
       supabase
         .from("races")
         .select("id, round, name, circuit, status")
         .eq("season", CURRENT_SEASON),
-      supabase.from("model_entries").select("race_id, total"),
+      modelEntries(supabase),
       getUser(),
       // RLS returns only the leagues the viewer belongs to. The whole row now:
       // the filter needs the name, and the panel under it needs the code and
@@ -75,9 +105,11 @@ export default async function StandingsPage({
   const leagueId = selectedLeague?.id ?? null;
 
   const seasonRaceIds = new Set(((races as Race[]) ?? []).map((r) => r.id));
-  const modelTotal = ((entries as { race_id: number; total: number | null }[]) ?? [])
-    .filter((e) => seasonRaceIds.has(e.race_id) && e.total !== null)
-    .reduce((sum, e) => sum + Number(e.total), 0);
+  const counted = entries.filter(
+    (e) =>
+      seasonRaceIds.has(e.race_id) && e.total !== null && e.counts_in_standings,
+  );
+  const modelTotal = counted.reduce((sum, e) => sum + Number(e.total), 0);
 
   // Filtering, ordering, counting and ranking all happen in SQL now. Reading
   // the whole board to slice it here stopped working at 1000 players, which is
@@ -126,7 +158,7 @@ export default async function StandingsPage({
 
   type Line =
     | { kind: "player"; row: LeaderboardRow; rank: number }
-    | { kind: "model"; points: number; rank: number };
+    | { kind: "model"; points: number; races: number; rank: number };
   const lines: Line[] = board.map((row, i) => ({
     kind: "player",
     row,
@@ -138,6 +170,7 @@ export default async function StandingsPage({
     lines.splice(modelIndex - offset, 0, {
       kind: "model",
       points: modelTotal,
+      races: counted.length,
       rank: modelIndex + 1,
     });
   }
@@ -325,7 +358,7 @@ function Board({
 }: {
   lines: (
     | { kind: "player"; row: LeaderboardRow; rank: number }
-    | { kind: "model"; points: number; rank: number }
+    | { kind: "model"; points: number; races: number; rank: number }
   )[];
   empty: boolean;
   viewerId: string | null;
@@ -352,7 +385,12 @@ function Board({
                 <td className="px-3 py-2.5 font-mono font-semibold tracking-wider">
                   <span className="text-race">THE MODEL</span>
                 </td>
-                <td className="px-3 py-2.5 text-right text-ink-mute">—</td>
+                {/* Its race count is the honest footnote to its total: after
+                    a reset the board reads "0 races, 0 points" rather than a
+                    zero nobody can explain. */}
+                <td className="px-3 py-2.5 text-right text-ink-dim">
+                  {line.races}
+                </td>
                 <td className="px-3 py-2.5 text-right text-ink-mute">—</td>
                 <td className="px-3 py-2.5 text-right font-mono">
                   {formatPoints(line.points)}

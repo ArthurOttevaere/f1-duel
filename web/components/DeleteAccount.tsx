@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import Spinner from "@/components/Spinner";
 
 /**
  * Self-serve account deletion.
@@ -94,8 +95,9 @@ export default function DeleteAccount({ username }: { username: string }) {
               type="button"
               onClick={destroy}
               disabled={!armed || busy}
-              className="pressable rounded-full bg-race px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-40"
+              className="pressable flex items-center gap-2 rounded-full bg-race px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-40"
             >
+              {busy && <Spinner />}
               {busy ? "Deleting…" : "Delete permanently"}
             </button>
             <button

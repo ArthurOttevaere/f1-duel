@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import type { Driver, SeasonPick } from "@/lib/types";
+import { teamColor } from "@/lib/teams";
 import SeasonPicksForm from "@/components/SeasonPicksForm";
 import { shortName } from "@/lib/format";
 
@@ -32,7 +33,7 @@ export default async function PicksPage() {
   const existing = pickRes.data as SeasonPick | null;
   const teams = [...new Set(roster.map((d) => d.team))].map((team) => ({
     team,
-    color: roster.find((d) => d.team === team)?.team_color ?? null,
+    color: teamColor(team, roster),
   }));
 
   return (

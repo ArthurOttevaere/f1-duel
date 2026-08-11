@@ -1,4 +1,5 @@
 import { driverPhoto, shortName } from "@/lib/format";
+import { driverColor } from "@/lib/teams";
 import type {
   Driver,
   ModelEntry,
@@ -101,7 +102,7 @@ export function buildPosterData({
       code: d?.code ?? shortName(id).slice(0, 3).toUpperCase(),
       name: shortName(id),
       team: d?.team ?? "",
-      color: d?.team_color ?? "#6c7280",
+      color: driverColor(d),
       // Always offered, never guaranteed: rookies mid-season have no portrait
       // yet, and the drawing falls back to the code when the file 404s. A
       // hardcoded list of who has a photo would go stale on the next signing.

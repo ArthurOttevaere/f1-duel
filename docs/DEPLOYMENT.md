@@ -50,12 +50,19 @@ workflow). After that the three workflows run on their own schedule
    | `NEXT_PUBLIC_SUPABASE_URL` | the Project URL |
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | the `anon public` key |
    | `NEXT_PUBLIC_MODEL_URL` | *(optional)* your Render URL (step 4) |
+   | `NEXT_PUBLIC_CONTACT_EMAIL` | *(optional)* the address `/contact` publishes |
    | `NEXT_PUBLIC_SEASON` | `2026` |
 
    The site has a built-in `/model` page explaining the opponent, so
    `NEXT_PUBLIC_MODEL_URL` is **optional** — set it only to add a link out to
    the live Flask platform. A `localhost` value is ignored, so leaving it unset
    is safe.
+
+   `NEXT_PUBLIC_CONTACT_EMAIL` is the mailbox the Contact & FAQ page offers for
+   bug reports. Leave it unset and the page simply points at GitHub Issues
+   instead — worth creating a dedicated address for the project rather than
+   publishing a personal one, and it can be added or changed later without a
+   deploy.
 
 4. Deploy. Copy the resulting `*.vercel.app` URL back into Supabase step 1.4
    (Site URL + redirect list).

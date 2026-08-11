@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { standingsHref } from "@/lib/nav";
 import LeagueActions from "./LeagueActions";
+import Spinner from "@/components/Spinner";
 
 export interface SwitcherLeague {
   id: number;
@@ -96,7 +97,7 @@ export default function LeagueSwitcher({
             aria-live="polite"
             className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center"
           >
-            <span className="size-11 animate-spin rounded-full border-2 border-line border-t-race" />
+            <Spinner className="text-[2.75rem] text-race" />
             <span className="sr-only">Loading the board…</span>
           </div>
         )}

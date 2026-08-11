@@ -16,6 +16,16 @@ export SUPABASE_SERVICE_KEY=<service_role secret>
 | `set_dotd.py` | manual, Monday | Record the official Driver of the Day, re-scores instantly |
 | `settle_season.py` | once, December | Awards championship-pick bonuses |
 | `backtest.py` | local only | Replays the scoring rules over past races (no DB needed) |
+| `admin.py` | manual, operator | The model's season score (status / reset / count-from / restore) and the player list (`players`, `delete-player`) |
+
+`admin.py` is the odd one out: it is not part of a race weekend, it is what you
+run when you are running the platform. Each command wraps an operator-only SQL
+function from `supabase/migrations/0006_admin_controls.sql`, so it and the
+Supabase SQL editor do the same thing. The one you'll want at launch is
+`python jobs/admin.py model-reset` — the model has been scoring every Grand
+Prix with nobody watching, and this zeroes its **season total** (never a race
+result, never a duel record) so newcomers don't start several hundred points
+down. `python jobs/admin.py --help` lists the rest.
 
 `scoring.py` is the pure rules engine (docs/GAME_DESIGN.md §2.2) — the only
 place scoring logic lives. `model_bridge.py` wraps `src/predict.py` as a duel

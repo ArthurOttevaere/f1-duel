@@ -117,6 +117,20 @@ def upsert(table: str, rows: list[dict] | dict, on_conflict: str | None = None) 
     _check(resp)
 
 
+def rpc(fn: str, payload: dict | None = None):
+    """Call a Postgres function through PostgREST (`/rest/v1/rpc/<fn>`).
+
+    The service key is a member of `service_role`, so this reaches the
+    operator-only functions of migration 0006 that anon and authenticated are
+    revoked from. Returns the decoded body: a scalar, a list of rows, or None
+    for a function that returns nothing.
+    """
+    resp = requests.post(f"{_base()}/rpc/{fn}", headers=_headers(),
+                         json=payload or {}, timeout=30)
+    _check(resp)
+    return resp.json() if resp.content else None
+
+
 def update(table: str, match: dict, values: dict) -> None:
     """match uses PostgREST operators, e.g. {'id': 'eq.4'}."""
     resp = requests.patch(f"{_base()}/{table}", headers=_headers(),

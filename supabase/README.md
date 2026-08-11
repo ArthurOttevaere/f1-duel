@@ -59,7 +59,33 @@ and why on the site, and be able to delete it on request. Players do this
 themselves from their profile page — `delete_account()` (migration 0005) deletes
 their `auth.users` row, which cascades to `profiles`, `player_details`,
 `predictions`, `season_picks`, `scores`, league membership and any league they
-own. Deleting the auth user from the dashboard has exactly the same effect.
+own. Deleting the auth user from the dashboard has exactly the same effect, and
+so does `select admin_delete_player('<username>');` (migration 0006), which is
+the same cascade by name instead of by uuid — `python jobs/admin.py
+delete-player <username>` is the same call from a terminal.
+
+## Operator controls (migration 0006)
+
+The model plays every Grand Prix whether or not anyone else is on the platform,
+so it arrives at launch with a season of points against humans who have none.
+`model_entries.counts_in_standings` decides whether a race feeds its **season
+total**; the race pages and every duel W/D/L ignore the flag entirely, so
+nothing here rewrites a result.
+
+```sql
+select * from admin_model_status(2026);   -- round by round: scored? counting?
+select admin_model_reset(2026);           -- its season total -> 0, from now on
+select admin_model_count_from(2026, 15);  -- the season starts at round 15
+select admin_model_restore(2026);         -- undo: the whole season counts
+select * from admin_players();            -- everyone, with email and points
+select admin_delete_player('someuser');   -- remove a player, no undo
+```
+
+These are revoked from `anon` and `authenticated` and granted to
+`service_role`, so they are reachable from the SQL editor and from
+`jobs/admin.py`, and from nowhere in the site. The public half —
+`model_season_points(season)` and `model_season_races(season)` — is what the
+standings page reads.
 
 ## Migrations
 
@@ -73,6 +99,7 @@ the numbered files in `migrations/` in order, in the SQL editor:
 | `0003_player_details.sql` | Private `player_details` (name, country, birth year) |
 | `0004_standings_pagination.sql` | `standings_page/count/rank_at` — paged standings past 1000 players |
 | `0005_league_invites_and_account_deletion.sql` | `league_by_code()` (invite links) and `delete_account()` (self-serve deletion) |
+| `0006_admin_controls.sql` | `model_entries.counts_in_standings` + the operator functions: reset/restore the model's season score, list and delete players |
 
 ## The 1000-row cap
 

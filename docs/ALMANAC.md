@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-08-09 (commit `bc32610`, PRs #15–#26).
+**Last reviewed:** 2026-08-11 (commit `7f774f6`, PRs #15–#27).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -207,7 +207,7 @@ f1_race_predictor/
 │   └── accuracy_cache/      Per-race accuracy (gitignored)
 ├── fastf1_cache/            FastF1 HTTP cache, SQLite (gitignored)
 ├── jobs/                    Game automation (Python, no Flask)
-│   ├── db.py                PostgREST client with paging    (124)
+│   ├── db.py                PostgREST client with paging    (138)
 │   ├── scoring.py           THE rules engine                (159)
 │   ├── grid_prior.py        P(finish | grid) kernel         (57)
 │   ├── safety_car.py        Model's SC bet (circuit priors) (104)
@@ -217,6 +217,7 @@ f1_race_predictor/
 │   ├── score_race.py        Scoring pass                    (112)
 │   ├── set_dotd.py          Manual Driver of the Day        (46)
 │   ├── settle_season.py     Championship-pick payout        (62)
+│   ├── admin.py             Operator console (§8.5)         (191)
 │   └── backtest.py          Offline rules validation        (102)
 ├── supabase/
 │   ├── schema.sql           Full schema for a fresh project (484)
@@ -710,7 +711,7 @@ nowhere else.
 | `player_details` | `id` → profiles | owner only | Real name, ISO-3166 country, birth **year**. The one table with **no public read policy**. |
 | `drivers` | `(season, driver_id)` | `sync_schedule` | Roster + team colour, powers the picker and profile theming. |
 | `races` | identity, unique `(season, round)` | `sync_schedule` (never `status`), `lock_race`/`score_race` (status only) | `status ∈ scheduled \| locked \| scored` — the whole fair-play model hangs off this column. |
-| `model_entries` | `race_id` | `lock_race`, then `score_race` | `predicted_order` (full ordered list), `prob_matrix` `{driver: [p1..pN]}`, `pre_quali`, `sc_prob`, `sc_bet`, and after scoring `total` + `breakdown`. |
+| `model_entries` | `race_id` | `lock_race`, then `score_race` | `predicted_order` (full ordered list), `prob_matrix` `{driver: [p1..pN]}`, `pre_quali`, `sc_prob`, `sc_bet`, and after scoring `total` + `breakdown`. `counts_in_standings` (0006) is the operator's switch for whether this race feeds the model's **season** total — the race page ignores it. The jobs never send that column, so a re-lock or re-score leaves the choice alone. |
 | `predictions` | identity, unique `(user_id, race_id)` | the player | `picks` validated by `valid_picks()`: a JSON array of **exactly 10 distinct** entries. Plus optional `dotd`, `sc_bet`. |
 | `results` | `race_id` | `score_race`, `set_dotd` | Official `classification`, `dotd`, `safety_car`, `scored_at`. |
 | `scores` | `(race_id, user_id)` | `score_race` | `total`, full `breakdown` JSON, `beat_model`, `drew_model`. The model's score lives in `model_entries`, **not** here. |
@@ -752,6 +753,21 @@ Indexes: `predictions(race_id)`, `scores(user_id)`, `league_members(user_id)`.
   `points` (sum of scores + awarded season-pick points), `duel_wins/draws/losses`.
 - **`standings_page(league, limit, offset)`**, **`standings_count(league)`**,
   **`standings_rank_at(points, league)`** — see §7.4.
+- **`model_season_points(season)`** / **`model_season_races(season)`** — the
+  one definition of the model's season line: the sum of `model_entries.total`
+  over that season's scored races **where `counts_in_standings`**. Public, like
+  the rest of the board.
+- **Operator-only (0006), revoked from `anon`/`authenticated`, granted to
+  `service_role`, and callable in the SQL editor as owner:**
+  `admin_model_status(season)` (round by round: scored? counting?),
+  `admin_model_reset(season)` (drop every already-scored race → the model shows
+  0 and starts again next Grand Prix), `admin_model_count_from(season, round)`
+  ("the season starts here"), `admin_model_restore(season)` (undo),
+  `admin_players()` (everyone, with email and points — it reaches `auth.users`,
+  hence `security definer`), `admin_delete_player(username)` (deletes the auth
+  user; every table follows by foreign key, exactly like `delete_account()`.
+  Takes a **username** and raises if it doesn't exist, so a typo can never
+  delete the wrong player). Driven from `jobs/admin.py` (§8.5).
 
 ### 7.3 Row Level Security — the fair-play layer
 
@@ -807,6 +823,7 @@ editor.
 | `0003_player_details.sql` | `player_details` table + policies + trigger extension | ⚠️ verify |
 | `0004_standings_pagination.sql` | `standings_page/count/rank_at` | ⚠️ verify |
 | `0005_league_invites_and_account_deletion.sql` | `league_by_code()`, `delete_account()` | ✅ confirmed 2026-08-02 |
+| `0006_admin_controls.sql` | `model_entries.counts_in_standings`, `model_season_points/races()`, the `admin_*` operator functions | ⚠️ **pending** — apply before using `jobs/admin.py` |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
@@ -814,7 +831,10 @@ reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
 `player_details` table can't trap every account in a `/welcome` loop. The 0005
 features fail closed the same way: without the migration every invite link
 reads "this invite has expired" and the delete button reports that deletion
-isn't enabled, rather than throwing.
+isn't enabled, rather than throwing. The standings do the same for 0006: they
+ask for `counts_in_standings`, and if the column isn't there they re-read
+without it and count every race, so the board loses the new behaviour rather
+than the ability to render.
 
 To check what's applied, run in the SQL editor:
 
@@ -823,6 +843,7 @@ select column_name from information_schema.columns
  where table_schema='public' and table_name='profiles';
 select to_regclass('public.player_details');
 select proname from pg_proc where proname like 'standings%';
+select proname from pg_proc where proname like 'admin\_%';
 ```
 
 ### 7.6 Personal data / GDPR
@@ -832,7 +853,9 @@ birth years therefore live in `player_details`, owner-read only. Collecting
 this makes you a data controller: `/privacy` explains what is collected and
 why, and deleting the auth user cascades to both tables. **Deletion is
 self-serve** since 0005 — the profile page calls `delete_account()`, guarded by
-typing your username — so a request should almost never reach you by email. To
+typing your username — so a request should almost never reach you by email. If
+one does (or a test account needs clearing out), `python jobs/admin.py
+delete-player <username>` does exactly the same thing operator-side. To
 see who is playing,
 query from the SQL editor (service role):
 
@@ -928,7 +951,7 @@ within the last 10 days (the re-score window that catches a late DotD).
 
 Fully idempotent — re-running recomputes identical rows.
 
-### 8.5 `set_dotd.py` / `settle_season.py`
+### 8.5 The hand-run jobs: `set_dotd.py`, `settle_season.py`, `admin.py`
 
 ```bash
 python jobs/set_dotd.py 2026 13 max_verstappen   # ~2 minutes, Monday
@@ -938,6 +961,35 @@ python jobs/settle_season.py 2026                # once, in December
 `set_dotd` validates the `driver_id` against the season roster, writes
 `results.dotd`, and immediately re-scores the race so the +5 lands right away.
 There is no official DotD API — this is the one manual step in the system.
+
+**`admin.py` — the operator console.** Never scheduled; it is what you run when
+you are running the platform rather than playing on it. Every command is a thin
+wrapper over an operator-only SQL function from migration 0006 (§7.2), so the
+terminal and the Supabase SQL editor do literally the same thing.
+
+```bash
+python jobs/admin.py model-status              # round by round: scored? counting?
+python jobs/admin.py model-reset               # the model's season total -> 0
+python jobs/admin.py model-count-from 15       # the season starts at round 15
+python jobs/admin.py model-restore             # undo: the whole season counts
+python jobs/admin.py players                   # everyone, with email and points
+python jobs/admin.py delete-player someuser    # remove a player for good
+```
+
+`--season` defaults to the current year and works on either side of the verb.
+Writes prompt for confirmation (`--yes` skips it); `delete-player` makes you
+retype the username, because it cascades to the player's predictions, scores,
+championship pick, league membership and any league they own — for its members
+too, and with no undo.
+
+Why the model needs a reset at all: it has been scoring every Grand Prix since
+round 1 with nobody watching, so on launch day it would be several hundred
+points ahead of every human who has just signed up. `model-reset` drops the
+races it has already been scored on from its **season total** and it starts
+collecting again at the next Grand Prix. It is not a rewrite of history: the
+race pages, the breakdowns and every duel W/D/L are untouched (§6.2 explains
+why the model's *entry* is calibrated; this is the separate question of what
+its season line says).
 
 ### 8.6 GitHub Actions
 
@@ -1022,6 +1074,7 @@ app/
 │   ├── model/page.tsx         Native explanation of the opponent
 │   ├── rules/page.tsx         The full rulebook
 │   ├── privacy/page.tsx       GDPR notice
+│   ├── contact/page.tsx       Contact + FAQ + credits
 │   ├── profile/[username]/    Stats, duel history, themed by champion pick
 │   ├── join/[code]/           The far end of a league invite link
 │   └── game/
@@ -1189,11 +1242,22 @@ join".
 the pick is immutable at the database level.
 
 **`/profile/[username]`** — totals, W-D-L, best race, duel history, championship
-pick theming. `player_details` is fetched **only for the owner** (RLS would
+pick theming (`seasonPickColor()` in `lib/teams.ts`: the picked driver's team
+colour, then a team-mate's, then the picked constructor's, then a neutral grey
+— **never** the site red, which is what made a Mercedes pick look like a
+Ferrari one when `drivers.team_color` came back null). `player_details` is fetched **only for the owner** (RLS would
 return nothing to a visitor anyway, so the round-trip would be pure waste). The
 owner also gets the **delete-account** panel: typing your username arms it, it
 calls `delete_account()`, signs out and leaves through a full navigation to
 `/login?deleted=1` so no server-rendered page is left holding dead cookies.
+
+**`/contact`** — where a player takes a bug or an idea, the FAQ, and the
+credits. The FAQ is native `<details>` rather than a JavaScript accordion: it
+works before hydration and find-in-page can search inside it. Two routes in,
+deliberately — a GitHub issue for anyone with an account, and a mailbox for
+everyone else. The address comes from `NEXT_PUBLIC_CONTACT_EMAIL` (§10.1) and
+the block simply doesn't render when it is unset, so publishing an address (or
+retiring one) is an env-var change, not a deploy.
 
 **`/model`** — a native explanation of the opponent. It exists so the site never
 depends on the Flask app being deployed; `LIVE_MODEL_URL` adds an outbound link
@@ -1250,7 +1314,32 @@ Shared classes: `.glass-card` (the card surface), `.glass-chip` (blurred pill),
 `.zone-fade` (soft section boundaries instead of hard colour steps),
 `.pressable` (everything clickable answers a press with `scale(.97)`),
 `.aurora` / `.hero-grid` (hero background), `.checker-edge` (checkered footer
-separator), `.rise-in` (staggered hero entrance).
+separator), `.rise-in` (staggered hero entrance), `.spinner` (the one busy
+indicator), `.start-lights` / `.sl-*` (the gantry).
+
+**Nothing waits in silence — house rule.** Any control that fires off work
+shows `components/Spinner.tsx` until the work comes back, and any view that is
+fetching shows something rather than a frozen screen. The spinner is `1em`
+square and drawn in `currentColor`, so it inherits the size and colour of
+whatever it is dropped into and never needs a variant; the label beside it
+stays put while it spins, because swapping the label out makes a row of
+buttons jump about mid-action. This covers save, join, create, leave, delete,
+lock-in, sign-in, the username check, the league switch and every poster
+export — including the poster redraw itself, which is tens of milliseconds on
+a laptop and long enough to look broken on a phone.
+
+**The arrival screen** (`BootScreen` + `StartLights`, `#boot-screen` in
+`globals.css`) is the first thing anyone sees: five lights fill left to right
+and then all go out at once. It is plain markup animated in CSS — no hooks, no
+client boundary — because it renders in the server HTML and has to animate
+before any JavaScript arrives. It holds for at least 700ms (a screen that
+appears and vanishes inside a blink reads as a glitch, not an intro) and never
+more than 2500ms whatever the network is doing, then fades; `sessionStorage`
+keeps it to once per session. The same gantry is the route-level loader
+(`RaceLoader`, under the nav), with the rotating quips underneath. Each column
+has its own keyframes rather than one shared set with a delay — the lights come
+on in sequence but must go **out together**, and a delay would stagger the
+blackout too.
 
 The palette is carried over from `webapp/static/css/style.css` so the game and
 the model page read as one product — and redrawn by hand on canvas for the
@@ -1340,6 +1429,7 @@ column — see the third bullet.
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Vercel, `web/.env.local` | ✅ | Anon key — safe to ship, RLS is the guard |
 | `NEXT_PUBLIC_SEASON` | Vercel | recommended | Pins the game season; defaults to the current year |
 | `NEXT_PUBLIC_MODEL_URL` | Vercel | optional | Link out to the Flask app; `localhost` values are ignored |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | Vercel, `web/.env.local` | optional | The mailbox `/contact` publishes. Unset (or not an address) → the page shows the GitHub route only. An env var on purpose: an address can then be created, changed or retired without a deploy |
 | `SUPABASE_URL` | GitHub Actions secret, local shell | ✅ for jobs | Same URL, server side |
 | `SUPABASE_SERVICE_KEY` | GitHub Actions secret, local shell | ✅ for jobs | **service_role** — bypasses RLS, never ship to a client |
 | `F1_PORT` | local shell | optional | Flask port (default 5050) |
@@ -1423,7 +1513,11 @@ e.g. `feat(web): next-race countdown widget in place of the season banner`,
 | Re-score a race | It re-scores automatically for 10 days; otherwise set `races.status='locked'` in SQL and run `score-race` |
 | Refresh the model after new races | `python src/collect.py <year> --force` (+ `--practice`), `python src/features.py`, then optionally `python src/train.py` |
 | Validate a rules change | `python jobs/backtest.py 2026 --rounds 1-13` — `mirror` must draw every race |
-| Inspect players | SQL editor query in §7.6 |
+| Inspect players | `python jobs/admin.py players`, or the SQL editor query in §7.6 |
+| Zero the model's season score | `python jobs/admin.py model-reset` (or `select admin_model_reset(2026);`). Use it at launch so newcomers aren't chasing a machine with a season's head start. Reversible: `model-restore` |
+| Start the season at round N | `python jobs/admin.py model-count-from N` |
+| See why the board shows what it shows | `python jobs/admin.py model-status` |
+| Remove a player | `python jobs/admin.py delete-player <username>` — cascades to everything they own, no undo |
 
 ### 12.2 Troubleshooting — symptom → cause → fix
 
@@ -1454,6 +1548,21 @@ If the cause is a **missing model entry**, `lock-race` will not retry on its own
 (it only scans `scheduled` races). Recover with
 `update races set status='scheduled' where season=<Y> and round=<R>;`, run
 **lock-race**, then **score-race**.
+
+**Every profile is red, and team colours are grey everywhere.**
+`drivers.team_color` is null for the season — FastF1 has no session data for it
+yet, or it doesn't recognise a new team. Since `lib/teams.ts` this is a
+cosmetic fallback rather than a bug (the site falls back to its own table of
+constructor colours), but the roster is still incomplete. → Re-run
+`python jobs/sync_schedule.py <year>` once FastF1 has published a session, and
+check `select team, team_color from drivers where season=<Y>;`. A team the
+table doesn't know either falls back to neutral grey — add it to `TEAM_COLORS`.
+
+**The model's points on the standings don't match its race pages.**
+Working as designed: some races are excluded from its season total
+(`counts_in_standings`, §7.2). The number of races on its line is the honest
+footnote. → `python jobs/admin.py model-status` shows which, `model-restore`
+puts them all back.
 
 **Scores look wrong / all multipliers are ×1.**
 `prob_matrix` is empty — the race was locked with the grid-order fallback.
@@ -1544,6 +1653,18 @@ swipe does *not* reorder and a hold does).
 
 ### 13.1.1 Fixed
 
+- **Every profile wore the site's red** (fixed 2026-08-11, PR #27). The header
+  theme was `championDriver?.team_color ?? "#ff1e3c"`, so a null `team_color`
+  on the roster — which is what a season FastF1 has no sessions for yet looks
+  like — themed a Mercedes pick in Ferrari red, with no way to tell a fallback
+  from a real choice. `lib/teams.ts` now resolves a colour through the driver,
+  their team-mates, the picked constructor and a table of constructor colours
+  before giving up, and gives up to grey rather than to a team's colour. The
+  same helper replaced every scattered `?? "#6c7280"`. Also fixed there: tints
+  were built by pasting an alpha suffix onto the hex string (`${theme}2e`),
+  which silently produced an invalid colour for any value that wasn't a
+  six-digit hex with a leading `#`.
+
 - **Leagues were invisible** (fixed 2026-08-02, PR #21). Nothing gated them:
   `/game/leagues` was missing from `NAV_LINKS` and linked only from the footer,
   so new players never found the page and concluded the feature wasn't for
@@ -1615,6 +1736,8 @@ PR — a stale almanac is worse than no almanac.
 | Git conventions | §11 |
 | A new failure mode you had to debug | §12.2 — write the symptom, cause and fix while it's fresh |
 | A bug you found but didn't fix | §13.1 |
+| Anything a player waits for | §9.6 — it needs a spinner; that is a house rule, not a preference |
+| Operator-only actions (model score, players) | §7.2, §8.5 and the §12.1 runbook |
 
 Also refresh the **Last reviewed** line and commit hash at the top.
 

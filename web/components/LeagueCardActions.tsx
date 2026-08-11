@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { standingsHref } from "@/lib/nav";
 import { createClient } from "@/lib/supabase/client";
+import Spinner from "@/components/Spinner";
 
 /**
  * Everything you can do to a league you are in: invite someone, and get out.
@@ -125,9 +126,10 @@ export default function LeagueCardActions({
               type="button"
               onClick={quit}
               disabled={busy}
-              className="pressable rounded-full border border-race/60 px-3 py-1 text-sm font-semibold text-race disabled:opacity-60"
+              className="pressable flex items-center gap-1.5 rounded-full border border-race/60 px-3 py-1 text-sm font-semibold text-race disabled:opacity-60"
             >
-              {busy ? "…" : "Yes"}
+              {busy && <Spinner className="text-xs" />}
+              Yes
             </button>
             <button
               type="button"

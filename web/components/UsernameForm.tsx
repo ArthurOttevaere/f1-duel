@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import Spinner from "@/components/Spinner";
 
 const RULE = /^[A-Za-z0-9_]{3,20}$/;
 
@@ -109,7 +110,12 @@ export default function UsernameForm({
 
   const hint = {
     idle: null,
-    checking: <span className="text-ink-mute">Checking…</span>,
+    checking: (
+      <span className="flex items-center gap-1.5 text-ink-mute">
+        <Spinner className="text-[0.7rem]" />
+        Checking…
+      </span>
+    ),
     free: <span className="text-emerald-400">{trimmed} is available ✓</span>,
     taken: <span className="text-race">{trimmed} is already taken</span>,
     invalid: (
@@ -147,8 +153,9 @@ export default function UsernameForm({
       <button
         type="submit"
         disabled={saving || status === "taken" || (mode === "edit" && unchanged)}
-        className="pressable rounded-xl bg-race py-3 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-45"
+        className="pressable flex items-center justify-center gap-2 rounded-xl bg-race py-3 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-45"
       >
+        {saving && <Spinner />}
         {saving
           ? "Saving…"
           : mode === "choose"

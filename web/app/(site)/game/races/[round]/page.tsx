@@ -4,6 +4,7 @@ import { getOwnProfile } from "@/lib/auth";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, shortName } from "@/lib/format";
+import { driverColor } from "@/lib/teams";
 import { buildPosterData } from "@/lib/poster/data";
 import PosterExport from "@/components/PosterExport";
 import RaceBreakdown, {
@@ -42,7 +43,7 @@ function entryFor(
   if (!id) return null;
   return {
     name: shortName(id),
-    color: drivers.get(id)?.team_color ?? "#6c7280",
+    color: driverColor(drivers.get(id)),
     kind: slot?.kind ?? "miss",
     actual: slot?.actual ?? null,
     base: slot?.base ?? 0,
@@ -178,7 +179,7 @@ export default async function RaceReviewPage({
       official: official
         ? {
             name: shortName(official),
-            color: drivers.get(official)?.team_color ?? "#6c7280",
+            color: driverColor(drivers.get(official)),
           }
         : null,
     };

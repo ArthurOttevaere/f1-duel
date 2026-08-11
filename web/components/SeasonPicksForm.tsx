@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { shortName } from "@/lib/format";
 import type { Driver } from "@/lib/types";
 import { DriverAvatar } from "@/components/DriverChip";
+import Spinner from "@/components/Spinner";
 
 export default function SeasonPicksForm({
   season,
@@ -14,7 +15,7 @@ export default function SeasonPicksForm({
 }: {
   season: number;
   roster: Driver[];
-  teams: { team: string; color: string | null }[];
+  teams: { team: string; color: string }[];
 }) {
   const router = useRouter();
   const [driver, setDriver] = useState<string | null>(null);
@@ -91,7 +92,7 @@ export default function SeasonPicksForm({
               <span
                 aria-hidden
                 className="size-2.5 shrink-0 rounded-full"
-                style={{ background: color ?? "#6c7280" }}
+                style={{ background: color }}
               />
               {t}
             </button>
@@ -122,8 +123,9 @@ export default function SeasonPicksForm({
               type="button"
               onClick={lockIn}
               disabled={busy}
-              className="pressable rounded-full bg-race px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+              className="pressable flex items-center gap-2 rounded-full bg-race px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
             >
+              {busy && <Spinner />}
               {busy ? "Locking…" : "Lock it in"}
             </button>
             <button
