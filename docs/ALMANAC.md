@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-08-11 (commit `7f774f6`, PRs #15–#27).
+**Last reviewed:** 2026-08-11 (commit `1c6f314`, PRs #15–#28).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -16,6 +16,7 @@ Related documents (this one links them together, it does not replace them):
 | --- | --- |
 | [`GAME_DESIGN.md`](GAME_DESIGN.md) | Source of truth for the **game rules**. Change rules there first. |
 | [`DEPLOYMENT.md`](DEPLOYMENT.md) | Step-by-step first-time deployment (Supabase → Actions → Vercel → Render). |
+| [`DATABASE.md`](DATABASE.md) | **"I want to do X, what do I type?"** — every operator action against the live database, as a command. Start there; §12 here is the reasoning behind it. |
 | [`../supabase/README.md`](../supabase/README.md) | Database setup, security model, migrations, the 1000-row cap. |
 | [`../jobs/README.md`](../jobs/README.md) | Job cheat-sheet + why keepalive exists. |
 | [`../web/README.md`](../web/README.md) | Frontend local development. |
@@ -229,7 +230,7 @@ f1_race_predictor/
 │   │   └── poster/          The shareable race poster (see §9.9)
 │   └── proxy.ts             Session refresh (Next 16's "middleware")
 ├── .github/workflows/       4 workflows (see §8.6)
-├── docs/                    GAME_DESIGN.md, DEPLOYMENT.md, ALMANAC.md
+├── docs/                    GAME_DESIGN, DEPLOYMENT, DATABASE, ALMANAC
 ├── requirements.txt         Python deps (pinned)
 └── Launch F1 Predictor.command   macOS double-click launcher
 ```
@@ -823,7 +824,7 @@ editor.
 | `0003_player_details.sql` | `player_details` table + policies + trigger extension | ⚠️ verify |
 | `0004_standings_pagination.sql` | `standings_page/count/rank_at` | ⚠️ verify |
 | `0005_league_invites_and_account_deletion.sql` | `league_by_code()`, `delete_account()` | ✅ confirmed 2026-08-02 |
-| `0006_admin_controls.sql` | `model_entries.counts_in_standings`, `model_season_points/races()`, the `admin_*` operator functions | ⚠️ **pending** — apply before using `jobs/admin.py` |
+| `0006_admin_controls.sql` | `model_entries.counts_in_standings`, `model_season_points/races()`, the `admin_*` operator functions | ✅ confirmed 2026-08-11 |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
@@ -1503,6 +1504,11 @@ e.g. `feat(web): next-race countdown widget in place of the season banner`,
 ## 12. Part IX — Operations runbook
 
 ### 12.1 Routine tasks
+
+**[`DATABASE.md`](DATABASE.md) is the command-by-command version of this
+section** — organised by what you want to do, with the SQL and the CLI side by
+side, what is reversible, and what not to touch by hand. This table is the
+index; that file is the manual.
 
 | Task | How |
 | --- | --- |
