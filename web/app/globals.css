@@ -56,14 +56,59 @@ body {
   backdrop-filter: blur(14px);
 }
 
-/* A distinct content zone that eases in and out instead of hard section edges,
-   so scrolling between sections stays fluid (no abrupt colour steps). */
-.zone-fade {
-  background-image: linear-gradient(
+/* Ambient light behind a section, in place of a tinted band.
+
+   This replaced `.zone-fade`, a white veil at 5.5% that switched on 20% into
+   the section and off at 80%. However soft the ramp, a rectangle of grey lying
+   across the page still reads as a rectangle of grey — two horizontal edges
+   with nothing to explain them, in the one colour this site never uses for
+   anything.
+
+   A glow has no edges to explain. Blue because it is the machine's colour
+   here: it already sits bottom-left of the hero as the counterweight to the
+   red (`.aurora::after`), so the page closes on the two colours it opened
+   with, and it comes back exactly where the opponent is introduced.
+
+   Two things keep it seamless. The layer runs well past the section it belongs
+   to (`inset`) so no gradient is ever cut by the section's own box, and a mask
+   fades it out top and bottom whatever height the content ends up at. It is
+   painted at `z-index: -1` behind every piece of content on the page —
+   `.zone-glow` deliberately sets only `position: relative`, never a z-index of
+   its own, because a stacking context here would trap the glow inside the
+   section and let it wash over the cards above. */
+.zone-glow {
+  position: relative;
+}
+.zone-glow::before {
+  content: "";
+  position: absolute;
+  inset: -16rem 0 -8rem;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      40rem 28rem at 24% 46%,
+      rgb(72 92 255 / 0.19),
+      rgb(72 92 255 / 0.06) 52%,
+      transparent 72%
+    ),
+    radial-gradient(
+      26rem 18rem at 80% 72%,
+      rgb(72 92 255 / 0.1),
+      transparent 70%
+    );
+  -webkit-mask-image: linear-gradient(
     to bottom,
     transparent,
-    rgb(255 255 255 / 0.055) 20%,
-    rgb(255 255 255 / 0.055) 80%,
+    black 20%,
+    black 76%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 20%,
+    black 76%,
     transparent
   );
 }

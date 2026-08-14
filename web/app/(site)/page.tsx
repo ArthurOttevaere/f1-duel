@@ -41,8 +41,10 @@ export default function Home() {
         <div className="aurora" />
         <div className="hero-grid" />
         {/* Fade the bottom to the page background so the glow never gets cut
-            at the transition into the next section. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-bg" />
+            at the transition into the next section. Fourteen rem rather than
+            eight: over eight, the red still had somewhere to go when the ramp
+            ran out, and the hero ended on a visible step. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-bg" />
 
         <NextRaceWidget />
 
@@ -119,7 +121,7 @@ export default function Home() {
       </section>
 
       {/* ─── The model ────────────────────────────────────────────────── */}
-      <section className="zone-fade">
+      <section className="zone-glow">
         <div className="mx-auto grid w-[min(64rem,calc(100%-2rem))] gap-12 py-24 sm:grid-cols-2 sm:items-center">
           <div>
             <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
