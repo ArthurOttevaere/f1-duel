@@ -134,6 +134,22 @@ body {
   mask-image: radial-gradient(ellipse 90% 65% at 50% 30%, black 25%, transparent 78%);
 }
 
+/* Profile cover — the banner behind the avatar. The team colour comes in as an
+   inline gradient (it changes with the championship pick, so it can't live in a
+   stylesheet); this draws the grid over it and fades the whole thing out at the
+   bottom, so the cover melts into the card instead of ending on a hard edge. */
+.cover-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 88%);
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+
 /* Finish line — two rows of checkered flag separating the footer from the site.
    Near-white squares against the dark background read as a start/finish band. */
 .checker-edge {

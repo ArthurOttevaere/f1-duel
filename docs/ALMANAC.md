@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-08-11 (commit `1c6f314`, PRs #15–#28).
+**Last reviewed:** 2026-08-14 (commit `c6dc7fc`, PRs #15–#29).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -225,7 +225,7 @@ f1_race_predictor/
 │   └── migrations/000N_*.sql Incremental changes for a live project
 ├── web/                     Next.js 16 App Router (the game)
 │   ├── app/                 Routes (see §9.2)
-│   ├── components/          23 components
+│   ├── components/          29 components
 │   ├── lib/                 supabase clients, types, helpers
 │   │   └── poster/          The shareable race poster (see §9.9)
 │   └── proxy.ts             Session refresh (Next 16's "middleware")
@@ -673,7 +673,10 @@ Payout = tier × prorate:
 | P4 or lower | 150 | 90 |
 
 `prorate = max(0.2, races_remaining_at_lock / total_races)` — so a mid-season
-signup still gets something, and a round-1 call is worth the most. Rank and
+signup still gets something, and a round-1 call is worth the most. **This table
+exists twice**: here (and in the job, which pays out) and in
+`web/lib/champions.ts`, which is what the profile page tells the player their
+pick is on course for. Change one, change the other. Rank and
 prorate are filled in by the weekly sync job; the champion is read from
 Jolpica/Ergast at season end. The job is idempotent (it recomputes
 `awarded_points`, never accumulates).
@@ -1076,7 +1079,8 @@ app/
 │   ├── rules/page.tsx         The full rulebook
 │   ├── privacy/page.tsx       GDPR notice
 │   ├── contact/page.tsx       Contact + FAQ + credits
-│   ├── profile/[username]/    Stats, duel history, themed by champion pick
+│   ├── profile/[username]/    Cover + avatar, stats, championship call,
+│   │                          form, season curve, duel history
 │   ├── join/[code]/           The far end of a league invite link
 │   └── game/
 │       ├── layout.tsx         onboarding gate + content width
@@ -1242,15 +1246,60 @@ join".
 **`/game/picks`** — if a `season_picks` row exists it renders read-only, because
 the pick is immutable at the database level.
 
-**`/profile/[username]`** — totals, W-D-L, best race, duel history, championship
-pick theming (`seasonPickColor()` in `lib/teams.ts`: the picked driver's team
+**`/profile/[username]`** (`revalidate = 120`) — rebuilt in PR #29. It was a
+grey card with a headline and four numbers, and it never showed the one thing
+that makes a profile personal: the two calls that player made for the season.
+It is now laid out the way a profile page is laid out anywhere — cover, avatar,
+name, stats band — with every colour on it coming from the championship pick:
+
+- **The cover** is a team-coloured gradient set inline (the colour changes with
+  the pick, so it cannot live in a stylesheet) under `.cover-grid`, a grid trame
+  masked to fade out at the bottom so the banner melts into the card instead of
+  ending on a hard line.
+- **The avatar** (`ProfileAvatar`) is the **portrait of the driver that player
+  backed for the title**, ringed in their constructor's colour, climbing into
+  the cover. It falls back to a two-letter monogram at the same size — for a
+  player with no pick yet, and for a driver `public/drivers/` has no portrait
+  for (a mid-season call-up). Same disc, same size, so nothing reflows.
+- **The stats band** (season points, duel record, races played, best race) is
+  flush to the card edges: 2 columns on a phone, 4 above `sm`.
+- **The championship call** — the picked driver's portrait and full name beside
+  the constructor drawn as a `TeamWordmark` (spaced capitals over a bar of its
+  colour). There are **no team logos in this repository and no plan to add
+  any**: they are trademarks, and the grid changes. Under it, what the pick is
+  on course for, from `lib/champions.ts` — the §2.3 tier table (50/75/150 and
+  30/50/90) times `prorate`. That table lives here a second time on purpose:
+  `jobs/settle_season.py` is what pays out, `lib/champions.ts` is what the page
+  *says* it is worth. **Any change to the tiers has to land in both.** A pick
+  whose `driver_rank_at_lock` is still null (the weekly sync hasn't run) says so
+  rather than quoting a number, and a settled pick shows `awarded_points`.
+- **Recent form** (`FormStrip`) — the last five duels as W/D/L pills, oldest
+  left, the football convention, each linking to that race's review.
+- **The season curve** (`PointsCurve`) — your running total against the model's,
+  drawn by hand in SVG. No chart dependency: it is two polylines.
+  `preserveAspectRatio="none"` lets it stretch to any width and
+  `vector-effect="non-scaling-stroke"` keeps the strokes 1px through that
+  stretch. The championship bonus is deliberately **not** in the series: it
+  lands in one lump at season end and would draw a cliff that says nothing
+  about how the season was raced. Hidden below two scored races.
+- **Duel history** — one card with divided rows (round, verdict, race, model's
+  score, yours) instead of the old stack of separate pills.
+
+Theming is `seasonPickColor()` in `lib/teams.ts`: the picked driver's team
 colour, then a team-mate's, then the picked constructor's, then a neutral grey
 — **never** the site red, which is what made a Mercedes pick look like a
-Ferrari one when `drivers.team_color` came back null). `player_details` is fetched **only for the owner** (RLS would
-return nothing to a visitor anyway, so the round-trip would be pure waste). The
-owner also gets the **delete-account** panel: typing your username arms it, it
-calls `delete_account()`, signs out and leaves through a full navigation to
-`/login?deleted=1` so no server-rendered page is left holding dead cookies.
+Ferrari one when `drivers.team_color` came back null.
+
+`player_details` is fetched **only for the owner** (RLS would return nothing to
+a visitor anyway, so the round-trip would be pure waste), and the country flag
+beside the name is owner-only for the same reason. Owner controls are one
+**Edit profile** button opening `ProfileEditPanel` — username and private
+details in a single dialog, portalled onto `<body>` for the reason in §9.7 —
+which is why `UsernameEditor` and `PlayerDetailsEditor` no longer exist. Sign
+out and the **delete-account** panel sit at the bottom of the page, out of the
+way: typing your username arms deletion, it calls `delete_account()`, signs out
+and leaves through a full navigation to `/login?deleted=1` so no server-rendered
+page is left holding dead cookies.
 
 **`/contact`** — where a player takes a bug or an idea, the FAQ, and the
 credits. The FAQ is native `<details>` rather than a JavaScript accordion: it
@@ -1314,9 +1363,13 @@ Tokens live in `app/globals.css` under Tailwind v4's `@theme`:
 Shared classes: `.glass-card` (the card surface), `.glass-chip` (blurred pill),
 `.zone-fade` (soft section boundaries instead of hard colour steps),
 `.pressable` (everything clickable answers a press with `scale(.97)`),
-`.aurora` / `.hero-grid` (hero background), `.checker-edge` (checkered footer
-separator), `.rise-in` (staggered hero entrance), `.spinner` (the one busy
-indicator), `.start-lights` / `.sl-*` (the gantry).
+`.aurora` / `.hero-grid` (hero background), `.cover-grid` (the same trame over
+the profile cover, masked to fade out at the bottom), `.checker-edge`
+(checkered footer separator), `.rise-in` (staggered hero entrance), `.spinner`
+(the one busy indicator), `.start-lights` / `.sl-*` (the gantry),
+`.sheet-backdrop` / `.sheet-panel` (the driver picker on mobile, and the
+profile's Edit panel — a dialog that rises from the bottom edge on a phone and
+lands centred above `sm`).
 
 **Nothing waits in silence — house rule.** Any control that fires off work
 shows `components/Spinner.tsx` until the work comes back, and any view that is
@@ -1791,6 +1844,8 @@ Also refresh the **Last reviewed** line and commit hash at the top.
 | The shareable poster | `web/lib/poster/{draw,data,pdf,types}.ts`, `web/components/PosterExport.tsx` |
 | League invites and the join flow | `web/app/(site)/join/[code]/page.tsx`, `web/components/{LeagueCardActions,JoinLeagueButton}.tsx` |
 | Account deletion | `web/components/DeleteAccount.tsx` + `delete_account()` |
+| The profile page | `web/app/(site)/profile/[username]/page.tsx` + `web/components/{ProfileAvatar,ProfileEditPanel,TeamWordmark,FormStrip,PointsCurve}.tsx` |
+| What a championship pick is worth on screen | `web/lib/champions.ts` (**mirror of the §2.3 tiers — keep in step with `jobs/settle_season.py`**) |
 | Row types shared by the frontend | `web/lib/types.ts` |
 
 ### C. Feature quick reference (39)
