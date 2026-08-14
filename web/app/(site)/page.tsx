@@ -41,10 +41,12 @@ export default function Home() {
         <div className="aurora" />
         <div className="hero-grid" />
         {/* Fade the bottom to the page background so the glow never gets cut
-            at the transition into the next section. Fourteen rem rather than
-            eight: over eight, the red still had somewhere to go when the ramp
-            ran out, and the hero ended on a visible step. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-bg" />
+            at the transition into the next section. Eight rem, and no more: it
+            was tried at fourteen to soften the step into the next section, and
+            fourteen reaches far enough up to dim the aurora and the grid — the
+            two things that dress the hero in the first place. The step is worth
+            keeping to keep them lit. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-bg" />
 
         <NextRaceWidget />
 

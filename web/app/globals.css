@@ -71,7 +71,92 @@ body {
    makes it a signature rather than a motif.
 
    If a section here ever needs separating again, separate it with space or
-   type. Not with a band, and not with a glow. */
+   type. Not with a band, and not with a glow.
+
+   The hero is the exception and is not covered by any of this: its aurora and
+   grid, below, are what dress it, and they stay. */
+
+/* Pressable affordance: everything clickable answers the press. */
+.pressable {
+  transition: transform 160ms var(--ease-out-strong);
+}
+.pressable:active {
+  transform: scale(0.97);
+}
+
+/* ─── Hero aurora (pure CSS; swap for a photo by adding a bg-image layer) ── */
+
+.aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  /* Lighter blur than the original 90px: far cheaper to composite on mobile
+     while keeping the same soft glow. */
+  filter: blur(72px);
+}
+
+.aurora::before {
+  width: 60rem;
+  height: 60rem;
+  top: -28rem;
+  right: -18rem;
+  background: radial-gradient(
+    closest-side,
+    rgb(255 30 60 / 0.28),
+    rgb(255 30 60 / 0.07) 55%,
+    transparent 75%
+  );
+}
+/* Bottom-left counterweight to the red glow up top. Sits inside the hero and
+   fades out well before the bottom (the hero's bottom overlay blends the rest),
+   so it's never clipped by the section change. */
+.aurora::after {
+  width: 44rem;
+  height: 44rem;
+  bottom: -8rem;
+  left: -12rem;
+  background: radial-gradient(
+    closest-side,
+    rgb(72 92 255 / 0.22),
+    rgb(72 92 255 / 0.07) 55%,
+    transparent 75%
+  );
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 30%, black 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 90% 65% at 50% 30%, black 25%, transparent 78%);
+}
+
+/* Profile cover — the banner behind the avatar. The team colour comes in as an
+   inline gradient (it changes with the championship pick, so it can't live in a
+   stylesheet); this draws the grid over it and fades the whole thing out at the
+   bottom, so the cover melts into the card instead of ending on a hard edge. */
+.cover-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 88%);
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
 
 /* Finish line — two rows of checkered flag separating the footer from the site.
    Near-white squares against the dark background read as a start/finish band. */

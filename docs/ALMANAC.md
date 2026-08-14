@@ -1387,10 +1387,13 @@ the **only** section with one, which makes it a signature rather than a motif.
 The note where `.zone-glow` used to live in `globals.css` records this so the
 band is not invented a third time.
 
-The one edge that is still drawn is the hero's bottom: a 14rem fade to
-`--color-bg` (`h-56` on the overlay div in `app/(site)/page.tsx`). It was 8rem,
-and the red glow still had somewhere to go when the ramp ran out — the hero
-ended on a visible step.
+**The hero is the exception to all of this and stays exactly as it is.** Its
+aurora and grid are what dress it, and they are the reason it reads as a hero
+rather than as a headline on black. Its bottom fade to `--color-bg` is **8rem**
+(`h-32` on the overlay div in `app/(site)/page.tsx`) — it was pushed to 14rem
+to soften the step into the section below, and 14rem reaches far enough up to
+dim the aurora and the grid. Softening that step is not worth dimming them; it
+went back to 8rem. Leave the hero alone.
 
 **Nothing waits in silence — house rule.** Any control that fires off work
 shows `components/Spinner.tsx` until the work comes back, and any view that is
