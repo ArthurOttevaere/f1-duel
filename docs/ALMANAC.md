@@ -1361,7 +1361,6 @@ Tokens live in `app/globals.css` under Tailwind v4's `@theme`:
 ```
 
 Shared classes: `.glass-card` (the card surface), `.glass-chip` (blurred pill),
-`.zone-glow` (ambient light behind a section — see below),
 `.pressable` (everything clickable answers a press with `scale(.97)`),
 `.aurora` / `.hero-grid` (hero background), `.cover-grid` (the same trame over
 the profile cover, masked to fade out at the bottom), `.checker-edge`
@@ -1371,28 +1370,27 @@ the profile cover, masked to fade out at the bottom), `.checker-edge`
 profile's Edit panel — a dialog that rises from the bottom edge on a phone and
 lands centred above `sm`).
 
-**Sections are separated by light, never by a band — house rule.** `.zone-glow`
-replaced `.zone-fade`, which laid a 5.5% white veil over the home page's last
-section, switched on 20% in and off at 80%. However soft the ramp, a rectangle
-of grey across the page still reads as a rectangle of grey: two horizontal
-edges with nothing to explain them, in the one colour the site uses for
-nothing. The replacement is a blue radial glow — blue because it is the
-machine's colour here, already the counterweight to the red at the bottom-left
-of the hero (`.aurora::after`), so it returns exactly where the opponent is
-introduced. Two details make it seamless and are easy to undo by accident:
+**Sections are separated by space and type, never by a background — house
+rule, arrived at the long way.** The home page's last section carried a
+`.zone-fade`: a 5.5% white veil, on at 20% of its height and off at 80%. It was
+replaced by `.zone-glow`, a blue radial glow, and then removed outright. Both
+were answers to the wrong question. What drew the eye was never the ramp or the
+colour — it was that **only one of the two sub-sections had a background at
+all**, so whatever went there read as a patch next to a section that has
+nothing and looks perfectly fine.
 
-- the layer runs **past** its section (`inset: -16rem 0 -8rem`) plus a mask that
-  fades it top and bottom, so no gradient is ever cut by the section's own box
-  whatever height the content lands at;
-- it paints at `z-index: -1`, and `.zone-glow` sets **only `position: relative`
-  — never a z-index of its own**. Give it one (or an `isolation: isolate`) and
-  the stacking context traps the glow inside the section, where it washes over
-  the cards above instead of sitting behind everything.
+There is now no treatment between the home page's sub-sections. The page is one
+uninterrupted surface from the hero's fade down to the footer's checkered edge,
+and a new section is announced by its red eyebrow, its heading and 6rem of air
+— exactly what "The game" always had. The hero keeps its aurora because it is
+the **only** section with one, which makes it a signature rather than a motif.
+The note where `.zone-glow` used to live in `globals.css` records this so the
+band is not invented a third time.
 
-The same principle governs the hero's bottom edge: a 14rem fade to `--color-bg`
-(`h-56` on the overlay div in `app/(site)/page.tsx`). It was 8rem, and the red
-glow still had somewhere to go when the ramp ran out — the hero ended on a
-visible step.
+The one edge that is still drawn is the hero's bottom: a 14rem fade to
+`--color-bg` (`h-56` on the overlay div in `app/(site)/page.tsx`). It was 8rem,
+and the red glow still had somewhere to go when the ramp ran out — the hero
+ended on a visible step.
 
 **Nothing waits in silence — house rule.** Any control that fires off work
 shows `components/Spinner.tsx` until the work comes back, and any view that is
