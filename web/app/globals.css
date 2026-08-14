@@ -56,144 +56,22 @@ body {
   backdrop-filter: blur(14px);
 }
 
-/* Ambient light behind a section, in place of a tinted band.
+/* No section treatment on the home page — deliberate, and it took two goes.
 
-   This replaced `.zone-fade`, a white veil at 5.5% that switched on 20% into
-   the section and off at 80%. However soft the ramp, a rectangle of grey lying
-   across the page still reads as a rectangle of grey — two horizontal edges
-   with nothing to explain them, in the one colour this site never uses for
-   anything.
+   `.zone-fade` put a 5.5% white veil behind the last section; `.zone-glow`
+   replaced it with a blue radial glow. Both were answers to the wrong
+   question. The reason either one drew the eye is that **only one of the two
+   sub-sections had a background at all** — whatever you put there, it reads as
+   a patch, because the section above it has nothing and looks perfectly fine.
 
-   A glow has no edges to explain. Blue because it is the machine's colour
-   here: it already sits bottom-left of the hero as the counterweight to the
-   red (`.aurora::after`), so the page closes on the two colours it opened
-   with, and it comes back exactly where the opponent is introduced.
+   So: nothing. The page is one uninterrupted surface from the hero's fade down
+   to the footer's checkered edge, and a new section is announced by its red
+   eyebrow, its heading and 6rem of air — which is all "The game" ever had.
+   The hero keeps its aurora: it is the only section that carries one, which
+   makes it a signature rather than a motif.
 
-   Two things keep it seamless. The layer runs well past the section it belongs
-   to (`inset`) so no gradient is ever cut by the section's own box, and a mask
-   fades it out top and bottom whatever height the content ends up at. It is
-   painted at `z-index: -1` behind every piece of content on the page —
-   `.zone-glow` deliberately sets only `position: relative`, never a z-index of
-   its own, because a stacking context here would trap the glow inside the
-   section and let it wash over the cards above. */
-.zone-glow {
-  position: relative;
-}
-.zone-glow::before {
-  content: "";
-  position: absolute;
-  inset: -16rem 0 -8rem;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      40rem 28rem at 24% 46%,
-      rgb(72 92 255 / 0.19),
-      rgb(72 92 255 / 0.06) 52%,
-      transparent 72%
-    ),
-    radial-gradient(
-      26rem 18rem at 80% 72%,
-      rgb(72 92 255 / 0.1),
-      transparent 70%
-    );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent,
-    black 20%,
-    black 76%,
-    transparent
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent,
-    black 20%,
-    black 76%,
-    transparent
-  );
-}
-
-/* Pressable affordance: everything clickable answers the press. */
-.pressable {
-  transition: transform 160ms var(--ease-out-strong);
-}
-.pressable:active {
-  transform: scale(0.97);
-}
-
-/* ─── Hero aurora (pure CSS; swap for a photo by adding a bg-image layer) ── */
-
-.aurora {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.aurora::before,
-.aurora::after {
-  content: "";
-  position: absolute;
-  border-radius: 9999px;
-  /* Lighter blur than the original 90px: far cheaper to composite on mobile
-     while keeping the same soft glow. */
-  filter: blur(72px);
-}
-
-.aurora::before {
-  width: 60rem;
-  height: 60rem;
-  top: -28rem;
-  right: -18rem;
-  background: radial-gradient(
-    closest-side,
-    rgb(255 30 60 / 0.28),
-    rgb(255 30 60 / 0.07) 55%,
-    transparent 75%
-  );
-}
-/* Bottom-left counterweight to the red glow up top. Sits inside the hero and
-   fades out well before the bottom (the hero's bottom overlay blends the rest),
-   so it's never clipped by the section change. */
-.aurora::after {
-  width: 44rem;
-  height: 44rem;
-  bottom: -8rem;
-  left: -12rem;
-  background: radial-gradient(
-    closest-side,
-    rgb(72 92 255 / 0.22),
-    rgb(72 92 255 / 0.07) 55%,
-    transparent 75%
-  );
-}
-
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
-  background-size: 72px 72px;
-  -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 30%, black 25%, transparent 78%);
-  mask-image: radial-gradient(ellipse 90% 65% at 50% 30%, black 25%, transparent 78%);
-}
-
-/* Profile cover — the banner behind the avatar. The team colour comes in as an
-   inline gradient (it changes with the championship pick, so it can't live in a
-   stylesheet); this draws the grid over it and fades the whole thing out at the
-   bottom, so the cover melts into the card instead of ending on a hard edge. */
-.cover-grid {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
-  background-size: 34px 34px;
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent 88%);
-  mask-image: linear-gradient(to bottom, black, transparent 88%);
-}
+   If a section here ever needs separating again, separate it with space or
+   type. Not with a band, and not with a glow. */
 
 /* Finish line — two rows of checkered flag separating the footer from the site.
    Near-white squares against the dark background read as a start/finish band. */
