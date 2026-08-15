@@ -1008,8 +1008,10 @@ its season line says).
 | `lock-race.yml` | `15 * * * 5,6,0` (hourly Fri/Sat/Sun) | `lock_race.py` |
 | `score-race.yml` | `45 * * * 0,1,2` (hourly Sun/Mon/Tue) | `score_race.py` |
 | `keepalive.yml` | `0 6 1 * *` (monthly) | commit + re-enable + DB ping |
+| `send-mail.yml` | none — manual only | `send_mail.py` (§8.8) |
 
-All four support `workflow_dispatch` (manual run from the Actions tab).
+All five support `workflow_dispatch` (manual run from the Actions tab);
+`send-mail` is *only* that, and takes inputs (kind, round, dry run, force, to).
 
 Shared patterns worth knowing:
 
@@ -1091,6 +1093,36 @@ out would opt out everyone whose employer scans their inbox.
 **The templates are tables and inline styles.** This is email: no stylesheet,
 no flexbox worth trusting, and a dark background only survives if it is painted
 on an element rather than assumed.
+
+**Sending one by hand — `jobs/send_mail.py` and the `send-mail` workflow.**
+
+The crons are `lock-race` hourly Fri–Sun at :15 and `score-race` hourly Sun–Tue
+at :45, so the nudge lands on the first run after qualifying + 1h30 and the
+result on the first run after the classification appears. When that is not
+enough — a weekend the job missed, a template you want to re-send, a test on
+yourself — this is the override:
+
+```bash
+python jobs/send_mail.py lock 12 --dry-run          # who would get it
+python jobs/send_mail.py result 11 --force          # send it again to everyone
+python jobs/send_mail.py result 11 --force --to me@example.com
+```
+
+Actions → **send-mail** runs the same script from the browser, with `dry_run`
+**ticked by default** — the destructive-by-omission default is the wrong one
+for a thing that mails your whole player base.
+
+Three properties worth keeping:
+
+- **`--force` is implemented as "delete the log rows, then send normally"**,
+  not as a second code path that skips the log. One path means one thing to get
+  wrong.
+- **It refuses to lie.** `lock` exits if the race has no `model_entries` row —
+  the mail's entire claim is that the model has played its hand. `result` exits
+  unless the race is `scored` and the model has a total.
+- **Nothing about the mail differs** from the scheduled send: same templates,
+  same recipient query, same log. An override that behaves differently from the
+  real thing proves nothing when you use it to check the real thing.
 
 ---
 
@@ -1719,6 +1751,7 @@ index; that file is the manual.
 | Refresh the model after new races | `python src/collect.py <year> --force` (+ `--practice`), `python src/features.py`, then optionally `python src/train.py` |
 | Validate a rules change | `python jobs/backtest.py 2026 --rounds 1-13` — `mirror` must draw every race |
 | Inspect players | `python jobs/admin.py players`, or the SQL editor query in §7.6 |
+| Send a race email out of schedule | `python jobs/send_mail.py lock\|result <round> [--dry-run] [--force] [--to X]`, or Actions → **send-mail** (§8.8) |
 | Zero the model's season score | `python jobs/admin.py model-reset` (or `select admin_model_reset(2026);`). Use it at launch so newcomers aren't chasing a machine with a season's head start. Reversible: `model-restore` |
 | Start the season at round N | `python jobs/admin.py model-count-from N` |
 | See why the board shows what it shows | `python jobs/admin.py model-status` |

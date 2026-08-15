@@ -192,6 +192,19 @@ Rules that make this safe to run unattended:
 - **Unconfigured is a no-op.** Without `RESEND_API_KEY` the send is logged and
   skipped; the jobs behave exactly as they did before.
 - **A failed send is never marked sent**, so the next hourly run retries it.
+- **The nudge is gated on the model's entry actually landing.** Its whole claim
+  is that the model has played its hand; `lock_race.py` sends it only when
+  `refresh_entry()` returns true, so a weekend where the model was unavailable
+  produces no mail rather than a false one.
+
+**Sending one by hand.** The schedule is not the only way out. `send_mail.py`
+sends either email for any round on demand — same templates, same recipients,
+same log — and the **send-mail** workflow exposes it in the Actions tab for an
+operator with no terminal. `--dry-run` lists the recipients and sends nothing;
+`--to` restricts to one address; `--force` clears the log for that race and
+kind so players who already had it get it again. Everything else about the
+mail is identical, deliberately: an override that behaves differently from the
+real thing is an override that proves nothing.
 
 ---
 

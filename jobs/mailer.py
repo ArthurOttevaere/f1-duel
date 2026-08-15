@@ -191,8 +191,16 @@ def send(to: str, subject: str, html: str) -> bool:
     return True
 
 
-def recipients(race_id: int, kind: str) -> list[dict]:
-    """Everyone still owed this mail for this race (migration 0008)."""
+def recipients(race_id: int, kind: str, force: bool = False) -> list[dict]:
+    """Everyone still owed this mail for this race (migration 0008).
+
+    `force` clears the log for this race+kind first, so everyone is owed it
+    again. That is the whole of what "send it again" means here — there is no
+    second code path that skips the log, because a second path is a second
+    thing to get wrong.
+    """
+    if force:
+        db.delete("email_log", {"race_id": f"eq.{race_id}", "kind": f"eq.{kind}"})
     return db.rpc("email_recipients", {"p_race_id": race_id, "p_kind": kind}) or []
 
 
@@ -201,29 +209,47 @@ def mark_sent(race_id: int, user_id: str, kind: str) -> None:
               on_conflict="race_id,user_id,kind")
 
 
-def send_lock_emails(race: dict) -> None:
-    """Post-qualifying nudge. Silent if the mailer isn't configured."""
+def _deliver(race: dict, kind: str, rows: list[tuple[dict, str, str]],
+             dry_run: bool) -> int:
+    """Send a batch and log what lands. `rows` is (recipient, subject, html)."""
     sent = 0
-    for r in recipients(race["id"], "lock"):
-        subject, html = lock_email(race, bool(r.get("entered")), r["token"])
+    for r, subject, html in rows:
+        if dry_run:
+            print(f"  [dry run] {r['email']:34} {subject}")
+            continue
         if send(r["email"], subject, html):
-            mark_sent(race["id"], r["user_id"], "lock")
+            mark_sent(race["id"], r["user_id"], kind)
             sent += 1
-    if sent:
-        print(f"round {race['round']}: {sent} lock email(s) sent")
+    return sent
+
+
+def send_lock_emails(race: dict, force: bool = False, dry_run: bool = False,
+                     only_to: str | None = None) -> int:
+    """Post-qualifying nudge. Silent if the mailer isn't configured."""
+    rows = []
+    for r in recipients(race["id"], "lock", force):
+        if only_to and r["email"] != only_to:
+            continue
+        subject, html = lock_email(race, bool(r.get("entered")), r["token"])
+        rows.append((r, subject, html))
+    sent = _deliver(race, "lock", rows, dry_run)
+    print(f"round {race['round']}: {len(rows)} lock recipient(s), {sent} sent")
+    return sent
 
 
 def send_result_emails(race: dict, scores_by_user: dict[str, dict],
-                       model_total: float) -> None:
+                       model_total: float, force: bool = False,
+                       dry_run: bool = False, only_to: str | None = None) -> int:
     """One result per player who actually entered."""
-    sent = 0
-    for r in recipients(race["id"], "result"):
+    rows = []
+    for r in recipients(race["id"], "result", force):
+        if only_to and r["email"] != only_to:
+            continue
         score = scores_by_user.get(r["user_id"])
         if not score:
             continue  # sat this one out; nothing to report
         subject, html = result_email(race, score, model_total, r["token"])
-        if send(r["email"], subject, html):
-            mark_sent(race["id"], r["user_id"], "result")
-            sent += 1
-    if sent:
-        print(f"round {race['round']}: {sent} result email(s) sent")
+        rows.append((r, subject, html))
+    sent = _deliver(race, "result", rows, dry_run)
+    print(f"round {race['round']}: {len(rows)} result recipient(s), {sent} sent")
+    return sent

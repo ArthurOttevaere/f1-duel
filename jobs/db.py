@@ -136,3 +136,13 @@ def update(table: str, match: dict, values: dict) -> None:
     resp = requests.patch(f"{_base()}/{table}", headers=_headers(),
                           params=match, json=values, timeout=30)
     _check(resp)
+
+
+def delete(table: str, match: dict) -> None:
+    """Same filter syntax as update(). PostgREST refuses an unfiltered DELETE,
+    which is the safety net we want — so does this."""
+    if not match:
+        raise ValueError("refusing to DELETE without a filter")
+    resp = requests.delete(f"{_base()}/{table}", headers=_headers(),
+                           params=match, timeout=30)
+    _check(resp)
