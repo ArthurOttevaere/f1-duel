@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
 export const metadata = {
   title: "Privacy",
@@ -132,15 +133,33 @@ export default function PrivacyPage() {
             copy of your data, to object to the processing, and to complain to
             your national data protection authority.
           </p>
+          {/* The address is never written here. It used to be the author's
+              personal Gmail, hardcoded — a private address published on a page
+              whose whole subject is not publishing private addresses. It now
+              comes from CONTACT_EMAIL like every other address on the site, so
+              it can be changed or retired without a deploy, and the page still
+              works when there is none. */}
           <p className="mt-3">
             For a copy of your data, or anything the delete button doesn&apos;t
-            cover, email{" "}
-            <a
-              href="mailto:arthurottevaere7@gmail.com"
-              className="text-race underline"
-            >
-              arthurottevaere7@gmail.com
-            </a>
+            cover,{" "}
+            {CONTACT_EMAIL ? (
+              <>
+                email{" "}
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="text-race underline"
+                >
+                  {CONTACT_EMAIL}
+                </a>
+              </>
+            ) : (
+              <>
+                get in touch from the{" "}
+                <Link href="/contact" className="text-race underline">
+                  contact page
+                </Link>
+              </>
+            )}
             . We&apos;ll act on it within a month.
           </p>
         </section>
