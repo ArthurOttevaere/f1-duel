@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
-import { formatPoints } from "@/lib/format";
+import { formatMargin, formatPoints } from "@/lib/format";
 import type { LeaderboardRow, League, Race } from "@/lib/types";
 import LeagueSwitcher from "@/components/LeagueSwitcher";
 import LeagueCardActions from "@/components/LeagueCardActions";
@@ -111,74 +111,41 @@ export default async function StandingsPage({
   );
   const modelTotal = counted.reduce((sum, e) => sum + Number(e.total), 0);
 
-  // Filtering, ordering, counting and ranking all happen in SQL now. Reading
-  // the whole board to slice it here stopped working at 1000 players, which is
-  // where PostgREST silently truncates — and a league whose members sat below
-  // that cut came back empty.
-  const [{ data: countData }, { data: rankData }, { data: myScoreRows }] =
-    await Promise.all([
-      supabase.rpc("standings_count", { p_league_id: leagueId }),
-      supabase.rpc("standings_rank_at", {
-        p_points: modelTotal,
-        p_league_id: leagueId,
-      }),
-      // At most one row per Grand Prix, so this is a couple of dozen rows —
-      // it turns the race list at the bottom into your own season.
-      user
-        ? supabase
-            .from("scores")
-            .select("race_id, total, beat_model, drew_model")
-            .eq("user_id", user.id)
-        : Promise.resolve({ data: null }),
-    ]);
+  // Filtering, ordering and counting all happen in SQL. Reading the whole
+  // board to slice it here stopped working at 1000 players, which is where
+  // PostgREST silently truncates — and a league whose members sat below that
+  // cut came back empty.
+  const [{ data: countData }, { data: myScoreRows }] = await Promise.all([
+    supabase.rpc("standings_count", { p_league_id: leagueId }),
+    // At most one row per Grand Prix, so this is a couple of dozen rows —
+    // it turns the race list at the bottom into your own season.
+    user
+      ? supabase
+          .from("scores")
+          .select("race_id, total, beat_model, drew_model")
+          .eq("user_id", user.id)
+      : Promise.resolve({ data: null }),
+  ]);
 
   const totalPlayers = Number(countData ?? 0);
-  // Players at or above the model's score: the index its line sits at, and one
-  // less than the position number printed beside it.
-  const modelIndex = Number(rankData ?? 0);
 
-  const totalPages = Math.max(1, Math.ceil((totalPlayers + 1) / PER_PAGE));
+  const totalPages = Math.max(1, Math.ceil(totalPlayers / PER_PAGE));
   const page = Math.min(
     Math.max(Number.parseInt(pageParam ?? "1", 10) || 1, 1),
     totalPages,
   );
   const offset = (page - 1) * PER_PAGE;
 
-  // The model occupies a line of its own, so a page that sits after it needs
-  // one fewer player to fill the same number of rows.
-  const modelOnAnEarlierPage = modelIndex < offset;
-  const playerOffset = modelOnAnEarlierPage ? offset - 1 : offset;
-
+  // The model is no longer a line in the table — it cannot duel itself, so it
+  // has no record and no rank (GAME_DESIGN §2.5). It stands above the board as
+  // the bar, which is also what removes the splice this page used to do.
   const { data: rows } = await supabase.rpc("standings_page", {
     p_league_id: leagueId,
     p_limit: PER_PAGE,
-    p_offset: playerOffset,
+    p_offset: offset,
   });
   const board = (rows as LeaderboardRow[]) ?? [];
-
-  type Line =
-    | { kind: "player"; row: LeaderboardRow; rank: number }
-    | { kind: "model"; points: number; races: number; rank: number };
-  const lines: Line[] = board.map((row, i) => ({
-    kind: "player",
-    row,
-    rank: playerOffset + i + 1,
-  }));
-
-  // Splice the model in only on the page it actually falls on.
-  if (modelIndex >= offset && modelIndex < offset + PER_PAGE) {
-    lines.splice(modelIndex - offset, 0, {
-      kind: "model",
-      points: modelTotal,
-      races: counted.length,
-      rank: modelIndex + 1,
-    });
-  }
-  // Ranks after the model's line shift down by one.
-  lines.forEach((l, i) => {
-    l.rank = offset + i + 1;
-  });
-  lines.length = Math.min(lines.length, PER_PAGE);
+  const lines = board.map((row, i) => ({ row, rank: offset + i + 1 }));
 
   const scoredRaces = ((races as Race[]) ?? [])
     .filter((r) => r.status === "scored")
@@ -199,6 +166,11 @@ export default async function StandingsPage({
         </p>
         <h1 className="mt-1 text-3xl font-bold tracking-tight">Standings</h1>
       </header>
+
+      {/* The model stands above the board, not in it — see GAME_DESIGN §2.5.
+          Outside the league switcher on purpose: its season is the same
+          whichever league you are looking at, so it should not blink. */}
+      <ModelBar points={modelTotal} races={counted.length} />
 
       {/* Signed out there is nothing to filter and nothing to administer, so
           the board goes straight in. Signed in, everything below the pills is
@@ -354,17 +326,47 @@ function Pagination({
 const EMPTY_BOARD =
   "No duels scored yet — the season table fills in after the first race weekend.";
 
-/** One line of the board, in the shape both layouts below read from. */
-interface BoardRow {
-  key: string;
-  rank: number;
-  name: React.ReactNode;
-  races: number;
-  /** "3-1-2", or null for the model — it has no record against itself. */
-  duel: string | null;
-  points: number;
-  isModel: boolean;
-  isViewer: boolean;
+/**
+ * The model, above the board rather than on it.
+ *
+ * It used to be a row, and with eleven Grands Prix banked it was the row in
+ * P1 — so the first thing a new player saw was a machine winning by 402 points
+ * they could never make up. It cannot duel itself, so it has no record and no
+ * rank; what it has is a score to clear, every Sunday.
+ */
+function ModelBar({ points, races }: { points: number; races: number }) {
+  const perRace = races > 0 ? points / races : 0;
+  return (
+    <section className="glass-card flex flex-col gap-3 border-race/25 p-5 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
+          The bar
+        </p>
+        <p className="mt-1.5 text-sm text-ink-dim">
+          The model plays every Grand Prix. Outscore it on Sunday and you take
+          the win — that is what the table below counts.
+        </p>
+      </div>
+      <div className="flex shrink-0 gap-6 sm:gap-8">
+        <div>
+          <p className="font-mono text-2xl font-semibold">
+            {races > 0 ? formatPoints(Number(perRace.toFixed(1))) : "—"}
+          </p>
+          <p className="font-mono text-[0.65rem] tracking-wider text-ink-mute uppercase">
+            pts / race
+          </p>
+        </div>
+        <div>
+          <p className="font-mono text-2xl font-semibold text-ink-dim">
+            {formatPoints(points)}
+          </p>
+          <p className="font-mono text-[0.65rem] tracking-wider text-ink-mute uppercase">
+            over {races} {races === 1 ? "race" : "races"}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function Board({
@@ -372,89 +374,75 @@ function Board({
   empty,
   viewerId,
 }: {
-  lines: (
-    | { kind: "player"; row: LeaderboardRow; rank: number }
-    | { kind: "model"; points: number; races: number; rank: number }
-  )[];
+  lines: { row: LeaderboardRow; rank: number }[];
   empty: boolean;
   viewerId: string | null;
 }) {
-  const rows: BoardRow[] = lines.map((line) =>
-    line.kind === "model"
-      ? {
-          key: "model",
-          rank: line.rank,
-          name: (
-            <span className="font-mono font-semibold tracking-wider text-race">
-              THE MODEL
-            </span>
-          ),
-          // Its race count is the honest footnote to its total: after a reset
-          // the board reads "0 races, 0 points" rather than a zero nobody can
-          // explain.
-          races: line.races,
-          duel: null,
-          points: line.points,
-          isModel: true,
-          isViewer: false,
-        }
-      : {
-          key: line.row.user_id,
-          rank: line.rank,
-          name: (
-            <>
-              <Link
-                href={`/profile/${line.row.username}`}
-                className="font-medium hover:underline"
-              >
-                {line.row.username}
-              </Link>
-              {line.row.user_id === viewerId && (
-                <span className="ml-2 rounded-full bg-race/15 px-2 py-0.5 font-mono text-[0.65rem] text-race">
-                  YOU
-                </span>
-              )}
-            </>
-          ),
-          races: line.row.races_played,
-          duel: `${line.row.duel_wins}-${line.row.duel_draws}-${line.row.duel_losses}`,
-          points: Number(line.row.points),
-          isModel: false,
-          isViewer: line.row.user_id === viewerId,
-        },
+  const rows = lines.map(({ row, rank }) => ({
+    key: row.user_id,
+    rank,
+    username: row.username,
+    isViewer: row.user_id === viewerId,
+    races: row.races_played,
+    wins: row.duel_wins,
+    record: `${row.duel_wins}-${row.duel_draws}-${row.duel_losses}`,
+    margin: Number(row.margin),
+    points: Number(row.points),
+  }));
+
+  const name = (r: (typeof rows)[number]) => (
+    <>
+      <Link
+        href={`/profile/${r.username}`}
+        className="font-medium hover:underline"
+      >
+        {r.username}
+      </Link>
+      {r.isViewer && (
+        <span className="ml-2 rounded-full bg-race/15 px-2 py-0.5 font-mono text-[0.65rem] text-race">
+          YOU
+        </span>
+      )}
+    </>
   );
+
+  // Positive margins are the point of the column, so they get the colour.
+  const marginTone = (m: number) =>
+    m > 0 ? "text-emerald-400" : m < 0 ? "text-ink-mute" : "text-ink-dim";
 
   return (
     <>
       {/* ── Phone: one card per player ──────────────────────────────────
-          The table below needs 30rem to lay its five columns out and a phone
-          hands it 21. Everything past that sat behind a sideways scroll with
-          no visible bar on iOS — which is where the Points column lived, the
-          one number anybody opens a leaderboard for. Same data, stacked. */}
+          The table below needs 32rem to lay its six columns out and a phone
+          hands it 21. Everything past that would sit behind a sideways scroll
+          with no visible bar on iOS. Same data, stacked. */}
       <ul className="flex flex-col gap-1.5 sm:hidden">
         {rows.map((r) => (
           <li
             key={r.key}
             className={`flex items-center gap-3 rounded-xl border px-3 py-2.5 ${
-              r.isModel
-                ? "border-race/30 bg-race/[0.06]"
-                : r.isViewer
-                  ? "border-line-hi bg-glass-strong"
-                  : "border-line bg-glass"
+              r.isViewer
+                ? "border-line-hi bg-glass-strong"
+                : "border-line bg-glass"
             }`}
           >
             <span className="w-5 shrink-0 font-mono text-sm text-ink-mute">
               {r.rank}
             </span>
             <span className="min-w-0 flex-1">
-              <span className="block truncate text-sm">{r.name}</span>
+              <span className="block truncate text-sm">{name(r)}</span>
               <span className="mt-0.5 block font-mono text-[0.7rem] text-ink-mute">
-                {r.races} {r.races === 1 ? "race" : "races"}
-                {r.duel !== null && ` · ${r.duel} vs model`}
+                {r.races} {r.races === 1 ? "race" : "races"} · {r.record} ·{" "}
+                <span className={marginTone(r.margin)}>
+                  {formatMargin(r.margin)}
+                </span>
               </span>
             </span>
-            <span className="shrink-0 font-mono text-base">
-              {formatPoints(r.points)}
+            <span className="shrink-0 text-right">
+              <span className="block font-mono text-base">{r.wins}</span>
+              <span className="block font-mono text-[0.6rem] tracking-wider text-ink-mute uppercase">
+                {r.wins === 1 ? "win" : "wins"}
+              </span>
             </span>
           </li>
         ))}
@@ -467,13 +455,14 @@ function Board({
 
       {/* ── Tablet and up: the full table ── */}
       <section className="glass-card hidden overflow-x-auto p-2 sm:block">
-        <table className="w-full min-w-[30rem] border-separate border-spacing-0 text-sm">
+        <table className="w-full min-w-[32rem] border-separate border-spacing-0 text-sm">
           <thead>
             <tr className="text-left font-mono text-xs tracking-wider text-ink-mute uppercase">
               <th className="px-3 py-2 font-medium">#</th>
               <th className="px-3 py-2 font-medium">Player</th>
-              <th className="px-3 py-2 text-right font-medium">Races</th>
-              <th className="px-3 py-2 text-right font-medium">vs model</th>
+              <th className="px-3 py-2 text-right font-medium">Wins</th>
+              <th className="px-3 py-2 text-right font-medium">W-D-L</th>
+              <th className="px-3 py-2 text-right font-medium">Margin</th>
               <th className="px-3 py-2 text-right font-medium">Points</th>
             </tr>
           </thead>
@@ -481,26 +470,34 @@ function Board({
             {rows.map((r) => (
               <tr
                 key={r.key}
-                className={`border-t border-line ${
-                  r.isModel ? "bg-race/[0.06]" : r.isViewer ? "bg-glass" : ""
-                }`}
+                className={`border-t border-line ${r.isViewer ? "bg-glass" : ""}`}
               >
                 <td className="px-3 py-2.5 font-mono text-ink-mute">{r.rank}</td>
-                <td className="px-3 py-2.5">{r.name}</td>
-                <td className="px-3 py-2.5 text-right text-ink-dim">
-                  {r.races}
+                <td className="px-3 py-2.5">
+                  {name(r)}
+                  <span className="ml-2 font-mono text-xs text-ink-mute">
+                    {r.races} {r.races === 1 ? "race" : "races"}
+                  </span>
+                </td>
+                <td className="px-3 py-2.5 text-right font-mono font-semibold">
+                  {r.wins}
                 </td>
                 <td className="px-3 py-2.5 text-right font-mono text-xs text-ink-dim">
-                  {r.duel ?? "—"}
+                  {r.record}
                 </td>
-                <td className="px-3 py-2.5 text-right font-mono">
+                <td
+                  className={`px-3 py-2.5 text-right font-mono ${marginTone(r.margin)}`}
+                >
+                  {formatMargin(r.margin)}
+                </td>
+                <td className="px-3 py-2.5 text-right font-mono text-ink-dim">
                   {formatPoints(r.points)}
                 </td>
               </tr>
             ))}
             {empty && (
               <tr>
-                <td colSpan={5} className="px-3 py-10 text-center text-ink-mute">
+                <td colSpan={6} className="px-3 py-10 text-center text-ink-mute">
                   {EMPTY_BOARD}
                 </td>
               </tr>
