@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import BootScreen from "@/components/BootScreen";
@@ -21,6 +21,12 @@ export const metadata: Metadata = {
   },
   description:
     "Predict the top 10 of every Grand Prix and battle a machine-learning model all season long. Rarity-weighted scoring: bold calls pay.",
+};
+
+// The phone's browser chrome paints itself in this, so the address bar carries
+// on from the page instead of ending it in a light grey band.
+export const viewport: Viewport = {
+  themeColor: "#07080b",
 };
 
 export default function RootLayout({

@@ -38,6 +38,10 @@ export function DriverAvatar({
       alt=""
       width={size}
       height={size}
+      // The pool is twenty-two of these at once, and on a phone it lives inside
+      // a sheet that starts closed — so none of them is worth blocking on.
+      loading="lazy"
+      decoding="async"
       onError={() => setBroken(true)}
       className="shrink-0 rounded-full object-cover"
       style={{ background: wash, width: size, height: size }}
