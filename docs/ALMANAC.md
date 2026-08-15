@@ -1156,9 +1156,9 @@ enough — a weekend the job missed, a template you want to re-send, a test on
 yourself — this is the override:
 
 ```bash
-python jobs/send_mail.py lock 12 --dry-run          # who would get it
-python jobs/send_mail.py result 11 --force          # send it again to everyone
-python jobs/send_mail.py result 11 --force --to me@example.com
+python jobs/send_mail.py lock 12 --dry-run             # who would get it
+python jobs/send_mail.py result 11 --force             # again, to everyone
+python jobs/send_mail.py result 11 --preview me@x.com  # just show me the thing
 ```
 
 Actions → **send-mail** runs the same script from the browser, with `dry_run`
@@ -1176,6 +1176,16 @@ Three properties worth keeping:
 - **Nothing about the mail differs** from the scheduled send: same templates,
   same recipient query, same log. An override that behaves differently from the
   real thing proves nothing when you use it to check the real thing.
+
+**`--to` filters, `--preview` sends.** This distinction cost an evening. `--to`
+narrows the *recipient list* to one player, so an address belonging to no
+account matches nobody and silently sends nothing — which is precisely what
+happens when an operator tries to mail themselves before any player exists.
+`--preview` is the one for that: one copy to any address at all, real values
+where the database has them and representative ones where it doesn't, and
+**never written to `email_log`** — a preview must not leave a player looking
+already-emailed. On a platform with no players and no scores yet, `--preview`
+is the only way to see what you are about to ship.
 
 ---
 
