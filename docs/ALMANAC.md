@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-08-14 (commit `c6dc7fc`, PRs #15–#29).
+**Last reviewed:** 2026-08-15 (branch `fix/mobile-worksite`, off `3d8fead`).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -225,9 +225,13 @@ f1_race_predictor/
 │   └── migrations/000N_*.sql Incremental changes for a live project
 ├── web/                     Next.js 16 App Router (the game)
 │   ├── app/                 Routes (see §9.2)
+│   │   ├── favicon.ico      "F1" knocked out of the site red (see §9.6)
+│   │   ├── apple-icon.png   180px, same mark
+│   │   └── manifest.ts      Install manifest (start_url = /game)
 │   ├── components/          29 components
 │   ├── lib/                 supabase clients, types, helpers
 │   │   └── poster/          The shareable race poster (see §9.9)
+│   ├── public/drivers/*.webp  Driver portraits, by driver_id (see §9.6)
 │   └── proxy.ts             Session refresh (Next 16's "middleware")
 ├── .github/workflows/       4 workflows (see §8.6)
 ├── docs/                    GAME_DESIGN, DEPLOYMENT, DATABASE, ALMANAC
@@ -1168,8 +1172,10 @@ second unfiltered read of every profile). Your own score row is read separately
 on a race you skipped there is no such row, and the name falls back to
 `getOwnProfile()` (cached per request, so the nav doesn't pay for it twice).
 
-`RaceBreakdown` (client, 376 lines) owns the 4-column table — Pos / You / Model
-/ Official — and makes the arithmetic inspectable, which it was not: the table
+`RaceBreakdown` (client) owns the 4-column table — Pos / You / Model /
+Official — above `sm`, one stacked card per position below it, and takes
+`signedIn` to drop the whole "You" side for a visitor (§9.6). It makes the
+arithmetic inspectable, which it was not: the table
 said "Norris +20 ×2" and the three things that decide a slot's score (base
 points, where the driver actually finished, how unlikely the model thought the
 call was) were all invisible. Tapping a position opens one explanation per
@@ -1197,6 +1203,8 @@ above it, and the model line is **spliced into the exact page it belongs on**,
 with ranks after it shifted by one. That splice is why the model appears inside
 every league board and not only the global one: `standings_rank_at` takes the
 same `p_league_id`, so the model is ranked against whichever field is on screen.
+`Board` renders that list as a table above `sm` and as cards below it, both fed
+from one normalised `BoardRow[]` (§9.6).
 
 Since PR #26 this page **is** the leagues page (see below). Three parts:
 
@@ -1427,6 +1435,54 @@ poster (§9.9), which is why `.checker-edge`'s finish line has a twin in
 The desktop nav and the account buttons appear at **`md`**, not `sm`: six nav
 entries plus the profile pill do not fit a 640px bar. Below that everything is
 the `MobileNav` overlay.
+
+**A table wider than the phone is a table with hidden columns — house rule.**
+`overflow-x-auto` on a `min-w-[Nrem]` table is not a responsive layout; it is a
+column you have decided nobody on a phone will read, because iOS draws no
+scrollbar and nothing on screen says the row continues. It cost the two screens
+that matter most:
+
+| Screen | Table asked for | A 390px phone gives | What fell off the edge |
+| --- | --- | --- | --- |
+| `/game/standings` | 30rem (480px) | 342px | **Points** — the only number anyone opens a leaderboard for |
+| `/game/races/[round]` | 36rem (576px) | 342px | **Official** — the actual result of the Grand Prix |
+
+(342px = 390 − 32 of page gutter − 16 of the card's `p-2`.)
+
+Both now carry a second layout under `sm` and keep the table from `sm` up:
+
+- **`Board`** (`game/standings/page.tsx`) normalises each line into a
+  `BoardRow` first, so the card list and the table render the same data from
+  one source instead of drifting apart. The card is rank · name · `11 races ·
+  7-1-3 vs model` · points, points right-aligned and large.
+- **`RaceBreakdown`** stacks one card per position — `You` / `Model` /
+  `Official` down the card, each a `DriverLine` — and the card is the button
+  that opens the explanation, so the `?` disc keeps working. The shared
+  `DriverLine` / `EntryLine` pair is what keeps a cell and a stacked row
+  looking identical.
+
+`RaceBreakdown` also takes **`signedIn`**: signed out there is no "you" to
+compare, so the You column, the You row and the You panel all come off, and the
+desktop table drops to `min-w-[28rem]`. It used to render ten rows of `—`.
+
+**Driver portraits are WebP, and it is not cosmetic.** They are photographs
+with an alpha channel; PNG-24 stored them at ~210 kB each, and the driver pool
+renders all twenty-two at once, so the one screen where you actually play was
+pulling **4.6 MB**. Same pixels as WebP q82: ~24 kB each, 0.52 MB for the set.
+`driverPhoto()` in `lib/format.ts` is the single place the extension is
+written, `DriverAvatar` lazy-loads (the pool starts inside a closed sheet on a
+phone), and the canvas poster reads the same files — every browser that can run
+the export can decode WebP. Regenerate with `sharp(...).webp({ quality: 82,
+alphaQuality: 90 })`; do not resize below ~300px, the profile avatar draws at
+128px on a 2× screen.
+
+**The tab has a mark.** `app/favicon.ico` was `create-next-app`'s file until
+2026-08-15 — every tab, bookmark and home-screen icon wore the Next.js logo.
+It is now the wordmark reduced to what survives at 16px: `F1` knocked out of
+`--color-race`, on red rather than the site's black so it reads against a light
+browser chrome too. Same mark at 180px (`apple-icon.png`) and 192/512
+(`public/icon-*.png`, referenced by `app/manifest.ts`). `viewport.themeColor`
+in the root layout paints the phone's address bar `#07080b`.
 
 ### 9.7 Two gotchas that cost real debugging time
 
@@ -1714,14 +1770,39 @@ npx -y @puppeteer/browsers install chrome@stable --path /tmp/browsers
   --virtual-time-budget=15000 --screenshot=out.png http://localhost:3000/<route>
 ```
 
-Two things to know. Headless Chrome enforces a **minimum 500px window width**
-on macOS — a `--window-size=390,844` run lays out at 500 and merely crops the
-capture, so phone-width "bugs" seen that way are usually false. And pages that
-need auth or scored rows are best rendered through a **throwaway route** under
-`web/app/dev-*/` holding mock data, deleted before committing; that is how the
-poster, the points explanation and the press-and-hold gesture were verified
+Three things to know.
+
+**One — the 500px floor is a trap, and there is a way round it.** Headless
+Chrome enforces a **minimum 500px window width** on macOS: a
+`--window-size=390,844` run lays out at 500 and merely *crops* the capture. For
+years that meant phone-width bugs read as false positives — and it is why the
+hidden Points and Official columns (§13.1.1) survived every previous look. The
+command line cannot go narrower, but **CDP can**: drive the same binary with
+`--remote-debugging-port`, then
+
+```
+Emulation.setDeviceMetricsOverride  { width: 390, height: 844,
+                                      deviceScaleFactor: 2, mobile: true }
+Page.captureScreenshot              { captureBeyondViewport: true }
+```
+
+which lays out at a true 390 *and* gives full-page shots in one call. Node 24's
+built-in `fetch` and `WebSocket` are enough — no npm package. **Check any
+`min-w` layout this way before believing it is responsive.**
+
+**Two — a full-page shot of a `min-h-svh` hero needs the viewport, not a tall
+window.** `--window-size=1440,3400` makes the hero itself 3400px tall and tells
+you nothing. Use a normal viewport with `captureBeyondViewport`.
+
+**Three**, pages that need auth or scored rows are best rendered through a
+**throwaway route** under `web/app/dev-*/` holding mock data, deleted before
+committing; that is how the poster, the points explanation, the mobile
+standings board and breakdown, and the press-and-hold gesture were verified
 (the gesture with `puppeteer-core` touch emulation, asserting that a quick
-swipe does *not* reorder and a hold does).
+swipe does *not* reorder and a hold does). Note that a folder named `_foo` is a
+**private folder** in the App Router and will 404 — name it `dev-foo`.
+`web/.env.local` holds placeholder Supabase credentials, so every data-driven
+page renders empty locally; the harness is not optional.
 
 ---
 
@@ -1735,6 +1816,18 @@ swipe does *not* reorder and a hold does).
 | 2 | README says Optuna runs 50 trials; `train.py` uses 60 | Documentation only | Align the README |
 
 ### 13.1.1 Fixed
+
+- **The phone hid the two numbers the game is played for** (fixed 2026-08-15,
+  `fix/mobile-worksite`). Found by an audit of the live site driven at a real
+  390px viewport, not at the 500px minimum headless Chrome forces on the
+  command line — see §12.3, the difference is exactly what made these
+  invisible. Four separate faults, one theme: **desktop layouts left to cope on
+  their own.** `/game/standings` put Points past the right edge and
+  `/game/races/[round]` put Official there (both `overflow-x-auto` over a
+  `min-w`, both now stacked under `sm` — §9.6); `/game`'s last-duel bar ran
+  "Hungarian Grand" straight into "See the breakdown" (a `justify-between` with
+  no `gap` and no `shrink-0`); and the driver pool shipped 4.6 MB of PNG to do
+  the work of 0.52 MB of WebP. The tab also stopped calling itself Next.js.
 
 - **Every profile wore the site's red** (fixed 2026-08-11, PR #27). The header
   theme was `championDriver?.team_color ?? "#ff1e3c"`, so a null `team_color`
@@ -1820,6 +1913,7 @@ PR — a stale almanac is worse than no almanac.
 | A new failure mode you had to debug | §12.2 — write the symptom, cause and fix while it's fresh |
 | A bug you found but didn't fix | §13.1 |
 | Anything a player waits for | §9.6 — it needs a spinner; that is a house rule, not a preference |
+| A table, or any layout with a `min-w` | §9.6 — check it at a **real** 390px (§12.3) before calling `overflow-x-auto` responsive |
 | Operator-only actions (model score, players) | §7.2, §8.5 and the §12.1 runbook |
 
 Also refresh the **Last reviewed** line and commit hash at the top.

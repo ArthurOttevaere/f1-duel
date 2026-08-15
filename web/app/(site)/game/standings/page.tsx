@@ -351,6 +351,22 @@ function Pagination({
   );
 }
 
+const EMPTY_BOARD =
+  "No duels scored yet — the season table fills in after the first race weekend.";
+
+/** One line of the board, in the shape both layouts below read from. */
+interface BoardRow {
+  key: string;
+  rank: number;
+  name: React.ReactNode;
+  races: number;
+  /** "3-1-2", or null for the model — it has no record against itself. */
+  duel: string | null;
+  points: number;
+  isModel: boolean;
+  isViewer: boolean;
+}
+
 function Board({
   lines,
   empty,
@@ -363,85 +379,135 @@ function Board({
   empty: boolean;
   viewerId: string | null;
 }) {
+  const rows: BoardRow[] = lines.map((line) =>
+    line.kind === "model"
+      ? {
+          key: "model",
+          rank: line.rank,
+          name: (
+            <span className="font-mono font-semibold tracking-wider text-race">
+              THE MODEL
+            </span>
+          ),
+          // Its race count is the honest footnote to its total: after a reset
+          // the board reads "0 races, 0 points" rather than a zero nobody can
+          // explain.
+          races: line.races,
+          duel: null,
+          points: line.points,
+          isModel: true,
+          isViewer: false,
+        }
+      : {
+          key: line.row.user_id,
+          rank: line.rank,
+          name: (
+            <>
+              <Link
+                href={`/profile/${line.row.username}`}
+                className="font-medium hover:underline"
+              >
+                {line.row.username}
+              </Link>
+              {line.row.user_id === viewerId && (
+                <span className="ml-2 rounded-full bg-race/15 px-2 py-0.5 font-mono text-[0.65rem] text-race">
+                  YOU
+                </span>
+              )}
+            </>
+          ),
+          races: line.row.races_played,
+          duel: `${line.row.duel_wins}-${line.row.duel_draws}-${line.row.duel_losses}`,
+          points: Number(line.row.points),
+          isModel: false,
+          isViewer: line.row.user_id === viewerId,
+        },
+  );
+
   return (
-    <section className="glass-card overflow-x-auto p-2">
-      <table className="w-full min-w-[30rem] border-separate border-spacing-0 text-sm">
-        <thead>
-          <tr className="text-left font-mono text-xs tracking-wider text-ink-mute uppercase">
-            <th className="px-3 py-2 font-medium">#</th>
-            <th className="px-3 py-2 font-medium">Player</th>
-            <th className="px-3 py-2 text-right font-medium">Races</th>
-            <th className="px-3 py-2 text-right font-medium">vs model</th>
-            <th className="px-3 py-2 text-right font-medium">Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          {lines.map((line) =>
-            line.kind === "model" ? (
-              <tr key="model" className="border-t border-line bg-race/[0.06]">
-                <td className="px-3 py-2.5 font-mono text-ink-mute">
-                  {line.rank}
-                </td>
-                <td className="px-3 py-2.5 font-mono font-semibold tracking-wider">
-                  <span className="text-race">THE MODEL</span>
-                </td>
-                {/* Its race count is the honest footnote to its total: after
-                    a reset the board reads "0 races, 0 points" rather than a
-                    zero nobody can explain. */}
-                <td className="px-3 py-2.5 text-right text-ink-dim">
-                  {line.races}
-                </td>
-                <td className="px-3 py-2.5 text-right text-ink-mute">—</td>
-                <td className="px-3 py-2.5 text-right font-mono">
-                  {formatPoints(line.points)}
-                </td>
-              </tr>
-            ) : (
+    <>
+      {/* ── Phone: one card per player ──────────────────────────────────
+          The table below needs 30rem to lay its five columns out and a phone
+          hands it 21. Everything past that sat behind a sideways scroll with
+          no visible bar on iOS — which is where the Points column lived, the
+          one number anybody opens a leaderboard for. Same data, stacked. */}
+      <ul className="flex flex-col gap-1.5 sm:hidden">
+        {rows.map((r) => (
+          <li
+            key={r.key}
+            className={`flex items-center gap-3 rounded-xl border px-3 py-2.5 ${
+              r.isModel
+                ? "border-race/30 bg-race/[0.06]"
+                : r.isViewer
+                  ? "border-line-hi bg-glass-strong"
+                  : "border-line bg-glass"
+            }`}
+          >
+            <span className="w-5 shrink-0 font-mono text-sm text-ink-mute">
+              {r.rank}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-sm">{r.name}</span>
+              <span className="mt-0.5 block font-mono text-[0.7rem] text-ink-mute">
+                {r.races} {r.races === 1 ? "race" : "races"}
+                {r.duel !== null && ` · ${r.duel} vs model`}
+              </span>
+            </span>
+            <span className="shrink-0 font-mono text-base">
+              {formatPoints(r.points)}
+            </span>
+          </li>
+        ))}
+        {empty && (
+          <li className="rounded-xl border border-line bg-glass px-4 py-8 text-center text-sm text-ink-mute">
+            {EMPTY_BOARD}
+          </li>
+        )}
+      </ul>
+
+      {/* ── Tablet and up: the full table ── */}
+      <section className="glass-card hidden overflow-x-auto p-2 sm:block">
+        <table className="w-full min-w-[30rem] border-separate border-spacing-0 text-sm">
+          <thead>
+            <tr className="text-left font-mono text-xs tracking-wider text-ink-mute uppercase">
+              <th className="px-3 py-2 font-medium">#</th>
+              <th className="px-3 py-2 font-medium">Player</th>
+              <th className="px-3 py-2 text-right font-medium">Races</th>
+              <th className="px-3 py-2 text-right font-medium">vs model</th>
+              <th className="px-3 py-2 text-right font-medium">Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
               <tr
-                key={line.row.user_id}
+                key={r.key}
                 className={`border-t border-line ${
-                  line.row.user_id === viewerId ? "bg-glass" : ""
+                  r.isModel ? "bg-race/[0.06]" : r.isViewer ? "bg-glass" : ""
                 }`}
               >
-                <td className="px-3 py-2.5 font-mono text-ink-mute">
-                  {line.rank}
-                </td>
-                <td className="px-3 py-2.5">
-                  <Link
-                    href={`/profile/${line.row.username}`}
-                    className="font-medium hover:underline"
-                  >
-                    {line.row.username}
-                  </Link>
-                  {line.row.user_id === viewerId && (
-                    <span className="ml-2 rounded-full bg-race/15 px-2 py-0.5 font-mono text-[0.65rem] text-race">
-                      YOU
-                    </span>
-                  )}
-                </td>
+                <td className="px-3 py-2.5 font-mono text-ink-mute">{r.rank}</td>
+                <td className="px-3 py-2.5">{r.name}</td>
                 <td className="px-3 py-2.5 text-right text-ink-dim">
-                  {line.row.races_played}
+                  {r.races}
                 </td>
                 <td className="px-3 py-2.5 text-right font-mono text-xs text-ink-dim">
-                  {line.row.duel_wins}-{line.row.duel_draws}-
-                  {line.row.duel_losses}
+                  {r.duel ?? "—"}
                 </td>
                 <td className="px-3 py-2.5 text-right font-mono">
-                  {formatPoints(Number(line.row.points))}
+                  {formatPoints(r.points)}
                 </td>
               </tr>
-            ),
-          )}
-          {empty && (
-            <tr>
-              <td colSpan={5} className="px-3 py-10 text-center text-ink-mute">
-                No duels scored yet — the season table fills in after the first
-                race weekend.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </section>
+            ))}
+            {empty && (
+              <tr>
+                <td colSpan={5} className="px-3 py-10 text-center text-ink-mute">
+                  {EMPTY_BOARD}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </section>
+    </>
   );
 }

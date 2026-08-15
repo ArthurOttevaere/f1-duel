@@ -263,7 +263,12 @@ export default async function RaceReviewPage({
       )}
 
       {/* ── Side-by-side, with the arithmetic on demand ── */}
-      <RaceBreakdown rows={breakdownRows} me={myReceipt} model={modelReceipt} />
+      <RaceBreakdown
+        rows={breakdownRows}
+        me={myReceipt}
+        model={modelReceipt}
+        signedIn={Boolean(user)}
+      />
 
       {result?.dotd && (
         <p className="text-sm text-ink-dim">

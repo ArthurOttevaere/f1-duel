@@ -195,35 +195,81 @@ function ReceiptCard({
 /** Columns are separated by a hairline so a score can't read as the next one's. */
 const DIVIDER = "border-l border-line";
 
-function Cell({ entry, divider }: { entry: BreakdownEntry | null; divider?: boolean }) {
-  const cell = `px-3 py-2 ${divider ? DIVIDER : ""}`;
-  if (!entry) return <td className={`${cell} text-ink-mute`}>—</td>;
+/**
+ * A driver as they appear in any of the three columns: the team's colour, the
+ * name toned by how the call went, and the points earned.
+ *
+ * `color` is passed rather than read off the entry because the official column
+ * has a colour and a name but no score of its own.
+ */
+function DriverLine({
+  name,
+  color,
+  tone,
+  points,
+  multiplier,
+}: {
+  name: string;
+  color: string;
+  tone?: string;
+  points?: number;
+  multiplier?: number;
+}) {
   return (
-    <td className={cell}>
-      <span className="flex items-center gap-2">
-        <span
-          aria-hidden
-          className="h-4 w-0.5 shrink-0 rounded-full"
-          style={{ background: entry.color }}
-        />
-        <span className={`truncate text-sm ${TONE[entry.kind]}`}>
-          {entry.name}
+    <span className="flex items-center gap-2">
+      <span
+        aria-hidden
+        className="h-4 w-0.5 shrink-0 rounded-full"
+        style={{ background: color }}
+      />
+      <span className={`truncate text-sm ${tone ?? ""}`}>{name}</span>
+      {/* Pinned to the name, not to the right edge of the column: pushed
+          out there it sat against the next column and read as that
+          column's score. */}
+      {points !== undefined && points > 0 && (
+        <span className="shrink-0 rounded-md bg-white/[0.06] px-1.5 py-0.5 font-mono text-[0.7rem] text-ink-dim">
+          +{formatPoints(points)}
+          {multiplier !== undefined && multiplier > 1 && (
+            <span className="ml-1 text-race">{multiplierLabel(multiplier)}</span>
+          )}
         </span>
-        {/* Pinned to the name, not to the right edge of the column: pushed
-            out there it sat against the next column and read as that
-            column's score. */}
-        {entry.points > 0 && (
-          <span className="shrink-0 rounded-md bg-white/[0.06] px-1.5 py-0.5 font-mono text-[0.7rem] text-ink-dim">
-            +{formatPoints(entry.points)}
-            {entry.multiplier > 1 && (
-              <span className="ml-1 text-race">
-                {multiplierLabel(entry.multiplier)}
-              </span>
-            )}
-          </span>
-        )}
-      </span>
+      )}
+    </span>
+  );
+}
+
+function EntryLine({ entry }: { entry: BreakdownEntry | null }) {
+  if (!entry) return <span className="text-sm text-ink-mute">—</span>;
+  return (
+    <DriverLine
+      name={entry.name}
+      color={entry.color}
+      tone={TONE[entry.kind]}
+      points={entry.points}
+      multiplier={entry.multiplier}
+    />
+  );
+}
+
+function Cell({ entry, divider }: { entry: BreakdownEntry | null; divider?: boolean }) {
+  return (
+    <td className={`px-3 py-2 ${divider ? DIVIDER : ""}`}>
+      <EntryLine entry={entry} />
     </td>
+  );
+}
+
+/** The "?" disc that marks a row as openable, and shows it is open. */
+function WhyDot({ open }: { open: boolean }) {
+  return (
+    <span
+      aria-hidden
+      className={`grid size-5 shrink-0 place-items-center rounded-full border text-[0.65rem] font-semibold transition-colors ${
+        open ? "border-race bg-race text-white" : "border-line text-ink-mute"
+      }`}
+    >
+      ?
+    </span>
   );
 }
 
@@ -231,28 +277,94 @@ export default function RaceBreakdown({
   rows,
   me,
   model,
+  signedIn,
 }: {
   rows: BreakdownRow[];
   me: Receipt | null;
   model: Receipt | null;
+  /** Signed out there is no "you" to compare, so that whole side comes off. */
+  signedIn: boolean;
 }) {
   const [open, setOpen] = useState<number | null>(null);
   const row = open === null ? null : (rows[open] ?? null);
 
   return (
     <div className="flex flex-col gap-4">
-      <section className="glass-card overflow-x-auto p-2">
-        <table className="w-full min-w-[36rem] border-separate border-spacing-0">
+      {/* ── Phone: one card per position ────────────────────────────────
+          The table below asks for 36rem and a phone gives it 21, so its last
+          column — Official, the actual result of the Grand Prix — sat entirely
+          past the right edge, behind a sideways scroll iOS draws no bar for.
+          You were left comparing two predictions against nothing. Stacked, the
+          three calls read down the card and the result is always on screen. */}
+      <ul className="flex flex-col gap-2 sm:hidden">
+        {rows.map((r, i) => {
+          const isOpen = open === i;
+          return (
+            <li key={r.position}>
+              <button
+                type="button"
+                onClick={() => setOpen(isOpen ? null : i)}
+                aria-expanded={isOpen}
+                aria-label={`Why these points for P${r.position}?`}
+                className={`glass-card flex w-full flex-col gap-2 p-3 text-left transition-colors ${
+                  isOpen ? "border-race/40" : ""
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <span className="font-mono text-sm font-semibold text-ink-mute">
+                    P{r.position}
+                  </span>
+                  <WhyDot open={isOpen} />
+                </span>
+
+                <span className="grid grid-cols-[3.6rem_1fr] items-center gap-x-2 gap-y-1.5">
+                  {signedIn && (
+                    <>
+                      <span className="font-mono text-[0.6rem] tracking-widest text-ink-mute uppercase">
+                        You
+                      </span>
+                      <EntryLine entry={r.mine} />
+                    </>
+                  )}
+                  <span className="font-mono text-[0.6rem] tracking-widest text-ink-mute uppercase">
+                    Model
+                  </span>
+                  <EntryLine entry={r.model} />
+                  <span className="font-mono text-[0.6rem] tracking-widest text-ink-mute uppercase">
+                    Official
+                  </span>
+                  {r.official ? (
+                    <DriverLine
+                      name={r.official.name}
+                      color={r.official.color}
+                    />
+                  ) : (
+                    <span className="text-sm text-ink-mute">—</span>
+                  )}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+
+      {/* ── Tablet and up: the side-by-side table ── */}
+      <section className="glass-card hidden overflow-x-auto p-2 sm:block">
+        <table
+          className={`w-full border-separate border-spacing-0 ${
+            signedIn ? "min-w-[36rem]" : "min-w-[28rem]"
+          }`}
+        >
           <thead>
             <tr className="text-left font-mono text-xs tracking-wider text-ink-mute uppercase">
               <th className="px-3 py-2 font-medium">Pos</th>
-              <th className={`px-3 py-2 font-medium ${DIVIDER}`}>You</th>
+              {signedIn && (
+                <th className={`px-3 py-2 font-medium ${DIVIDER}`}>You</th>
+              )}
               <th className={`px-3 py-2 font-medium ${DIVIDER}`}>Model</th>
               <th className={`px-3 py-2 font-medium ${DIVIDER}`}>
                 Official
-                {/* Hidden on phones, where the header would wrap inside a
-                    column you reach by scrolling sideways anyway. */}
-                <span className="ml-2 hidden font-sans text-[0.65rem] normal-case sm:inline">
+                <span className="ml-2 font-sans text-[0.65rem] normal-case">
                   (no points — the result)
                 </span>
               </th>
@@ -264,9 +376,8 @@ export default function RaceBreakdown({
               return (
                 <tr
                   key={r.position}
-                  // The whole row opens the explanation: on a phone the table
-                  // scrolls sideways, and a trigger parked in the last column
-                  // is a trigger nobody finds.
+                  // The whole row opens the explanation: a trigger parked in
+                  // one column is a trigger half the readers never find.
                   onClick={() => setOpen(isOpen ? null : i)}
                   className={`cursor-pointer border-t border-line transition-colors ${
                     isOpen ? "bg-glass-strong" : "hover:bg-glass"
@@ -286,36 +397,21 @@ export default function RaceBreakdown({
                       <span className="font-mono text-sm text-ink-mute">
                         P{r.position}
                       </span>
-                      <span
-                        aria-hidden
-                        className={`grid size-5 place-items-center rounded-full border text-[0.65rem] font-semibold transition-colors ${
-                          isOpen
-                            ? "border-race bg-race text-white"
-                            : "border-line text-ink-mute"
-                        }`}
-                      >
-                        ?
-                      </span>
+                      <WhyDot open={isOpen} />
                     </button>
                   </td>
-                  <Cell entry={r.mine} divider />
+                  {signedIn && <Cell entry={r.mine} divider />}
                   <Cell entry={r.model} divider />
-                  {r.official ? (
-                    <td className={`px-3 py-2 ${DIVIDER}`}>
-                      <span className="flex items-center gap-2">
-                        <span
-                          aria-hidden
-                          className="h-4 w-0.5 shrink-0 rounded-full"
-                          style={{ background: r.official.color }}
-                        />
-                        <span className="truncate text-sm">
-                          {r.official.name}
-                        </span>
-                      </span>
-                    </td>
-                  ) : (
-                    <td className={`px-3 py-2 text-ink-mute ${DIVIDER}`}>—</td>
-                  )}
+                  <td className={`px-3 py-2 ${DIVIDER}`}>
+                    {r.official ? (
+                      <DriverLine
+                        name={r.official.name}
+                        color={r.official.color}
+                      />
+                    ) : (
+                      <span className="text-sm text-ink-mute">—</span>
+                    )}
+                  </td>
                 </tr>
               );
             })}
@@ -344,8 +440,10 @@ export default function RaceBreakdown({
             </button>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Side who="You" entry={row.mine} position={row.position} />
+          <div className={`grid gap-4 ${signedIn ? "sm:grid-cols-2" : ""}`}>
+            {signedIn && (
+              <Side who="You" entry={row.mine} position={row.position} />
+            )}
             <Side who="The model" entry={row.model} position={row.position} />
           </div>
 

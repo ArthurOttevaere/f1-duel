@@ -168,13 +168,16 @@ export default async function GamePage() {
       {lastDuel && (
         <Link
           href={`/game/races/${lastDuel.race.round}`}
-          className="pressable glass-chip flex items-center justify-between rounded-2xl px-5 py-3 text-sm transition-colors hover:border-line-hi"
+          // Gap and shrink-0, both load-bearing: `justify-between` alone let
+          // the race name wrap under a call-to-action it was already touching,
+          // and "Hungarian Grand" ran straight into "See the breakdown".
+          className="pressable glass-chip flex flex-col items-start gap-1 rounded-2xl px-5 py-3 text-sm transition-colors hover:border-line-hi sm:flex-row sm:items-center sm:justify-between sm:gap-4"
         >
           <span className="text-ink-dim">
             Last duel · {lastDuel.race.name}
           </span>
           {lastDuel.score ? (
-            <span className="font-mono">
+            <span className="shrink-0 font-mono">
               You {formatPoints(lastDuel.score.total)} —{" "}
               {formatPoints(lastDuel.model ?? 0)} Model{" "}
               <span
@@ -194,7 +197,7 @@ export default async function GamePage() {
               </span>
             </span>
           ) : (
-            <span className="text-ink-mute">See the breakdown →</span>
+            <span className="shrink-0 text-ink-mute">See the breakdown →</span>
           )}
         </Link>
       )}
