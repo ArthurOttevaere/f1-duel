@@ -112,6 +112,8 @@ export interface LeaderboardRow {
   duel_wins: number;
   duel_draws: number;
   duel_losses: number;
+  /** Season points minus the model's, over the races this player entered. */
+  margin: number;
 }
 
 export interface SeasonPick {

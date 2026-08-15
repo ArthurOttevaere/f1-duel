@@ -84,8 +84,13 @@ at exactly that position:
 | Perfect top 10 (all exact) | +100 |
 | Correct Driver of the Day (players only, see §2.4) | +5 |
 | Correct safety-car side bet (see §2.6) | +8 |
-| Beating the model on this GP (players only) | +10 |
-| Draw with the model | +3 |
+
+**There is no bonus for beating the model.** There used to be (+10 for a win,
++3 for a draw) and it was removed in 2026-08 with the standings rework in §2.5.
+Once the season is *ranked* on the duel record, paying points for a win counts
+the same thing twice: the win already moves you up the board, and the points
+bonus then also inflates the margin that breaks ties between equal records. The
+duel result is recorded as W/D/L and nothing else.
 
 Maximum realistic GP score ≈ 130–250 pts depending on rarity; a typical decent
 weekend lands around 40–70 pts.
@@ -113,6 +118,17 @@ The bonus is **prorated by the fraction of the season remaining at lock**
 (floor 20 %), so a mid-season pick is worth less than a round-1 pick and the
 system works for a mid-season launch.
 
+**Where the payout lands (decided 2026-08).** It is no longer added to the
+season points column, because that column stopped being the ranking key (§2.5)
+and a race board carrying a non-race bonus reads as a bug. `settle_season.py`
+still computes and stores `season_picks.awarded_points` at season end; its
+destination is the **season recap** — a year-in-review page in the spirit of a
+music-service "wrapped", which replays what each player called back in the
+spring against what actually happened, and pays the championship bonus there.
+The recap is designed, not built: the season is at round 12 of 24 and it is a
+season-end surface. Until it exists the pick is visible on the profile with
+what it is on course for, exactly as today.
+
 The champion picks also define the player's **profile theme** (team colors,
 driver imagery) — see §4. The theme follows the pick, never the site red: the
 picked driver's team colour, else a team-mate's, else the picked constructor's,
@@ -128,7 +144,33 @@ the next scoring pass.
 
 ### 2.5 Standings & duels
 
-- **Season leaderboard**: total points across all scored GPs (+ bonuses).
+- **Season leaderboard**: ranked on **the duel**, not on a points pile —
+  `wins desc, margin desc, points desc`.
+
+  - **wins** — Grands Prix where you outscored the model. A race you did not
+    enter does not count, in either direction: your record is over the races
+    you played, and `races played` is shown beside it so a full season reads
+    as the achievement it is.
+  - **margin** — the sum, over the races you played, of (your score − the
+    model's score that weekend). The model sits at exactly 0 by construction,
+    so it is the axis rather than a competitor.
+  - **points** — the raw season total, kept as a column because it is what
+    decides every duel, but no longer the ranking key.
+
+  **Why it changed (2026-08).** Ranking on cumulative points makes the board a
+  measure of how long you have been here. The model had played eleven Grands
+  Prix and sat top with 402 points, and a player joining at round 12 opened the
+  standings to find a machine in P1 and a 402-point deficit that no amount of
+  good play could close. Ranking on the duel record fixes it at the root:
+  everyone starts at 0 wins whenever they arrive, the deficit is expressed in
+  weekends rather than points, and the board finally measures the thing the
+  site promises on its front page.
+
+  **The model is not a row in the standings.** It cannot duel itself, so it has
+  no record and no rank. It appears above the board as the bar to clear — its
+  season points and its average per race. Its per-race scores are unchanged and
+  still shown on every race page.
+
 - **Duel record vs the model**: W-D-L, shown prominently on profiles.
 - **The model's season total is the operator's to set.** It plays every Grand
   Prix whether or not anyone else is on the platform, so at launch it would
@@ -265,7 +307,7 @@ league_members    league_id, user_id, joined_at
    `race_at`, set `races.status = 'locked'`.
 3. **`score-race`** (hourly Sun–Tue): for locked races whose classification is
    available via FastF1 → write `results`, compute `scores` for every prediction
-   and the model with the §2.2 formula, apply duel bonuses, set
+   and the model with the §2.2 formula, settle each duel (W/D/L, no bonus), set
    `status = 'scored'`. Re-runs are idempotent (DotD entered late is picked up
    by the next pass).
 

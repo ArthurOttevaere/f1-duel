@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-08-15 (branch `fix/mobile-worksite`, off `3d8fead`).
+**Last reviewed:** 2026-08-15 (branch `feat/c1-duel-standings`, PR #33 merged).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -599,12 +599,23 @@ probability that this driver finishes at exactly that position:
 | `None` (no matrix, e.g. fallback entry) | ×1 |
 
 **Bonuses:** exact podium +15 · perfect top 10 +100 · correct DotD +5 (players
-only) · correct safety-car bet +8 (players **and** model) · beat the model +10 ·
-draw +3.
+only) · correct safety-car bet +8 (players **and** model).
+
+**There is no bonus for beating the model** (removed 2026-08 with the standings
+rework, §7.7). It was +10 for a win and +3 for a draw. Once the season is
+*ranked* on the duel record, paying points for a win counts the same result
+twice: the win moves you up the board, and the bonus then also inflates the
+margin that breaks ties between equal records. `finalize()` still returns
+`beat_model` / `drew_model` — the verdict is recorded, not paid — and now also
+returns the per-race `margin`.
+
+The verdict did not move when the bonus went: `finalize()` always decided
+beat/draw on the total *before* adding the bonus, so migration 0007 subtracting
+it lands exactly on the number the verdict was taken from.
 
 `score_table()` returns `{slots, bonuses, total}` — the per-slot breakdown is
 persisted so the UI can show exactly where each point came from.
-`finalize()` layers DotD, the safety-car bonus and the duel result on top.
+`finalize()` layers DotD and the safety-car bonus on top, then settles the duel.
 
 **The duel comparison is deliberate:** the player's `table + dotd + safety_car`
 is compared against the model's `table + its own safety_car`. DotD is excluded
@@ -808,10 +819,10 @@ Mitigations already in place — keep them:
 - `jobs/db.py::count()` exists so `score_race.py` can compare its read against
   the server's exact count and **refuse to score a partial field** (scoring 900
   of 1,100 players would look successful while silently zeroing 200 people).
-- Standings, league boards and rank-of-the-model go through the three SQL
-  functions, which do filtering, ordering, counting and limiting server-side.
-  `standings_page` orders by `points desc, username asc` — a total order, so a
-  player can't appear on two pages or none.
+- Standings and league boards go through the SQL functions, which do filtering,
+  ordering, counting and limiting server-side. `standings_page` orders by
+  `duel_wins desc, margin desc, points desc, username asc` (§7.7) — a total
+  order, so a player can't appear on two pages or none.
 - `/game/races/[round]` caps "THE FIELD" at 100 and fetches *your* row
   separately, so you always see yourself.
 
@@ -832,6 +843,7 @@ editor.
 | `0004_standings_pagination.sql` | `standings_page/count/rank_at` | ⚠️ verify |
 | `0005_league_invites_and_account_deletion.sql` | `league_by_code()`, `delete_account()` | ✅ confirmed 2026-08-02 |
 | `0006_admin_controls.sql` | `model_entries.counts_in_standings`, `model_season_points/races()`, the `admin_*` operator functions | ✅ confirmed 2026-08-11 |
+| `0007_duel_standings.sql` | strips the duel bonus from `scores` history; `leaderboard` gains `margin` and drops the championship payout from `points`; `standings_page` returns `margin` and orders on the duel | ⚠️ **must be applied** — see §7.7 |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
@@ -873,6 +885,47 @@ select p.username, d.first_name, d.last_name, d.country, d.birth_year, d.created
   join public.profiles p on p.id = d.id
  order by d.created_at desc;
 ```
+
+### 7.7 The standings, and what they rank on
+
+Rule of record: `GAME_DESIGN.md` §2.5. Changed 2026-08 by migration
+`0007_duel_standings.sql`.
+
+**The problem.** Ranking on cumulative points makes the board a measure of how
+long a player has been on the platform. The model plays every Grand Prix
+whether or not anyone else is here, so by round 12 it sat top of the table with
+**402 points over 11 races** — and someone signing up that week opened the
+standings to find a machine in P1 and a deficit that no amount of good play
+could close. The site's own front page promises "Beat the model. Every single
+Sunday", and the board was measuring something else entirely.
+
+**The order is now `duel_wins desc, margin desc, points desc, username asc`.**
+
+| Key | What it is |
+| --- | --- |
+| `duel_wins` | Grands Prix where the player outscored the model. A race not entered counts neither way — `races_played` sits beside the name so a full season reads as the achievement it is. |
+| `margin` | Summed over the races entered, of (player total − model total that weekend). **The model is exactly 0 by construction**, which is the whole trick: it is the axis, not a competitor, and a mid-season arrival starts level. |
+| `points` | The raw season total. Still what decides every duel; no longer the ranking key. |
+
+**The model is not a row.** It cannot duel itself, so it has no record and no
+rank. `ModelBar` on `/game/standings` shows its season points and its average
+per race above the table — the bar to clear. This removed the splice the page
+used to do (`standings_rank_at` + inserting a synthetic line on the right
+page), which was the fiddliest code on the route.
+
+`standings_rank_at` and the 0006 operator hatches
+(`model_entries.counts_in_standings`, `admin_model_reset`) are **deliberately
+kept**, unused, as the way back if the model is ever wanted in the table again.
+`ModelBar` still reads `counts_in_standings`, so a `model-reset` correctly
+zeroes the bar.
+
+**`points` no longer includes the championship payout.** A board of race
+results carrying a bonus that came from no race read as a bug once points
+stopped ranking anything. `settle_season.py` still writes
+`season_picks.awarded_points`; its destination is the **season recap**, a
+year-in-review surface replaying each player's spring predictions against what
+actually happened (GAME_DESIGN §2.3). Designed, not built — it is a season-end
+page and the season is at round 12.
 
 ---
 
@@ -1183,7 +1236,7 @@ season picks. Renders the countdown, a "last duel" strip, and the editor.
 `canPlay = signed in && race_at is in the future`.
 
 **`/game/races/[round]`** (`revalidate = 120`) — redirects to `/game` if the
-race is still `scheduled`. Shows the duel banner (win/draw/loss + duel bonus),
+race is still `scheduled`. Shows the duel banner (win/draw/loss + the margin),
 the side-by-side breakdown (below), DotD, the safety-car outcome with both bets,
 and "THE FIELD" (top 100 by score, usernames joined via the FK rather than a
 second unfiltered read of every profile). Your own score row is read separately
@@ -1961,7 +2014,7 @@ Also refresh the **Last reviewed** line and commit hash at the top.
 | **β / `CALIBRATION_BETA`** | 0.25 — weight on the ML signal vs the historical grid prior |
 | **σ / `SIGMA`** | 2.0 positions of assumed race-day noise in the Monte-Carlo |
 | **Lock** | The moment `races.status` flips to `locked` (at `race_at`): predictions close, picks become public |
-| **Duel** | One player vs the model on one Grand Prix; +10 win, +3 draw |
+| **Duel** | One player vs the model on one Grand Prix. Recorded as W/D/L and a points margin; worth no bonus points (§7.7) |
 | **Prorate** | Fraction of the season remaining when a championship pick was locked (floor 0.2) |
 | **Anon key** | Browser-side Supabase key, constrained by RLS |
 | **Service-role key** | Server-side Supabase key that bypasses RLS. Jobs only |

@@ -12,7 +12,7 @@ export SUPABASE_SERVICE_KEY=<service_role secret>
 |---|---|---|
 | `sync_schedule.py` | weekly (Mon) | Calendar → `races`, roster → `drivers`, rank/prorate on new `season_picks` |
 | `lock_race.py` | hourly Fri–Sun | Model duel entry (order + probability matrix); flips race to `locked` at start |
-| `score_race.py` | hourly Sun–Tue | Official classification → scores everyone, applies duel bonuses, flips to `scored` |
+| `score_race.py` | hourly Sun–Tue | Official classification → scores everyone, settles each duel (W/D/L), flips to `scored` |
 | `set_dotd.py` | manual, Monday | Record the official Driver of the Day, re-scores instantly |
 | `settle_season.py` | once, December | Awards championship-pick bonuses |
 | `backtest.py` | local only | Replays the scoring rules over past races (no DB needed) |

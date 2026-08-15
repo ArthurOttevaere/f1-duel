@@ -152,7 +152,6 @@ export function buildPosterData({
           : score.drew_model
             ? "drew"
             : "lost",
-    duelBonus: (played && score?.breakdown.bonuses?.duel) || 0,
     slots,
     stats: played && score ? statsFor(score.breakdown.slots) : null,
     modelStats: entry?.breakdown?.slots ? statsFor(entry.breakdown.slots) : null,
