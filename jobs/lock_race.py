@@ -17,6 +17,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 
 import db
+import mailer
 import model_bridge
 import safety_car
 import scoring  # noqa: F401  (kept close: scoring reads the matrix written here)
@@ -81,6 +82,11 @@ def main() -> None:
             # Entry becomes worth refreshing once qualifying should be done.
             if quali_at is None or now > quali_at + timedelta(hours=1, minutes=30):
                 refresh_entry(race)
+                # The Saturday-evening nudge, once the model's hand is on the
+                # table. Sent from here rather than on a clock of its own so it
+                # can never go out claiming a model entry that doesn't exist;
+                # `email_log` keeps the hourly re-runs to one mail per player.
+                mailer.send_lock_emails(race)
         else:
             # Race has started: freeze whatever we have and lock.
             existing = db.select("model_entries", {"race_id": f"eq.{race['id']}"})

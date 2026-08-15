@@ -53,6 +53,21 @@ workflow). After that the three workflows run on their own schedule
    | `NEXT_PUBLIC_CONTACT_EMAIL` | *(optional)* the address `/contact` publishes |
    | `NEXT_PUBLIC_SEASON` | `2026` |
 
+### Race reminder emails (optional)
+
+Two emails per Grand Prix — Saturday's nudge and Monday's result — need a
+[Resend](https://resend.com) account and a verified sender:
+
+1. Create an API key and add it as a **repository secret** `RESEND_API_KEY`
+   (Settings → Secrets and variables → Actions → Secrets).
+2. Add two **repository variables** in the same place:
+   `MAIL_FROM` (e.g. `F1 Duel <duel@yourdomain>`) and `SITE_URL`
+   (where the email buttons point; defaults to the production URL).
+3. Apply `supabase/migrations/0008_race_emails.sql`.
+
+Leave any of these out and the jobs run exactly as before — every send becomes
+a logged no-op. Nothing else changes.
+
    The site has a built-in `/model` page explaining the opponent, so
    `NEXT_PUBLIC_MODEL_URL` is **optional** — set it only to add a link out to
    the live Flask platform. A `localhost` value is ignored, so leaving it unset

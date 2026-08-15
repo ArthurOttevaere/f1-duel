@@ -832,6 +832,7 @@ editor.
 | `0004_standings_pagination.sql` | `standings_page/count/rank_at` | ⚠️ verify |
 | `0005_league_invites_and_account_deletion.sql` | `league_by_code()`, `delete_account()` | ✅ confirmed 2026-08-02 |
 | `0006_admin_controls.sql` | `model_entries.counts_in_standings`, `model_season_points/races()`, the `admin_*` operator functions | ✅ confirmed 2026-08-11 |
+| `0008_race_emails.sql` | `profiles.email_opt_out` + `unsubscribe_token`, `email_log`, `email_recipients()`, `email_prefs()`, `set_email_opt_out()` | ⚠️ **must be applied** before the reminders can send — see §8.8 |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
@@ -1049,6 +1050,47 @@ one skipped run isn't fatal), keepalive:
 It uses its own concurrency group (`keepalive`), **not** `game-jobs`: a pending
 run in a group is cancelled when the next is queued, and `score-race` queues
 hourly — sharing the lock could drop the one run we can't afford to miss.
+
+### 8.8 `mailer.py` — the two race emails
+
+Rule of record: `GAME_DESIGN.md` §2.7. Added 2026-08 by migration
+`0008_race_emails.sql`.
+
+The game's rhythm is weekly and the product had **no outbound voice at all**: a
+player who forgot a Sunday took a zero, was never told, and did not come back.
+Two emails per Grand Prix, no others ever — the Saturday nudge once qualifying
+is done and the model's hand is on the table, and the Monday result.
+
+Both are sent from **inside the existing jobs**, not on a clock of their own:
+`lock_race.py` sends the nudge right after `refresh_entry()`, so it can never
+go out claiming a model entry that doesn't exist, and `score_race.py` sends the
+result right after `db.upsert("scores", …)`, so nobody is told a score that
+failed to save.
+
+**Four properties, each load-bearing:**
+
+| Property | How |
+| --- | --- |
+| Idempotent | `email_log(race_id, user_id, kind)` written after each success; `email_recipients()` excludes anyone already logged. `score-race` re-runs hourly for ten days — without the log that is ten days of hourly mail to every player. |
+| Retryable | A failed send is **never** logged, so the next hourly run picks it up. Nothing is queued and nothing is retried in-process. |
+| Silent when unconfigured | No `RESEND_API_KEY` → `send()` prints and returns `False`. The jobs behave exactly as before. |
+| Non-fatal | A bad address returns `False` rather than raising. One bounce must not take down a scoring run. |
+
+The address lives in `auth.users`, which is not reachable from the API schema —
+hence `email_recipients()` being `security definer` and granted to
+`service_role` only. It also filters on `email_confirmed_at is not null`,
+because an address nobody has confirmed is an address that bounces.
+
+**The unsubscribe link is a page with a button, not a link that unsubscribes.**
+`/unsubscribe/<token>` is keyed on a random `unsubscribe_token`, so it works
+from a mail client for someone with no session (the same trade the league
+invite codes make) — but the opt-out happens on POST. Mail clients and
+corporate scanners prefetch every URL in a message; a GET that opted someone
+out would opt out everyone whose employer scans their inbox.
+
+**The templates are tables and inline styles.** This is email: no stylesheet,
+no flexbox worth trusting, and a dark background only survives if it is painted
+on an element rather than assumed.
 
 ---
 
@@ -1585,6 +1627,9 @@ column — see the third bullet.
 | `NEXT_PUBLIC_CONTACT_EMAIL` | Vercel, `web/.env.local` | optional | The mailbox `/contact` publishes. Unset (or not an address) → the page shows the GitHub route only. An env var on purpose: an address can then be created, changed or retired without a deploy |
 | `SUPABASE_URL` | GitHub Actions secret, local shell | ✅ for jobs | Same URL, server side |
 | `SUPABASE_SERVICE_KEY` | GitHub Actions secret, local shell | ✅ for jobs | **service_role** — bypasses RLS, never ship to a client |
+| `RESEND_API_KEY` | GitHub Actions **secret** | optional | Sends the two race emails (§8.8). Unset → every send is a logged no-op and the jobs are otherwise unchanged |
+| `MAIL_FROM` | GitHub Actions **variable** | with the above | e.g. `F1 Duel <duel@yourdomain>`; must be a verified Resend sender |
+| `SITE_URL` | GitHub Actions **variable** | optional | Where the email buttons point; defaults to the production URL |
 | `F1_PORT` | local shell | optional | Flask port (default 5050) |
 | `F1_NO_RELOAD` | local shell | optional | `1` disables the Flask reloader |
 
@@ -1751,7 +1796,7 @@ The native `@next/swc-darwin-arm64` binary download can truncate on a slow
 network. Reinstall that single package.
 
 **Scheduled workflows stopped running.**
-GitHub's 60-day rule (§8.7). Run `keepalive` manually, or push any commit, then
+GitHub's 60-day rule (§8.8). Run `keepalive` manually, or push any commit, then
 re-enable the workflows in the Actions tab.
 
 **Supabase project paused.**

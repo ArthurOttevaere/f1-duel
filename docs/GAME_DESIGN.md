@@ -165,6 +165,34 @@ The outcome is detected automatically from the official race-control messages
 via FastF1 (`src/predict.py::safety_car_occurred`); if it can't be determined at
 scoring time, no one is awarded the bonus (neither player nor model).
 
+### 2.7 The two emails (added 2026-08)
+
+The game's rhythm is weekly, and until now the product had **no outbound voice
+at all**: a player who forgot a Sunday took a zero, was never told, and did not
+come back. That is the classic failure mode of a prediction game, and no amount
+of on-site polish fixes it.
+
+Exactly two emails per Grand Prix, and never any others:
+
+| When | Trigger | Content |
+| --- | --- | --- |
+| Saturday evening | `lock-race`, once qualifying is done and the model's entry exists | The model has played its hand. Either "you haven't picked yet" or "yours is in, you can still edit until lights out". |
+| Monday | `score-race`, after the scores are written | Your score, the model's, the margin, and the verdict. Only to players who entered. |
+
+Rules that make this safe to run unattended:
+
+- **Idempotent by construction.** `email_log(race_id, user_id, kind)` is written
+  after each successful send and `email_recipients()` excludes anyone already
+  logged. `score-race` re-runs hourly for ten days; without the log that is ten
+  days of hourly mail to every player.
+- **Opt-out, with a one-click way out.** `profiles.email_opt_out`, plus a random
+  `unsubscribe_token` so `/unsubscribe/<token>` works from a mail client with no
+  session. The page shows a **button**: a link that opts you out on GET would
+  opt out everyone whose employer scans their inbox.
+- **Unconfigured is a no-op.** Without `RESEND_API_KEY` the send is logged and
+  skipped; the jobs behave exactly as they did before.
+- **A failed send is never marked sent**, so the next hourly run retries it.
+
 ---
 
 ## 3. Architecture
