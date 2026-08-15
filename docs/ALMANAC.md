@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-08-15 (branch `feat/c1-duel-standings`, PR #33 merged).
+**Last reviewed:** 2026-08-15 (`main`, PRs #33–#41 merged; live on https://f1-duel.com).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
