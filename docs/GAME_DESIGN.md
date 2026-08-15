@@ -257,6 +257,7 @@ timing — GitHub Actions cron + Supabase is deterministic and free.
 | `/game/leagues` | Redirect to `/game/standings` — kept alive for links players already sent each other. |
 | `/join/<code>` | The far end of an invite link: shows the league, its owner and its size, then joins — signing in first if needed. |
 | `/profile/[username]` | The player's page, themed end to end by their championship pick: a team-coloured cover, the picked driver's portrait as the avatar, the name large, then season points / duel record / races / best race. Below: the **championship call** (driver portrait + constructor wordmark + what the bonus is on course for), **recent form** (last five duels as W/D/L pills), the **season curve** (your running total against the model's), and the full duel history. Owner only: one **Edit profile** panel (username + private details), sign out, and delete the account (`delete_account()`, cascades to everything including leagues you own). |
+| `/model` | The opponent, explained **and shown**: the pipeline, the 39 features, why the fight is fair — and the model's actual position-probability matrix for the last Grand Prix it played, drawn as a heat map whose colour bands are the rarity-multiplier tiers of §2.2. Links out to the Flask platform only when `NEXT_PUBLIC_MODEL_URL` is set. |
 | `/contact` | Contact & FAQ: how to report a bug or suggest a feature (issue tracker + optional mailbox), the questions players actually ask, and the credits. |
 | `/login` | Supabase auth (magic link + Google). |
 

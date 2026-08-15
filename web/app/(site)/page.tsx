@@ -134,17 +134,23 @@ export default function Home() {
             <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
               Not just any opponent
             </h2>
+            {/* This used to promise "a full prediction platform" with live
+                weather, circuit maps and championship scenarios. All of that
+                exists — in the Flask app, which isn't deployed, so the button
+                led to a page that described things nobody could reach. It now
+                promises the thing you can actually open: the model's own
+                probability matrix for the last Grand Prix it played. */}
             <p className="mt-4 leading-relaxed text-ink-dim">
-              Behind the duel sits a full prediction platform: race and
-              qualifying forecasts for every Grand Prix, live weather,
-              circuit maps, championship scenarios — and the reasoning behind
-              every predicted position.
+              Before every Grand Prix it simulates the race ten thousand times
+              and works out, for each driver, how often they finish in each
+              position. You can read that grid yourself — it&apos;s the same one
+              your rarity multipliers come out of.
             </p>
             <Link
               href="/model"
               className="pressable mt-8 inline-block rounded-full border border-line-hi px-6 py-3 text-sm font-semibold transition-colors hover:bg-glass-strong"
             >
-              Explore the prediction platform →
+              See what it expects this weekend →
             </Link>
           </div>
 
