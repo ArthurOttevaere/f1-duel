@@ -843,7 +843,8 @@ editor.
 | `0004_standings_pagination.sql` | `standings_page/count/rank_at` | ⚠️ verify |
 | `0005_league_invites_and_account_deletion.sql` | `league_by_code()`, `delete_account()` | ✅ confirmed 2026-08-02 |
 | `0006_admin_controls.sql` | `model_entries.counts_in_standings`, `model_season_points/races()`, the `admin_*` operator functions | ✅ confirmed 2026-08-11 |
-| `0007_duel_standings.sql` | strips the duel bonus from `scores` history; `leaderboard` gains `margin` and drops the championship payout from `points`; `standings_page` returns `margin` and orders on the duel | ⚠️ **must be applied** — see §7.7 |
+| `0007_duel_standings.sql` | strips the duel bonus from `scores` history; `leaderboard` gains `margin` and drops the championship payout from `points`; `standings_page` returns `margin` and orders on the duel | ✅ confirmed 2026-08-15 |
+| `0008_race_emails.sql` | `profiles.email_opt_out` + `unsubscribe_token`, `email_log`, `email_recipients()`, `email_prefs()`, `set_email_opt_out()` | ✅ confirmed 2026-08-15 |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
@@ -1060,8 +1061,10 @@ its season line says).
 | `lock-race.yml` | `15 * * * 5,6,0` (hourly Fri/Sat/Sun) | `lock_race.py` |
 | `score-race.yml` | `45 * * * 0,1,2` (hourly Sun/Mon/Tue) | `score_race.py` |
 | `keepalive.yml` | `0 6 1 * *` (monthly) | commit + re-enable + DB ping |
+| `send-mail.yml` | none — manual only | `send_mail.py` (§8.8) |
 
-All four support `workflow_dispatch` (manual run from the Actions tab).
+All five support `workflow_dispatch` (manual run from the Actions tab);
+`send-mail` is *only* that, and takes inputs (kind, round, dry run, force, to).
 
 Shared patterns worth knowing:
 
@@ -1102,6 +1105,77 @@ one skipped run isn't fatal), keepalive:
 It uses its own concurrency group (`keepalive`), **not** `game-jobs`: a pending
 run in a group is cancelled when the next is queued, and `score-race` queues
 hourly — sharing the lock could drop the one run we can't afford to miss.
+
+### 8.8 `mailer.py` — the two race emails
+
+Rule of record: `GAME_DESIGN.md` §2.7. Added 2026-08 by migration
+`0008_race_emails.sql`.
+
+The game's rhythm is weekly and the product had **no outbound voice at all**: a
+player who forgot a Sunday took a zero, was never told, and did not come back.
+Two emails per Grand Prix, no others ever — the Saturday nudge once qualifying
+is done and the model's hand is on the table, and the Monday result.
+
+Both are sent from **inside the existing jobs**, not on a clock of their own:
+`lock_race.py` sends the nudge right after `refresh_entry()`, so it can never
+go out claiming a model entry that doesn't exist, and `score_race.py` sends the
+result right after `db.upsert("scores", …)`, so nobody is told a score that
+failed to save.
+
+**Four properties, each load-bearing:**
+
+| Property | How |
+| --- | --- |
+| Idempotent | `email_log(race_id, user_id, kind)` written after each success; `email_recipients()` excludes anyone already logged. `score-race` re-runs hourly for ten days — without the log that is ten days of hourly mail to every player. |
+| Retryable | A failed send is **never** logged, so the next hourly run picks it up. Nothing is queued and nothing is retried in-process. |
+| Silent when unconfigured | No `RESEND_API_KEY` → `send()` prints and returns `False`. The jobs behave exactly as before. |
+| Non-fatal | A bad address returns `False` rather than raising. One bounce must not take down a scoring run. |
+
+The address lives in `auth.users`, which is not reachable from the API schema —
+hence `email_recipients()` being `security definer` and granted to
+`service_role` only. It also filters on `email_confirmed_at is not null`,
+because an address nobody has confirmed is an address that bounces.
+
+**The unsubscribe link is a page with a button, not a link that unsubscribes.**
+`/unsubscribe/<token>` is keyed on a random `unsubscribe_token`, so it works
+from a mail client for someone with no session (the same trade the league
+invite codes make) — but the opt-out happens on POST. Mail clients and
+corporate scanners prefetch every URL in a message; a GET that opted someone
+out would opt out everyone whose employer scans their inbox.
+
+**The templates are tables and inline styles.** This is email: no stylesheet,
+no flexbox worth trusting, and a dark background only survives if it is painted
+on an element rather than assumed.
+
+**Sending one by hand — `jobs/send_mail.py` and the `send-mail` workflow.**
+
+The crons are `lock-race` hourly Fri–Sun at :15 and `score-race` hourly Sun–Tue
+at :45, so the nudge lands on the first run after qualifying + 1h30 and the
+result on the first run after the classification appears. When that is not
+enough — a weekend the job missed, a template you want to re-send, a test on
+yourself — this is the override:
+
+```bash
+python jobs/send_mail.py lock 12 --dry-run          # who would get it
+python jobs/send_mail.py result 11 --force          # send it again to everyone
+python jobs/send_mail.py result 11 --force --to me@example.com
+```
+
+Actions → **send-mail** runs the same script from the browser, with `dry_run`
+**ticked by default** — the destructive-by-omission default is the wrong one
+for a thing that mails your whole player base.
+
+Three properties worth keeping:
+
+- **`--force` is implemented as "delete the log rows, then send normally"**,
+  not as a second code path that skips the log. One path means one thing to get
+  wrong.
+- **It refuses to lie.** `lock` exits if the race has no `model_entries` row —
+  the mail's entire claim is that the model has played its hand. `result` exits
+  unless the race is `scored` and the model has a total.
+- **Nothing about the mail differs** from the scheduled send: same templates,
+  same recipient query, same log. An override that behaves differently from the
+  real thing proves nothing when you use it to check the real thing.
 
 ---
 
@@ -1697,6 +1771,10 @@ base silently produces a card with no image at all.
 | `NEXT_PUBLIC_CONTACT_EMAIL` | Vercel, `web/.env.local` | optional | The mailbox `/contact` publishes. Unset (or not an address) → the page shows the GitHub route only. An env var on purpose: an address can then be created, changed or retired without a deploy |
 | `SUPABASE_URL` | GitHub Actions secret, local shell | ✅ for jobs | Same URL, server side |
 | `SUPABASE_SERVICE_KEY` | GitHub Actions secret, local shell | ✅ for jobs | **service_role** — bypasses RLS, never ship to a client |
+| `RESEND_API_KEY` | GitHub Actions **secret** | optional | Sends the two race emails (§8.8). Unset → every send is a logged no-op and the jobs are otherwise unchanged |
+| `MAIL_FROM` | GitHub Actions **variable** | with the above | e.g. `F1 Duel <duel@yourdomain>`. Resend sends only from a **domain verified with it by DNS** — a Gmail or Proton mailbox cannot be a `from` address, however much it is yours |
+| `MAIL_REPLY_TO` | GitHub Actions **variable** | optional | Any mailbox at all. How the project's own address receives replies while the verified domain does the sending |
+| `SITE_URL` | GitHub Actions **variable** | optional | Where the email buttons point; defaults to the production URL. On a custom domain this and `NEXT_PUBLIC_SITE_URL` must move together, or the emails link to one origin while the share cards claim another |
 | `F1_PORT` | local shell | optional | Flask port (default 5050) |
 | `F1_NO_RELOAD` | local shell | optional | `1` disables the Flask reloader |
 
@@ -1777,6 +1855,7 @@ index; that file is the manual.
 | Task | How |
 | --- | --- |
 | Add a new season | `python jobs/sync_schedule.py <year>`, then set `NEXT_PUBLIC_SEASON` on Vercel |
+| Move to a custom domain | `DEPLOYMENT.md` §4b — and **add `https://<domain>/auth/callback` to the Supabase redirect list**, or every magic link and Google sign-in bounces on the new domain the moment it goes live |
 | Enter Driver of the Day | `python jobs/set_dotd.py <season> <round> <driver_id>` (Monday) |
 | Settle the season | `python jobs/settle_season.py <season>` (December, once) |
 | Force a lock / score now | Actions tab → workflow → **Run workflow** |
@@ -1784,6 +1863,7 @@ index; that file is the manual.
 | Refresh the model after new races | `python src/collect.py <year> --force` (+ `--practice`), `python src/features.py`, then optionally `python src/train.py` |
 | Validate a rules change | `python jobs/backtest.py 2026 --rounds 1-13` — `mirror` must draw every race |
 | Inspect players | `python jobs/admin.py players`, or the SQL editor query in §7.6 |
+| Send a race email out of schedule | `python jobs/send_mail.py lock\|result <round> [--dry-run] [--force] [--to X]`, or Actions → **send-mail** (§8.8) |
 | Zero the model's season score | `python jobs/admin.py model-reset` (or `select admin_model_reset(2026);`). Use it at launch so newcomers aren't chasing a machine with a season's head start. Reversible: `model-restore` |
 | Start the season at round N | `python jobs/admin.py model-count-from N` |
 | See why the board shows what it shows | `python jobs/admin.py model-status` |
@@ -1863,7 +1943,7 @@ The native `@next/swc-darwin-arm64` binary download can truncate on a slow
 network. Reinstall that single package.
 
 **Scheduled workflows stopped running.**
-GitHub's 60-day rule (§8.7). Run `keepalive` manually, or push any commit, then
+GitHub's 60-day rule (§8.8). Run `keepalive` manually, or push any commit, then
 re-enable the workflows in the Actions tab.
 
 **Supabase project paused.**

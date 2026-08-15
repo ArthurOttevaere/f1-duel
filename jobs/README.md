@@ -12,7 +12,9 @@ export SUPABASE_SERVICE_KEY=<service_role secret>
 |---|---|---|
 | `sync_schedule.py` | weekly (Mon) | Calendar → `races`, roster → `drivers`, rank/prorate on new `season_picks` |
 | `lock_race.py` | hourly Fri–Sun | Model duel entry (order + probability matrix); flips race to `locked` at start |
-| `score_race.py` | hourly Sun–Tue | Official classification → scores everyone, settles each duel (W/D/L), flips to `scored` |
+| `score_race.py` | hourly Sun–Tue | Official classification → scores everyone, settles each duel (W/D/L), flips to `scored`, mails each player their result |
+| `mailer.py` | — | The two race emails, sent from inside `lock_race` and `score_race` above (`docs/GAME_DESIGN.md` §2.7). No `RESEND_API_KEY` → every send is a logged no-op |
+| `send_mail.py` | manual, any time | **Sends a race email outside the schedule** — `python jobs/send_mail.py lock 12 --dry-run`. Same templates, same recipients, same log. `--force` re-sends to players who already got it; `--to` tries one address first. Also runnable from Actions → **send-mail** |
 | `set_dotd.py` | manual, Monday | Record the official Driver of the Day, re-scores instantly |
 | `settle_season.py` | once, December | Awards championship-pick bonuses |
 | `backtest.py` | local only | Replays the scoring rules over past races (no DB needed) |
