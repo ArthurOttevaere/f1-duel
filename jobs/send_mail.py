@@ -13,12 +13,18 @@ same templates, the same recipients, the same log — sent when you say so.
     # send the results for round 11 again, to everyone
     python jobs/send_mail.py result 11 --force
 
-    # try one template on yourself before touching the field
-    python jobs/send_mail.py result 11 --force --to hello@f1-duel.com
+    # see the template, with no players and no data — goes to one address
+    python jobs/send_mail.py result 11 --preview hello@f1-duel.com
 
 `--force` clears `email_log` for that race and kind, so everyone is owed the
 mail again. Without it, anyone already emailed is skipped — which is what makes
 re-running safe, and what you are deliberately overriding.
+
+`--to` **filters the player list**; an address belonging to no account matches
+nobody and sends nothing. To put the template in front of your own eyes when
+there are no players yet — or no scores — use `--preview`, which sends one
+copy to any address at all, from real data where it exists and representative
+values where it doesn't. A preview is never written to `email_log`.
 
 Needs SUPABASE_URL, SUPABASE_SERVICE_KEY, RESEND_API_KEY and MAIL_FROM. Without
 the last two every send is a logged no-op, so `--dry-run` is not the only way
@@ -81,6 +87,38 @@ def send_result(race: dict, args) -> int:
     )
 
 
+PREVIEW_TOKEN = "00000000-0000-0000-0000-000000000000"
+
+
+def preview(race: dict, kind: str, address: str) -> int:
+    """One copy of the template to one address, whatever the database holds.
+
+    The recipient query needs players, a race the model has entered and — for
+    the result — scores. Before any of that exists there is no way to look at
+    the thing you are about to send, which is exactly when you most want to.
+    Real values are used where they exist; the rest is representative.
+
+    Never logged: a preview must not make a player look already-emailed.
+    """
+    entries = db.select("model_entries", {"race_id": f"eq.{race['id']}"})
+    model_total = float((entries[0].get("total") if entries else None) or 80)
+
+    if kind == "lock":
+        subject, html = mailer.lock_email(race, False, PREVIEW_TOKEN)
+    else:
+        rows = db.select("scores", {"race_id": f"eq.{race['id']}", "limit": "1"})
+        score = rows[0] if rows else {"total": model_total + 12,
+                                      "beat_model": True, "drew_model": False}
+        subject, html = mailer.result_email(race, score, model_total,
+                                            PREVIEW_TOKEN)
+
+    print(f"  preview -> {address}: {subject}")
+    if not mailer.send(address, subject, html):
+        sys.exit("The send was refused. Check RESEND_API_KEY and MAIL_FROM.")
+    print("Sent. This was a preview: nothing was logged, no player was mailed.")
+    return 1
+
+
 def main() -> None:
     p = argparse.ArgumentParser(
         description="Send a race email outside the schedule.",
@@ -95,16 +133,26 @@ def main() -> None:
     p.add_argument("--dry-run", action="store_true",
                    help="list who would receive it and send nothing")
     p.add_argument("--to", metavar="EMAIL",
-                   help="restrict to one address — for trying a template on "
-                        "yourself first")
+                   help="restrict to this player's address (filters the "
+                        "recipient list; an address with no account matches "
+                        "nobody)")
+    p.add_argument("--preview", metavar="EMAIL",
+                   help="send one copy of the template to any address, using "
+                        "sample data where the database has none. Never "
+                        "logged, never sent to players")
     args = p.parse_args()
 
     race = race_for(args.round)
     print(f"{race['name']} (round {race['round']}, {race['status']}) — "
           f"{args.kind} email"
+          f"{' [PREVIEW]' if args.preview else ''}"
           f"{' [DRY RUN]' if args.dry_run else ''}"
           f"{' [FORCED]' if args.force else ''}",
           flush=True)
+
+    if args.preview:
+        preview(race, args.kind, args.preview)
+        return
 
     sent = send_lock(race, args) if args.kind == "lock" else send_result(race, args)
 

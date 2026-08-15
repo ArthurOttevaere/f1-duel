@@ -31,7 +31,11 @@ on:
         type: boolean
         default: false
       to:
-        description: "Only this address (leave empty for everyone)"
+        description: "Only this player's address (leave empty for everyone)"
+        required: false
+        type: string
+      preview:
+        description: "Preview: send one copy to this address, sample data, no player mailed"
         required: false
         type: string
 
@@ -72,7 +76,8 @@ jobs:
             "${{ inputs.kind }}" "${{ inputs.round }}" \
             ${{ inputs.dry_run && '--dry-run' || '' }} \
             ${{ inputs.force && '--force' || '' }} \
-            ${{ inputs.to != '' && format('--to {0}', inputs.to) || '' }}
+            ${{ inputs.to != '' && format('--to {0}', inputs.to) || '' }} \
+            ${{ inputs.preview != '' && format('--preview {0}', inputs.preview) || '' }}
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
