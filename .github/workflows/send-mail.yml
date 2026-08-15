@@ -68,7 +68,7 @@ jobs:
       - if: steps.guard.outputs.configured == 'true'
         name: Send
         run: |
-          python jobs/send_mail.py \
+          python -u jobs/send_mail.py \
             "${{ inputs.kind }}" "${{ inputs.round }}" \
             ${{ inputs.dry_run && '--dry-run' || '' }} \
             ${{ inputs.force && '--force' || '' }} \
