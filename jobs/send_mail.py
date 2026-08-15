@@ -50,8 +50,10 @@ def send_lock(race: dict, args) -> int:
         # The mail's whole claim is that the model has played its hand. Sending
         # it before that is true is the one thing this script must not do.
         sys.exit(
-            f"Round {race['round']} has no model entry yet — the nudge would be "
-            f"claiming something untrue. Run lock_race.py first."
+            f"Nothing sent. Round {race['round']} has no model entry yet, so "
+            f"the nudge — whose whole claim is that the model has played its "
+            f"hand — would be untrue. The entry appears about 90 minutes after "
+            f"qualifying, and lock-race writes it on its own. Nothing is broken."
         )
     return mailer.send_lock_emails(race, force=args.force, dry_run=args.dry_run,
                                    only_to=args.to)
@@ -59,8 +61,9 @@ def send_lock(race: dict, args) -> int:
 
 def send_result(race: dict, args) -> int:
     if race["status"] != "scored":
-        sys.exit(f"Round {race['round']} is '{race['status']}', not scored — "
-                 f"there is no result to report. Run score_race.py first.")
+        sys.exit(f"Nothing sent. Round {race['round']} is "
+                 f"'{race['status']}', not scored, so there is no result to "
+                 f"report yet. score-race writes it on its own after the race.")
 
     entries = db.select("model_entries", {"race_id": f"eq.{race['id']}"})
     model_total = (entries[0].get("total") if entries else None)
@@ -100,7 +103,8 @@ def main() -> None:
     print(f"{race['name']} (round {race['round']}, {race['status']}) — "
           f"{args.kind} email"
           f"{' [DRY RUN]' if args.dry_run else ''}"
-          f"{' [FORCED]' if args.force else ''}")
+          f"{' [FORCED]' if args.force else ''}",
+          flush=True)
 
     sent = send_lock(race, args) if args.kind == "lock" else send_result(race, args)
 
