@@ -52,6 +52,7 @@ workflow). After that the three workflows run on their own schedule
    | `NEXT_PUBLIC_MODEL_URL` | *(optional)* your Render URL (step 4) |
    | `NEXT_PUBLIC_CONTACT_EMAIL` | *(optional)* the address `/contact` publishes |
    | `NEXT_PUBLIC_SEASON` | `2026` |
+   | `NEXT_PUBLIC_SITE_URL` | *(optional)* the absolute origin used to build share-card URLs — only needed on a custom domain |
 
    The site has a built-in `/model` page explaining the opponent, so
    `NEXT_PUBLIC_MODEL_URL` is **optional** — set it only to add a link out to

@@ -1647,6 +1647,40 @@ column — see the third bullet.
   left between the verdict card and the stats band, so no arithmetic slip can
   push content off the sheet.
 
+### 9.10 Share cards (`lib/og.tsx` + `opengraph-image` routes)
+
+The project had **no Open Graph metadata at all** until 2026-08, which was the
+worst possible omission for this particular game: leagues are joined by pasting
+`/join/<code>` into a group chat, so the entire growth loop arrived as naked
+text. Three cards now, all drawn by one `shareCard()` helper so only the words
+differ:
+
+| Route | Card |
+| --- | --- |
+| `app/opengraph-image.tsx` | The default, inherited by every page without its own — headline, strapline, the three scoring numbers |
+| `app/(site)/join/[code]/opengraph-image.tsx` | League name, who is inviting, how many players |
+| `app/(site)/profile/[username]/opengraph-image.tsx` | Username, W-D-L against the model, races, points |
+
+The join card leaks nothing new: `league_by_code()` already answers name, owner
+and size to anyone holding the code (§7.3), and the card shows exactly that.
+
+**Three things `ImageResponse` will punish you for.** It renders through
+Satori, not a browser:
+
+1. **No stylesheet, and a very small CSS subset.** Inline styles only —
+   Tailwind classes do nothing here.
+2. **No block layout.** A `<div>` with more than one child and no
+   `display: flex` throws at render time, not at build time.
+3. **`radial-gradient(closest-side …)` renders as a ring with a dark hole.**
+   The hero's glow had to become a corner-anchored `linear-gradient`, and its
+   transparent stop sits at 55% so the box has a dead margin — at 72% the
+   corners furthest from the gradient origin still carried colour and left a
+   visible seam down the middle of the card.
+
+`metadataBase` comes from `SITE_URL` (§10.1) and must be absolute: the card is
+fetched by WhatsApp or Slack, not by the browser on the page, and a relative
+base silently produces a card with no image at all.
+
 ---
 
 ## 10. Part VII — Configuration, secrets, environments
@@ -1659,6 +1693,7 @@ column — see the third bullet.
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Vercel, `web/.env.local` | ✅ | Anon key — safe to ship, RLS is the guard |
 | `NEXT_PUBLIC_SEASON` | Vercel | recommended | Pins the game season; defaults to the current year |
 | `NEXT_PUBLIC_MODEL_URL` | Vercel | optional | Link out to the Flask app; `localhost` values are ignored |
+| `NEXT_PUBLIC_SITE_URL` | Vercel | optional | Absolute origin the share cards are built against (`metadataBase`). Unset it falls back to Vercel's own `VERCEL_PROJECT_PRODUCTION_URL`, then to the production URL — so it only needs setting on a custom domain. Previews deliberately resolve to the **production** origin: a preview build minting card URLs pointing at itself would put a throwaway address into somebody's group chat |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | Vercel, `web/.env.local` | optional | The mailbox `/contact` publishes. Unset (or not an address) → the page shows the GitHub route only. An env var on purpose: an address can then be created, changed or retired without a deploy |
 | `SUPABASE_URL` | GitHub Actions secret, local shell | ✅ for jobs | Same URL, server side |
 | `SUPABASE_SERVICE_KEY` | GitHub Actions secret, local shell | ✅ for jobs | **service_role** — bypasses RLS, never ship to a client |
