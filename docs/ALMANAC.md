@@ -1073,11 +1073,14 @@ deployed on Vercel with **Root Directory = `web`**.
 ```
 app/
 ├── layout.tsx                 root: fonts (Inter, Geist Mono), metadata,
-│                              BootScreen, <Analytics/>
+│                              viewport.themeColor, BootScreen, <Analytics/>
+├── not-found.tsx              404 for a URL matching no route (see below)
+├── manifest.ts                install manifest
 ├── globals.css                design tokens + shared classes
 ├── (site)/                    ROUTE GROUP: everything with nav + footer
 │   ├── layout.tsx             renders SiteNav + SiteFooter ONCE
 │   ├── loading.tsx            RaceLoader skeleton
+│   ├── not-found.tsx          404 for a notFound() thrown inside the group
 │   ├── page.tsx               Home (hero, game section, model section)
 │   ├── model/page.tsx         Native explanation of the opponent
 │   ├── rules/page.tsx         The full rulebook
@@ -1108,6 +1111,22 @@ them. Before this, every navigation flashed a blank screen. `/login`,
 `/welcome` and `/auth/*` sit outside the group (no nav). Pages provide their own
 `<main>`; the group layout adds no width constraint, so the home hero can be
 full-bleed.
+
+**There are two 404s, and both had to be written.** Next's built-in one ships a
+stylesheet that sets `body { background: #fff; color: #000 }`, which on a site
+that is dark everywhere else produced two different broken pages in production:
+an unknown URL gave a bare white page with none of the site on it, and an
+unknown *profile* gave the nav and the checkered footer rendered **in white**.
+Providing our own removes that stylesheet. `app/(site)/not-found.tsx` catches a
+`notFound()` thrown inside the group and inherits its nav and footer;
+`app/not-found.tsx` catches everything else and rebuilds the shell by hand.
+Both render `components/NotFoundBody.tsx`, so the words are written once.
+
+**The root one must not read the session.** It is part of the render tree of
+every route resolving above the group — `/login` included — so putting
+`SiteNav` (which calls `getUser()`) in it turned `/login` from a static page
+into a dynamic one. It carries a wordmark-only bar instead. Check
+`npm run build` still prints `○ /login` after touching that file.
 
 ### 9.3 Authentication
 
@@ -1828,6 +1847,13 @@ page renders empty locally; the harness is not optional.
   "Hungarian Grand" straight into "See the breakdown" (a `justify-between` with
   no `gap` and no `shrink-0`); and the driver pool shipped 4.6 MB of PNG to do
   the work of 0.52 MB of WebP. The tab also stopped calling itself Next.js.
+
+- **The 404 was white** (fixed 2026-08-15, same branch). Next's default
+  `not-found` carries `body { background: #fff }`, so a mistyped URL landed on
+  a bare white page and a mistyped *profile* link landed on the site's own nav
+  and checkered footer rendered in white. Two `not-found.tsx` files now, one
+  per boundary, sharing `NotFoundBody` — §9.2 for why the root one cannot
+  render `SiteNav`.
 
 - **Every profile wore the site's red** (fixed 2026-08-11, PR #27). The header
   theme was `championDriver?.team_color ?? "#ff1e3c"`, so a null `team_color`
