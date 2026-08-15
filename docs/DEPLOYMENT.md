@@ -60,10 +60,30 @@ Two emails per Grand Prix — Saturday's nudge and Monday's result — need a
 
 1. Create an API key and add it as a **repository secret** `RESEND_API_KEY`
    (Settings → Secrets and variables → Actions → Secrets).
-2. Add two **repository variables** in the same place:
-   `MAIL_FROM` (e.g. `F1 Duel <duel@yourdomain>`) and `SITE_URL`
-   (where the email buttons point; defaults to the production URL).
+2. Add **repository variables** in the same place:
+
+   | Variable | Value |
+   |---|---|
+   | `MAIL_FROM` | e.g. `F1 Duel <duel@yourdomain>` — **must be on a domain verified in Resend** (see below) |
+   | `MAIL_REPLY_TO` | *(optional)* any mailbox at all; where a player's reply lands |
+   | `SITE_URL` | where the email buttons point; defaults to the production URL |
+
 3. Apply `supabase/migrations/0008_race_emails.sql`.
+
+**The `from` address needs a domain, not a mailbox.** Resend will only send
+from a domain you have verified with it by adding DNS records — a mailbox at
+Gmail, Proton or iCloud cannot be a `from` address however much it is yours.
+Two ways through:
+
+- **You own a domain**: add it in Resend → Domains, publish the DNS records it
+  gives you, then `MAIL_FROM` can be anything at it (`duel@yourdomain`).
+- **You don't, yet**: Resend's `onboarding@resend.dev` sends without any setup,
+  but **only to the address that owns the Resend account** — fine for seeing a
+  real email land, useless for players.
+
+A personal project mailbox is still worth having: put it in `MAIL_REPLY_TO` so
+replies reach you, and in `NEXT_PUBLIC_CONTACT_EMAIL` on Vercel so `/contact`
+publishes it.
 
 Leave any of these out and the jobs run exactly as before — every send becomes
 a logged no-op. Nothing else changes.

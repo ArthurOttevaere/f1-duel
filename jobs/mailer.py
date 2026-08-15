@@ -5,8 +5,14 @@ only the service key can reach it (migration 0008).
 
     RESEND_API_KEY   from resend.com; unset → every send is a logged no-op,
                      so the jobs keep working exactly as before
-    MAIL_FROM        e.g. "F1 Duel <duel@yourdomain>"; must be a verified
-                     Resend sender
+    MAIL_FROM        e.g. "F1 Duel <duel@yourdomain>". Resend will only send
+                     from a domain you have verified with it by DNS — a mailbox
+                     at Gmail or Proton cannot be a `from` address, however
+                     much it is "yours"
+    MAIL_REPLY_TO    optional, and any address at all. This is how the project
+                     mailbox can receive replies while the verified domain does
+                     the sending: players hit reply and it lands wherever you
+                     actually read mail
     SITE_URL         where the buttons point (default: the Vercel production URL)
 
 Sending is **logged, not retried**. `email_log` is written per recipient after
@@ -157,6 +163,15 @@ def send(to: str, subject: str, html: str) -> bool:
     if not _enabled():
         print(f"  [mail off] would send to {to}: {subject}")
         return False
+    payload = {
+        "from": os.environ["MAIL_FROM"],
+        "to": [to],
+        "subject": subject,
+        "html": html,
+    }
+    reply_to = os.environ.get("MAIL_REPLY_TO", "").strip()
+    if reply_to:
+        payload["reply_to"] = reply_to
     try:
         resp = requests.post(
             RESEND_ENDPOINT,
@@ -164,12 +179,7 @@ def send(to: str, subject: str, html: str) -> bool:
                 "Authorization": f"Bearer {os.environ['RESEND_API_KEY']}",
                 "Content-Type": "application/json",
             },
-            json={
-                "from": os.environ["MAIL_FROM"],
-                "to": [to],
-                "subject": subject,
-                "html": html,
-            },
+            json=payload,
             timeout=20,
         )
     except requests.RequestException as e:

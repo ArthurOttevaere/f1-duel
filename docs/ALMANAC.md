@@ -1628,7 +1628,8 @@ column — see the third bullet.
 | `SUPABASE_URL` | GitHub Actions secret, local shell | ✅ for jobs | Same URL, server side |
 | `SUPABASE_SERVICE_KEY` | GitHub Actions secret, local shell | ✅ for jobs | **service_role** — bypasses RLS, never ship to a client |
 | `RESEND_API_KEY` | GitHub Actions **secret** | optional | Sends the two race emails (§8.8). Unset → every send is a logged no-op and the jobs are otherwise unchanged |
-| `MAIL_FROM` | GitHub Actions **variable** | with the above | e.g. `F1 Duel <duel@yourdomain>`; must be a verified Resend sender |
+| `MAIL_FROM` | GitHub Actions **variable** | with the above | e.g. `F1 Duel <duel@yourdomain>`. Resend sends only from a **domain verified with it by DNS** — a Gmail or Proton mailbox cannot be a `from` address, however much it is yours |
+| `MAIL_REPLY_TO` | GitHub Actions **variable** | optional | Any mailbox at all. How the project's own address receives replies while the verified domain does the sending |
 | `SITE_URL` | GitHub Actions **variable** | optional | Where the email buttons point; defaults to the production URL |
 | `F1_PORT` | local shell | optional | Flask port (default 5050) |
 | `F1_NO_RELOAD` | local shell | optional | `1` disables the Flask reloader |

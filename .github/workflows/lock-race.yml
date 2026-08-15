@@ -52,4 +52,5 @@ jobs:
           # otherwise unchanged — the reminders simply don't go out.
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           MAIL_FROM: ${{ vars.MAIL_FROM }}
+          MAIL_REPLY_TO: ${{ vars.MAIL_REPLY_TO }}
           SITE_URL: ${{ vars.SITE_URL }}
