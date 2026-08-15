@@ -47,11 +47,28 @@ def refresh_entry(race: dict) -> bool:
     return True
 
 
+def quali_order(season: int, rnd: int) -> list[str]:
+    """Qualifying classification as an ordered list of driver_ids, [] if absent.
+
+    In a FastF1 'Q' session GridPosition is NaN for everyone (a grid only
+    exists in the race), so the qualifying order is the best stand-in — it is
+    the starting grid before penalties.
+    """
+    # load_qualifying returns (results, weather); results is None when the
+    # session isn't published yet.
+    results, _weather = model_bridge.model.load_qualifying(season, rnd)
+    if results is None or results.empty or "DriverId" not in results.columns:
+        return []
+    ranked = results.dropna(subset=["DriverId"])
+    if "Position" in ranked.columns:
+        ranked = ranked.sort_values("Position", na_position="last")
+    return [str(d) for d in ranked["DriverId"]]
+
+
 def grid_fallback(race: dict) -> None:
-    quali = model_bridge.model.load_qualifying(race["season"], race["round"])
-    order = [str(d) for d in quali["DriverId"]] if quali is not None else []
+    order = quali_order(race["season"], race["round"])
     if not order:
-        print(f"round {race['round']}: NO fallback available — left unlocked")
+        print(f"round {race['round']}: no qualifying data — no model entry")
         return
     sc_prob, sc_bet = safety_car.model_bet(
         race.get("name"), race.get("circuit"), race.get("country"))
