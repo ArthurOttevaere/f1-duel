@@ -1336,10 +1336,34 @@ everyone else. The address comes from `NEXT_PUBLIC_CONTACT_EMAIL` (§10.1) and
 the block simply doesn't render when it is unset, so publishing an address (or
 retiring one) is an env-var change, not a deploy.
 
-**`/model`** — a native explanation of the opponent. It exists so the site never
-depends on the Flask app being deployed; `LIVE_MODEL_URL` adds an outbound link
-only when `NEXT_PUBLIC_MODEL_URL` is set to a real remote URL (a `localhost`
-value is ignored on purpose).
+**`/model`** (`revalidate = 300`) — a native explanation of the opponent. It
+exists so the site never depends on the Flask app being deployed;
+`LIVE_MODEL_URL` adds an outbound link only when `NEXT_PUBLIC_MODEL_URL` is set
+to a real remote URL (a `localhost` value is ignored on purpose).
+
+It now also **shows** the model rather than only describing it. `latestMatrix()`
+finds the highest-round race of the season that has a `model_entries` row and
+draws its `prob_matrix` as a heat map (`components/ProbabilityGrid.tsx`) — the
+actual output of the 10,000-run simulation the page had been describing in
+prose. The read is deliberately three cheap steps (races → the set of race_ids
+with entries → that one entry) rather than one clever join, because a matrix is
+a fat JSON blob and only the one being drawn should cross the wire.
+
+**The heat map's colour bands are the game's own multiplier tiers** (§6.1), not
+a generic ramp. That is the point of the chart: intensity is the model's
+confidence, and since the multiplier runs the other way, *the pale cells are
+where the points are*. Rule and data become the same picture. It is a real
+`<table>` with `<th scope>` on both axes, so the values are in the DOM for a
+screen reader and colour is never the only channel; rows are the model's own
+predicted order, then everyone else by P(top 10).
+
+Two things not to undo: every band carries **light** ink — the strongest fill
+composites to ≈`#e11b36`, which is 4.9:1 against `#f4f6fa` and only 4.0:1
+against the page black, so the instinctive dark-on-bright treatment is the
+worse one and on the middle band (≈`#8f1426`) it is 1.9:1. And the driver
+column shows the **three-letter code below `sm`**: a column wide enough for
+"Verstappen" pushes the ten cells off a 390px screen, which is the bug §9.6
+exists to prevent.
 
 ### 9.5 `PredictionEditor` — the most complex component (733 lines)
 
