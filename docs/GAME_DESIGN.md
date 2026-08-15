@@ -84,8 +84,13 @@ at exactly that position:
 | Perfect top 10 (all exact) | +100 |
 | Correct Driver of the Day (players only, see §2.4) | +5 |
 | Correct safety-car side bet (see §2.6) | +8 |
-| Beating the model on this GP (players only) | +10 |
-| Draw with the model | +3 |
+
+**There is no bonus for beating the model.** There used to be (+10 for a win,
++3 for a draw) and it was removed in 2026-08 with the standings rework in §2.5.
+Once the season is *ranked* on the duel record, paying points for a win counts
+the same thing twice: the win already moves you up the board, and the points
+bonus then also inflates the margin that breaks ties between equal records. The
+duel result is recorded as W/D/L and nothing else.
 
 Maximum realistic GP score ≈ 130–250 pts depending on rarity; a typical decent
 weekend lands around 40–70 pts.
@@ -113,8 +118,21 @@ The bonus is **prorated by the fraction of the season remaining at lock**
 (floor 20 %), so a mid-season pick is worth less than a round-1 pick and the
 system works for a mid-season launch.
 
+**Where the payout lands (decided 2026-08).** It is no longer added to the
+season points column, because that column stopped being the ranking key (§2.5)
+and a race board carrying a non-race bonus reads as a bug. `settle_season.py`
+still computes and stores `season_picks.awarded_points` at season end; its
+destination is the **season recap** — a year-in-review page in the spirit of a
+music-service "wrapped", which replays what each player called back in the
+spring against what actually happened, and pays the championship bonus there.
+The recap is designed, not built: the season is at round 12 of 24 and it is a
+season-end surface. Until it exists the pick is visible on the profile with
+what it is on course for, exactly as today.
+
 The champion picks also define the player's **profile theme** (team colors,
-driver imagery) — see §4.
+driver imagery) — see §4. The theme follows the pick, never the site red: the
+picked driver's team colour, else a team-mate's, else the picked constructor's,
+and only a neutral grey if the roster knows neither (`web/lib/teams.ts`).
 
 ### 2.4 Driver of the Day
 
@@ -126,10 +144,50 @@ the next scoring pass.
 
 ### 2.5 Standings & duels
 
-- **Season leaderboard**: total points across all scored GPs (+ bonuses).
+- **Season leaderboard**: ranked on **the duel**, not on a points pile —
+  `wins desc, margin desc, points desc`.
+
+  - **wins** — Grands Prix where you outscored the model. A race you did not
+    enter does not count, in either direction: your record is over the races
+    you played, and `races played` is shown beside it so a full season reads
+    as the achievement it is.
+  - **margin** — the sum, over the races you played, of (your score − the
+    model's score that weekend). The model sits at exactly 0 by construction,
+    so it is the axis rather than a competitor.
+  - **points** — the raw season total, kept as a column because it is what
+    decides every duel, but no longer the ranking key.
+
+  **Why it changed (2026-08).** Ranking on cumulative points makes the board a
+  measure of how long you have been here. The model had played eleven Grands
+  Prix and sat top with 402 points, and a player joining at round 12 opened the
+  standings to find a machine in P1 and a 402-point deficit that no amount of
+  good play could close. Ranking on the duel record fixes it at the root:
+  everyone starts at 0 wins whenever they arrive, the deficit is expressed in
+  weekends rather than points, and the board finally measures the thing the
+  site promises on its front page.
+
+  **The model is not a row in the standings.** It cannot duel itself, so it has
+  no record and no rank. It appears above the board as the bar to clear — its
+  season points and its average per race. Its per-race scores are unchanged and
+  still shown on every race page.
+
 - **Duel record vs the model**: W-D-L, shown prominently on profiles.
-- **Leagues** (v1.1): private groups joined via a unique 6-character code; a
-  league is just a filtered leaderboard, all scoring is global.
+- **The model's season total is the operator's to set.** It plays every Grand
+  Prix whether or not anyone else is on the platform, so at launch it would
+  meet its first human with a full season of points already banked. Any race
+  can be dropped from its season total (`model_entries.counts_in_standings`),
+  which is how "the model starts from zero today" is expressed. This changes
+  **only** the standings line: the race pages keep showing what it really
+  scored that weekend, and every duel W/D/L stands. Players' totals are never
+  touched this way — a player is removed or not, there is no half-counting.
+  Operator commands: `jobs/admin.py model-reset | model-count-from N |
+  model-restore`.
+- **Leagues**: private groups joined via a unique 6-character code or, more
+  usually, an invite link (`/join/<code>`) shared by message. A league is just
+  a filtered leaderboard — all scoring is global. Members can leave; the owner
+  can delete the league for everyone. Holding a code is the credential: any
+  code resolves to its league's name, owner and size (`league_by_code()`), and
+  nothing more.
 
 ### 2.6 Safety-car side bet
 
@@ -148,6 +206,47 @@ the rarity multiplier rewards reading a specific race.
 The outcome is detected automatically from the official race-control messages
 via FastF1 (`src/predict.py::safety_car_occurred`); if it can't be determined at
 scoring time, no one is awarded the bonus (neither player nor model).
+
+### 2.7 The two emails (added 2026-08)
+
+The game's rhythm is weekly, and until now the product had **no outbound voice
+at all**: a player who forgot a Sunday took a zero, was never told, and did not
+come back. That is the classic failure mode of a prediction game, and no amount
+of on-site polish fixes it.
+
+Exactly two emails per Grand Prix, and never any others:
+
+| When | Trigger | Content |
+| --- | --- | --- |
+| Saturday evening | `lock-race`, once qualifying is done and the model's entry exists | The model has played its hand. Either "you haven't picked yet" or "yours is in, you can still edit until lights out". |
+| Monday | `score-race`, after the scores are written | Your score, the model's, the margin, and the verdict. Only to players who entered. |
+
+Rules that make this safe to run unattended:
+
+- **Idempotent by construction.** `email_log(race_id, user_id, kind)` is written
+  after each successful send and `email_recipients()` excludes anyone already
+  logged. `score-race` re-runs hourly for ten days; without the log that is ten
+  days of hourly mail to every player.
+- **Opt-out, with a one-click way out.** `profiles.email_opt_out`, plus a random
+  `unsubscribe_token` so `/unsubscribe/<token>` works from a mail client with no
+  session. The page shows a **button**: a link that opts you out on GET would
+  opt out everyone whose employer scans their inbox.
+- **Unconfigured is a no-op.** Without `RESEND_API_KEY` the send is logged and
+  skipped; the jobs behave exactly as they did before.
+- **A failed send is never marked sent**, so the next hourly run retries it.
+- **The nudge is gated on the model's entry actually landing.** Its whole claim
+  is that the model has played its hand; `lock_race.py` sends it only when
+  `refresh_entry()` returns true, so a weekend where the model was unavailable
+  produces no mail rather than a false one.
+
+**Sending one by hand.** The schedule is not the only way out. `send_mail.py`
+sends either email for any round on demand — same templates, same recipients,
+same log — and the **send-mail** workflow exposes it in the Actions tab for an
+operator with no terminal. `--dry-run` lists the recipients and sends nothing;
+`--to` restricts to one address; `--force` clears the log for that race and
+kind so players who already had it get it again. Everything else about the
+mail is identical, deliberately: an override that behaves differently from the
+real thing is an override that proves nothing.
 
 ---
 
@@ -193,11 +292,14 @@ timing — GitHub Actions cron + Supabase is deterministic and free.
 | Route | Content |
 |---|---|
 | `/` | Hero (full-bleed high-quality F1 photo, headline, 2 CTAs: **Play the duel** / **Explore the model**), scroll sections explaining the game and the model, footer. |
-| `/game` | Dashboard: next GP countdown, prediction editor (drag-and-drop ordered top 10 + DotD pick), current duel status, season summary strip. |
-| `/game/races/[round]` | Duel review: player vs model vs actual, side-by-side, per-slot point breakdown, rarity multipliers highlighted. |
-| `/game/standings` | Global leaderboard + duel records; league filter. |
-| `/game/leagues` | Create / join a league by code (v1.1). |
-| `/profile/[username]` | Stats, duel history, championship picks — themed with the picked team/driver colors. |
+| `/game` | Dashboard: next GP countdown, prediction editor (ordered top 10 + DotD pick — drag the grip, or press and hold a row on touch), current duel status, season summary strip. |
+| `/game/races/[round]` | Duel review: player vs model vs actual, side-by-side. Tapping a position explains that row in words — base points, the driver's actual finish, and the rarity multiplier with the model's own probability — and two receipts underneath account for every point in both totals. **Export poster**: a 1080×1350 sheet of the race (your call vs the official result, stats band, finish line) as PNG/PDF/share, with the model's column and the duel verdict optional. |
+| `/game/standings` | Global leaderboard + duel records, and **the leagues page too**: the filter switches Global ↔ one of your leagues, and picking a league also brings up its code, invite link (Web Share / copy) and leave-or-delete. Create / join a league by code or invite link happens from the same row. Below the board, one card per scored Grand Prix with your score and the duel verdict. |
+| `/game/leagues` | Redirect to `/game/standings` — kept alive for links players already sent each other. |
+| `/join/<code>` | The far end of an invite link: shows the league, its owner and its size, then joins — signing in first if needed. |
+| `/profile/[username]` | The player's page, themed end to end by their championship pick: a team-coloured cover, the picked driver's portrait as the avatar, the name large, then season points / duel record / races / best race. Below: the **championship call** (driver portrait + constructor wordmark + what the bonus is on course for), **recent form** (last five duels as W/D/L pills), the **season curve** (your running total against the model's), and the full duel history. Owner only: one **Edit profile** panel (username + private details), sign out, and delete the account (`delete_account()`, cascades to everything including leagues you own). |
+| `/model` | The opponent, explained **and shown**: the pipeline, the 39 features, why the fight is fair — and the model's actual position-probability matrix for the last Grand Prix it played, drawn as a heat map whose colour bands are the rarity-multiplier tiers of §2.2. Links out to the Flask platform only when `NEXT_PUBLIC_MODEL_URL` is set. |
+| `/contact` | Contact & FAQ: how to report a bug or suggest a feature (issue tracker + optional mailbox), the questions players actually ask, and the credits. |
 | `/login` | Supabase auth (magic link + Google). |
 
 Design language: dark, premium motorsport aesthetic consistent with the existing
@@ -247,7 +349,7 @@ league_members    league_id, user_id, joined_at
    `race_at`, set `races.status = 'locked'`.
 3. **`score-race`** (hourly Sun–Tue): for locked races whose classification is
    available via FastF1 → write `results`, compute `scores` for every prediction
-   and the model with the §2.2 formula, apply duel bonuses, set
+   and the model with the §2.2 formula, settle each duel (W/D/L, no bonus), set
    `status = 'scored'`. Re-runs are idempotent (DotD entered late is picked up
    by the next pass).
 

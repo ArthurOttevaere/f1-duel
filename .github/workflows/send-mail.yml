@@ -1,0 +1,88 @@
+name: send-mail
+
+# The operator's override for the two race emails. They normally go out from
+# lock-race and score-race on their crons (docs/GAME_DESIGN.md §2.7); this is
+# how you send one yourself, from the Actions tab, with no terminal.
+#
+# Actions → send-mail → Run workflow. Start with "Dry run" ticked: it lists who
+# would receive it and sends nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: "Which email"
+        required: true
+        type: choice
+        options: [lock, result]
+        default: lock
+      round:
+        description: "Round number of the Grand Prix"
+        required: true
+        type: string
+      dry_run:
+        description: "Dry run — list recipients, send nothing"
+        required: false
+        type: boolean
+        default: true
+      force:
+        description: "Send again to players who already got it"
+        required: false
+        type: boolean
+        default: false
+      to:
+        description: "Only this player's address (leave empty for everyone)"
+        required: false
+        type: string
+      preview:
+        description: "Preview: send one copy to this address, sample data, no player mailed"
+        required: false
+        type: string
+
+concurrency:
+  group: game-jobs
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check configuration
+        id: guard
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_KEY" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Supabase secrets not set — nothing to do."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.guard.outputs.configured == 'true'
+        uses: actions/checkout@v4
+      - if: steps.guard.outputs.configured == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - if: steps.guard.outputs.configured == 'true'
+        run: pip install requests
+      - if: steps.guard.outputs.configured == 'true'
+        name: Send
+        run: |
+          python -u jobs/send_mail.py \
+            "${{ inputs.kind }}" "${{ inputs.round }}" \
+            ${{ inputs.dry_run && '--dry-run' || '' }} \
+            ${{ inputs.force && '--force' || '' }} \
+            ${{ inputs.to != '' && format('--to {0}', inputs.to) || '' }} \
+            ${{ inputs.preview != '' && format('--preview {0}', inputs.preview) || '' }}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          MAIL_FROM: ${{ vars.MAIL_FROM }}
+          MAIL_REPLY_TO: ${{ vars.MAIL_REPLY_TO }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          SEASON: ${{ vars.NEXT_PUBLIC_SEASON || '2026' }}

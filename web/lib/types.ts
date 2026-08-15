@@ -112,6 +112,8 @@ export interface LeaderboardRow {
   duel_wins: number;
   duel_draws: number;
   duel_losses: number;
+  /** Season points minus the model's, over the races this player entered. */
+  margin: number;
 }
 
 export interface SeasonPick {
@@ -132,4 +134,13 @@ export interface League {
   code: string;
   owner_id: string;
   created_at: string;
+}
+
+/** What an invite link can show before you accept it — see `league_by_code()`. */
+export interface LeaguePreview {
+  id: number;
+  name: string;
+  member_count: number;
+  owner_username: string;
+  is_member: boolean;
 }

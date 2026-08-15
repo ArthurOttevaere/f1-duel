@@ -50,19 +50,29 @@ export default async function NextRaceWidget() {
     // so it earns its place by being a strip rather than a block. The name and
     // the place share one line — three stacked lines made it as tall as it was
     // wide and it started competing with "Beat the model."
+    //
+    // On a phone it stays a single row rather than stacking: stacked, the
+    // label, the name and a four-column clock ate a third of the viewport
+    // before the headline got a word in. Two lines of small type is enough.
     <Link
       href="/game"
       aria-label={`Next race: ${race.name}. Play F1 Duel.`}
-      className="rise-in pressable glass-chip flex max-w-[90vw] flex-col items-center gap-3 rounded-2xl px-6 py-3 text-center transition-colors hover:border-line-hi sm:flex-row sm:gap-8 sm:px-8 sm:py-3.5 sm:text-left"
+      className="rise-in pressable glass-chip flex max-w-[90vw] items-center gap-3 rounded-xl px-3.5 py-2 text-left transition-colors hover:border-line-hi sm:gap-8 sm:rounded-2xl sm:px-8 sm:py-3.5"
     >
-      <div>
-        <p className="font-mono text-[0.6rem] tracking-[0.2em] text-race uppercase">
+      {/* min-w-0 so a long circuit name truncates instead of squeezing the
+          clock off the side of a narrow phone. */}
+      <div className="min-w-0">
+        <p className="font-mono text-[0.55rem] tracking-[0.2em] text-race uppercase sm:text-[0.6rem]">
           Next race · Round {race.round}
         </p>
-        <p className="mt-0.5 flex flex-wrap items-baseline justify-center gap-x-2 sm:justify-start">
-          <span className="text-base font-semibold sm:text-lg">{race.name}</span>
+        <p className="mt-0.5 flex flex-wrap items-baseline gap-x-2">
+          <span className="truncate text-sm font-semibold sm:text-lg">
+            {race.name}
+          </span>
           {place && (
-            <span className="text-sm text-ink-dim">
+            // The place is the first thing to go on a phone: the name already
+            // names the country in most cases.
+            <span className="hidden text-sm text-ink-dim sm:inline">
               <span aria-hidden className="mr-2 text-ink-mute">
                 ·
               </span>
@@ -72,10 +82,11 @@ export default async function NextRaceWidget() {
         </p>
       </div>
 
-      {/* Hairline divider, horizontal when the card stacks on mobile. */}
-      <span aria-hidden className="h-px w-12 bg-line sm:h-10 sm:w-px" />
+      <span aria-hidden className="h-7 w-px shrink-0 bg-line sm:h-10" />
 
-      <NextRaceCountdown to={race.race_at} />
+      <div className="shrink-0">
+        <NextRaceCountdown to={race.race_at} />
+      </div>
     </Link>
   );
 }

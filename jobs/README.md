@@ -12,10 +12,24 @@ export SUPABASE_SERVICE_KEY=<service_role secret>
 |---|---|---|
 | `sync_schedule.py` | weekly (Mon) | Calendar → `races`, roster → `drivers`, rank/prorate on new `season_picks` |
 | `lock_race.py` | hourly Fri–Sun | Model duel entry (order + probability matrix); flips race to `locked` at start |
-| `score_race.py` | hourly Sun–Tue | Official classification → scores everyone, applies duel bonuses, flips to `scored` |
+| `score_race.py` | hourly Sun–Tue | Official classification → scores everyone, settles each duel (W/D/L), flips to `scored`, mails each player their result |
+| `mailer.py` | — | The two race emails, sent from inside `lock_race` and `score_race` above (`docs/GAME_DESIGN.md` §2.7). No `RESEND_API_KEY` → every send is a logged no-op |
+| `send_mail.py` | manual, any time | **Sends a race email outside the schedule** — `python jobs/send_mail.py lock 12 --dry-run`. Same templates, same recipients, same log. `--force` re-sends to players who already got it; `--preview <email>` shows you the template when there are no players yet. Also runnable from Actions → **send-mail** |
 | `set_dotd.py` | manual, Monday | Record the official Driver of the Day, re-scores instantly |
 | `settle_season.py` | once, December | Awards championship-pick bonuses |
 | `backtest.py` | local only | Replays the scoring rules over past races (no DB needed) |
+| `admin.py` | manual, operator | The model's season score (status / reset / count-from / restore) and the player list (`players`, `delete-player`) |
+
+`admin.py` is the odd one out: it is not part of a race weekend, it is what you
+run when you are running the platform. Each command wraps an operator-only SQL
+function from `supabase/migrations/0006_admin_controls.sql`, so it and the
+Supabase SQL editor do the same thing. The one you'll want at launch is
+`python jobs/admin.py model-reset` — the model has been scoring every Grand
+Prix with nobody watching, and this zeroes its **season total** (never a race
+result, never a duel record) so newcomers don't start several hundred points
+down. `python jobs/admin.py --help` lists the rest, and
+[`../docs/DATABASE.md`](../docs/DATABASE.md) is the full operator guide — every
+action against the live database with the exact command.
 
 `scoring.py` is the pure rules engine (docs/GAME_DESIGN.md §2.2) — the only
 place scoring logic lives. `model_bridge.py` wraps `src/predict.py` as a duel

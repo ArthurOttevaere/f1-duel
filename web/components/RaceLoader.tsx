@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import StartLights from "@/components/StartLights";
 
 // Original, tongue-in-cheek F1 loading lines. Kept generic (no real names) so
 // they stay funny and never date.
@@ -47,7 +48,7 @@ export default function RaceLoader() {
       role="status"
       aria-live="polite"
     >
-      <span className="size-11 animate-spin rounded-full border-2 border-line border-t-race" />
+      <StartLights />
       <p key={i} className="loader-phrase text-sm text-ink-dim">
         {PHRASES[i]}
       </p>

@@ -30,6 +30,15 @@ model app never touches it; the game frontend (`web/`) and the automation
 
 The `join_league` RPC is `security definer` so league codes never have to be
 readable client-side — you join by code without being able to enumerate leagues.
+`league_by_code()` (migration 0005) is the same trade for invite links: it
+returns the name, owner and size of the single league whose code you already
+hold, so `/join/<code>` can say what it is inviting you to. Holding a code is
+the credential in both cases — treat a league link like a party invite, not a
+password.
+
+`delete_account()` (also 0005) is `security definer` so it can reach
+`auth.users`, which the anon role cannot; it deletes the caller's own row and
+nothing else, and the foreign keys cascade from there.
 
 ## Personal data
 
@@ -46,8 +55,41 @@ select p.username, d.first_name, d.last_name, d.country, d.birth_year, d.created
 ```
 
 Collecting this makes you a data controller under the GDPR: say what you collect
-and why on the site, and be able to delete it on request (deleting the auth user
-cascades to both tables).
+and why on the site, and be able to delete it on request. Players do this
+themselves from their profile page — `delete_account()` (migration 0005) deletes
+their `auth.users` row, which cascades to `profiles`, `player_details`,
+`predictions`, `season_picks`, `scores`, league membership and any league they
+own. Deleting the auth user from the dashboard has exactly the same effect, and
+so does `select admin_delete_player('<username>');` (migration 0006), which is
+the same cascade by name instead of by uuid — `python jobs/admin.py
+delete-player <username>` is the same call from a terminal.
+
+## Operator controls (migration 0006)
+
+> Every command in this section, plus players, races, leagues and GDPR
+> requests, is laid out task-by-task in [`../docs/DATABASE.md`](../docs/DATABASE.md).
+
+
+The model plays every Grand Prix whether or not anyone else is on the platform,
+so it arrives at launch with a season of points against humans who have none.
+`model_entries.counts_in_standings` decides whether a race feeds its **season
+total**; the race pages and every duel W/D/L ignore the flag entirely, so
+nothing here rewrites a result.
+
+```sql
+select * from admin_model_status(2026);   -- round by round: scored? counting?
+select admin_model_reset(2026);           -- its season total -> 0, from now on
+select admin_model_count_from(2026, 15);  -- the season starts at round 15
+select admin_model_restore(2026);         -- undo: the whole season counts
+select * from admin_players();            -- everyone, with email and points
+select admin_delete_player('someuser');   -- remove a player, no undo
+```
+
+These are revoked from `anon` and `authenticated` and granted to
+`service_role`, so they are reachable from the SQL editor and from
+`jobs/admin.py`, and from nowhere in the site. The public half —
+`model_season_points(season)` and `model_season_races(season)` — is what the
+standings page reads.
 
 ## Migrations
 
@@ -60,6 +102,8 @@ the numbered files in `migrations/` in order, in the SQL editor:
 | `0002_username_choice.sql` | Player-chosen usernames, incl. OAuth sign-ups |
 | `0003_player_details.sql` | Private `player_details` (name, country, birth year) |
 | `0004_standings_pagination.sql` | `standings_page/count/rank_at` — paged standings past 1000 players |
+| `0005_league_invites_and_account_deletion.sql` | `league_by_code()` (invite links) and `delete_account()` (self-serve deletion) |
+| `0006_admin_controls.sql` | `model_entries.counts_in_standings` + the operator functions: reset/restore the model's season score, list and delete players |
 
 ## The 1000-row cap
 

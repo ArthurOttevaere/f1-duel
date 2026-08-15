@@ -27,11 +27,11 @@ export default async function SiteNav() {
             <>
               <Link
                 href={`/profile/${username ?? ""}`}
-                className="pressable glass-chip hidden rounded-full px-4 py-1.5 text-sm font-medium hover:border-line-hi sm:block"
+                className="pressable glass-chip hidden rounded-full px-4 py-1.5 text-sm font-medium hover:border-line-hi md:block"
               >
                 {username ?? "Profile"}
               </Link>
-              <form action="/auth/signout" method="post" className="hidden sm:block">
+              <form action="/auth/signout" method="post" className="hidden md:block">
                 <button
                   type="submit"
                   aria-label="Sign out"
@@ -44,7 +44,7 @@ export default async function SiteNav() {
           ) : (
             <Link
               href="/login"
-              className="pressable hidden rounded-full bg-race px-4 py-1.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgb(255_30_60/0.35)] hover:bg-race-deep sm:inline-block"
+              className="pressable hidden rounded-full bg-race px-4 py-1.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgb(255_30_60/0.35)] hover:bg-race-deep md:inline-block"
             >
               Sign in
             </Link>

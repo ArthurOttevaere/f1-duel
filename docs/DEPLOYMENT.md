@@ -50,12 +50,55 @@ workflow). After that the three workflows run on their own schedule
    | `NEXT_PUBLIC_SUPABASE_URL` | the Project URL |
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | the `anon public` key |
    | `NEXT_PUBLIC_MODEL_URL` | *(optional)* your Render URL (step 4) |
+   | `NEXT_PUBLIC_CONTACT_EMAIL` | *(optional)* the address `/contact` publishes |
    | `NEXT_PUBLIC_SEASON` | `2026` |
+   | `NEXT_PUBLIC_SITE_URL` | *(optional)* the absolute origin used to build share-card URLs — only needed on a custom domain |
+
+### Race reminder emails (optional)
+
+Two emails per Grand Prix — Saturday's nudge and Monday's result — need a
+[Resend](https://resend.com) account and a verified sender:
+
+1. Create an API key and add it as a **repository secret** `RESEND_API_KEY`
+   (Settings → Secrets and variables → Actions → Secrets).
+2. Add **repository variables** in the same place:
+
+   | Variable | Value |
+   |---|---|
+   | `MAIL_FROM` | e.g. `F1 Duel <duel@yourdomain>` — **must be on a domain verified in Resend** (see below) |
+   | `MAIL_REPLY_TO` | *(optional)* any mailbox at all; where a player's reply lands |
+   | `SITE_URL` | where the email buttons point; defaults to the production URL |
+
+3. Apply `supabase/migrations/0008_race_emails.sql`.
+
+**The `from` address needs a domain, not a mailbox.** Resend will only send
+from a domain you have verified with it by adding DNS records — a mailbox at
+Gmail, Proton or iCloud cannot be a `from` address however much it is yours.
+Two ways through:
+
+- **You own a domain**: add it in Resend → Domains, publish the DNS records it
+  gives you, then `MAIL_FROM` can be anything at it (`duel@yourdomain`).
+- **You don't, yet**: Resend's `onboarding@resend.dev` sends without any setup,
+  but **only to the address that owns the Resend account** — fine for seeing a
+  real email land, useless for players.
+
+A personal project mailbox is still worth having: put it in `MAIL_REPLY_TO` so
+replies reach you, and in `NEXT_PUBLIC_CONTACT_EMAIL` on Vercel so `/contact`
+publishes it.
+
+Leave any of these out and the jobs run exactly as before — every send becomes
+a logged no-op. Nothing else changes.
 
    The site has a built-in `/model` page explaining the opponent, so
    `NEXT_PUBLIC_MODEL_URL` is **optional** — set it only to add a link out to
    the live Flask platform. A `localhost` value is ignored, so leaving it unset
    is safe.
+
+   `NEXT_PUBLIC_CONTACT_EMAIL` is the mailbox the Contact & FAQ page offers for
+   bug reports. Leave it unset and the page simply points at GitHub Issues
+   instead — worth creating a dedicated address for the project rather than
+   publishing a personal one, and it can be added or changed later without a
+   deploy.
 
 4. Deploy. Copy the resulting `*.vercel.app` URL back into Supabase step 1.4
    (Site URL + redirect list).
@@ -77,6 +120,60 @@ New → Web Service → point at this repo:
 Copy the Render URL into `NEXT_PUBLIC_MODEL_URL` on Vercel. Free instances
 sleep after 15 min; a free [UptimeRobot](https://uptimerobot.com) monitor
 pinging the URL every 10 min keeps cold starts rare.
+
+## 4b. A custom domain
+
+One purchase settles three things at once: the site stops being called
+`*.vercel.app` in every share card, `MAIL_FROM` becomes possible at all, and
+the project starts looking like a product. Do it in this order — the last step
+is the one that breaks sign-in if it is skipped.
+
+1. **Buy it.** Any registrar. Prefer one whose DNS panel lets you set a raw TXT
+   record without rewriting it (Cloudflare, Porkbun, Namecheap all do).
+
+2. **Vercel** → Project → Settings → Domains → add it. Vercel prints the A or
+   CNAME record to publish. Wait for it to go green before continuing.
+
+3. **Resend** → Domains → Add domain. It generates records for **that domain
+   specifically** — a DKIM public key that exists nowhere else — so copy them
+   from the dashboard rather than from any guide. Expect four:
+
+   | Type | Roughly | Why |
+   |---|---|---|
+   | `MX` | on a `send.` subdomain → an Amazon SES feedback host | bounce and complaint handling |
+   | `TXT` (SPF) | on the same subdomain, `v=spf1 include:amazonses.com ~all` | says SES may send as you |
+   | `TXT` (DKIM) | `resend._domainkey` → a long `p=…` key | signs each message |
+   | `TXT` (DMARC) | `_dmarc`, optional but do it | tells inboxes what to do with forgeries |
+
+   Two mistakes that cost an afternoon: most panels **append the domain
+   automatically**, so pasting `resend._domainkey.yourdomain` creates
+   `resend._domainkey.yourdomain.yourdomain` — paste only the host part. And on
+   Cloudflare, leave these records **DNS-only (grey cloud)**; proxying a TXT
+   record is meaningless and proxying the MX breaks it.
+
+4. **Then set the variables:**
+
+   | Variable | Where | Value |
+   |---|---|---|
+   | `MAIL_FROM` | GitHub Actions **variable** | `F1 Duel <duel@yourdomain>` |
+   | `MAIL_REPLY_TO` | GitHub Actions **variable** | the project mailbox |
+   | `SITE_URL` | GitHub Actions **variable** | `https://yourdomain` |
+   | `NEXT_PUBLIC_SITE_URL` | **Vercel** | `https://yourdomain` |
+   | `NEXT_PUBLIC_CONTACT_EMAIL` | **Vercel** | the project mailbox |
+
+5. **Supabase → Authentication → URL Configuration.** Set Site URL to the new
+   domain and **add `https://yourdomain/auth/callback` to the redirect list**.
+
+   This step is not optional and it is the one that gets forgotten. Supabase
+   refuses to redirect anywhere not on that list, so the moment the domain
+   goes live every magic link and every Google sign-in bounces — on the new
+   domain only, which makes it look like the domain is broken rather than the
+   allowlist. Keep the old `*.vercel.app` entries: they cost nothing and any
+   link already sent to a player still works.
+
+6. Redeploy on Vercel (env changes need one) and confirm: a share card at
+   `https://yourdomain` resolves its image, a magic link signs you in, and
+   `lock-race` / `score-race` still run green.
 
 ## 5. First-run checklist
 

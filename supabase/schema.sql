@@ -17,8 +17,15 @@ create table public.profiles (
   -- false while the name is only a suggestion (OAuth signup): the app then
   -- sends the player through /welcome to choose one.
   username_set boolean not null default true,
+  -- Race reminders (migration 0008). Opt-out, and a random token so the
+  -- unsubscribe link works from a mail client with no session.
+  email_opt_out boolean not null default false,
+  unsubscribe_token uuid not null default gen_random_uuid(),
   created_at timestamptz not null default now()
 );
+
+create unique index profiles_unsubscribe_token_key
+  on public.profiles (unsubscribe_token);
 
 -- "Max" and "max" are the same identity to a reader, so reserve both.
 create unique index profiles_username_ci_key on public.profiles (lower(username));
@@ -74,6 +81,11 @@ create table public.model_entries (
   sc_bet          boolean,             -- model's safety-car Yes/No bet
   total           numeric,             -- filled at scoring time
   breakdown       jsonb,
+  -- Whether this race feeds the model's season total on the standings. The
+  -- operator can drop past races so the machine doesn't start launch day with
+  -- a season of points on every human — see migration 0006. The race page
+  -- always shows the real score whatever this says.
+  counts_in_standings boolean not null default true,
   locked_at       timestamptz not null default now()
 );
 
@@ -289,6 +301,37 @@ begin
 end;
 $$;
 
+-- What an invite link is worth before you accept it: the name, the owner and
+-- the size for one code, and nothing else. security definer because the person
+-- opening the link is not a member yet, so league RLS would give them nothing.
+-- See migration 0005.
+create or replace function public.league_by_code(p_code text)
+returns table (
+  id             bigint,
+  name           text,
+  member_count   bigint,
+  owner_username text,
+  is_member      boolean
+)
+language sql stable security definer set search_path = public
+as $$
+  select
+    l.id,
+    l.name,
+    (select count(*) from public.league_members m where m.league_id = l.id),
+    p.username,
+    exists (
+      select 1 from public.league_members m
+       where m.league_id = l.id and m.user_id = auth.uid()
+    )
+  from public.leagues l
+  join public.profiles p on p.id = l.owner_id
+  where l.code = upper(btrim(p_code));
+$$;
+
+revoke all on function public.league_by_code(text) from public;
+grant execute on function public.league_by_code(text) to anon, authenticated;
+
 create or replace function public.add_owner_as_member()
 returns trigger language plpgsql security definer set search_path = public
 as $$
@@ -303,6 +346,28 @@ $$;
 create trigger league_owner_joins
   after insert on public.leagues
   for each row execute function public.add_owner_as_member();
+
+-- ─── Deleting your own account ──────────────────────────────────────────────
+
+-- security definer so it can reach auth.users, which the anon role cannot
+-- touch; it only ever deletes the caller's own row. Everything else follows
+-- the foreign keys — profiles cascades from auth.users and takes details,
+-- predictions, season picks, scores, league membership and owned leagues with
+-- it. See migration 0005.
+create or replace function public.delete_account()
+returns void
+language plpgsql security definer set search_path = public, auth
+as $$
+begin
+  if auth.uid() is null then
+    raise exception 'Not signed in';
+  end if;
+  delete from auth.users where id = auth.uid();
+end;
+$$;
+
+revoke all on function public.delete_account() from public;
+grant execute on function public.delete_account() to authenticated;
 
 -- ─── Row Level Security ─────────────────────────────────────────────────────
 
@@ -391,18 +456,23 @@ select
   p.id            as user_id,
   p.username,
   count(s.race_id)                                        as races_played,
-  coalesce(sum(s.total), 0)::numeric
-    + coalesce((select sum(sp.awarded_points)
-                from public.season_picks sp
-                where sp.user_id = p.id
-                  and sp.awarded_points is not null), 0)  as points,
+  -- Race points only. The championship payout is the season recap's to spend
+  -- (GAME_DESIGN §2.3); a board of race results carrying a bonus that came
+  -- from no race read as a bug once points stopped being the ranking key.
+  coalesce(sum(s.total), 0)::numeric                      as points,
   count(*) filter (where s.beat_model)                    as duel_wins,
   count(*) filter (where s.drew_model)                    as duel_draws,
   count(*) filter (where s.race_id is not null
                      and not s.beat_model
-                     and not s.drew_model)                as duel_losses
+                     and not s.drew_model)                as duel_losses,
+  -- Summed over the races this player entered, so the model is exactly 0 and
+  -- a mid-season arrival starts level. See migration 0007.
+  coalesce(sum(
+    case when m.total is null then 0 else s.total - m.total end
+  ), 0)::numeric                                          as margin
 from public.profiles p
 left join public.scores s on s.user_id = p.id
+left join public.model_entries m on m.race_id = s.race_id
 group by p.id, p.username;
 
 -- ─── Standings paging ───────────────────────────────────────────────────────
@@ -427,12 +497,13 @@ returns table (
   points       numeric,
   duel_wins    bigint,
   duel_draws   bigint,
-  duel_losses  bigint
+  duel_losses  bigint,
+  margin       numeric
 )
 language sql stable security invoker set search_path = public
 as $$
   select l.user_id, l.username, l.races_played, l.points,
-         l.duel_wins, l.duel_draws, l.duel_losses
+         l.duel_wins, l.duel_draws, l.duel_losses, l.margin
     from public.leaderboard l
    where p_league_id is null
       or exists (
@@ -440,9 +511,10 @@ as $$
             where m.league_id = p_league_id
               and m.user_id = l.user_id
          )
-   -- Ties broken by name so paging is stable: without a total order, a player
-   -- can appear on two pages or on none.
-   order by l.points desc, l.username asc
+   -- The duel decides it: Grands Prix won, then how convincingly, then the raw
+   -- pile. Ties broken by name last so paging is stable — without a total
+   -- order, a player can appear on two pages or on none.
+   order by l.duel_wins desc, l.margin desc, l.points desc, l.username asc
    limit  least(greatest(p_limit, 0), 500)
   offset greatest(p_offset, 0);
 $$;
@@ -482,3 +554,289 @@ as $$
                   and m.user_id = l.user_id
              ));
 $$;
+
+-- ─── The model's season score, and who counts ───────────────────────────────
+
+-- Mirrors migration 0006. `counts_in_standings` above is the switch; these are
+-- what reads it and what an operator turns it with.
+
+-- ─── What the standings add up ──────────────────────────────────────────────
+
+-- One definition of "the model's season score", so the page, the jobs and the
+-- SQL editor can never disagree about it.
+create or replace function public.model_season_points(p_season int)
+returns numeric
+language sql stable security invoker set search_path = public
+as $$
+  select coalesce(sum(m.total), 0)::numeric
+    from public.model_entries m
+    join public.races r on r.id = m.race_id
+   where r.season = p_season
+     and m.total is not null
+     and m.counts_in_standings;
+$$;
+
+-- How many races that total is made of — the "Races" column on its line.
+create or replace function public.model_season_races(p_season int)
+returns bigint
+language sql stable security invoker set search_path = public
+as $$
+  select count(*)
+    from public.model_entries m
+    join public.races r on r.id = m.race_id
+   where r.season = p_season
+     and m.total is not null
+     and m.counts_in_standings;
+$$;
+
+-- ─── Operator: the model's season score ─────────────────────────────────────
+
+-- Round-by-round: what it scored, and whether that is counting. The answer to
+-- "why does the board say what it says".
+create or replace function public.admin_model_status(p_season int)
+returns table (
+  round              int,
+  race               text,
+  status             text,
+  model_total        numeric,
+  counts_in_standings boolean
+)
+language sql stable security definer set search_path = public
+as $$
+  select r.round, r.name, r.status, m.total, m.counts_in_standings
+    from public.races r
+    left join public.model_entries m on m.race_id = r.id
+   where r.season = p_season
+   order by r.round;
+$$;
+
+-- Zero it. Every race the model has already been scored on stops counting;
+-- races still to come are untouched, so it starts collecting again from the
+-- next Grand Prix. Returns how many races were dropped.
+create or replace function public.admin_model_reset(p_season int)
+returns bigint
+language plpgsql security definer set search_path = public
+as $$
+declare
+  n bigint;
+begin
+  update public.model_entries m
+     set counts_in_standings = false
+    from public.races r
+   where r.id = m.race_id
+     and r.season = p_season
+     and m.total is not null
+     and m.counts_in_standings;
+  get diagnostics n = row_count;
+  return n;
+end;
+$$;
+
+-- "The season starts here": everything before p_round stops counting, and
+-- everything from it on counts. Returns how many entries changed.
+create or replace function public.admin_model_count_from(p_season int, p_round int)
+returns bigint
+language plpgsql security definer set search_path = public
+as $$
+declare
+  n bigint;
+begin
+  update public.model_entries m
+     set counts_in_standings = (r.round >= p_round)
+    from public.races r
+   where r.id = m.race_id
+     and r.season = p_season
+     and m.counts_in_standings is distinct from (r.round >= p_round);
+  get diagnostics n = row_count;
+  return n;
+end;
+$$;
+
+-- Undo: the model's whole season counts again.
+create or replace function public.admin_model_restore(p_season int)
+returns bigint
+language plpgsql security definer set search_path = public
+as $$
+declare
+  n bigint;
+begin
+  update public.model_entries m
+     set counts_in_standings = true
+    from public.races r
+   where r.id = m.race_id
+     and r.season = p_season
+     and not m.counts_in_standings;
+  get diagnostics n = row_count;
+  return n;
+end;
+$$;
+
+-- ─── Operator: removing a player ────────────────────────────────────────────
+
+-- Everyone on the board, with what the operator needs to decide who is a real
+-- player and who is a leftover test account.
+create or replace function public.admin_players()
+returns table (
+  user_id      uuid,
+  username     text,
+  email        text,
+  races_played bigint,
+  points       numeric,
+  created_at   timestamptz
+)
+language sql stable security definer set search_path = public, auth
+as $$
+  select p.id, p.username, u.email::text, l.races_played, l.points, p.created_at
+    from public.profiles p
+    left join public.leaderboard l on l.user_id = p.id
+    left join auth.users u on u.id = p.id
+   order by p.created_at;
+$$;
+
+-- Delete a player by username, the same way they would delete themselves:
+-- remove the auth user and let the foreign keys take the profile, the private
+-- details, every prediction and score, the championship pick, league
+-- membership and any league they own.
+--
+-- security definer because auth.users is out of reach otherwise. It takes a
+-- username rather than a uuid on purpose — a uuid typo finds nothing, a
+-- username typo also finds nothing, and both are better than deleting the
+-- wrong row. Raises if the name doesn't exist, so a typo is never a silent
+-- no-op.
+create or replace function public.admin_delete_player(p_username text)
+returns uuid
+language plpgsql security definer set search_path = public, auth
+as $$
+declare
+  target uuid;
+begin
+  select id into target
+    from public.profiles
+   where lower(username) = lower(btrim(p_username));
+
+  if target is null then
+    raise exception 'No player named %', p_username;
+  end if;
+
+  delete from auth.users where id = target;
+  return target;
+end;
+$$;
+
+-- ─── Who may call what ──────────────────────────────────────────────────────
+
+-- The two read helpers are part of the game and stay public: the standings
+-- page calls them for anyone, signed in or not.
+grant execute on function public.model_season_points(int) to anon, authenticated, service_role;
+grant execute on function public.model_season_races(int)  to anon, authenticated, service_role;
+
+-- The rest is operator-only. Revoking from public is what actually closes them
+-- (postgres grants execute to public by default); service_role is then granted
+-- back so `jobs/admin.py` can reach them with the service key, and the SQL
+-- editor can always call them as the owner.
+revoke all on function public.admin_model_status(int)        from public;
+revoke all on function public.admin_model_reset(int)         from public;
+revoke all on function public.admin_model_count_from(int, int) from public;
+revoke all on function public.admin_model_restore(int)       from public;
+revoke all on function public.admin_players()                from public;
+revoke all on function public.admin_delete_player(text)      from public;
+
+grant execute on function public.admin_model_status(int)        to service_role;
+grant execute on function public.admin_model_reset(int)         to service_role;
+grant execute on function public.admin_model_count_from(int, int) to service_role;
+grant execute on function public.admin_model_restore(int)       to service_role;
+grant execute on function public.admin_players()                to service_role;
+grant execute on function public.admin_delete_player(text)      to service_role;
+
+
+-- ─── Race reminder emails (migration 0008) ──────────────────────────────────
+
+create table public.email_log (
+  race_id bigint not null references public.races (id) on delete cascade,
+  user_id uuid   not null references public.profiles (id) on delete cascade,
+  kind    text   not null check (kind in ('lock', 'result')),
+  sent_at timestamptz not null default now(),
+  primary key (race_id, user_id, kind)
+);
+
+-- No policies, on purpose: RLS on with nothing granted means anon and
+-- authenticated see nothing at all, and the jobs reach it as service_role,
+-- which bypasses RLS. Who was emailed when is nobody else's business.
+alter table public.email_log enable row level security;
+
+-- ─── 3. Who is still owed this mail ─────────────────────────────────────────
+--
+-- security definer because the address lives in `auth.users`, which is not
+-- reachable from the API schema. It returns nothing but what a mailer needs.
+
+create or replace function public.email_recipients(
+  p_race_id bigint,
+  p_kind    text
+)
+returns table (
+  user_id  uuid,
+  username text,
+  email    text,
+  token    uuid,
+  entered  boolean
+)
+language sql stable security definer set search_path = public
+as $$
+  select p.id,
+         p.username,
+         u.email::text,
+         p.unsubscribe_token,
+         exists (
+           select 1 from public.predictions pr
+            where pr.user_id = p.id and pr.race_id = p_race_id
+         )
+    from public.profiles p
+    join auth.users u on u.id = p.id
+   where not p.email_opt_out
+     and u.email is not null
+     -- An address nobody has confirmed is an address that bounces.
+     and u.email_confirmed_at is not null
+     and not exists (
+           select 1 from public.email_log l
+            where l.race_id = p_race_id
+              and l.user_id = p.id
+              and l.kind = p_kind
+         );
+$$;
+
+revoke all on function public.email_recipients(bigint, text) from public;
+grant execute on function public.email_recipients(bigint, text) to service_role;
+
+-- ─── 4. The unsubscribe page ────────────────────────────────────────────────
+--
+-- Keyed on the token, not on the session: the whole point is that it works
+-- from a mail client, for someone who is not signed in and may never sign in
+-- again. The token is a random uuid and unique, so holding it is the
+-- credential — the same trade as a league invite code.
+
+create or replace function public.email_prefs(p_token uuid)
+returns table (username text, email_opt_out boolean)
+language sql stable security definer set search_path = public
+as $$
+  select p.username, p.email_opt_out
+    from public.profiles p
+   where p.unsubscribe_token = p_token;
+$$;
+
+create or replace function public.set_email_opt_out(p_token uuid, p_value boolean)
+returns boolean
+language plpgsql volatile security definer set search_path = public
+as $$
+declare
+  found_one boolean;
+begin
+  update public.profiles
+     set email_opt_out = p_value
+   where unsubscribe_token = p_token;
+  get diagnostics found_one = row_count;
+  return found_one;
+end;
+$$;
+
+grant execute on function public.email_prefs(uuid)               to anon, authenticated;
+grant execute on function public.set_email_opt_out(uuid, boolean) to anon, authenticated;

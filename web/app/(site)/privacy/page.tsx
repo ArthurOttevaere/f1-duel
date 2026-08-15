@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
 export const metadata = {
   title: "Privacy",
@@ -126,18 +127,39 @@ export default function PrivacyPage() {
           </h2>
           <p className="mt-4">
             You can see and correct your details yourself, any time, from your
-            profile page. You also have the right to a copy of your data, to
-            have it deleted, to object to the processing, and to complain to
+            profile page — and delete the whole account from the same page,
+            which removes your details, predictions, scores and league
+            membership immediately and for good. You also have the right to a
+            copy of your data, to object to the processing, and to complain to
             your national data protection authority.
           </p>
+          {/* The address is never written here. It used to be the author's
+              personal Gmail, hardcoded — a private address published on a page
+              whose whole subject is not publishing private addresses. It now
+              comes from CONTACT_EMAIL like every other address on the site, so
+              it can be changed or retired without a deploy, and the page still
+              works when there is none. */}
           <p className="mt-3">
-            For deletion or a copy, email{" "}
-            <a
-              href="mailto:arthurottevaere7@gmail.com"
-              className="text-race underline"
-            >
-              arthurottevaere7@gmail.com
-            </a>
+            For a copy of your data, or anything the delete button doesn&apos;t
+            cover,{" "}
+            {CONTACT_EMAIL ? (
+              <>
+                email{" "}
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="text-race underline"
+                >
+                  {CONTACT_EMAIL}
+                </a>
+              </>
+            ) : (
+              <>
+                get in touch from the{" "}
+                <Link href="/contact" className="text-race underline">
+                  contact page
+                </Link>
+              </>
+            )}
             . We&apos;ll act on it within a month.
           </p>
         </section>

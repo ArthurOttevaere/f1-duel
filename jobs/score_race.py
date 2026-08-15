@@ -13,6 +13,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 
 import db
+import mailer
 import model_bridge
 import scoring
 
@@ -84,6 +85,15 @@ def score_race(race: dict) -> bool:
             "drew_model": final["drew_model"],
         })
     db.upsert("scores", score_rows, on_conflict="race_id,user_id")
+
+    # Monday morning: how it went, to everyone who entered. After the write, so
+    # nobody is told a score that failed to save; `email_log` (migration 0008)
+    # keeps this to one mail per player however many times this job re-runs.
+    mailer.send_result_emails(
+        race,
+        {row["user_id"]: row for row in score_rows},
+        model_table["total"],
+    )
 
     db.upsert("results", {
         "race_id": race["id"],

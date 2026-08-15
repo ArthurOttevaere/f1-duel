@@ -1,11 +1,89 @@
 import Link from "next/link";
-import { LIVE_MODEL_URL } from "@/lib/constants";
+import { createClient } from "@/lib/supabase/server";
+import { CURRENT_SEASON, LIVE_MODEL_URL } from "@/lib/constants";
+import { formatRaceDate, shortName } from "@/lib/format";
+import type { Driver, ModelEntry, Race } from "@/lib/types";
+import ProbabilityGrid, { type GridDriver } from "@/components/ProbabilityGrid";
 
 export const metadata = {
   title: "The model",
   description:
     "How the F1 Duel opponent works: an XGBoost + LightGBM ensemble on eight seasons of Formula 1, calibrated into a fair, beatable duel entry.",
 };
+
+export const revalidate = 300;
+
+/** How many positions of the matrix the grid shows — the ten the game scores. */
+const GRID_POSITIONS = 10;
+
+/**
+ * The most recent race the model has actually played, with its probability
+ * matrix. Read in three cheap steps rather than one clever one: a matrix is a
+ * fat JSON blob, so only the single entry we are going to draw is fetched.
+ */
+async function latestMatrix(): Promise<{
+  race: Race;
+  entry: ModelEntry;
+  drivers: GridDriver[];
+} | null> {
+  const supabase = await createClient();
+
+  const [{ data: raceRows }, { data: entryIds }] = await Promise.all([
+    supabase
+      .from("races")
+      .select("*")
+      .eq("season", CURRENT_SEASON)
+      .order("round", { ascending: false }),
+    supabase.from("model_entries").select("race_id"),
+  ]);
+
+  const races = (raceRows as Race[]) ?? [];
+  const withEntry = new Set(
+    ((entryIds as { race_id: number }[]) ?? []).map((e) => e.race_id),
+  );
+  const race = races.find((r) => withEntry.has(r.id));
+  if (!race) return null;
+
+  const [{ data: entryRow }, { data: roster }] = await Promise.all([
+    supabase
+      .from("model_entries")
+      .select("race_id, predicted_order, prob_matrix, pre_quali, locked_at")
+      .eq("race_id", race.id)
+      .maybeSingle(),
+    supabase.from("drivers").select("*").eq("season", race.season),
+  ]);
+
+  const entry = entryRow as ModelEntry | null;
+  if (!entry?.prob_matrix) return null;
+
+  const byId = new Map(((roster as Driver[]) ?? []).map((d) => [d.driver_id, d]));
+
+  // The model's own order first — the grid then reads top to bottom the way it
+  // played the race — then everyone else by how likely a top-10 finish was.
+  const top10 = (t: number[]) => t.slice(0, GRID_POSITIONS).reduce((a, b) => a + b, 0);
+  const ranked = Object.entries(entry.prob_matrix)
+    .map(([driverId, probs]) => ({ driverId, probs }))
+    .sort((a, b) => {
+      const ia = entry.predicted_order.indexOf(a.driverId);
+      const ib = entry.predicted_order.indexOf(b.driverId);
+      if (ia !== -1 && ib !== -1) return ia - ib;
+      if (ia !== -1) return -1;
+      if (ib !== -1) return 1;
+      return top10(b.probs) - top10(a.probs);
+    });
+
+  const drivers: GridDriver[] = ranked.map(({ driverId, probs }) => {
+    const d = byId.get(driverId);
+    return {
+      driverId,
+      code: d?.code ?? shortName(driverId).slice(0, 3).toUpperCase(),
+      name: d?.full_name ?? shortName(driverId),
+      probs: probs.slice(0, GRID_POSITIONS),
+    };
+  });
+
+  return { race, entry, drivers };
+}
 
 const PIPELINE = [
   {
@@ -39,7 +117,9 @@ const FEATURE_GROUPS = [
   { label: "Grid", items: "starting position, front-row / points-row odds" },
 ];
 
-export default function ModelPage() {
+export default async function ModelPage() {
+  const matrix = await latestMatrix();
+
   return (
     <main className="mx-auto w-[min(64rem,calc(100%-2rem))] flex-1 pt-28 pb-8">
       {/* ── Intro ── */}
@@ -68,6 +148,41 @@ export default function ModelPage() {
             </a>
           )}
         </section>
+
+        {/* ── The matrix ──────────────────────────────────────────────────
+            The page used to describe a 10,000-run simulation and show none of
+            it. This is that simulation's actual output, for the last race the
+            model played. */}
+        {matrix && (
+          <section className="mt-16">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight">
+                  What it thought of {matrix.race.name}
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-dim">
+                  Ten thousand simulated races, reduced to one number per driver
+                  per position: how often they finished there. This is the
+                  matrix the whole game runs on — the model plays the top 10
+                  that maximises its own expected score from it, and your rarity
+                  multiplier is read straight out of it.
+                </p>
+              </div>
+              <p className="font-mono text-xs whitespace-nowrap text-ink-mute">
+                Round {matrix.race.round} ·{" "}
+                {matrix.entry.pre_quali ? "pre-quali" : "post-quali"} ·{" "}
+                {formatRaceDate(matrix.race.race_at)}
+              </p>
+            </div>
+
+            <div className="mt-6">
+              <ProbabilityGrid
+                drivers={matrix.drivers}
+                positions={GRID_POSITIONS}
+              />
+            </div>
+          </section>
+        )}
 
         {/* ── Pipeline ── */}
         <section className="mt-16">
