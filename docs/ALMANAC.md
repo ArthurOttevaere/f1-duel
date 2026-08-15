@@ -2078,8 +2078,11 @@ page renders empty locally; the harness is not optional.
   `LeagueActions` read the `error` state immediately after setting it — still
   the previous render's value — so the form closed and refreshed as though the
   join had worked. Read the value you just computed, not the state you just set.
-- **`lock_race.grid_fallback()` crashed instead of falling back** (fixed
-  2026-08-02, `fix/grid-fallback-tuple`). It subscripted the tuple returned by
+- **`lock_race.grid_fallback()` crashed instead of falling back** (written
+  2026-08-02 on `fix/grid-fallback-tuple`, **but that branch sat unmerged until
+  2026-08-15** — this entry claimed the fix was live for a fortnight while
+  production still carried the bug. A fix is not fixed until it is on `main`;
+  check the branch, not the note). It subscripted the tuple returned by
   `load_qualifying()` as `quali["DriverId"]` → `TypeError`, and the
   `is not None` guard never fired because a tuple is not `None`. The one path
   that guarantees "the duel always happens" took the job down instead. Now
