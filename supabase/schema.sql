@@ -449,18 +449,23 @@ select
   p.id            as user_id,
   p.username,
   count(s.race_id)                                        as races_played,
-  coalesce(sum(s.total), 0)::numeric
-    + coalesce((select sum(sp.awarded_points)
-                from public.season_picks sp
-                where sp.user_id = p.id
-                  and sp.awarded_points is not null), 0)  as points,
+  -- Race points only. The championship payout is the season recap's to spend
+  -- (GAME_DESIGN §2.3); a board of race results carrying a bonus that came
+  -- from no race read as a bug once points stopped being the ranking key.
+  coalesce(sum(s.total), 0)::numeric                      as points,
   count(*) filter (where s.beat_model)                    as duel_wins,
   count(*) filter (where s.drew_model)                    as duel_draws,
   count(*) filter (where s.race_id is not null
                      and not s.beat_model
-                     and not s.drew_model)                as duel_losses
+                     and not s.drew_model)                as duel_losses,
+  -- Summed over the races this player entered, so the model is exactly 0 and
+  -- a mid-season arrival starts level. See migration 0007.
+  coalesce(sum(
+    case when m.total is null then 0 else s.total - m.total end
+  ), 0)::numeric                                          as margin
 from public.profiles p
 left join public.scores s on s.user_id = p.id
+left join public.model_entries m on m.race_id = s.race_id
 group by p.id, p.username;
 
 -- ─── Standings paging ───────────────────────────────────────────────────────
@@ -485,12 +490,13 @@ returns table (
   points       numeric,
   duel_wins    bigint,
   duel_draws   bigint,
-  duel_losses  bigint
+  duel_losses  bigint,
+  margin       numeric
 )
 language sql stable security invoker set search_path = public
 as $$
   select l.user_id, l.username, l.races_played, l.points,
-         l.duel_wins, l.duel_draws, l.duel_losses
+         l.duel_wins, l.duel_draws, l.duel_losses, l.margin
     from public.leaderboard l
    where p_league_id is null
       or exists (
@@ -498,9 +504,10 @@ as $$
             where m.league_id = p_league_id
               and m.user_id = l.user_id
          )
-   -- Ties broken by name so paging is stable: without a total order, a player
-   -- can appear on two pages or on none.
-   order by l.points desc, l.username asc
+   -- The duel decides it: Grands Prix won, then how convincingly, then the raw
+   -- pile. Ties broken by name last so paging is stable — without a total
+   -- order, a player can appear on two pages or on none.
+   order by l.duel_wins desc, l.margin desc, l.points desc, l.username asc
    limit  least(greatest(p_limit, 0), 500)
   offset greatest(p_offset, 0);
 $$;

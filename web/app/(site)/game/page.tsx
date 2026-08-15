@@ -218,8 +218,8 @@ export default async function GamePage() {
       <p className="text-xs leading-relaxed text-ink-mute">
         Scoring: 10 pts exact position (×1.5–×3 the less the model believed in
         it), 5 pts one off, 2 pts anywhere in the top 10. Podium +15, perfect
-        top 10 +100, Driver of the Day +5, safety-car bet +8. Beat the model:
-        +10.{" "}
+        top 10 +100, Driver of the Day +5, safety-car bet +8. Outscore the model
+        and you win the Grand Prix — that&apos;s what the season table counts.{" "}
         <Link href="/rules" className="underline">
           Full rules →
         </Link>

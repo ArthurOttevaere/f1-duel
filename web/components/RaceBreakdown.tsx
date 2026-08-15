@@ -65,6 +65,9 @@ const BONUS_LABEL: Record<string, string> = {
 };
 
 function bonusLabel(key: string, points: number): string {
+  // "duel" is gone from the rules (GAME_DESIGN §2.2) and stripped from stored
+  // breakdowns by migration 0007, but a receipt is read straight out of the
+  // database — so this keeps labelling one if it ever turns up.
   if (key === "duel") return points >= 10 ? "Beat the model" : "Drew with the model";
   return BONUS_LABEL[key] ?? key;
 }

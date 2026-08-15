@@ -491,9 +491,16 @@ export async function drawPoster(
     rightX,
     cardTop + 70,
   );
-  if (duel && data.duelBonus > 0) {
-    ctx.fillStyle = C.exact;
-    ctx.fillText(`+${one(data.duelBonus)} DUEL BONUS`, rightX, cardTop + 94);
+  // The margin, which replaced the duel bonus when beating the model stopped
+  // paying points (GAME_DESIGN §2.2). Signed, because the sign is the message.
+  if (duel && data.total !== null && data.modelTotal !== null) {
+    const margin = data.total - data.modelTotal;
+    ctx.fillStyle = tone;
+    ctx.fillText(
+      `${margin >= 0 ? "+" : "−"}${one(Math.abs(margin))} VS MODEL`,
+      rightX,
+      cardTop + 94,
+    );
   }
   ctx.textAlign = "left";
 

@@ -69,7 +69,6 @@ export interface PosterData {
   total: number | null;
   modelTotal: number | null;
   verdict: "beat" | "drew" | "lost" | null;
-  duelBonus: number;
   slots: PosterSlot[];
   stats: PosterStats | null;
   modelStats: PosterStats | null;

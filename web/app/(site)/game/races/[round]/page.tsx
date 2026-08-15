@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { getOwnProfile } from "@/lib/auth";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
-import { formatPoints, shortName } from "@/lib/format";
+import { formatMargin, formatPoints, shortName } from "@/lib/format";
 import { driverColor } from "@/lib/teams";
 import { buildPosterData } from "@/lib/poster/data";
 import PosterExport from "@/components/PosterExport";
@@ -245,13 +245,23 @@ export default async function RaceReviewPage({
               {formatPoints(entry?.total ?? 0)}
             </p>
           </div>
+          {/* The margin, not a bonus. Beating the model stopped paying points
+              when the standings started ranking on the duel itself — this is
+              the number that breaks ties between equal records. */}
           <div className="text-right text-xs text-ink-mute">
             <p>you · model</p>
-            {(myScore.breakdown.bonuses?.duel ?? 0) > 0 && (
-              <p className="mt-1 text-emerald-400">
-                +{formatPoints(myScore.breakdown.bonuses.duel)} duel bonus
-              </p>
-            )}
+            <p
+              className={`mt-1 font-mono ${
+                myScore.beat_model
+                  ? "text-emerald-400"
+                  : myScore.drew_model
+                    ? "text-amber-300"
+                    : "text-race"
+              }`}
+            >
+              {formatMargin(myScore.total - (entry?.total ?? 0))} on the season
+              margin
+            </p>
           </div>
         </section>
       )}

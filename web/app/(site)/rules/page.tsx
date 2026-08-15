@@ -123,12 +123,11 @@ export default function RulesPage() {
               <Row left="Perfect top 10 — all ten exact" right="+100" />
               <Row left="Correct Driver of the Day" right="+5" />
               <Row left="Correct safety-car bet" right="+8" />
-              <Row left="Beating the model this Grand Prix" right="+10" />
-              <Row left="Drawing with the model" right="+3" />
             </div>
             <p className="mt-4 text-xs text-ink-mute">
               A typical solid weekend lands around 40–70 pts; a bold, accurate
-              one can clear 130+.
+              one can clear 130+. Beating the model pays no points — it wins you
+              the Grand Prix, which is what the season table counts.
             </p>
           </section>
 
@@ -197,10 +196,18 @@ export default function RulesPage() {
             </h2>
             <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink-dim">
               <p>
-                The season leaderboard totals your points across every scored GP
-                plus bonuses. Your{" "}
-                <strong className="text-ink">duel record</strong> (W–D–L vs the
-                model) rides on your profile.
+                The season table ranks on the{" "}
+                <strong className="text-ink">duel</strong>, not on a points
+                pile: Grands Prix won, then your{" "}
+                <strong className="text-ink">margin</strong> — how far ahead of
+                the model you finished across the races you played — then raw
+                points. A race you sat out counts neither way.
+              </p>
+              <p>
+                So it doesn&apos;t matter when you arrive. Everyone starts the
+                season at nought wins, including someone joining at round 20,
+                and the model isn&apos;t in the table at all — it can&apos;t
+                duel itself. It&apos;s the bar above it.
               </p>
               <p>
                 Create or join a{" "}

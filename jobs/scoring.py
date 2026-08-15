@@ -6,8 +6,8 @@ so the rules live in one place.
 
 A "table" is the score of an ordered top-10 prediction against the official
 classification. Players and the model are scored with the same function; the
-Driver-of-the-Day and duel bonuses only exist for players and are applied in
-`finalize()`.
+Driver-of-the-Day bonus and the duel verdict only exist for players and are
+settled in `finalize()`.
 """
 
 from __future__ import annotations
@@ -20,8 +20,13 @@ BONUS_PODIUM = 15.0   # P1-P2-P3 all exact
 BONUS_PERFECT = 100.0 # all ten exact
 BONUS_DOTD = 5.0      # correct Driver of the Day vote (players only)
 BONUS_SAFETY_CAR = 8.0  # correct safety-car (SC/VSC) side bet — model bets too
-BONUS_BEAT_MODEL = 10.0
-BONUS_DRAW_MODEL = 3.0
+
+# There is deliberately no duel bonus. +10 for beating the model and +3 for a
+# draw were removed in 2026-08 when the standings moved to ranking on the duel
+# record (GAME_DESIGN §2.2, §2.5): the win already moves you up the board, and
+# paying points for it also inflated the margin that breaks ties between equal
+# records — the same result counted twice. `beat_model` / `drew_model` still
+# come out of finalize(); they are simply worth no points.
 
 # Rarity tiers: model probability of that exact placement -> multiplier.
 RARITY_TIERS = ((0.30, 1.0), (0.15, 1.5), (0.05, 2.0))
@@ -123,11 +128,12 @@ def score_table(picks: list[str], classification: dict[str, int],
 def finalize(table: dict, dotd_pick: str | None, dotd_actual: str | None,
              model_total: float | None, sc_bet: bool | None = None,
              sc_actual: bool | None = None) -> dict:
-    """Apply the player bonuses (DotD, safety-car bet, duel) on top of a table.
+    """Apply the player bonuses (DotD, safety-car bet) and settle the duel.
 
     The duel is decided on the player's table + DotD + safety-car total versus
     the model's table + its own safety-car total (`model_total` already includes
-    it). Returns the full breakdown to persist in scores.breakdown.
+    it). The verdict is recorded, not paid — see the note on the constants
+    above. Returns the full breakdown to persist in scores.breakdown.
     """
     bonuses = dict(table["bonuses"])
     bonuses["dotd"] = (
@@ -136,16 +142,11 @@ def finalize(table: dict, dotd_pick: str | None, dotd_actual: str | None,
     )
     bonuses["safety_car"] = sc_bonus(sc_bet, sc_actual)
 
-    comparable = table["total"] + bonuses["dotd"] + bonuses["safety_car"]
+    total = table["total"] + bonuses["dotd"] + bonuses["safety_car"]
     beat_model = drew_model = False
-    bonuses["duel"] = 0.0
     if model_total is not None:
-        if comparable > model_total:
-            beat_model = True
-            bonuses["duel"] = BONUS_BEAT_MODEL
-        elif comparable == model_total:
-            drew_model = True
-            bonuses["duel"] = BONUS_DRAW_MODEL
+        beat_model = total > model_total
+        drew_model = total == model_total
 
     return {
         "slots": table["slots"],
@@ -153,7 +154,9 @@ def finalize(table: dict, dotd_pick: str | None, dotd_actual: str | None,
         "dotd_pick": dotd_pick,
         "sc_bet": sc_bet,
         "model_total": model_total,
-        "total": comparable + bonuses["duel"],
+        # The margin the standings order on, for the races this player entered.
+        "margin": None if model_total is None else total - model_total,
+        "total": total,
         "beat_model": beat_model,
         "drew_model": drew_model,
     }
