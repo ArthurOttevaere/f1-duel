@@ -1630,7 +1630,7 @@ column — see the third bullet.
 | `RESEND_API_KEY` | GitHub Actions **secret** | optional | Sends the two race emails (§8.8). Unset → every send is a logged no-op and the jobs are otherwise unchanged |
 | `MAIL_FROM` | GitHub Actions **variable** | with the above | e.g. `F1 Duel <duel@yourdomain>`. Resend sends only from a **domain verified with it by DNS** — a Gmail or Proton mailbox cannot be a `from` address, however much it is yours |
 | `MAIL_REPLY_TO` | GitHub Actions **variable** | optional | Any mailbox at all. How the project's own address receives replies while the verified domain does the sending |
-| `SITE_URL` | GitHub Actions **variable** | optional | Where the email buttons point; defaults to the production URL |
+| `SITE_URL` | GitHub Actions **variable** | optional | Where the email buttons point; defaults to the production URL. On a custom domain this and `NEXT_PUBLIC_SITE_URL` must move together, or the emails link to one origin while the share cards claim another |
 | `F1_PORT` | local shell | optional | Flask port (default 5050) |
 | `F1_NO_RELOAD` | local shell | optional | `1` disables the Flask reloader |
 
@@ -1711,6 +1711,7 @@ index; that file is the manual.
 | Task | How |
 | --- | --- |
 | Add a new season | `python jobs/sync_schedule.py <year>`, then set `NEXT_PUBLIC_SEASON` on Vercel |
+| Move to a custom domain | `DEPLOYMENT.md` §4b — and **add `https://<domain>/auth/callback` to the Supabase redirect list**, or every magic link and Google sign-in bounces on the new domain the moment it goes live |
 | Enter Driver of the Day | `python jobs/set_dotd.py <season> <round> <driver_id>` (Monday) |
 | Settle the season | `python jobs/settle_season.py <season>` (December, once) |
 | Force a lock / score now | Actions tab → workflow → **Run workflow** |

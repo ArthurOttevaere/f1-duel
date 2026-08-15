@@ -120,6 +120,60 @@ Copy the Render URL into `NEXT_PUBLIC_MODEL_URL` on Vercel. Free instances
 sleep after 15 min; a free [UptimeRobot](https://uptimerobot.com) monitor
 pinging the URL every 10 min keeps cold starts rare.
 
+## 4b. A custom domain
+
+One purchase settles three things at once: the site stops being called
+`*.vercel.app` in every share card, `MAIL_FROM` becomes possible at all, and
+the project starts looking like a product. Do it in this order — the last step
+is the one that breaks sign-in if it is skipped.
+
+1. **Buy it.** Any registrar. Prefer one whose DNS panel lets you set a raw TXT
+   record without rewriting it (Cloudflare, Porkbun, Namecheap all do).
+
+2. **Vercel** → Project → Settings → Domains → add it. Vercel prints the A or
+   CNAME record to publish. Wait for it to go green before continuing.
+
+3. **Resend** → Domains → Add domain. It generates records for **that domain
+   specifically** — a DKIM public key that exists nowhere else — so copy them
+   from the dashboard rather than from any guide. Expect four:
+
+   | Type | Roughly | Why |
+   |---|---|---|
+   | `MX` | on a `send.` subdomain → an Amazon SES feedback host | bounce and complaint handling |
+   | `TXT` (SPF) | on the same subdomain, `v=spf1 include:amazonses.com ~all` | says SES may send as you |
+   | `TXT` (DKIM) | `resend._domainkey` → a long `p=…` key | signs each message |
+   | `TXT` (DMARC) | `_dmarc`, optional but do it | tells inboxes what to do with forgeries |
+
+   Two mistakes that cost an afternoon: most panels **append the domain
+   automatically**, so pasting `resend._domainkey.yourdomain` creates
+   `resend._domainkey.yourdomain.yourdomain` — paste only the host part. And on
+   Cloudflare, leave these records **DNS-only (grey cloud)**; proxying a TXT
+   record is meaningless and proxying the MX breaks it.
+
+4. **Then set the variables:**
+
+   | Variable | Where | Value |
+   |---|---|---|
+   | `MAIL_FROM` | GitHub Actions **variable** | `F1 Duel <duel@yourdomain>` |
+   | `MAIL_REPLY_TO` | GitHub Actions **variable** | the project mailbox |
+   | `SITE_URL` | GitHub Actions **variable** | `https://yourdomain` |
+   | `NEXT_PUBLIC_SITE_URL` | **Vercel** | `https://yourdomain` |
+   | `NEXT_PUBLIC_CONTACT_EMAIL` | **Vercel** | the project mailbox |
+
+5. **Supabase → Authentication → URL Configuration.** Set Site URL to the new
+   domain and **add `https://yourdomain/auth/callback` to the redirect list**.
+
+   This step is not optional and it is the one that gets forgotten. Supabase
+   refuses to redirect anywhere not on that list, so the moment the domain
+   goes live every magic link and every Google sign-in bounces — on the new
+   domain only, which makes it look like the domain is broken rather than the
+   allowlist. Keep the old `*.vercel.app` entries: they cost nothing and any
+   link already sent to a player still works.
+
+6. Redeploy on Vercel (env changes need one) and confirm: a share card at
+   `https://yourdomain` resolves its image, a magic link signs you in, and
+   `lock-race` / `score-race` still run green.
+
 ## 5. First-run checklist
 
 - [ ] `schema.sql` applied, no errors.
