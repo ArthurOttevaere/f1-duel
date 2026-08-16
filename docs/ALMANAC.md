@@ -1312,6 +1312,26 @@ season line it replaced. Below `sm` it stays one row — the place is dropped,
 the name truncates and the clock collapses to `12d 04:33:12` — because stacked
 it ate a third of the viewport before the headline got a word in.
 
+Below the hero, **`LastRaceProof`** is the page's evidence: the model's ten
+picks at the last **scored** Grand Prix, the ten drivers who actually finished
+there, the outcome of each call (`✓` exact / `~` one off / `•` in the top 10 /
+`·` miss) and what it scored. The home page used to describe the game in three
+sections and never show it, so a visitor was asked to take the whole thing on
+trust before signing up. Three things about it:
+
+- `loadLastRace()` is wrapped in React `cache`, because the hero's scroll cue
+  and the section both read it — and the cue must not point at a section that
+  isn't there. Before the first race of a season is scored, both render
+  nothing.
+- It is a **five-column CSS grid, not a table**, and deliberately: §9.6's rule
+  is that `overflow-x-auto` over a `min-w-[Nrem]` table is a column you have
+  decided nobody on a phone will read, and the column at risk here would have
+  been the points.
+- The **scroll cue** is the answer to the 40% of empty viewport that used to
+  sit under the hero buttons with nothing saying the page continued. It reads
+  `Last time out it scored 32 · 6 of 10 exact`, so the invitation to scroll is
+  itself a piece of evidence. `.rise-in-5` (280ms) was added for it.
+
 **`/game`** (`revalidate = 60`) — finds the next `scheduled` race with
 `race_at > now`, then fetches in parallel: the active roster, the model entry
 (only `pre_quali`/`locked_at` — never the order, which would leak the model's

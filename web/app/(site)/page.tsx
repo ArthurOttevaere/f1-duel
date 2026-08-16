@@ -1,5 +1,7 @@
 import Link from "next/link";
 import NextRaceWidget from "@/components/NextRaceWidget";
+import LastRaceProof, { loadLastRace } from "@/components/LastRaceProof";
+import { formatPoints } from "@/lib/format";
 
 const DUEL_STEPS = [
   {
@@ -33,7 +35,11 @@ const MODEL_FACTS = [
   "Every prediction explained factor by factor (SHAP)",
 ];
 
-export default function Home() {
+export default async function Home() {
+  // Read here as well as in the section itself (both hit one cached load) so
+  // the hero only points down at proof that exists.
+  const lastRace = await loadLastRace();
+
   return (
     <>
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
@@ -81,7 +87,41 @@ export default function Home() {
             Explore the model
           </Link>
         </div>
+
+        {/* The hero used to end here, with two fifths of the viewport empty
+            under the buttons and nothing saying the page continued. The cue
+            fills that gap with the one line that earns the scroll — a real
+            score, from a real Grand Prix, waiting a screen below. It is only
+            rendered when there is something to scroll to. */}
+        {lastRace && (
+          <Link
+            href="#last-race"
+            className="rise-in rise-in-5 group absolute inset-x-0 bottom-10 mx-auto flex w-fit flex-col items-center gap-2 px-4 text-center"
+          >
+            <span className="font-mono text-[0.65rem] tracking-[0.18em] text-ink-mute uppercase transition-colors group-hover:text-ink-dim">
+              Last time out it scored {formatPoints(lastRace.total)} ·{" "}
+              {lastRace.exact} of 10 exact
+            </span>
+            <svg
+              aria-hidden
+              viewBox="0 0 16 16"
+              className="size-4 text-ink-mute transition-transform group-hover:translate-y-0.5"
+            >
+              <path
+                d="M8 3v9m0 0 4-4m-4 4-4-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+        )}
       </section>
+
+      {/* ─── The proof ────────────────────────────────────────────────── */}
+      <LastRaceProof />
 
       {/* ─── The game ─────────────────────────────────────────────────── */}
       <section className="mx-auto w-[min(64rem,calc(100%-2rem))] py-24">
