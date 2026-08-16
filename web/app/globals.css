@@ -421,6 +421,7 @@ body {
 .rise-in-2 { animation-delay: 70ms; }
 .rise-in-3 { animation-delay: 140ms; }
 .rise-in-4 { animation-delay: 210ms; }
+.rise-in-5 { animation-delay: 280ms; }
 
 @keyframes rise {
   to {
