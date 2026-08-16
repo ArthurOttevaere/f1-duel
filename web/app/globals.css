@@ -76,6 +76,29 @@ body {
    The hero is the exception and is not covered by any of this: its aurora and
    grid, below, are what dress it, and they stay. */
 
+/* ─── Keyboard focus ───────────────────────────────────────────────────── */
+
+/* One ring, on everything, and only for the keyboard.
+
+   There was not a single focus style in the app: three text inputs cleared the
+   browser's own with `outline-none` and drew a border instead, and every
+   button, link, driver slot and sheet control was left with whatever the user
+   agent draws — which against #07080b is a dark hairline on a dark surface.
+   Tabbing through the prediction editor was navigating blind.
+
+   Unlayered on purpose. Tailwind's utilities live in a cascade layer, and
+   unlayered rules beat layered ones whatever the specificity, so this covers
+   the elements that carry `outline-none` without having to hunt them down —
+   and it applies to anything added later for free.
+
+   `:focus-visible`, not `:focus`: a mouse click on a button should not leave a
+   ring behind, which is the reason the outlines were removed in the first
+   place. No border-radius here — an outline follows the element's own. */
+:focus-visible {
+  outline: 2px solid var(--color-race);
+  outline-offset: 2px;
+}
+
 /* Pressable affordance: everything clickable answers the press. */
 .pressable {
   transition: transform 160ms var(--ease-out-strong);
