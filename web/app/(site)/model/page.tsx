@@ -29,10 +29,18 @@ async function latestMatrix(): Promise<{
   const supabase = await createClient();
 
   const [{ data: raceRows }, { data: entryIds }] = await Promise.all([
+    // Only races that are no longer open. This page publishes the model's
+    // order and its probability matrix, and during a race weekend the highest
+    // round with an entry is the race everyone is still playing — it used to
+    // print exactly the grid `predictions` and `model_entries` both keep
+    // behind the lock. The RLS policy from migration 0009 is what enforces
+    // this; the filter is here so the page cannot quietly start depending on
+    // being denied.
     supabase
       .from("races")
       .select("*")
       .eq("season", CURRENT_SEASON)
+      .neq("status", "scheduled")
       .order("round", { ascending: false }),
     supabase.from("model_entries").select("race_id"),
   ]);

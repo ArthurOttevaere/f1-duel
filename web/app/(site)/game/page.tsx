@@ -54,8 +54,12 @@ export default async function GamePage() {
       .eq("season", race.season)
       .eq("active", true)
       .order("team"),
+    // The view, not the table: since migration 0009 the model's entry for a
+    // race that is still open is unreadable through the anon key — picks,
+    // matrix and safety-car bet alike. `model_entry_status` publishes the part
+    // that was never secret, which is whether it has filed and in which mode.
     supabase
-      .from("model_entries")
+      .from("model_entry_status")
       .select("race_id, pre_quali, locked_at")
       .eq("race_id", race.id)
       .maybeSingle(),
