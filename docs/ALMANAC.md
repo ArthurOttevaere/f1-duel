@@ -1334,6 +1334,15 @@ second unfiltered read of every profile). Your own score row is read separately
 on a race you skipped there is no such row, and the name falls back to
 `getOwnProfile()` (cached per request, so the nav doesn't pay for it twice).
 
+**Signed out, the page closes instead of stopping.** This is the best landing
+page the site has — a shared link lands here — and it used to end on a two-line
+receipt and the footer, with no button anywhere. A visitor now gets a final
+block: what the model scored here, a live countdown to the next Grand Prix
+(one extra `races` read, signed-out only), a sign-in call to action, and the
+race poster. The poster button **moves** rather than doubling: signed in it
+stays in the header, signed out it sits in that block, because `PosterExport`
+serializes its data into the HTML and two of them would ship it twice.
+
 `RaceBreakdown` (client) owns the 4-column table — Pos / You / Model /
 Official — above `sm`, one stacked card per position below it, and takes
 `signedIn` to drop the whole "You" side for a visitor (§9.6). It makes the

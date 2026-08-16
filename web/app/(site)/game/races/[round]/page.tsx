@@ -6,6 +6,7 @@ import { CURRENT_SEASON } from "@/lib/constants";
 import { formatMargin, formatPoints, shortName } from "@/lib/format";
 import { driverColor } from "@/lib/teams";
 import { buildPosterData } from "@/lib/poster/data";
+import Countdown from "@/components/Countdown";
 import PosterExport from "@/components/PosterExport";
 import RaceBreakdown, {
   type BreakdownEntry,
@@ -84,6 +85,7 @@ export default async function RaceReviewPage({
     myScoreRes,
     myPredRes,
     ownProfile,
+    nextRaceRes,
   ] = await Promise.all([
       supabase.from("model_entries").select("*").eq("race_id", race.id).maybeSingle(),
       supabase.from("results").select("*").eq("race_id", race.id).maybeSingle(),
@@ -121,6 +123,20 @@ export default async function RaceReviewPage({
       // there is no score row to carry one. Cached per request, so the nav and
       // the layout don't pay for this read twice.
       getOwnProfile(),
+      // Which Grand Prix a visitor could still enter. Only for signed-out
+      // visitors: this page is the natural landing spot for a shared link, and
+      // it used to end on a two-line receipt and the footer, with no way in.
+      user
+        ? Promise.resolve({ data: null })
+        : supabase
+            .from("races")
+            .select("round, name, race_at")
+            .eq("season", CURRENT_SEASON)
+            .eq("status", "scheduled")
+            .gt("race_at", new Date().toISOString())
+            .order("race_at", { ascending: true })
+            .limit(1)
+            .maybeSingle(),
     ]);
 
   const entry = entryRes.data as ModelEntry | null;
@@ -138,6 +154,11 @@ export default async function RaceReviewPage({
       .filter((p): p is Profile => p !== null)
       .map((p) => [p.id, p]),
   );
+
+  const nextRace = nextRaceRes.data as Pick<
+    Race,
+    "round" | "name" | "race_at"
+  > | null;
 
   const myScoreRow = myScoreRes.data as ScoreWithProfile | null;
   const myScore = (myScoreRow as Score | null) ?? undefined;
@@ -217,7 +238,11 @@ export default async function RaceReviewPage({
           </p>
           <h1 className="mt-1 text-3xl font-bold tracking-tight">{race.name}</h1>
         </div>
-        {poster && <PosterExport data={poster} />}
+        {/* Signed out, the poster moves to the closing block below, where it
+            is the thing being offered rather than a chip in a header. It is
+            only ever rendered once: the data it carries is serialized into the
+            page. */}
+        {poster && user && <PosterExport data={poster} />}
       </header>
 
       {/* ── Duel banner ── */}
@@ -363,6 +388,48 @@ export default async function RaceReviewPage({
               );
             })}
           </ol>
+        </section>
+      )}
+
+      {/* ── The way in ──
+             A shared link lands here, and the page used to end on a two-line
+             receipt and the footer — no button anywhere. For a signed-out
+             visitor this is the close: what the model scored, when the next
+             one starts, and the poster of this race to take away. */}
+      {!user && (
+        <section className="glass-card border-race/30 p-6 sm:p-8">
+          <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
+            Your turn
+          </p>
+          <h2 className="mt-2 max-w-2xl text-2xl font-bold tracking-tight sm:text-3xl">
+            {entry?.total != null
+              ? `The model scored ${formatPoints(entry.total)} here. Could you have done better?`
+              : "The model has filed its top 10. Yours goes right next to it."}
+          </h2>
+          <p className="mt-3 max-w-prose text-sm leading-relaxed text-ink-dim">
+            Every Grand Prix you call the finishing order, the model calls its
+            own, and the one with more points wins the weekend. The less the
+            model believed in a call you got right, the more it pays.
+          </p>
+
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <Link
+              href="/login"
+              className="pressable rounded-full bg-race px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgb(255_30_60/0.35)] transition-colors hover:bg-race-deep"
+            >
+              Enter the duel — it takes 20 seconds
+            </Link>
+            {poster && <PosterExport data={poster} />}
+          </div>
+
+          {nextRace?.race_at && (
+            <div className="mt-5 border-t border-line pt-4">
+              <Countdown
+                to={nextRace.race_at}
+                label={`Next up · ${nextRace.name} locks in`}
+              />
+            </div>
+          )}
         </section>
       )}
     </div>
