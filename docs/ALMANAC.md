@@ -1213,6 +1213,8 @@ app/
 │                              viewport.themeColor, BootScreen, <Analytics/>
 ├── not-found.tsx              404 for a URL matching no route (see below)
 ├── manifest.ts                install manifest
+├── robots.ts                  crawler rules + a pointer to the sitemap
+├── sitemap.ts                 the public pages + every raced Grand Prix
 ├── globals.css                design tokens + shared classes
 ├── (site)/                    ROUTE GROUP: everything with nav + footer
 │   ├── layout.tsx             renders SiteNav + SiteFooter ONCE
@@ -1241,6 +1243,17 @@ app/
     ├── confirm/route.ts       email OTP (token_hash) verification
     └── signout/route.ts       POST → clears session, redirects to /login
 ```
+
+**`robots.ts` / `sitemap.ts` — the disallow list is about credentials, not
+secrecy.** A league code and an unsubscribe token *are* the credential in their
+flows (`supabase/README.md`), so `/join/<code>` and `/unsubscribe/<token>` are
+disallowed and kept out of the sitemap; `/auth/*`, `/login` and `/welcome` are
+simply nothing to land on from a search result. Profiles are world-readable but
+also left out: a player's page is theirs to share, not the site's to file with
+Google. The sitemap reads races through **`lib/supabase/public.ts`** — a
+cookie-free client — because `lib/supabase/server.ts` calls `cookies()`, which
+would turn a crawler's file into a per-request render; a failed read drops the
+race URLs and still returns the static half.
 
 **Why the `(site)` route group exists:** it renders the nav and footer once, so
 they stay mounted across navigations and the loading spinner appears *below*
@@ -1561,6 +1574,11 @@ exists to prevent.
   show through) and ticks the haptics.
 - **Mobile:** tap a slot → bottom-sheet driver picker (rendered through a
   **portal**, see §9.7), with `navigator.vibrate(8)` haptics where available.
+  An empty slot says "Tap to choose a driver" **only under
+  `pointer-coarse:`** — it used to say it to a mouse as well, and the
+  instruction is genuinely different per input: a finger opens the sheet from
+  the slot, a mouse clicks a driver in the pool on the right. The variant is a
+  pointer media query, not a width: it is about what you are holding.
 - Forward-fill by default; a targeted replacement sets `replacing.current` so
   the next pick resumes filling forward instead of jumping.
 - A 10-tick progress rail; save is a single `upsert` on
@@ -1594,6 +1612,17 @@ Tokens live in `app/globals.css` under Tailwind v4's `@theme`:
 --ease-out-strong cubic-bezier(.23,1,.32,1)
 --ease-in-out-strong cubic-bezier(.77,0,.175,1)
 ```
+
+**One focus ring, unlayered.** `:focus-visible { outline: 2px solid
+var(--color-race); outline-offset: 2px }` sits in `globals.css` outside any
+`@layer`, which is what makes it win over the `outline-none` on the three text
+inputs — unlayered rules beat layered ones whatever the specificity, and
+Tailwind's utilities are layered. Before it, the app had **zero** focus styles:
+every button, link and driver slot fell back to the user agent's outline, which
+against `#07080b` is a dark hairline on a dark surface. `:focus-visible` rather
+than `:focus`, so a mouse click leaves nothing behind — which is why the
+outlines were suppressed in the first place. No `border-radius` on it: an
+outline already follows the element's own.
 
 Shared classes: `.glass-card` (the card surface), `.glass-chip` (blurred pill),
 `.pressable` (everything clickable answers a press with `scale(.97)`),

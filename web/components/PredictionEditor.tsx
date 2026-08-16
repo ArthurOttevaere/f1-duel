@@ -205,7 +205,25 @@ function Slot({
           disabled={disabled}
           className="flex flex-1 items-center justify-between py-1.5 text-left text-sm text-ink-mute disabled:cursor-default"
         >
-          <span>{active ? "Choose a driver…" : "Tap to choose a driver"}</span>
+          {/* "Tap" was shown to everyone, mouse included. The instruction is
+              also genuinely different per input: a finger opens the picker
+              sheet from the slot, a mouse clicks a driver in the pool on the
+              right. Pointer media queries rather than a viewport width —
+              this is about what you are holding, not how wide it is. */}
+          <span>
+            {active ? (
+              "Choose a driver…"
+            ) : (
+              <>
+                <span className="pointer-coarse:hidden">
+                  Pick a driver from the list
+                </span>
+                <span className="hidden pointer-coarse:inline">
+                  Tap to choose a driver
+                </span>
+              </>
+            )}
+          </span>
           <span aria-hidden className="text-ink-mute">
             +
           </span>

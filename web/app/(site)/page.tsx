@@ -194,17 +194,32 @@ export default async function Home() {
             </Link>
           </div>
 
-          <ul className="flex flex-col gap-4">
-            {MODEL_FACTS.map((f) => (
-              <li key={f} className="flex items-start gap-3 text-sm text-ink-dim">
-                <span
-                  aria-hidden
-                  className="mt-1.5 size-1.5 shrink-0 rounded-full bg-race"
-                />
-                {f}
-              </li>
-            ))}
-          </ul>
+          {/* A surface, and a heading over it. Four bullets floating in the
+              right half — under a left column that has an eyebrow, a heading,
+              a paragraph and a button — read as text that had lost its card,
+              and the two halves of the section didn't look like one thing.
+              The rule from globals.css still holds: sections aren't separated
+              with bands. This is a card inside a section, which the page
+              already does in "The game". */}
+          <div className="glass-card p-2">
+            <p className="px-4 pt-3 pb-2 font-mono text-[0.65rem] tracking-[0.18em] text-ink-mute uppercase">
+              Under the hood
+            </p>
+            <ul className="flex flex-col">
+              {MODEL_FACTS.map((f) => (
+                <li
+                  key={f}
+                  className="flex items-start gap-3 border-t border-line px-4 py-3.5 text-sm text-ink-dim"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-1.5 size-1.5 shrink-0 rounded-full bg-race"
+                  />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
     </>
