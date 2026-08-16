@@ -397,6 +397,7 @@ export default function PredictionEditor({
   initialScBet,
   canPlay,
   signedIn,
+  previewEntry = null,
 }: {
   race: Race;
   roster: Driver[];
@@ -405,8 +406,19 @@ export default function PredictionEditor({
   initialScBet: boolean | null;
   canPlay: boolean;
   signedIn: boolean;
+  /**
+   * A finished entry of the model's, shown behind the sign-in veil so a
+   * visitor sees a real grid instead of ten empty rows. Signed-out only, and
+   * always a race that is already over — never this weekend's picks.
+   */
+  previewEntry?: { order: string[]; raceName: string } | null;
 }) {
-  const [slots, setSlots] = useState<Slots>(() => toSlots(initialPicks));
+  // A preview is not a draft: it is only ever read, because `canPlay` is false
+  // for everyone who sees it.
+  const preview = !signedIn && (previewEntry?.order.length ?? 0) > 0;
+  const [slots, setSlots] = useState<Slots>(() =>
+    toSlots(preview ? (previewEntry as { order: string[] }).order : initialPicks),
+  );
   const [dotd, setDotd] = useState<string | null>(initialDotd);
   const [scBet, setScBet] = useState<boolean | null>(initialScBet);
   const [active, setActive] = useState(() => {
@@ -542,11 +554,15 @@ export default function PredictionEditor({
         <section>
           <div className="mb-3 flex items-baseline justify-between gap-3">
             <h3 className="text-sm font-semibold tracking-wide text-ink-dim">
-              YOUR TOP 10
+              {preview ? "THE MODEL'S TOP 10" : "YOUR TOP 10"}
             </h3>
-            <span className="font-mono text-xs text-ink-mute">
-              {filled}/10
-            </span>
+            {/* The counter is yours; over the model's entry it would read as a
+                score. */}
+            {!preview && (
+              <span className="font-mono text-xs text-ink-mute">
+                {filled}/10
+              </span>
+            )}
           </div>
 
           {/* Progress rail: 10 ticks that fill as the grid comes together. */}
@@ -717,11 +733,24 @@ export default function PredictionEditor({
         onClose={() => setSheetOpen(false)}
       />
 
-      {/* ── Sign-in gate ── */}
+      {/* ── Sign-in gate ──
+             The veil used to be 70% ground and 3px of blur over an empty
+             form, which turned the one screen where the game happens into a
+             grey rectangle. It is thinner now — the point is to say "not yet
+             yours", not to hide the product — and what it covers is a real
+             top 10 (see `previewOrder`). The call to action carries its own
+             surface, because at this opacity the grid behind it would
+             otherwise read straight through the type. */}
       {!signedIn && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-bg/70 backdrop-blur-[3px]">
-          <div className="text-center">
+        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-bg/45 backdrop-blur-[2px]">
+          <div className="glass-card mx-4 max-w-sm p-6 text-center">
             <p className="font-semibold">Sign in to enter the duel</p>
+            {preview && (
+              <p className="mt-2 text-sm text-ink-dim">
+                Behind this is the model&apos;s own top 10 at the{" "}
+                {previewEntry?.raceName}. Yours goes next to it.
+              </p>
+            )}
             <Link
               href="/login"
               className="pressable mt-4 inline-block rounded-full bg-race px-7 py-3 text-sm font-semibold text-white"

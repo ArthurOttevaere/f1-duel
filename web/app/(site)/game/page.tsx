@@ -93,6 +93,10 @@ export default async function GamePage() {
 
   let lastDuel: { race: Race; score: Score | null; model: number | null } | null =
     null;
+  // The order the model played *last* time out — what a signed-out visitor
+  // sees behind the sign-in veil (see `previewOrder` below). Safe to read here
+  // and nowhere else on this page: that race is over.
+  let lastModelOrder: string[] | null = null;
   if (lastScored) {
     const [scoreRes, modelRes] = await Promise.all([
       user
@@ -105,20 +109,47 @@ export default async function GamePage() {
         : Promise.resolve({ data: null }),
       supabase
         .from("model_entries")
-        .select("total")
+        .select(user ? "total" : "total, predicted_order")
         .eq("race_id", lastScored.id)
         .maybeSingle(),
     ]);
+    const model = modelRes.data as Pick<
+      ModelEntry,
+      "total" | "predicted_order"
+    > | null;
     lastDuel = {
       race: lastScored,
       score: (scoreRes.data as Score | null) ?? null,
-      model: (modelRes.data as Pick<ModelEntry, "total"> | null)?.total ?? null,
+      model: model?.total ?? null,
     };
+    lastModelOrder = model?.predicted_order ?? null;
   }
 
   // eslint-disable-next-line react-hooks/purity -- server render: "now" is the request time
   const raceOpen = new Date(race.race_at ?? 0).getTime() > Date.now();
   const needsPicks = Boolean(user) && !seasonPickRes.data;
+
+  // What a signed-out visitor sees behind the sign-in veil. The editor used to
+  // be veiled over an *empty* form, so the one screen where the game actually
+  // happens showed a grey rectangle to everyone who had not signed up yet.
+  //
+  // It is the **last scored race's** model order, never this weekend's, and
+  // that restriction is the whole design: this page deliberately never reads
+  // `predicted_order` for the upcoming race, because that would hand the
+  // model's picks to anyone who signs out before the lock. A finished race
+  // gives the same "here is what a real entry looks like" for free.
+  // Drivers who have since left the grid are dropped rather than left as holes
+  // in the preview: the roster read here is the *active* one.
+  const activeIds = new Set(
+    ((roster as Driver[]) ?? []).map((d) => d.driver_id),
+  );
+  const previewEntry =
+    !user && lastModelOrder && lastScored
+      ? {
+          order: lastModelOrder.filter((id) => activeIds.has(id)).slice(0, 10),
+          raceName: lastScored.name,
+        }
+      : null;
 
   return (
     <div className="flex flex-col gap-6">
@@ -212,6 +243,7 @@ export default async function GamePage() {
           initialScBet={prediction?.sc_bet ?? null}
           canPlay={Boolean(user) && raceOpen}
           signedIn={Boolean(user)}
+          previewEntry={previewEntry}
         />
       </section>
 

@@ -1319,6 +1319,12 @@ picks pre-race), your prediction, the last scored race, and whether you have
 season picks. Renders the countdown, a "last duel" strip, and the editor.
 `canPlay = signed in && race_at is in the future`.
 
+The one `predicted_order` this page does read is the **last scored race's**,
+and only for a signed-out visitor: it fills the grid behind the sign-in gate
+(§9.5). The rule above is unchanged and load-bearing — the upcoming race's
+order never reaches the client here, or signing out would become a way to read
+the model's picks before the lock.
+
 **`/game/races/[round]`** (`revalidate = 120`) — redirects to `/game` if the
 race is still `scheduled`. Shows the duel banner (win/draw/loss + the margin),
 the side-by-side breakdown (below), DotD, the safety-car outcome with both bets,
@@ -1534,6 +1540,18 @@ exists to prevent.
   comparison so "saved" is accurate.
 - The database rejects fewer than 10 distinct picks (`valid_picks`), so the
   editor's own validation is a UX nicety, not the guarantee.
+- **The sign-in gate shows the game, it does not hide it.** It used to be a
+  70% veil plus 3px of blur over an *empty* editor, which turned the one screen
+  where the game happens into a grey rectangle for every visitor who had not
+  signed up — the ten slots, the portraits and the safety-car bet were all
+  unreadable, and there was nothing behind them anyway. The veil is 45% / 2px,
+  the call to action carries its own `glass-card` surface (at that opacity the
+  grid reads through the type), and `previewEntry` fills the grid with a real
+  top 10. **That entry is always the last *scored* race's** — see the rule in
+  §9.4: this page never reads `predicted_order` for the upcoming race, and a
+  preview is not a reason to start. The heading reads `THE MODEL'S TOP 10` and
+  the `x/10` counter comes off, where it would read as a score. Drivers no
+  longer on the active roster are filtered out so the preview has no holes.
 
 ### 9.6 Design system
 
