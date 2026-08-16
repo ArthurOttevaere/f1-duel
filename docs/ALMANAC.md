@@ -730,7 +730,7 @@ nowhere else.
 | `player_details` | `id` → profiles | owner only | Real name, ISO-3166 country, birth **year**. The one table with **no public read policy**. |
 | `drivers` | `(season, driver_id)` | `sync_schedule` | Roster + team colour, powers the picker and profile theming. |
 | `races` | identity, unique `(season, round)` | `sync_schedule` (never `status`), `lock_race`/`score_race` (status only) | `status ∈ scheduled \| locked \| scored` — the whole fair-play model hangs off this column. |
-| `model_entries` | `race_id` | `lock_race`, then `score_race` | `predicted_order` (full ordered list), `prob_matrix` `{driver: [p1..pN]}`, `pre_quali`, `sc_prob`, `sc_bet`, and after scoring `total` + `breakdown`. `counts_in_standings` (0006) is the operator's switch for whether this race feeds the model's **season** total — the race page ignores it. The jobs never send that column, so a re-lock or re-score leaves the choice alone. |
+| `model_entries` | `race_id` | `lock_race`, then `score_race` | `predicted_order` (full ordered list), `prob_matrix` `{driver: [p1..pN]}`, `pre_quali`, `sc_prob`, `sc_bet`, and after scoring `total` + `breakdown`. **Readable only once the race is no longer `scheduled`** (0009) — same lock as `predictions`; `model_entry_status` publishes `pre_quali`/`locked_at` for an open race and nothing else. `counts_in_standings` (0006) is the operator's switch for whether this race feeds the model's **season** total — the race page ignores it. The jobs never send that column, so a re-lock or re-score leaves the choice alone. |
 | `predictions` | identity, unique `(user_id, race_id)` | the player | `picks` validated by `valid_picks()`: a JSON array of **exactly 10 distinct** entries. Plus optional `dotd`, `sc_bet`. |
 | `results` | `race_id` | `score_race`, `set_dotd` | Official `classification`, `dotd`, `safety_car`, `scored_at`. |
 | `scores` | `(race_id, user_id)` | `score_race` | `total`, full `breakdown` JSON, `beat_model`, `drew_model`. The model's score lives in `model_entries`, **not** here. |
@@ -845,6 +845,7 @@ editor.
 | `0006_admin_controls.sql` | `model_entries.counts_in_standings`, `model_season_points/races()`, the `admin_*` operator functions | ✅ confirmed 2026-08-11 |
 | `0007_duel_standings.sql` | strips the duel bonus from `scores` history; `leaderboard` gains `margin` and drops the championship payout from `points`; `standings_page` returns `margin` and orders on the duel | ✅ confirmed 2026-08-15 |
 | `0008_race_emails.sql` | `profiles.email_opt_out` + `unsubscribe_token`, `email_log`, `email_recipients()`, `email_prefs()`, `set_email_opt_out()` | ✅ confirmed 2026-08-15 |
+| `0009_model_picks_secret_until_lock.sql` | replaces `public read` on `model_entries` with `read post-lock`; adds the `model_entry_status` view | ⚠️ **apply before the next race weekend** — until it runs, the model's picks are readable while the race is open |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
@@ -1333,17 +1334,30 @@ trust before signing up. Three things about it:
   itself a piece of evidence. `.rise-in-5` (280ms) was added for it.
 
 **`/game`** (`revalidate = 60`) — finds the next `scheduled` race with
-`race_at > now`, then fetches in parallel: the active roster, the model entry
-(only `pre_quali`/`locked_at` — never the order, which would leak the model's
-picks pre-race), your prediction, the last scored race, and whether you have
-season picks. Renders the countdown, a "last duel" strip, and the editor.
-`canPlay = signed in && race_at is in the future`.
+`race_at > now`, then fetches in parallel: the active roster, **`model_entry_status`**
+(`pre_quali`/`locked_at` — has the model filed, and in which mode), your
+prediction, the last scored race, and whether you have season picks. Renders
+the countdown, a "last duel" strip, and the editor. `canPlay = signed in &&
+race_at is in the future`.
 
-The one `predicted_order` this page does read is the **last scored race's**,
-and only for a signed-out visitor: it fills the grid behind the sign-in gate
-(§9.5). The rule above is unchanged and load-bearing — the upcoming race's
-order never reaches the client here, or signing out would become a way to read
-the model's picks before the lock.
+**The model's picks are secret until the lock, and that is now a policy rather
+than a habit.** This page was careful never to select `predicted_order` for the
+upcoming race — but `model_entries` was `public read`, and `lock_race.py`
+refreshes the entry hourly through the weekend, so the order, the probability
+matrix (what rarity multipliers are computed from) and the safety-car bet were
+all one anon-key query away, and `/model` printed the grid of the race everyone
+was still playing. Migration 0009 cuts reads of the table to races that are no
+longer `scheduled`, exactly mirroring `predictions`' `read own or post-lock`,
+and adds `model_entry_status` for the part that was never secret. `/model` also
+filters `status <> 'scheduled'` itself, so the page cannot quietly come to
+depend on being denied.
+
+The one `predicted_order` this page reads is the **last scored race's**, and
+only for a signed-out visitor: it fills the grid behind the sign-in gate
+(§9.5).
+
+⚠️ The Flask app (§5) predicts the *upcoming* race by design. It is not
+deployed; deploying it publicly would reopen exactly what 0009 closed.
 
 **`/game/races/[round]`** (`revalidate = 120`) — redirects to `/game` if the
 race is still `scheduled`. Shows the duel banner (win/draw/loss + the margin),
@@ -2084,6 +2098,19 @@ page renders empty locally; the harness is not optional.
 | 2 | README says Optuna runs 50 trials; `train.py` uses 60 | Documentation only | Align the README |
 
 ### 13.1.1 Fixed
+
+- **The model's picks were public while you were still picking** (fixed
+  2026-08-16, `fix/model-picks-secret-until-lock`, migration 0009). `predictions`
+  had carried "yours until the race locks" since day one; `model_entries` was
+  `public read` with no such test, and `lock_race.py` writes the model's entry
+  as soon as qualifying is over and refreshes it hourly. So from Saturday
+  afternoon, one anon-key query — or a visit to `/model`, which printed the
+  grid of the highest round that had an entry — gave you the machine's top 10
+  **and** its probability matrix, which is what decides whether your own call
+  counts as bold. Found while wiring the signed-out preview on `/game` (P-3):
+  the page had a comment explaining it must never read the order, which was
+  true of the page and not of the database. The rule is a policy now, and the
+  frontend filters on `status` as well rather than relying on being denied.
 
 - **The phone hid the two numbers the game is played for** (fixed 2026-08-15,
   `fix/mobile-worksite`). Found by an audit of the live site driven at a real

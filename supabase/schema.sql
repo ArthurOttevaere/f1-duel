@@ -387,7 +387,6 @@ alter table public.league_members enable row level security;
 create policy "public read" on public.profiles      for select using (true);
 create policy "public read" on public.drivers       for select using (true);
 create policy "public read" on public.races         for select using (true);
-create policy "public read" on public.model_entries for select using (true);
 create policy "public read" on public.results       for select using (true);
 create policy "public read" on public.scores        for select using (true);
 create policy "public read" on public.season_picks  for select using (true);
@@ -403,6 +402,18 @@ create policy "insert own details" on public.player_details
   for insert with check (auth.uid() = id);
 create policy "update own details" on public.player_details
   for update using (auth.uid() = id) with check (auth.uid() = id);
+
+-- Fair play, and the model is held to it too (migration 0009): its entry is
+-- refreshed hourly through the weekend, so `public read` handed out its top 10,
+-- its probability matrix — which is what rarity multipliers are computed from —
+-- and its safety-car bet while everyone could still play. Same rule as the
+-- players below, minus the owner half: the model has no owner, so nobody sees
+-- it early. `model_entry_status` (below) keeps "has it filed yet" public.
+create policy "read post-lock" on public.model_entries
+  for select using (
+    exists (select 1 from public.races r
+            where r.id = race_id and r.status <> 'scheduled')
+  );
 
 -- Fair play: your prediction is yours until the race locks, then it's public.
 create policy "read own or post-lock" on public.predictions
@@ -447,6 +458,20 @@ create policy "members read" on public.league_members
   for select using (public.is_league_member(league_id));
 create policy "leave league" on public.league_members
   for delete using (auth.uid() = user_id);
+
+-- ─── Has the model filed yet? ───────────────────────────────────────────────
+
+-- The three columns of `model_entries` that were never secret. Deliberately
+-- **not** security_invoker: its whole job is to reach past "read post-lock" and
+-- let an open race say "model entry is in (post-quali)" without carrying the
+-- order, the matrix or the safety-car bet. See migration 0009.
+create or replace view public.model_entry_status as
+  select race_id, pre_quali, locked_at
+    from public.model_entries;
+
+alter view public.model_entry_status set (security_invoker = false);
+
+grant select on public.model_entry_status to anon, authenticated;
 
 -- ─── Leaderboard ────────────────────────────────────────────────────────────
 

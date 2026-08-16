@@ -24,7 +24,14 @@ model app never touches it; the game frontend (`web/`) and the automation
 
 - **anon key** (browser): every table is guarded by the RLS policies in
   `schema.sql`. A signed-in user can only write their own prediction, and only
-  while the race is still open; everyone's picks stay hidden until lights-out.
+  while the race is still open; everyone's picks stay hidden until lights-out —
+  **the model's included** (migration 0009). `model_entries` was `public read`,
+  and `lock_race.py` refreshes the model's entry hourly through a race weekend,
+  so its top 10, its probability matrix and its safety-car bet were all
+  readable while the race was still open. They now sit behind the same
+  `status <> 'scheduled'` test as `predictions`. The `model_entry_status` view
+  keeps the harmless part public — whether the model has filed, and in which
+  mode — so the game page can still say so.
 - **service_role key** (jobs only, never shipped to the client): bypasses RLS
   to write races, model entries, results and scores.
 
@@ -104,6 +111,9 @@ the numbered files in `migrations/` in order, in the SQL editor:
 | `0004_standings_pagination.sql` | `standings_page/count/rank_at` — paged standings past 1000 players |
 | `0005_league_invites_and_account_deletion.sql` | `league_by_code()` (invite links) and `delete_account()` (self-serve deletion) |
 | `0006_admin_controls.sql` | `model_entries.counts_in_standings` + the operator functions: reset/restore the model's season score, list and delete players |
+| `0007_duel_standings.sql` | The standings rank on the duel: `leaderboard` gains `margin`, `points` drops the championship payout |
+| `0008_race_emails.sql` | The two mails per Grand Prix: opt-out + token on `profiles`, `email_log`, `email_recipients()` |
+| `0009_model_picks_secret_until_lock.sql` | `model_entries` reads cut to races that are no longer `scheduled` + the `model_entry_status` view |
 
 ## The 1000-row cap
 

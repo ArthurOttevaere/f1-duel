@@ -186,11 +186,15 @@ export default async function Home() {
               position. You can read that grid yourself — it&apos;s the same one
               your rarity multipliers come out of.
             </p>
+            {/* Not "what it expects this weekend": since migration 0009 the
+                grid for a race that is still open is nobody's to read — the
+                model is held to the same lock as the players. What /model
+                publishes is the last race it actually played. */}
             <Link
               href="/model"
               className="pressable mt-8 inline-block rounded-full border border-line-hi px-6 py-3 text-sm font-semibold transition-colors hover:bg-glass-strong"
             >
-              See what it expects this weekend →
+              See how it read the last race →
             </Link>
           </div>
 
