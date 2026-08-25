@@ -362,7 +362,7 @@ scheduler.
 ## 7. Repository layout & git workflow
 
 ```
-f1_race_predictor/
+f1-duel/
   src/        ML pipeline + Flask model app (existing, unchanged)
   webapp/     model page frontend (existing, unchanged)
   models/     trained artifacts

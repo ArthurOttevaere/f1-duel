@@ -181,7 +181,7 @@ December        settle_season.py championship-pick bonuses awarded
 ## 3. Repository map
 
 ```
-f1_race_predictor/
+f1-duel/
 ├── src/                     ML pipeline + Flask model app  (Python)
 │   ├── collect.py           FastF1 → CSV                    (377 lines)
 │   ├── features.py          CSV → ML training set           (373)
@@ -1923,7 +1923,13 @@ python jobs/sync_schedule.py 2026
 
 ## 11. Part VIII — Git and GitHub workflow
 
-Repository: <https://github.com/ArthurOttevaere/f1_race_predictor>
+Repository: <https://github.com/ArthurOttevaere/f1-duel>
+
+Renamed from `f1_race_predictor` in August 2026, once the game — not the
+model — became the product. GitHub redirects the old URL and the old git
+remote indefinitely, so nothing breaks, but new clones should use the new
+name. The Vercel *project* is named separately and still answers on
+`f1-race-predictor-one.vercel.app`; renaming the repo does not touch it.
 
 - **`main` is the only long-lived branch.** The historical `model` branch was
   merged and retired; model work and game work are separated by *directory*.
