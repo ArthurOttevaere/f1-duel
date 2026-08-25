@@ -36,7 +36,7 @@ export const SITE_URL = (
 ).replace(/\/$/, "");
 
 /** The project's source, and the author it's credited to. */
-export const REPO_URL = "https://github.com/ArthurOttevaere/f1_race_predictor";
+export const REPO_URL = "https://github.com/ArthurOttevaere/f1-duel";
 export const AUTHOR = "Arthur Ottevaere";
 export const AUTHOR_URL = "https://github.com/ArthurOttevaere";
 
