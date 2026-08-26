@@ -1224,7 +1224,7 @@ app/
 │   ├── layout.tsx             renders SiteNav + SiteFooter ONCE
 │   ├── loading.tsx            RaceLoader skeleton
 │   ├── not-found.tsx          404 for a notFound() thrown inside the group
-│   ├── page.tsx               Home (hero, game section, model section)
+│   ├── page.tsx               Home (hero, game section, opponent section)
 │   ├── model/page.tsx         Native explanation of the opponent
 │   ├── rules/page.tsx         The full rulebook
 │   ├── privacy/page.tsx       GDPR notice
@@ -1601,7 +1601,8 @@ exists so the site never depends on the Flask app being deployed;
 `LIVE_MODEL_URL` adds an outbound link only when `NEXT_PUBLIC_MODEL_URL` is set
 to a real remote URL (a `localhost` value is ignored on purpose).
 
-It now also **shows** the model rather than only describing it. `latestMatrix()`
+It now also **shows** the model rather than only describing it.
+`latestMatrix()` (`lib/latestMatrix.ts`, `cache()`-wrapped)
 finds the highest-round race of the season that has a `model_entries` row and
 draws its `prob_matrix` (`components/ProbabilityGrid.tsx`) — the
 actual output of the 10,000-run simulation the page had been describing in
@@ -1613,6 +1614,15 @@ a fat JSON blob and only the one being drawn should cross the wire.
 generic ramp. That is the point of it: intensity is the model's confidence, and
 since the multiplier runs the other way, *the pale end is where the points
 are*. Rule and data become the same picture.
+
+**The home page reads the same matrix.** `latestMatrix()` used to live inside
+this page; it moved to `lib/latestMatrix.ts` when `components/ProbabilityShot.tsx`
+started cropping the same rows into the home page's opponent section, replacing
+a card that listed the model's libraries. Two callers, one query: `cache()`
+collapses them for the request, like `nextRace()` and `getOwnProfile()`. The
+crop is `aria-hidden` behind an `sr-only` sentence and links here for the
+readable cut; with no matrix it renders nothing and the section collapses to a
+single column.
 
 One thing not to undo: text sits on top of its own fill and is **light** ink at
 every band — the strongest fill composites to ≈`#e11b36`, which is 4.9:1

@@ -516,6 +516,20 @@ screen reader would otherwise count everything twice. And the number is only
 allowed at all when the content **is** a sequence — steps that happen in order.
 A set of features numbered 01–04 is decoration pretending to be structure.
 
+**A step's evidence belongs inside the step.** The home page used to make the
+claim in step 03 ("Boldness pays") and prove it forty lines below, under a
+heading of its own — and both blocks were drawn in the same hand, hairline
+rows with a mono label on the left, four rem apart. That reads as one
+seven-row list, not as two subjects. `ScoringScale` now renders *inside* step
+03 against a single `border-l`, with `heading={null}`, because the step's own
+title already names it. One rule down the left is all the subordination a
+sub-block needs; a card there would be a band (§1.4).
+
+The knock-on is worth knowing: a step that grows tall makes its sibling column
+short. The two-column grid takes `lg:items-start` and the shot beside it takes
+a fixed height, so the crop stays a crop and the air below it is deliberate
+rather than a stretched empty box.
+
 ---
 
 ## 6. Surfaces and materials
@@ -973,6 +987,25 @@ it.
 Before the first race of a season there is no order to borrow and the board
 renders empty. That is not a fallback — it is exactly what the screen looks like
 in March.
+
+**There is a second shot, and it follows the same two rules.**
+`components/ProbabilityShot.tsx` crops the model's real probability matrix for
+the last Grand Prix it played into the opponent section of the home page: eight
+drivers, six positions, in `ProbabilityGrid`'s own bands. It is the game's
+multiplier tiers as colour, so the pale end of the crop is exactly where the
+points are. It bleeds past its column from `lg` up and dissolves into
+`.shot-fade-x` / `.shot-fade-y`, and the whole replica is `aria-hidden` behind
+one `sr-only` sentence, because two hundred bare percentages read to a screen
+reader as noise rather than as the argument. The link beside it leads to the
+readable cut.
+
+It replaced a `glass-card` listing `Ensemble · XGBoost + LightGBM` and
+`Features · 39`, which is a résumé, next to a paragraph describing a grid
+nobody could see. Both shots follow the same shape: the pure renderer is
+exported (`PickBoard`, `ProbabilityCrop`) so it can be drawn from fixtures, and
+the default export is the async wrapper that loads. Between seasons there is no
+matrix, the component renders nothing, and the section collapses to one column
+— the rule the hero already follows with its circuit trace.
 
 No stock photography, no illustration, no icon sprites. The grids, the checkered
 edge and the glows are CSS; the circuit trace (§6.3) is an inline `<path>`
