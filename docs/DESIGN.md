@@ -199,7 +199,7 @@ Three, all drawn in CSS, all borrowed from the sport rather than from a UI kit:
 | --- | --- | --- |
 | **Start-light gantry** (`.start-lights`) | Boot screen, full-page loader | Waiting, about to begin |
 | **Checkered edge** (`.checker-edge`) | Above the footer, on the race poster | The end of the page as a finish line |
-| **Checkered rule** (`.checker-rule`) | The top edge of the last-race card | The end of *a race*. Half the height, half the rows, dimmer — see §6.4 |
+| **Checkered rule** (`.checker-rule`) | The top edge of the last-race card | The end of *a race*. Same two rows, smaller squares, unlit edge — see §6.4 |
 | **Circuit trace** (`CircuitTrace.tsx`) | The hero | *This* Sunday. The ornament is a reading of the calendar. |
 | **Faint 72px grid** (`.hero-grid`, `.cover-grid`) | Hero, profile cover | Telemetry / technical drawing |
 | **Grain** (`.grain`) | Every page, fixed, 3.2% | Tooth. A surface, not a render. |
@@ -753,16 +753,22 @@ there is nothing to lose.
 
 `.hero-grid` (72px cells, radial mask), `.cover-grid` (34px cells, linear
 bottom fade), `.checker-edge` (10px squares, two rows, masked at both ends),
-`.checker-rule` (6px squares, one row, 50% white, masked at both ends). All are
-`pointer-events: none` decoration drawn with gradients — no images.
+`.checker-rule` (6px squares, two rows, 72% white, masked at both ends). All
+are `pointer-events: none` decoration drawn with gradients — no images.
 
 **Two cuts of the same flag, and they must not be confused.** `.checker-edge`
 runs the full width above the footer: it is the end of the *site*.
 `.checker-rule` sits inside the top edge of the home page's last-race card: it
-is the end of a *race*. The second one exists at half the height, half the
-rows, dimmer whites and no edge highlight precisely so the first one keeps its
-weight — and it is a card's own edge rather than a band across a section, which
-§1.4 forbids.
+is the end of a *race*, and it stays subordinate so the first one keeps its
+weight — smaller squares, no edge highlight, transparent seconds where the
+footer has opaque black, and a card's own edge rather than a band across a
+section, which §1.4 forbids.
+
+**What it may not economise on is rows.** It ran at one row of 6px squares for
+a while, which was the wrong lever: a single row of alternating squares is not
+a chequerboard, it is a dashed line, and nobody could tell what it was meant to
+be. The pattern only becomes a flag once a square has another square
+diagonally beneath it, so **two rows is the floor for any cut of this motif.**
 
 ---
 
