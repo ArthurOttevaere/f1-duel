@@ -32,7 +32,7 @@ export default function FormStrip({ entries }: { entries: FormEntry[] }) {
           key={e.round}
           href={`/game/races/${e.round}`}
           title={`R${e.round} ${e.race} — ${formatPoints(e.points)} pts`}
-          className={`pressable flex h-9 w-9 items-center justify-center rounded-lg border font-mono text-sm font-bold transition-colors hover:border-line-hi ${style[e.outcome]}`}
+          className={`pressable flex h-9 w-9 items-center justify-center rounded-control border font-mono text-sm font-bold transition-colors hover:border-line-hi ${style[e.outcome]}`}
         >
           {e.outcome}
         </Link>

@@ -40,13 +40,13 @@ export default function NotFoundBody() {
         </Link>
         <Link
           href="/game/standings"
-          className="pressable glass-chip rounded-full px-6 py-3 text-sm font-semibold transition-colors hover:border-line-hi"
+          className="pressable glass-chip rounded-control px-6 py-3 text-sm font-semibold transition-colors hover:border-line-hi"
         >
           Standings
         </Link>
         <Link
           href="/"
-          className="pressable glass-chip rounded-full px-6 py-3 text-sm font-semibold transition-colors hover:border-line-hi"
+          className="pressable glass-chip rounded-control px-6 py-3 text-sm font-semibold transition-colors hover:border-line-hi"
         >
           Home
         </Link>

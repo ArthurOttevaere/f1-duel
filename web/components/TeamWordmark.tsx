@@ -32,7 +32,7 @@ export default function TeamWordmark({
       <span className={`font-semibold uppercase ${type}`}>{team}</span>
       <span
         aria-hidden
-        className={`${bar} w-full rounded-full`}
+        className={`${bar} w-full`}
         style={{ background: `linear-gradient(90deg, ${paint}, transparent)` }}
       />
     </span>

@@ -128,11 +128,11 @@ function Side({
     // Each side is its own panel: stacked on a phone, the two explanations ran
     // together under labels small enough to skip, and you couldn't tell whose
     // points you were reading.
-    <div className="rounded-xl border border-line bg-glass p-4">
+    <div className="rounded-control border border-line bg-glass p-4">
       <p className="flex items-center gap-2 font-mono text-sm font-bold tracking-wider uppercase">
         <span
           aria-hidden
-          className={`h-4 w-1 rounded-full ${mine ? "bg-race" : "bg-ink-mute"}`}
+          className={`h-4 w-1 ${mine ? "bg-race" : "bg-ink-mute"}`}
         />
         <span className={mine ? "text-ink" : "text-ink-dim"}>{who}</span>
       </p>
@@ -167,7 +167,7 @@ function ReceiptCard({
 }) {
   const bonuses = Object.entries(receipt.bonuses).filter(([, v]) => v > 0);
   return (
-    <div className="rounded-2xl border border-line bg-glass p-5">
+    <div className="rounded-panel border border-line bg-glass p-5">
       <p className="font-mono text-[0.65rem] tracking-[0.2em] text-ink-mute uppercase">
         {title}
       </p>
@@ -222,7 +222,7 @@ function DriverLine({
     <span className="flex items-center gap-2">
       <span
         aria-hidden
-        className="h-4 w-0.5 shrink-0 rounded-full"
+        className="h-4 w-0.5 shrink-0"
         style={{ background: color }}
       />
       <span className={`truncate text-sm ${tone ?? ""}`}>{name}</span>
@@ -230,7 +230,7 @@ function DriverLine({
           out there it sat against the next column and read as that
           column's score. */}
       {points !== undefined && points > 0 && (
-        <span className="shrink-0 rounded-md bg-white/[0.06] px-1.5 py-0.5 font-mono text-[0.7rem] text-ink-dim">
+        <span className="shrink-0 rounded-control bg-white/[0.06] px-1.5 py-0.5 font-mono text-[0.7rem] text-ink-dim">
           +{formatPoints(points)}
           {multiplier !== undefined && multiplier > 1 && (
             <span className="ml-1 text-race">{multiplierLabel(multiplier)}</span>

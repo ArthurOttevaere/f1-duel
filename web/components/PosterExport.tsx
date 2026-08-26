@@ -38,7 +38,7 @@ function ModelToggle({
       aria-checked={on}
       disabled={disabled}
       onClick={() => onChange(!on)}
-      className="pressable flex w-full items-center justify-between gap-4 rounded-2xl border border-line bg-glass px-4 py-3 text-left transition-colors hover:border-line-hi disabled:opacity-50"
+      className="pressable flex w-full items-center justify-between gap-4 rounded-panel border border-line bg-glass px-4 py-3 text-left transition-colors hover:border-line-hi disabled:opacity-50"
     >
       <span>
         <span className="block text-sm font-medium">Include the model</span>
@@ -184,14 +184,14 @@ export default function PosterExport({ data }: { data: PosterData }) {
   );
 
   const actionClass =
-    "pressable rounded-full px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-60";
+    "pressable rounded-control px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-60";
 
   return (
     <>
       <button
         type="button"
         onClick={() => show(() => setOpen(true))}
-        className="pressable glass-chip flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors hover:border-line-hi"
+        className="pressable glass-chip flex items-center gap-2 rounded-control px-4 py-2 text-sm font-semibold transition-colors hover:border-line-hi"
       >
         <span aria-hidden>🏁</span>
         Export poster
@@ -225,7 +225,7 @@ export default function PosterExport({ data }: { data: PosterData }) {
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Close"
-                  className="pressable rounded-full px-3 py-1 text-lg text-ink-mute transition-colors hover:text-ink"
+                  className="pressable rounded-control px-3 py-1 text-lg text-ink-mute transition-colors hover:text-ink"
                 >
                   ✕
                 </button>
@@ -242,7 +242,7 @@ export default function PosterExport({ data }: { data: PosterData }) {
                       // max-w-full matters more than it looks: a 4:5 sheet at
                       // 60vh is wider than a phone, and without it the whole
                       // dialog scrolls sideways.
-                      className="max-h-[45vh] w-auto max-w-full rounded-xl border border-line object-contain shadow-2xl sm:max-h-[60vh]"
+                      className="max-h-[45vh] w-auto max-w-full rounded-control border border-line object-contain shadow-2xl sm:max-h-[60vh]"
                     />
                   ) : (
                     // The poster is redrawn on open and on every toggle, and on
@@ -251,7 +251,7 @@ export default function PosterExport({ data }: { data: PosterData }) {
                     // wait spelled out inside it.
                     <div
                       role="status"
-                      className="flex aspect-[1080/1350] w-full max-w-[min(100%,16rem)] flex-col items-center justify-center gap-3 rounded-xl border border-line bg-glass text-ink-mute"
+                      className="flex aspect-[1080/1350] w-full max-w-[min(100%,16rem)] flex-col items-center justify-center gap-3 rounded-control border border-line bg-glass text-ink-mute"
                     >
                       <Spinner className="text-base" />
                       <p className="text-xs">Developing the poster…</p>

@@ -199,13 +199,13 @@ export default function LoginPage() {
         ) : (
           <>
             {notice && (
-              <div className="mb-5 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-300">
+              <div className="mb-5 rounded-control border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-300">
                 {notice}
               </div>
             )}
 
             {/* Mode toggle */}
-            <div className="glass-chip flex rounded-full p-1 text-sm">
+            <div className="glass-chip flex rounded-control p-1 text-sm">
               {(["signin", "signup"] as Mode[]).map((m) => (
                 <button
                   key={m}
@@ -214,7 +214,7 @@ export default function LoginPage() {
                     setMode(m);
                     resetMessages();
                   }}
-                  className={`flex-1 rounded-full py-2 font-medium transition-colors ${
+                  className={`flex-1 rounded-control py-2 font-medium transition-colors ${
                     mode === m
                       ? "bg-race text-white"
                       : "text-ink-dim hover:text-ink"
@@ -245,7 +245,7 @@ export default function LoginPage() {
                   resetMessages();
                 }}
                 placeholder="you@example.com"
-                className="rounded-xl border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi"
+                className="rounded-control border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi"
               />
 
               {mode === "signup" && (
@@ -261,7 +261,7 @@ export default function LoginPage() {
                     placeholder="Username"
                     pattern="[A-Za-z0-9_]{3,20}"
                     title="3–20 characters: letters, numbers, underscore"
-                    className="rounded-xl border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi"
+                    className="rounded-control border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi"
                   />
 
                   <PlayerDetailsFields
@@ -290,7 +290,7 @@ export default function LoginPage() {
                 placeholder={
                   mode === "signin" ? "Password" : "Password (8+ characters)"
                 }
-                className="rounded-xl border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi"
+                className="rounded-control border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi"
               />
 
               <button
@@ -328,7 +328,7 @@ export default function LoginPage() {
 
             <button
               onClick={signInWithGoogle}
-              className="pressable glass-chip w-full rounded-xl py-3 text-sm font-semibold transition-colors hover:border-line-hi"
+              className="pressable glass-chip w-full rounded-control py-3 text-sm font-semibold transition-colors hover:border-line-hi"
             >
               Continue with Google
             </button>

@@ -413,17 +413,37 @@ Grids use `gap-4` between cards, `gap-2`/`gap-1.5` between list rows.
 
 ### 5.4 Radii
 
-Four steps, and they are semantic rather than free:
+**Two tokens, and a capsule kept for two jobs.**
 
-| Radius | Class | For |
+| Radius | Token / class | For |
 | --- | --- | --- |
-| 9999px | `rounded-full` | Anything pill-shaped: buttons, chips, badges, avatars, bars. The most common radius on the site by a distance (76 uses). |
-| 1.25rem | `.glass-card` | Cards. Set in the class, not per use. |
-| 1rem | `rounded-2xl` | The nav bar, sheets, large panels. |
-| 0.75rem | `rounded-xl` | Rows, inputs, list items, tiles. |
+| 5px | `--radius-control` → `rounded-control` | Anything you press or type into: buttons, fields, chips, list rows, tiles, segments. |
+| 10px | `--radius-panel` → `rounded-panel` | Anything that *holds* things: `.glass-card`, the nav bar, sheets, large panels. |
+| 9999px | `rounded-full` | A badge, a status dot — and shapes that genuinely are circles. |
+| 0 | *(nothing)* | Bars and stripes. |
 
-`rounded-md`/`rounded-lg` appear a handful of times and are legacy — prefer
-`rounded-xl`.
+The site was **76 `rounded-full`**: every button, chip, badge and field was a
+capsule. The capsule is the default control of the last few years, and it is
+*soft* — where the visual language of this sport is rectangular and technical.
+Pit boards, timing towers, number plates, entry tickets.
+
+Inner corners are tighter than outer ones, so a control inside a panel is 5
+inside 10. That relationship is the rule; the absolute values matter less.
+
+**Where the capsule survives, and why:**
+
+- **A badge** (`bg-race/15 px-2 py-0.5` — the `YOU` marker) and **a status
+  dot**. Both are read as *shapes* rather than as surfaces, and both would
+  read as very small buttons at 5px.
+- **Things that are circles.** Driver and profile avatars, the start-light
+  bulbs, the spinner, a toggle knob and its track, the sheet's grab handle,
+  and a bare-icon tap target (`size-10`, the hamburger and the ✕). A round hit
+  area around an icon is a *target*, not a control surface.
+
+**Bars lost their caps.** Constructor stripes, the pick-progress segments, the
+nav's active underline, the chart legend swatches: pill ends on a 2px rule are
+a UI-kit habit. Square-ended is what a timing bar actually looks like, and at
+that size it costs nothing to be right.
 
 ---
 
@@ -553,7 +573,8 @@ in `text-race`, never a filled red one — filled red is the primary action.
 
 ### 7.3 Chips and badges
 
-- **Pill badge:** `rounded-full bg-race/15 px-2 py-0.5 font-mono text-[0.65rem] text-race` — the `YOU` marker on a board.
+- **Pill badge:** `rounded-full bg-race/15 px-2 py-0.5 font-mono text-[0.65rem] text-race` — the `YOU` marker on a board. One of the two places the capsule survives (§5.4).
+- **Chip:** `glass-chip rounded-control px-3 py-1.5 text-xs` — a jump link, a filter, a status. Reads as a tab on an instrument rather than as a small pill.
 - **Tint fills** run `bg-race/5` (a selected row) → `/10` (a quiet badge) → `/15` (a loud one). Those three steps only.
 - **Toggle button:** `border-race bg-race text-white` when on, `border-line bg-glass text-ink-dim` when off, `aria-pressed` carrying the state. Used by the position picker in §12.2.
 
@@ -944,10 +965,10 @@ Type        font-sans (Archivo)                 prose, buttons, names
             font-mono (Geist Mono)              every number and label
             tabular-nums                        anything that ticks
 
-Radius      rounded-full                        pills, avatars, bars
-            rounded-2xl                         nav, sheets, panels
-            rounded-xl                          rows, inputs, tiles
-            (glass-card = 1.25rem, in the class)
+Radius      rounded-control      5px           buttons, fields, chips, rows
+            rounded-panel        10px          cards, nav, sheets, panels
+            rounded-full                        badges, dots, actual circles
+            (nothing)                           bars and stripes
 
 Shadow      --shadow-panel                      glass-card, desktop
             --shadow-panel-sm                   glass-card, phone

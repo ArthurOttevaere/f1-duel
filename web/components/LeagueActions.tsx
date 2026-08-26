@@ -93,7 +93,7 @@ export default function LeagueActions({ hasLeagues }: { hasLeagues: boolean }) {
   }
 
   const tab = (active: boolean) =>
-    `pressable rounded-full px-3.5 py-1 text-xs font-semibold transition-colors ${
+    `pressable rounded-control px-3.5 py-1 text-xs font-semibold transition-colors ${
       active ? "bg-race text-white" : "text-ink-dim hover:text-ink"
     }`;
 
@@ -103,7 +103,7 @@ export default function LeagueActions({ hasLeagues }: { hasLeagues: boolean }) {
         type="button"
         onClick={() => (mode === "idle" ? switchTo("create") : close())}
         aria-expanded={mode !== "idle"}
-        className={`pressable rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+        className={`pressable rounded-control px-4 py-1.5 text-sm font-medium transition-colors ${
           mode === "idle"
             ? "glass-chip text-ink-mute hover:text-ink"
             : "glass-chip text-ink"
@@ -114,7 +114,7 @@ export default function LeagueActions({ hasLeagues }: { hasLeagues: boolean }) {
 
       {mode !== "idle" && (
         <div className="glass-card basis-full p-4 sm:p-5">
-          <div className="inline-flex gap-1 rounded-full border border-line bg-black/25 p-1">
+          <div className="inline-flex gap-1 rounded-control border border-line bg-black/25 p-1">
             <button type="button" onClick={() => switchTo("create")} className={tab(mode === "create")}>
               Create
             </button>
@@ -137,7 +137,7 @@ export default function LeagueActions({ hasLeagues }: { hasLeagues: boolean }) {
               autoCapitalize={mode === "create" ? "words" : "characters"}
               autoComplete="off"
               required
-              className="min-w-0 flex-1 rounded-full border border-line bg-black/25 px-4 py-2 text-sm outline-none placeholder:text-ink-mute focus:border-line-hi sm:max-w-xs sm:flex-none"
+              className="min-w-0 flex-1 rounded-control border border-line bg-black/25 px-4 py-2 text-sm outline-none placeholder:text-ink-mute focus:border-line-hi sm:max-w-xs sm:flex-none"
             />
             <button
               type="submit"

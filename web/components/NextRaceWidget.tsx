@@ -35,7 +35,7 @@ export default async function NextRaceWidget() {
   // fall back to the line this widget replaced rather than an empty box.
   if (!race) {
     return (
-      <p className="rise-in glass-chip max-w-[90vw] rounded-full px-4 py-1.5 font-mono text-[0.65rem] tracking-[0.15em] text-ink-dim uppercase sm:text-xs sm:tracking-[0.2em]">
+      <p className="rise-in glass-chip max-w-[90vw] rounded-control px-4 py-1.5 font-mono text-[0.65rem] tracking-[0.15em] text-ink-dim uppercase sm:text-xs sm:tracking-[0.2em]">
         {CURRENT_SEASON} season · one duel per Grand Prix
       </p>
     );
@@ -57,7 +57,7 @@ export default async function NextRaceWidget() {
     <Link
       href="/game"
       aria-label={`Next race: ${race.name}. Play F1 Duel.`}
-      className="rise-in pressable glass-chip flex max-w-[90vw] items-center gap-3 rounded-xl px-3.5 py-2 text-left transition-colors hover:border-line-hi sm:gap-8 sm:rounded-2xl sm:px-8 sm:py-3.5"
+      className="rise-in pressable glass-chip flex max-w-[90vw] items-center gap-3 rounded-control px-3.5 py-2 text-left transition-colors hover:border-line-hi sm:gap-8 sm:rounded-panel sm:px-8 sm:py-3.5"
     >
       {/* min-w-0 so a long circuit name truncates instead of squeezing the
           clock off the side of a narrow phone. */}

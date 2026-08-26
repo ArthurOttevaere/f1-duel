@@ -70,7 +70,7 @@ function PageLink({
   return (
     <Link
       href={`/game/standings${query ? `?${query}` : ""}`}
-      className="pressable glass-chip rounded-full px-4 py-1.5 text-ink-dim transition-colors hover:text-ink"
+      className="pressable glass-chip rounded-control px-4 py-1.5 text-ink-dim transition-colors hover:text-ink"
     >
       {label}
     </Link>
@@ -187,7 +187,7 @@ export default async function StandingsPage({
                 <p className="mt-1 font-mono text-xs text-ink-mute">
                   {totalPlayers} {totalPlayers === 1 ? "player" : "players"} ·
                   code{" "}
-                  <span className="rounded-md border border-line bg-black/25 px-2 py-0.5 text-ink select-all">
+                  <span className="rounded-control border border-line bg-black/25 px-2 py-0.5 text-ink select-all">
                     {selectedLeague.code}
                   </span>
                 </p>
@@ -243,9 +243,9 @@ export default async function StandingsPage({
                 <Link
                   key={r.id}
                   href={`/game/races/${r.round}`}
-                  className="pressable glass-chip flex items-center gap-3 rounded-2xl px-3 py-2.5 transition-colors hover:border-line-hi"
+                  className="pressable glass-chip flex items-center gap-3 rounded-panel px-3 py-2.5 transition-colors hover:border-line-hi"
                 >
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-race/10 font-mono text-xs font-semibold text-race">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-control bg-race/10 font-mono text-xs font-semibold text-race">
                     {String(r.round).padStart(2, "0")}
                   </span>
                   <span className="min-w-0 flex-1">
@@ -420,7 +420,7 @@ function Board({
         {rows.map((r) => (
           <li
             key={r.key}
-            className={`flex items-center gap-3 rounded-xl border px-3 py-2.5 ${
+            className={`flex items-center gap-3 rounded-control border px-3 py-2.5 ${
               r.isViewer
                 ? "border-line-hi bg-glass-strong"
                 : "border-line bg-glass"
@@ -447,7 +447,7 @@ function Board({
           </li>
         ))}
         {empty && (
-          <li className="rounded-xl border border-line bg-glass px-4 py-8 text-center text-sm text-ink-mute">
+          <li className="rounded-control border border-line bg-glass px-4 py-8 text-center text-sm text-ink-mute">
             {EMPTY_BOARD}
           </li>
         )}

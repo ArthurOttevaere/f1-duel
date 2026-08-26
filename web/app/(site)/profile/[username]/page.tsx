@@ -364,7 +364,7 @@ export default async function ProfilePage({
           DUEL HISTORY
         </h2>
         {chrono.length === 0 ? (
-          <p className="glass-chip rounded-2xl px-5 py-4 text-sm text-ink-mute">
+          <p className="glass-chip rounded-panel px-5 py-4 text-sm text-ink-mute">
             No scored races yet —{" "}
             <Link href="/game" className="text-race underline">
               enter this weekend&apos;s duel
@@ -414,7 +414,7 @@ export default async function ProfilePage({
       {/* ── The way out (owner only) ── */}
       {isOwner && (
         <>
-          <section className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-glass px-5 py-4">
+          <section className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-panel border border-line bg-glass px-5 py-4">
             <p className="text-sm text-ink-dim">
               Signed in as{" "}
               <span className="font-medium text-ink">{profile.username}</span>
@@ -422,7 +422,7 @@ export default async function ProfilePage({
             <form action="/auth/signout" method="post">
               <button
                 type="submit"
-                className="pressable rounded-full border border-line px-5 py-1.5 text-sm text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
+                className="pressable rounded-control border border-line px-5 py-1.5 text-sm text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
               >
                 Sign out
               </button>
@@ -445,7 +445,7 @@ function Chip({
 }) {
   return (
     <span
-      className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm font-medium"
+      className="inline-flex items-center gap-2 rounded-control border px-3.5 py-1.5 text-sm font-medium"
       style={{ borderColor: tint(color, 0.45), background: tint(color, 0.1) }}
     >
       <span

@@ -47,7 +47,7 @@ export default function RulesPage() {
             <a
               key={s.id}
               href={`#${s.id}`}
-              className="glass-chip rounded-full px-3 py-1.5 text-xs text-ink-dim transition-colors hover:text-ink"
+              className="glass-chip rounded-control px-3 py-1.5 text-xs text-ink-dim transition-colors hover:text-ink"
             >
               {s.label}
             </a>

@@ -12,7 +12,7 @@ export default async function SiteNav() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <nav className="glass-chip mx-auto mt-4 flex w-[min(64rem,calc(100%-2rem))] items-center justify-between rounded-2xl px-5 py-3 shadow-[0_8px_26px_rgb(0_0_0/0.32)]">
+      <nav className="glass-chip mx-auto mt-4 flex w-[min(64rem,calc(100%-2rem))] items-center justify-between rounded-panel px-5 py-3 shadow-[0_8px_26px_rgb(0_0_0/0.32)]">
         <Link
           href="/"
           className="pressable flex items-baseline"
@@ -27,7 +27,7 @@ export default async function SiteNav() {
             <>
               <Link
                 href={`/profile/${username ?? ""}`}
-                className="pressable glass-chip hidden rounded-full px-4 py-1.5 text-sm font-medium hover:border-line-hi md:block"
+                className="pressable glass-chip hidden rounded-control px-4 py-1.5 text-sm font-medium hover:border-line-hi md:block"
               >
                 {username ?? "Profile"}
               </Link>
@@ -35,7 +35,7 @@ export default async function SiteNav() {
                 <button
                   type="submit"
                   aria-label="Sign out"
-                  className="pressable glass-chip rounded-full px-3 py-1.5 text-sm text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
+                  className="pressable glass-chip rounded-control px-3 py-1.5 text-sm text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
                 >
                   Sign out
                 </button>

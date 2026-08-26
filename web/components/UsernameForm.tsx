@@ -127,7 +127,7 @@ export default function UsernameForm({
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-3">
-      <div className="flex items-center gap-2 rounded-xl border border-line bg-black/25 px-4 transition-colors focus-within:border-line-hi">
+      <div className="flex items-center gap-2 rounded-control border border-line bg-black/25 px-4 transition-colors focus-within:border-line-hi">
         <span className="font-mono text-sm text-ink-mute">@</span>
         <input
           ref={inputRef}

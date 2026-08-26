@@ -108,7 +108,7 @@ export default function LeagueCardActions({
         <button
           type="button"
           onClick={copy}
-          className={`pressable rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
+          className={`pressable rounded-control px-4 py-1.5 text-sm font-semibold transition-colors ${
             shareable
               ? "glass-chip hover:border-line-hi"
               : "btn-race"
@@ -126,7 +126,7 @@ export default function LeagueCardActions({
               type="button"
               onClick={quit}
               disabled={busy}
-              className="pressable flex items-center gap-1.5 rounded-full border border-race/60 px-3 py-1 text-sm font-semibold text-race disabled:opacity-60"
+              className="pressable flex items-center gap-1.5 rounded-control border border-race/60 px-3 py-1 text-sm font-semibold text-race disabled:opacity-60"
             >
               {busy && <Spinner className="text-xs" />}
               Yes
@@ -143,7 +143,7 @@ export default function LeagueCardActions({
           <button
             type="button"
             onClick={() => setConfirming(true)}
-            className="rounded-full px-3 py-1.5 text-sm text-ink-mute transition-colors hover:text-ink"
+            className="rounded-control px-3 py-1.5 text-sm text-ink-mute transition-colors hover:text-ink"
           >
             {isOwner ? "Delete league" : "Leave"}
           </button>

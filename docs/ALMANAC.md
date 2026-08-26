@@ -1641,6 +1641,7 @@ Tokens live in `app/globals.css` under Tailwind v4's `@theme`:
 --color-ink-mute #6c7280   --color-race #ff1e3c   --color-race-deep #c8102e
 --color-glass / glass-strong / line / line-hi / card   (translucent layers)
 --shadow-panel / panel-sm / race   (tinted to the ground, never pure black)
+--radius-control 5px   --radius-panel 10px   (rounded-control / rounded-panel)
 --font-sans Archivo (wdth axis)   --font-mono Geist Mono
 --ease-out-strong cubic-bezier(.23,1,.32,1)
 --ease-in-out-strong cubic-bezier(.77,0,.175,1)
@@ -1652,6 +1653,13 @@ Two of those carry a rule that is easy to undo by accident:
   `race-deep` (`.btn-race` does it for you); `race` is the hover and everything
   small — multipliers, eyebrows, the active tab, errors. `#ff1e3c` on white is
   3.8:1 and fails AA for a button label; `#c8102e` is 5.9:1.
+- **`rounded-full` now means something.** Two tokens carry every corner on the
+  site — `rounded-control` (5px) for anything you press or type into,
+  `rounded-panel` (10px) for anything that holds things. The capsule survives
+  only on a badge, a status dot and shapes that genuinely are circles
+  (avatars, bulbs, the spinner, a toggle knob, a bare-icon tap target). Bars
+  and stripes are square-ended. Reaching for `rounded-full` on a new button is
+  the regression to watch for.
 - **Archivo is loaded with `axes: ["wdth"]`.** Drop that and the served
   `@font-face` loses its `font-stretch: 62% 125%`, and `.display` — the
   headlines, the wordmark, the nav — silently falls back to normal width with

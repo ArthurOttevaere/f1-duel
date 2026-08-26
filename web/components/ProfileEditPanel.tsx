@@ -75,7 +75,7 @@ export default function ProfileEditPanel({
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Close"
-                  className="pressable -mr-1 -mt-1 rounded-full px-2 py-1 text-xl leading-none text-ink-mute transition-colors hover:text-ink"
+                  className="pressable -mr-1 -mt-1 rounded-control px-2 py-1 text-xl leading-none text-ink-mute transition-colors hover:text-ink"
                 >
                   ×
                 </button>
@@ -107,7 +107,7 @@ export default function ProfileEditPanel({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="pressable glass-chip rounded-full px-5 py-2 text-sm font-medium text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
+        className="pressable glass-chip rounded-control px-5 py-2 text-sm font-medium text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
       >
         Edit profile
       </button>

@@ -55,7 +55,7 @@ export function detailsPayload(d: Details) {
 // silently collapsed the country select to zero width next to a `shrink-0`
 // sibling that had taken the whole row.
 const FIELD =
-  "min-w-0 rounded-xl border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi";
+  "min-w-0 rounded-control border border-line bg-black/25 px-4 py-3 text-sm outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi";
 
 /**
  * First/last name (required), country and birth year (optional). Controlled so
