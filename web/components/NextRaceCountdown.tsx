@@ -15,44 +15,63 @@ function remaining(target: number) {
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-function Segment({ value, unit }: { value: string; unit: string }) {
+/**
+ * The two coarsest units that are not zero: `2d 14h`, then `14h 06m`, then
+ * `06m 22s`. A clock that reads "0d 14h" on race morning is a clock nobody
+ * finished, and on one line of 10px type there is no room to say more.
+ */
+function coarse(l: ReturnType<typeof remaining>): string {
+  if (l.d > 0) return `${l.d}d ${pad(l.h)}h`;
+  if (l.h > 0) return `${l.h}h ${pad(l.m)}m`;
+  return `${l.m}m ${pad(l.s)}s`;
+}
+
+function Column({ value, unit }: { value: string; unit: string }) {
   return (
-    <div className="flex flex-col items-center gap-0.5">
+    <div className="flex flex-col items-center gap-1">
       {/* tabular-nums so the digits keep their box as they tick — without it
           the whole row twitches once a second on proportional figures. */}
-      <span className="font-mono text-xl font-semibold tabular-nums sm:text-2xl">
+      <span className="font-mono text-2xl font-semibold tabular-nums">
         {value}
       </span>
-      <span className="font-mono text-[0.55rem] tracking-[0.15em] text-ink-mute uppercase">
+      <span className="font-mono text-[0.55rem] tracking-[0.18em] text-ink-mute uppercase">
         {unit}
       </span>
     </div>
   );
 }
 
-/**
- * Phone-sized rendering: one line, no unit labels under the digits.
- *
- * Four labelled columns are most of the widget's height on a phone, and the
- * widget sits above the headline — so below `sm` the clock collapses to
- * `12d 04:33:12`, which says the same thing in one line of small type.
- */
-function Compact({ children }: { children: React.ReactNode }) {
+function Colon() {
   return (
-    <span className="font-mono text-sm font-semibold tabular-nums sm:hidden">
-      {children}
+    <span aria-hidden className="mt-0.5 font-mono text-xl text-ink-mute">
+      :
     </span>
   );
 }
 
 /**
- * The ticking half of the hero's next-race widget.
+ * The clock, in the two shapes the hero needs.
  *
- * Deliberately unanimated: this updates once a second, forever, and anything
- * that moved on each tick would be noise rather than polish. The only motion
- * is the hero's existing entrance, which the parent owns.
+ * `tower` — four columns of digits separated by colons, under the circuit in
+ * the race card. It is a lap board, and it is the only place on the site where
+ * a number is allowed to be this large.
+ *
+ * `inline` — one run of type for the phone line above the headline, where the
+ * card sits below the fold. Coarse units, so it settles once a minute instead
+ * of ticking under a headline.
+ *
+ * Deliberately unanimated in both: this updates once a second, forever, and
+ * anything that moved on each tick would be noise rather than polish.
  */
-export default function NextRaceCountdown({ to }: { to: string }) {
+export default function NextRaceCountdown({
+  to,
+  variant = "tower",
+  className = "",
+}: {
+  to: string;
+  variant?: "tower" | "inline";
+  className?: string;
+}) {
   const target = new Date(to).getTime();
   // Null until mounted: the server has no clock that agrees with the client's,
   // and a mismatch here would be a hydration error.
@@ -65,45 +84,52 @@ export default function NextRaceCountdown({ to }: { to: string }) {
     return () => clearInterval(id);
   }, [target]);
 
-  // Same shape and width as the real thing, so hydration swaps the digits in
-  // without shifting a single pixel around them.
-  if (!left) {
+  if (variant === "inline") {
+    // Same width as the real thing, so hydration swaps the digits in without
+    // moving the line around them.
     return (
-      <div className="flex items-center sm:items-start" aria-hidden>
-        <Compact>--d --:--:--</Compact>
-        <div className="hidden gap-4 sm:flex sm:gap-5">
-          <Segment value="--" unit="days" />
-          <Segment value="--" unit="hrs" />
-          <Segment value="--" unit="min" />
-          <Segment value="--" unit="sec" />
-        </div>
-      </div>
+      <span
+        className={`font-mono tabular-nums text-ink ${className}`}
+        {...(left && left.ms > 0
+          ? {
+              role: "timer",
+              "aria-label": `${left.d} days, ${left.h} hours until the race`,
+            }
+          : { "aria-hidden": true })}
+      >
+        {!left ? "--d --h" : left.ms === 0 ? "lights out" : coarse(left)}
+      </span>
     );
   }
 
-  if (left.ms === 0) {
+  if (left && left.ms === 0) {
     return (
-      <p className="font-mono text-xs font-semibold tracking-wider text-race uppercase sm:text-sm">
+      <p className="display text-2xl font-extrabold tracking-tight text-race uppercase">
         Lights out
       </p>
     );
   }
 
+  // Same shape and width as the real thing, so hydration swaps the digits in
+  // without shifting a single pixel around them.
+  const l = left ?? null;
   return (
     <div
-      className="flex items-center sm:items-start"
-      role="timer"
-      aria-label={`${left.d} days, ${left.h} hours, ${left.m} minutes until the race`}
+      className={`flex items-start gap-2.5 ${className}`}
+      {...(l
+        ? {
+            role: "timer",
+            "aria-label": `${l.d} days, ${l.h} hours, ${l.m} minutes until the race`,
+          }
+        : { "aria-hidden": true })}
     >
-      <Compact>
-        {left.d}d {pad(left.h)}:{pad(left.m)}:{pad(left.s)}
-      </Compact>
-      <div className="hidden gap-4 sm:flex sm:gap-5">
-        <Segment value={pad(left.d)} unit="days" />
-        <Segment value={pad(left.h)} unit="hrs" />
-        <Segment value={pad(left.m)} unit="min" />
-        <Segment value={pad(left.s)} unit="sec" />
-      </div>
+      <Column value={l ? pad(l.d) : "--"} unit="days" />
+      <Colon />
+      <Column value={l ? pad(l.h) : "--"} unit="hrs" />
+      <Colon />
+      <Column value={l ? pad(l.m) : "--"} unit="min" />
+      <Colon />
+      <Column value={l ? pad(l.s) : "--"} unit="sec" />
     </div>
   );
 }
