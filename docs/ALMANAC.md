@@ -227,7 +227,7 @@ f1-duel/
 │   └── migrations/000N_*.sql Incremental changes for a live project
 ├── web/                     Next.js 16 App Router (the game)
 │   ├── app/                 Routes (see §9.2)
-│   │   ├── favicon.ico      The logomark, 16/32/48 (see §9.6)
+│   │   ├── favicon.ico      Logomark on red, 16/32/48 (see §9.6)
 │   │   ├── apple-icon.png   180px, same mark
 │   │   └── manifest.ts      Install manifest (start_url = /game)
 │   ├── components/          33 components
@@ -1897,11 +1897,13 @@ the **logomark** (DESIGN §2.1) on the site's own `#0a0b10`: `favicon.ico`
 `app/manifest.ts`. `viewport.themeColor` in the root layout paints the phone's
 address bar `#0a0b10`.
 
-They are generated from `public/logo-mark-icon.svg` — the letter and the car,
-**without the chequer**, because at 16px that column is a grey ladder rather
-than a pattern and it costs the letter its shape (DESIGN §2.1). Two colours in
-the finished file and nothing else. They are generated rather than drawn by
-hand, and **the `.ico` must be RGBA** — Next's image pipeline rejects an RGB one outright
+They are the whole mark, chequer included, in `#f4f6fa` on a solid `#c8102e`
+tile (DESIGN §2.1) — `race-deep` because a tile is a surface, and because it is
+the higher-contrast pair. The three app icons are **square and full-bleed**,
+since iOS and Android round them themselves and a pre-rounded PNG comes out
+double-rounded with dark corners; only `favicon.ico`, which nothing masks,
+carries its own 22.4% radius. They are generated rather than drawn by hand, and
+**the `.ico` must be RGBA** — Next's image pipeline rejects an RGB one outright
 with *"The PNG is not in RGBA format"*, which fails the whole page, not just
 the icon.
 

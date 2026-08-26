@@ -164,15 +164,22 @@ The source file's "Race Prediction Game" line is dropped from both. The
 untouched original stays at `public/logo-lockup.svg` for a poster or an
 app-store listing, and the site never references it.
 
-**The raster icons are a third cut, without the chequer.** `favicon.ico`,
-`apple-icon.png` and `public/icon-{192,512}.png` draw the letter and the car
-only. A tab favicon is 16 pixels, and at 16 pixels the chequer column is not a
-pattern, it is a grey ladder down the left edge that costs the letter its
-shape. Dropping it leaves the icon at **two colours and nothing else**: a solid
-`#0a0b10` tile, the D in `#f4f6fa`, and the car knocked through to the tile.
-Simplifying a mark for the smallest size it has to survive is normal; keeping
-one drawing at every size and calling it discipline is how favicons turn to
-mush. The cut lives at `public/logo-mark-icon.svg`.
+**The raster icons are the mark on a red tile.** `favicon.ico`,
+`apple-icon.png` and `public/icon-{192,512}.png` are the whole mark, chequer
+included, in `#f4f6fa` on a solid `--color-race-deep` (`#c8102e`) ground, at
+about 60% of the tile's height.
+
+Two decisions worth keeping. **The red is `race-deep`, not `race`,** because an
+icon tile is a *surface* and that is the split those two tokens exist for
+(§3.1) — it is also the higher-contrast pair, 5.44:1 against white where bright
+red manages 3.53:1. And **only the favicon has its corners rounded.** iOS and
+Android mask an app icon themselves, so a pre-rounded PNG is rounded twice and
+shows dark corners; those three files are square and full-bleed. A tab favicon
+is masked by nobody, so the container has to be in the file: alpha outside a
+radius of 22.4% of the side, which is roughly the iOS squircle.
+
+The knockout does the rest of the work — on this tile the car and half the
+chequer come out red, with no second drawing and no recolouring.
 
 Coordinates in the mark are rounded to one decimal — 22 kB of path data down to
 13 kB, and invisible, because the viewBox is 751 units wide and the mark is
