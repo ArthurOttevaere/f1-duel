@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Arrow from "@/components/Arrow";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, formatRaceDate, formatRaceTime } from "@/lib/format";
@@ -160,13 +161,16 @@ export default async function GamePage() {
       {needsPicks && (
         <Link
           href="/game/picks"
-          className="pressable glass-chip flex items-center justify-between rounded-panel border-race/30 px-5 py-3 text-sm transition-colors hover:border-race/60"
+          className="pressable glass-chip group flex items-center justify-between gap-4 rounded-panel border-race/30 px-5 py-3 text-sm transition-colors hover:border-race/60"
         >
           <span>
             🏆 Call your {CURRENT_SEASON} world champions — one shot, big
             season-end bonus
           </span>
-          <span className="font-semibold text-race">Make your picks →</span>
+          <span className="flex shrink-0 items-center gap-2 font-semibold text-race">
+            Make your picks
+            <Arrow />
+          </span>
         </Link>
       )}
       {/* ── Race header ── */}
@@ -232,7 +236,10 @@ export default async function GamePage() {
               </span>
             </span>
           ) : (
-            <span className="shrink-0 text-ink-mute">See the breakdown →</span>
+            <span className="flex shrink-0 items-center gap-2 text-ink-mute">
+              See the breakdown
+              <Arrow />
+            </span>
           )}
         </Link>
       )}
@@ -257,7 +264,7 @@ export default async function GamePage() {
         top 10 +100, Driver of the Day +5, safety-car bet +8. Outscore the model
         and you win the Grand Prix — that&apos;s what the season table counts.{" "}
         <Link href="/rules" className="underline">
-          Full rules →
+          Full rules
         </Link>
       </p>
     </div>

@@ -1,5 +1,6 @@
 import { cache } from "react";
 import Link from "next/link";
+import Arrow from "@/components/Arrow";
 import { createClient } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, shortName } from "@/lib/format";
@@ -55,6 +56,17 @@ export type LastRace = {
   rows: Row[];
   total: number;
   exact: number;
+  /** The season roster, already in hand — see `official` below. */
+  roster: Driver[];
+  /**
+   * The ten drivers who actually finished in the top 10, in order.
+   *
+   * Nothing in this section uses it: it is here for `PickBoardShot`, which
+   * fills the home page's pick board with a real order rather than an invented
+   * one. Both reads are the same request-cached call, so the board costs no
+   * query of its own.
+   */
+  official: string[];
 };
 
 /**
@@ -94,7 +106,7 @@ export const loadLastRace = cache(async (): Promise<LastRace | null> => {
       .maybeSingle(),
     supabase
       .from("drivers")
-      .select("driver_id, team, team_color")
+      .select("driver_id, code, full_name, team, team_color, active")
       .eq("season", CURRENT_SEASON),
   ]);
 
@@ -133,6 +145,9 @@ export const loadLastRace = cache(async (): Promise<LastRace | null> => {
     rows,
     total: entry.total ?? 0,
     exact: rows.filter((r) => r.kind === "exact").length,
+    roster: (rosterRes.data as Driver[]) ?? [],
+    official: Array.from({ length: 10 }, (_, i) => finishers.get(i + 1) ?? "")
+      .filter(Boolean),
   };
 });
 
@@ -167,6 +182,12 @@ export default async function LastRaceProof() {
       </p>
 
       <div className="glass-card mt-10 overflow-hidden">
+        {/* H-6: this section is the only real thing on the page, so it gets the
+            page's only staging — and the flag is the honest way to say a race
+            is over. It is a quieter cut than the footer's: one row of 6px
+            squares instead of two rows of 10px, and it sits *inside* the card's
+            top edge rather than banding the section, which §1.4 forbids. */}
+        <div aria-hidden className="checker-rule" />
         {/* A grid rather than a table with a min-width: this has to read on a
             390px phone, where an `overflow-x-auto` table would put the last
             column — the points, the reason for the section — off the edge with
@@ -233,15 +254,20 @@ export default async function LastRaceProof() {
           })}
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line bg-glass px-3 py-3.5 sm:px-5">
-          <p className="font-mono text-[0.6rem] tracking-[0.14em] text-ink-mute uppercase">
-            {exact} of 10 on the nose
-          </p>
-          <p className="font-mono text-sm">
-            <span className="text-ink-dim">Model total</span>{" "}
-            <span className="text-lg font-semibold">
-              {formatPoints(total)}
-            </span>
+        {/* The score used to be set at 18px, in the same line as its label —
+            the number the whole section exists to deliver, printed smaller
+            than the heading above it. It is a timing-tower total now. */}
+        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-t border-line bg-glass px-3 py-5 sm:px-5">
+          <div>
+            <p className="font-mono text-[0.6rem] tracking-[0.14em] text-ink-mute uppercase">
+              Model total
+            </p>
+            <p className="mt-1.5 text-xs text-ink-dim">
+              {exact} of 10 on the nose
+            </p>
+          </div>
+          <p className="font-mono text-5xl leading-none font-semibold tabular-nums sm:text-6xl">
+            {formatPoints(total)}
           </p>
         </div>
       </div>
@@ -259,9 +285,10 @@ export default async function LastRaceProof() {
           </Link>
           <Link
             href={`/game/races/${race.round}`}
-            className="text-sm font-semibold text-ink-dim underline-offset-4 transition-colors hover:text-ink hover:underline"
+            className="group flex items-center gap-2 text-sm font-semibold text-ink-dim underline-offset-4 transition-colors hover:text-ink"
           >
-            See the full race →
+            <span className="group-hover:underline">See the full race</span>
+            <Arrow />
           </Link>
         </div>
       </div>

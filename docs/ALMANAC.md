@@ -1375,6 +1375,38 @@ trust before signing up. Three things about it:
   `Last time out it scored 32 · 6 of 10 exact`, so the invitation to scroll is
   itself a piece of evidence. `.rise-in-5` (280ms) was added for it.
 
+It is also the page's one staged section, which is deliberate: it is the only
+real content on the page, and everything below it was deflated so that it reads
+as the culmination. It carries a `.checker-rule` inside the card's top edge —
+the *end of a race*, at half the height and half the rows of the footer's
+`.checker-edge`, which is the end of the site — and the model's total is printed
+at `text-5xl sm:text-6xl` mono tabular, as a timing tower would. It used to be
+18px, in the same line as its own label.
+
+**The two marketing sections below it were the site's concentration of
+generated shape, and they are rebuilt:**
+
+- **The game.** The three glass cards numbered `01 / 02 / 03` are an `<ol>` of
+  hanging numerals separated by hairlines (DESIGN §5.5), and the right column
+  is **`PickBoardShot`** — the pick board's own markup, server-rendered from
+  the real roster in the last Grand Prix's finishing order, caught at five
+  slots filled with the sixth open and lit, running past its column and
+  dissolving. It is not a screenshot and there is nothing to re-capture when
+  the editor changes. It reads `loadLastRace()`, so it costs no query of its
+  own; it is `aria-hidden` behind one `sr-only` sentence, because ten fake
+  controls announced as real controls is a lie with ten rows in it; and with no
+  scored race yet it renders empty, which is what the screen genuinely looks
+  like in March.
+- **The barème.** The four centred numbers in a card are **`ScoringScale`**:
+  one row per rung, a bar whose width *is* the number, the value printed beside
+  it. `×3` is drawn as the ten-point bar continued in a hollow tone up to
+  thirty, because a multiplier is not a quantity of points and putting it on
+  the axis would have been a category error dressed as a chart. DESIGN §12.3.
+- **The opponent.** "Under the hood" was four red bullet discs in front of four
+  sentences that were really key/value pairs. It is a `<dl>` spec sheet now —
+  mono label, sans value, hairline between — which is the shape `/rules` has
+  used all along.
+
 **`/game`** (`revalidate = 60`) — finds the next `scheduled` race with
 `race_at > now`, then fetches in parallel: the active roster, **`model_entry_status`**
 (`pre_quali`/`locked_at` — has the model filed, and in which mode), your
@@ -1724,7 +1756,13 @@ Shared classes: `.glass-card` (the card surface), `.glass-chip` (blurred pill),
 `.hero-grid` (hero background — the aurora that sat beside it is gone, see
 below), `.cover-grid` (the same trame over
 the profile cover, masked to fade out at the bottom), `.checker-edge`
-(checkered footer separator), `.rise-in` (staggered hero entrance), `.spinner`
+(checkered footer separator — the end of the *site*), `.checker-rule` (the
+quieter cut of the same flag, inside the last-race card's top edge — the end of
+a *race*; half the height, half the rows, dimmer, and the two must not be
+confused), `.shot-fade-x` / `.shot-fade-y` (the two nested masks that let
+`PickBoardShot` run past its column and dissolve — nested rather than
+`mask-composite`, which still wants a prefixed keyword in Safari),
+`.rise-in` (staggered hero entrance), `.spinner`
 (the one busy indicator), `.start-lights` / `.sl-*` (the gantry),
 `.sheet-backdrop` / `.sheet-panel` (the driver picker on mobile, and the
 profile's Edit panel — a dialog that rises from the bottom edge on a phone and

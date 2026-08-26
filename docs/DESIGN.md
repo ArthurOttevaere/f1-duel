@@ -134,6 +134,7 @@ Three, all drawn in CSS, all borrowed from the sport rather than from a UI kit:
 | --- | --- | --- |
 | **Start-light gantry** (`.start-lights`) | Boot screen, full-page loader | Waiting, about to begin |
 | **Checkered edge** (`.checker-edge`) | Above the footer, on the race poster | The end of the page as a finish line |
+| **Checkered rule** (`.checker-rule`) | The top edge of the last-race card | The end of *a race*. Half the height, half the rows, dimmer — see §6.4 |
 | **Circuit trace** (`CircuitTrace.tsx`) | The hero | *This* Sunday. The ornament is a reading of the calendar. |
 | **Faint 72px grid** (`.hero-grid`, `.cover-grid`) | Hero, profile cover | Telemetry / technical drawing |
 | **Grain** (`.grain`) | Every page, fixed, 3.2% | Tooth. A surface, not a render. |
@@ -482,6 +483,32 @@ nav's active underline, the chart legend swatches: pill ends on a 2px rule are
 a UI-kit habit. Square-ended is what a timing bar actually looks like, and at
 that size it costs nothing to be right.
 
+### 5.5 Numbered sequences
+
+**A sequence of steps is a hanging numeral and a hairline. It is never a row of
+equal cards.**
+
+```tsx
+<ol className="border-b border-line">
+  <li className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-4 border-t border-line py-7
+                 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-x-8 sm:py-9">
+    <span aria-hidden className="font-mono text-2xl font-semibold text-race tabular-nums sm:text-4xl">01</span>
+    <div>…</div>
+  </li>
+</ol>
+```
+
+Three glass cards in `sm:grid-cols-3`, each with a red mono numeral, is what
+any model produces when asked "how does it work", and this site had it twice —
+the home page's *The game* and `/model`'s pipeline, from the same generation
+session. It also fought §1.4: three cards is three bands doing the work that
+space and type should do.
+
+The numeral is `aria-hidden`, because the `<ol>` already numbers the list and a
+screen reader would otherwise count everything twice. And the number is only
+allowed at all when the content **is** a sequence — steps that happen in order.
+A set of features numbered 01–04 is decoration pretending to be structure.
+
 ---
 
 ## 6. Surfaces and materials
@@ -647,8 +674,17 @@ there is nothing to lose.
 ### 6.4 Line work
 
 `.hero-grid` (72px cells, radial mask), `.cover-grid` (34px cells, linear
-bottom fade), `.checker-edge` (10px squares, two rows, masked at both ends). All
-three are `pointer-events: none` decoration drawn with gradients — no images.
+bottom fade), `.checker-edge` (10px squares, two rows, masked at both ends),
+`.checker-rule` (6px squares, one row, 50% white, masked at both ends). All are
+`pointer-events: none` decoration drawn with gradients — no images.
+
+**Two cuts of the same flag, and they must not be confused.** `.checker-edge`
+runs the full width above the footer: it is the end of the *site*.
+`.checker-rule` sits inside the top edge of the home page's last-race card: it
+is the end of a *race*. The second one exists at half the height, half the
+rows, dimmer whites and no edge highlight precisely so the first one keeps its
+weight — and it is a card's own edge rather than a band across a section, which
+§1.4 forbids.
 
 ---
 
@@ -798,6 +834,27 @@ date nor need clearing.
 with one sentence that says what would fill it. Never an illustration, never a
 call to action inside the box.
 
+### 7.9 Links, and the one arrow
+
+`components/Arrow.tsx`. Six links used to end their own label with a literal
+`→`: *"See the full race →"*, *"Make your picks →"*. A glyph glued to the end of
+a sentence is a writing tic — the link is already a link — and it sits on the
+text baseline, so it cannot move.
+
+The mark is an element now, which means it can:
+
+```tsx
+<Link href="…" className="group flex items-center gap-2 …">
+  <span className="group-hover:underline">See the full race</span>
+  <Arrow />
+</Link>
+```
+
+`group` on the link, `group-hover:translate-x-0.5` inside the arrow. Two signs
+survive as glyphs, and only these two: **`↗`**, which means *leaving the site*
+(§9), and pagination's **`← Previous` / `Next →`**, where the arrow is the
+direction rather than an ornament on a label.
+
 ---
 
 ## 8. Motion
@@ -863,10 +920,32 @@ each, and the pick screen renders all twenty-two, so it was pulling 4.6 MB.
 Portraits are `loading="lazy" decoding="async"` and every use has an `onError`
 fallback to the driver's code on a tinted disc.
 
-**There are no other images.** No stock photography, no illustration, no icon
-sprites. The grids, the checkered edge and the glows are CSS; the circuit
-trace (§6.3) is an inline `<path>` generated from telemetry, not an asset
-anyone drew.
+**There are no other images — including the product shot.**
+`components/PickBoardShot.tsx` is the only picture of the product on the home
+page and it is not a picture: it is the pick board's own markup, server-rendered
+from the real roster, in a top 10 that really happened (the last Grand Prix's
+finishing order, borrowed from `loadLastRace()` — the same request-cached call
+the proof section below already pays for). No browser chrome, no phone bezel:
+both are the clichés that come immediately after "put a screenshot on it". The
+board simply runs past its column and dissolves (`.shot-fade-x` /
+`.shot-fade-y`, two nested masks rather than `mask-composite`, which still wants
+a prefixed keyword in Safari).
+
+Two rules keep it honest. It is caught **mid-task** — five slots filled, the
+sixth open and lit — because a finished board says nothing about what you would
+do with it; the count is tuned to the crop, not chosen for its own sake. And the
+whole replica is `aria-hidden` with one `sr-only` sentence standing in for it,
+because it has slot numbers, a grip on every row and an open field, none of
+which do anything: announcing ten fake controls would be a lie with ten rows in
+it.
+
+Before the first race of a season there is no order to borrow and the board
+renders empty. That is not a fallback — it is exactly what the screen looks like
+in March.
+
+No stock photography, no illustration, no icon sprites. The grids, the checkered
+edge and the glows are CSS; the circuit trace (§6.3) is an inline `<path>`
+generated from telemetry, not an asset anyone drew.
 
 ---
 
@@ -983,7 +1062,32 @@ This cut also matches what the player is about to do — fill P1…P10 with name
 which is the general principle: **a phone chart should answer the question the
 player actually asks, not compress the desktop one.**
 
-### 12.3 Rules for a new chart
+### 12.3 `ScoringScale` — the barème
+
+Four numbers — `10 pts / ×3 / +15 / +100` — that used to sit in a `glass-card`
+as four equal centred columns. The stat row is the second most generic block a
+landing page can carry, and here it was also *wrong*: those are not four
+statistics, they are the four rungs of a scale, and setting them at equal weight
+erased the only thing worth knowing — a perfect top 10 is worth ten times an
+exact call.
+
+So the rule is drawn as the rule (§1.1). One `<dl>`, one row per rung, a
+hairline between: the label and its one-line gloss on the left, the number on
+the right, and between them a **1.5px bar whose width is the number** — 10%,
+15%, 100% of the same track. No axis, no gridlines, no card. Bars are
+square-ended (§5.4) and every value is printed beside its length (§1.2), so the
+bar is never the only channel.
+
+`×3` is the one that cannot be plotted, because a multiplier is not a quantity
+of points. It is drawn as what it actually *does*: the ten-point bar, continued
+in a hollow `bg-race/25` up to thirty. Putting it on the axis as a fourth
+independent value would have been a category error dressed as a chart.
+
+On a phone the track drops to its own line under the label/value pair rather
+than being squeezed into forty pixels — a tenth of forty pixels is four, and
+four pixels is not a quantity.
+
+### 12.4 Rules for a new chart
 
 1. One hue, sequential, low→high. Never a rainbow, never a diverging scale unless the data actually diverges.
 2. If the scale encodes a game rule, use the rule's own thresholds.
@@ -1073,8 +1177,8 @@ disagrees with it, so:
 
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
-   `.btn-race`, `.grain`, `CircuitTrace.tsx`,
-   `Wordmark.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
+   `ScoringScale.tsx`, `Arrow.tsx`, `Wordmark.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
@@ -1083,8 +1187,9 @@ disagrees with it, so:
 3. **Record what lost.** The most useful lines in this file are the ones saying
    what was tried and why it was reverted — the section band, the 90px blur, the
    14rem hero fade, the alpha-suffixed hex, the phone heat map, the aurora, the
-   gradient headline, the seventy-six capsules. Keep adding them; they are what
-   stops a fix from being re-broken.
+   gradient headline, the seventy-six capsules, the three equal numbered cards,
+   the centred stat row, the red bullet discs, the arrows glued to labels.
+   Keep adding them; they are what stops a fix from being re-broken.
 4. Design decisions that are *game* decisions belong in
    [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.
 
