@@ -36,7 +36,10 @@ export default function HeroRaceCard({
 
   return (
     <figure className={className}>
-      <CircuitTrace trace={trace} />
+      {/* Interactive here and only here: this is the one place the circuit is
+          drawn at a size a mouse can aim at, and a phone has no pointer to
+          follow. See DESIGN.md §6.3.2. */}
+      <CircuitTrace trace={trace} interactive />
 
       <figcaption className="mt-6 border-t border-line pt-4">
         <p className="display text-lg font-extrabold tracking-tight">

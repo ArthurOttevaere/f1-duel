@@ -1334,6 +1334,15 @@ about which race is next.
   masked, `aria-hidden` ornament, and `NextRaceLine` carries the words and the
   clock in one line above the headline.
 
+On the card the trace carries a marker: a red dot that follows the mouse
+**along the track**, projecting onto the nearest point of the lap rather than
+sitting under the cursor. `CircuitTrace` is a client component for that alone.
+It samples the path on first hover rather than on mount — below `lg` the card
+is `display: none` and path geometry read from an unrendered element is not
+reliable — takes 800 samples once, and writes the marker's transform straight
+onto the element instead of through React state, which would re-render the
+hero on every pointer event. `pointerType !== "mouse"` returns immediately.
+
 Only the digits are client-side (`NextRaceCountdown`), so the race is in the
 HTML whether or not the clock ever starts, and the placeholder holds the same
 width so hydration shifts nothing. Between seasons there is no race and no

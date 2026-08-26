@@ -613,6 +613,37 @@ client's, and the shape has to survive hydration without moving a pixel.
 floating above the headline, which was a box doing an eyebrow's job (§4.4) and
 cost the headline a third of the hero.
 
+### 6.3.2 The marker
+
+`<CircuitTrace interactive>`, and only in the race card. A red dot with a soft
+halo follows the pointer **along the track**: it projects onto the nearest
+point of the lap rather than sitting under the cursor, so it can only ever be
+*on* the circuit. Move the mouse across the infield and it slides round the
+outside; leave the drawing and it fades out in 150ms.
+
+It is the site's one piece of direct manipulation that produces no result —
+and it is allowed because it is not decoration pretending to be interaction:
+it answers a question the drawing invites ("where is that bit of the track?")
+and it answers it exactly.
+
+Four rules keep it from costing anything:
+
+- **Mouse only.** `pointerType !== "mouse"` returns immediately. A finger has
+  no hover, and the marker would land under whatever was just tapped. This is
+  also why it exists only in the card, which is `hidden` below `lg`.
+- **Sampled on first hover, not on mount.** Below `lg` the card is
+  `display: none`, and path geometry read from an unrendered element is not
+  something to rely on. By the time a pointer is over it, it is rendered.
+- **800 samples, one pass, no `getPointAtLength` during the move.** At that
+  density the nearest sample is already sub-pixel at any size the trace is
+  drawn, so a pointer event costs one loop of arithmetic.
+- **Written straight onto the element.** No React state: state here would
+  re-render the hero on every pointer event, and there is nothing to
+  reconcile.
+
+`aria-hidden`, and nothing depends on it. Keyboard users lose nothing because
+there is nothing to lose.
+
 ### 6.4 Line work
 
 `.hero-grid` (72px cells, radial mask), `.cover-grid` (34px cells, linear
@@ -1130,7 +1161,7 @@ Layout      w-[min(64rem,calc(100%-2rem))]      default container
 | `web/components/Spinner.tsx`, `RaceLoader.tsx`, `BootScreen.tsx` | Waiting. |
 | `web/components/ProbabilityGrid.tsx` | The probability bands and both cuts of the matrix. |
 | `web/components/Wordmark.tsx` | The site's name, every appearance of it. |
-| `web/components/CircuitTrace.tsx` | One circuit, drawn. No caption, no facts — those belong to the caller. |
+| `web/components/CircuitTrace.tsx` | One circuit, drawn, and the hover marker. Client, for the pointer. |
 | `web/components/HeroRaceCard.tsx` | The hero's right column from `lg`: trace, facts, clock. |
 | `web/components/HeroTraceBleed.tsx` | The same circuit as a masked corner bleed, below `lg`. |
 | `web/components/NextRaceLine.tsx` | The hero's eyebrow, and the phone's clock. |
