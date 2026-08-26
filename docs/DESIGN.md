@@ -791,6 +791,24 @@ A button that starts work renders `<Spinner />` in place of, or beside, its
 label until the work returns (§1.3). A destructive action is a tertiary button
 in `text-race`, never a filled red one — filled red is the primary action.
 
+**And the loudness tracks the risk, not the topic.** A destructive control
+*rests grey* (`text-ink-mute`) and only warms to `race` under the pointer; the
+red surface — a tint, a rule, an outlined confirm button — arrives with the
+confirmation step, because that is the moment something is actually at stake.
+
+The two in the site are drawn the same way. `LeagueCardActions` rests on a
+`text-ink-mute` *Leave* / *Delete league* and swaps in a red-outlined **Yes**
+beside a plain *Cancel*. `DeleteAccount` rests on a `text-ink-mute` *Delete
+account* and, once asked, becomes a `bg-race/[0.05]` row with a
+`border-l-2 border-l-race`, a field demanding your own username, an outlined
+*Delete permanently* and a quiet *Keep my account*.
+
+What is banned is the permanent danger zone: a red-tinted panel with a red
+heading and a red button, sitting there from the moment the page loads. It is a
+band (§1.4), it out-shouts everything around it including the routine control
+next to it, and a box that is loud before anything has happened is a box people
+stop reading — which is the opposite of what a destructive control wants.
+
 ### 7.3 Chips and badges
 
 - **Pill badge:** `rounded-full bg-race/15 px-2 py-0.5 font-mono text-[0.65rem] text-race` — the `YOU` marker on a board. One of the two places the capsule survives (§5.4).

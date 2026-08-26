@@ -1582,11 +1582,16 @@ a visitor anyway, so the round-trip would be pure waste), and the country flag
 beside the name is owner-only for the same reason. Owner controls are one
 **Edit profile** button opening `ProfileEditPanel` — username and private
 details in a single dialog, portalled onto `<body>` for the reason in §9.7 —
-which is why `UsernameEditor` and `PlayerDetailsEditor` no longer exist. Sign
-out and the **delete-account** panel sit at the bottom of the page, out of the
-way: typing your username arms deletion, it calls `delete_account()`, signs out
-and leaves through a full navigation to `/login?deleted=1` so no server-rendered
-page is left holding dead cookies.
+which is why `UsernameEditor` and `PlayerDetailsEditor` no longer exist.
+
+**ACCOUNT** closes the page: one section in the same heading idiom as *RECENT
+FORM* and *DUEL HISTORY*, holding two hairline rows — sign out, then delete.
+They used to be two stacked panels, the second tinted red from the moment the
+page loaded, which gave a routine reversible action the same weight as the one
+that cannot be undone. The red is held back until the delete is armed (§7.2 of
+the design doc). Typing your username arms it, it calls `delete_account()`,
+signs out and leaves through a full navigation to `/login?deleted=1` so no
+server-rendered page is left holding dead cookies.
 
 **`/contact`** — where a player takes a bug or an idea, the FAQ, and the
 credits. The FAQ is native `<details>` rather than a JavaScript accordion: it

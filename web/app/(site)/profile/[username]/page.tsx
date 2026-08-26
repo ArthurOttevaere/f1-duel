@@ -411,25 +411,39 @@ export default async function ProfilePage({
         )}
       </section>
 
-      {/* ── The way out (owner only) ── */}
+      {/* ── Account (owner only) ── */}
+      {/* Two stacked panels — one bordered, one tinted red — for two things
+          that are not equals. Signing out is routine and reversible; deleting
+          is neither, and it was the only red heading on the page from the
+          moment you arrived. They are one section now, in the heading idiom
+          the rest of this page uses, and the weight lives where the risk is:
+          two hairline rows, both quiet, and the red kept back until the
+          delete is actually armed (see DeleteAccount). */}
       {isOwner && (
-        <>
-          <section className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-panel border border-line bg-glass px-5 py-4">
-            <p className="text-sm text-ink-dim">
-              Signed in as{" "}
-              <span className="font-medium text-ink">{profile.username}</span>
-            </p>
-            <form action="/auth/signout" method="post">
-              <button
-                type="submit"
-                className="pressable rounded-control border border-line px-5 py-1.5 text-sm text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
-              >
-                Sign out
-              </button>
-            </form>
-          </section>
-          <DeleteAccount username={profile.username} />
-        </>
+        <section className="mt-8">
+          <h2 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
+            ACCOUNT
+          </h2>
+          <div className="border-b border-line">
+            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-line py-4">
+              <p className="text-sm text-ink-mute">
+                Signed in as{" "}
+                <span className="font-medium text-ink">{profile.username}</span>
+              </p>
+              {/* The same control as the one in the nav, drawn the same way,
+                  because it is the same action. */}
+              <form action="/auth/signout" method="post">
+                <button
+                  type="submit"
+                  className="pressable glass-chip shrink-0 rounded-control px-4 py-1.5 text-sm text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
+                >
+                  Sign out
+                </button>
+              </form>
+            </div>
+            <DeleteAccount username={profile.username} />
+          </div>
+        </section>
       )}
     </main>
   );
