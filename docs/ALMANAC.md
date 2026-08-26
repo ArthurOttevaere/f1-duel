@@ -1211,7 +1211,7 @@ deployed on Vercel with **Root Directory = `web`**.
 
 ```
 app/
-├── layout.tsx                 root: fonts (Inter, Geist Mono), metadata,
+├── layout.tsx                 root: fonts (Archivo, Geist Mono), metadata,
 │                              viewport.themeColor, BootScreen, <Analytics/>
 ├── not-found.tsx              404 for a URL matching no route (see below)
 ├── manifest.ts                install manifest
@@ -1637,13 +1637,25 @@ load-bearing decisions are in [`DESIGN.md`](DESIGN.md) §12.2.
 Tokens live in `app/globals.css` under Tailwind v4's `@theme`:
 
 ```
---color-bg #07080b   --color-ink #f4f6fa   --color-ink-dim #a7adba
---color-ink-mute #6c7280   --color-race #ff1e3c   --color-race-deep #e8002d
+--color-bg #0a0b10   --color-ink #f4f6fa   --color-ink-dim #a7adba
+--color-ink-mute #6c7280   --color-race #ff1e3c   --color-race-deep #c8102e
 --color-glass / glass-strong / line / line-hi / card   (translucent layers)
---font-sans Inter   --font-mono Geist Mono
+--shadow-panel / panel-sm / race   (tinted to the ground, never pure black)
+--font-sans Archivo (wdth axis)   --font-mono Geist Mono
 --ease-out-strong cubic-bezier(.23,1,.32,1)
 --ease-in-out-strong cubic-bezier(.77,0,.175,1)
 ```
+
+Two of those carry a rule that is easy to undo by accident:
+
+- **`race` is the signal, `race-deep` is the surface.** A resting red fill is
+  `race-deep` (`.btn-race` does it for you); `race` is the hover and everything
+  small — multipliers, eyebrows, the active tab, errors. `#ff1e3c` on white is
+  3.8:1 and fails AA for a button label; `#c8102e` is 5.9:1.
+- **Archivo is loaded with `axes: ["wdth"]`.** Drop that and the served
+  `@font-face` loses its `font-stretch: 62% 125%`, and `.display` — the
+  headlines, the wordmark, the nav — silently falls back to normal width with
+  no error anywhere.
 
 **One focus ring, unlayered.** `:focus-visible { outline: 2px solid
 var(--color-race); outline-offset: 2px }` sits in `globals.css` outside any
@@ -1651,12 +1663,15 @@ var(--color-race); outline-offset: 2px }` sits in `globals.css` outside any
 inputs — unlayered rules beat layered ones whatever the specificity, and
 Tailwind's utilities are layered. Before it, the app had **zero** focus styles:
 every button, link and driver slot fell back to the user agent's outline, which
-against `#07080b` is a dark hairline on a dark surface. `:focus-visible` rather
+against `#0a0b10` is a dark hairline on a dark surface. `:focus-visible` rather
 than `:focus`, so a mouse click leaves nothing behind — which is why the
 outlines were suppressed in the first place. No `border-radius` on it: an
 outline already follows the element's own.
 
 Shared classes: `.glass-card` (the card surface), `.glass-chip` (blurred pill),
+`.display` (Archivo opened to wdth 118 — headlines, wordmark, nav labels),
+`.btn-race` (the whole primary button: fill, glow, hover, radius),
+`.grain` (one fixed 3.2% noise layer over the site, mounted in `layout.tsx`),
 `.pressable` (everything clickable answers a press with `scale(.97)`),
 `.aurora` / `.hero-grid` (hero background), `.cover-grid` (the same trame over
 the profile cover, masked to fade out at the bottom), `.checker-edge`
@@ -1770,7 +1785,7 @@ It is now the wordmark reduced to what survives at 16px: `F1` knocked out of
 `--color-race`, on red rather than the site's black so it reads against a light
 browser chrome too. Same mark at 180px (`apple-icon.png`) and 192/512
 (`public/icon-*.png`, referenced by `app/manifest.ts`). `viewport.themeColor`
-in the root layout paints the phone's address bar `#07080b`.
+in the root layout paints the phone's address bar `#0a0b10`.
 
 ### 9.7 Two gotchas that cost real debugging time
 
@@ -1826,8 +1841,8 @@ column — see the third bullet.
   the stats band shows the model's numbers, or nothing at all, and the legend
   goes with it since no column is graded. The point is that the button means the
   same thing on every scored race instead of appearing only where you played.
-- **next/font hashes its family names** (`__Inter_e8ce0c`), so the canvas can't
-  ask for "Inter". `draw.ts` reads `--font-inter` / `--font-geist-mono` off
+- **next/font hashes its family names** (`__Archivo_e8ce0c`), so the canvas
+  can't ask for "Archivo". `draw.ts` reads `--font-archivo` / `--font-geist-mono` off
   `<html>` and preloads them through `document.fonts.load` — without this the
   poster silently renders in a system fallback.
 - The dialog's one option is **Include the model**: off, the model's column,

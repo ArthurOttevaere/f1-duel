@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Wordmark from "@/components/Wordmark";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -162,16 +163,16 @@ export default function LoginPage() {
 
       <Link
         href="/"
-        className="mb-8 font-mono text-sm font-semibold tracking-widest"
+        className="mb-8"
       >
-        <span className="text-race">F1</span> DUEL
+        <Wordmark />
       </Link>
 
       <div className="glass-card w-full max-w-sm p-6 sm:p-8">
         {sent ? (
           <div className="text-center">
             <p className="text-3xl">📬</p>
-            <h1 className="mt-3 text-xl font-bold">Check your inbox</h1>
+            <h1 className="display mt-3 text-xl font-extrabold tracking-tight">Check your inbox</h1>
             <p className="mt-2 text-sm text-ink-dim">
               {status === "sent-verify" ? (
                 <>
@@ -224,7 +225,7 @@ export default function LoginPage() {
               ))}
             </div>
 
-            <h1 className="mt-6 text-xl font-bold">
+            <h1 className="display mt-6 text-xl font-extrabold tracking-tight">
               {mode === "signin" ? "Welcome back" : "Join the duel"}
             </h1>
             <p className="mt-1 text-sm text-ink-dim">
@@ -295,7 +296,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={working}
-                className="pressable flex items-center justify-center gap-2 rounded-xl bg-race py-3 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-60"
+                className="pressable flex items-center justify-center gap-2 btn-race py-3 text-sm font-semibold disabled:opacity-60"
               >
                 {working && <Spinner />}
                 {working

@@ -275,7 +275,7 @@ export default function PosterExport({ data }: { data: PosterData }) {
                         type="button"
                         disabled={!preview || busy !== null}
                         onClick={() => run("share")}
-                        className={`${actionClass} flex w-full items-center justify-center gap-2 bg-race text-white hover:bg-race-deep`}
+                        className={`${actionClass} flex w-full items-center justify-center gap-2 btn-race`}
                       >
                         {busy === "share" && <Spinner />}
                         Share
@@ -296,7 +296,7 @@ export default function PosterExport({ data }: { data: PosterData }) {
                           onClick={() => run(action)}
                           className={`${actionClass} flex items-center justify-center gap-1.5 ${
                             !shareable && action === "png"
-                              ? "bg-race text-white hover:bg-race-deep"
+                              ? "btn-race"
                               : "glass-chip hover:border-line-hi"
                           }`}
                         >

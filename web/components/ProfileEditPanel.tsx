@@ -70,7 +70,7 @@ export default function ProfileEditPanel({
               className="sheet-panel glass-card max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-b-none p-6 outline-none sm:rounded-b-[1.25rem]"
             >
               <div className="flex items-start justify-between gap-4">
-                <h2 className="text-lg font-semibold">Edit profile</h2>
+                <h2 className="display text-lg font-extrabold tracking-tight">Edit profile</h2>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
@@ -82,7 +82,7 @@ export default function ProfileEditPanel({
               </div>
 
               <section className="mt-6">
-                <h3 className="mb-3 text-xs font-semibold tracking-wide text-ink-mute">
+                <h3 className="mb-3 text-xs font-semibold tracking-wide text-ink-dim">
                   USERNAME
                 </h3>
                 <UsernameForm initial={username} mode="edit" />
@@ -91,7 +91,7 @@ export default function ProfileEditPanel({
               <hr className="my-6 border-line" />
 
               <section>
-                <h3 className="mb-3 text-xs font-semibold tracking-wide text-ink-mute">
+                <h3 className="mb-3 text-xs font-semibold tracking-wide text-ink-dim">
                   YOUR DETAILS
                 </h3>
                 <PlayerDetailsForm initial={details} mode="edit" />

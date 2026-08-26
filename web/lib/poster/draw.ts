@@ -27,8 +27,8 @@ const PAD = 64;
 const INNER = W - PAD * 2;
 
 const C = {
-  bgTop: "#0d0f15",
-  bgBottom: "#07080b",
+  bgTop: "#101320",
+  bgBottom: "#0a0b10",
   ink: "#f4f6fa",
   dim: "#a7adba",
   mute: "#6c7280",
@@ -90,9 +90,9 @@ function loadImage(src: string): Promise<HTMLImageElement | null> {
 }
 
 /**
- * next/font hashes its family names ("__Inter_e8ce0c"), so the canvas can't ask
- * for "Inter" and get the font the page is using — it has to read the variable
- * the font loader defined on <html>.
+ * next/font hashes its family names ("__Archivo_e8ce0c"), so the canvas can't
+ * ask for "Archivo" and get the font the page is using — it has to read the
+ * variable the font loader defined on <html>.
  */
 function fontStack(variable: string, fallback: string): string {
   if (typeof window === "undefined") return fallback;
@@ -289,7 +289,7 @@ export async function drawPoster(
   data: PosterData,
   { includeModel }: PosterOptions,
 ): Promise<HTMLCanvasElement> {
-  const sans = fontStack("--font-inter", "system-ui, sans-serif");
+  const sans = fontStack("--font-archivo", "system-ui, sans-serif");
   const mono = fontStack("--font-geist-mono", "ui-monospace, monospace");
   await preloadFonts(sans, mono);
 

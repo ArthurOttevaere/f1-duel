@@ -1,13 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette carried over from the model page (webapp/static/css/style.css) */
-  --color-bg: #07080b;
+  /* Palette carried over from the model page (webapp/static/css/style.css).
+
+     The ground is #0a0b10, not the #07080b it started as: near-black is the
+     colour you get when nobody chose one, and a hair of blue in it gives the
+     red something to sit on. It is a two-point move and it shows on every
+     page. */
+  --color-bg: #0a0b10;
   --color-ink: #f4f6fa;
   --color-ink-dim: #a7adba;
   --color-ink-mute: #6c7280;
+
+  /* Two reds, and the split is the whole point.
+
+     `race` is the signal — multipliers, the active tab, an error, a hairline
+     eyebrow. It is at full saturation because it is never more than a couple
+     of per cent of the screen.
+
+     `race-deep` is the surface. Full-saturation red over 200px of button
+     stops reading as an accent and starts shouting, and #ff1e3c against white
+     is 3.8:1 — under the 4.5:1 a button label needs. #c8102e is 5.9:1 and
+     still unmistakably the same red. Primary buttons rest on deep and
+     brighten to `race` on hover, so the accent moved into the interaction
+     rather than out of the palette. */
   --color-race: #ff1e3c;
-  --color-race-deep: #e8002d;
+  --color-race-deep: #c8102e;
 
   --color-glass: rgb(255 255 255 / 0.045);
   --color-glass-strong: rgb(255 255 255 / 0.07);
@@ -15,8 +33,19 @@
   --color-line-hi: rgb(255 255 255 / 0.16);
   --color-card: rgb(28 31 40 / 0.72);
 
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  /* One family, two widths. `--font-sans` is Archivo at its natural width;
+     the display voice is the same file opened to wdth 118 by `.display`. */
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Shadows take the hue of what is behind them. Pure black at low opacity is
+     the default nobody picked, and it greys a card instead of lifting it —
+     these are the page ground pushed darker and a touch bluer. `shadow-race`
+     is the glow under a primary button, tinted to the deep red it sits on
+     rather than to the bright one it used to borrow. */
+  --shadow-panel: 0 22px 56px rgb(3 5 16 / 0.62);
+  --shadow-panel-sm: 0 10px 24px rgb(3 5 16 / 0.44);
+  --shadow-race: 0 10px 30px rgb(168 12 40 / 0.38);
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
@@ -39,15 +68,90 @@ body {
   background: rgb(255 30 60 / 0.35);
 }
 
+/* ─── Type ─────────────────────────────────────────────────────────────── */
+
+/* The display voice: the same Archivo, opened along its width axis.
+
+   A wide grotesque is the lettering of this sport — pit boards, timing
+   towers, the name across the top of a livery — and it is the one thing a
+   typeface can say that a colour cannot. It goes on the h1, the section h2s,
+   the wordmark and the nav labels: enough that the width reads as a signature
+   from page to page, not so much that it becomes the site's only note.
+
+   Width only. Tracking stays with the utility on each element, because a
+   72px headline and a 12px uppercase label want opposite amounts of it, and
+   this class is unlayered — it would beat every `tracking-*` it touched. */
+.display {
+  font-variation-settings: "wdth" 118;
+}
+
+/* Hierarchy carried by weight and width, not only by three greys.
+
+   The site set every heading in the same `font-bold` and let ink / ink-dim /
+   ink-mute do the ranking. That is consistent and monotone: colour is the one
+   channel doing all the work, and it runs out after three steps. Weight and
+   width are two more, and they survive being read at arm's length on a phone
+   in daylight, which a grey does not.
+
+   So: display headings are `.display font-extrabold tracking-tight` — 800 at
+   wdth 118. Sub-labels stay `font-semibold tracking-wide` at their natural
+   width, which is what makes them read as labels and not as small headlines.
+   Deliberately not an `h1, h2` element rule: nine of the site's h2s are
+   `text-sm` section labels with positive tracking, and an unlayered element
+   selector would have silently overridden every one of them.
+
+   No orphans. Two lines in a stylesheet, and every headline on the site stops
+   dropping its last word onto a line of its own at intermediate widths —
+   which is most of the difference between a page that was set and a page that
+   was rendered. `pretty` on running text only fixes the last line, so it is
+   cheap enough to leave on everywhere. */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+p,
+li,
+dd,
+figcaption {
+  text-wrap: pretty;
+}
+
+/* ─── Grain ────────────────────────────────────────────────────────────── */
+
+/* One fixed layer of monochrome noise over the whole site, at three per cent.
+
+   Absolutely flat colour is what makes a generated page look rendered rather
+   than made: real surfaces have a tooth. This is an inline feTurbulence — no
+   image, no request, no bytes on the wire beyond the rule itself — tiled at
+   180px and desaturated so it adds texture and not a colour cast.
+
+   It sits above the page and below nothing: `pointer-events: none` means it
+   never intercepts anything, and it deliberately covers the sheets, the
+   mobile menu and the boot screen too, because a texture that stops at the
+   edge of an overlay announces itself. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
 /* ─── Shared surfaces ──────────────────────────────────────────────────── */
 
 .glass-card {
   background: var(--color-card);
   border: 1px solid var(--color-line);
   border-radius: 1.25rem;
+  /* The inner hairline stays: it is what makes the card read as a lit panel
+     rather than a hole. The drop is `--shadow-panel`, tinted to the ground. */
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.07),
-    0 22px 56px rgb(0 0 0 / 0.55);
+    var(--shadow-panel);
 }
 
 .glass-chip {
@@ -83,7 +187,7 @@ body {
    There was not a single focus style in the app: three text inputs cleared the
    browser's own with `outline-none` and drew a border instead, and every
    button, link, driver slot and sheet control was left with whatever the user
-   agent draws — which against #07080b is a dark hairline on a dark surface.
+   agent draws — which against #0a0b10 is a dark hairline on a dark surface.
    Tabbing through the prediction editor was navigating blind.
 
    Unlayered on purpose. Tailwind's utilities live in a cascade layer, and
@@ -105,6 +209,39 @@ body {
 }
 .pressable:active {
   transform: scale(0.97);
+}
+
+/* The primary action, in one place.
+
+   Twenty-two call sites carried the same four tokens — `bg-race`, `text-white`,
+   a hand-written red glow and `hover:bg-race-deep` — which meant every change
+   to the loudest surface on the site was twenty-two edits, and the glow had
+   drifted into three different values. Fill, glow, hover and radius live here
+   now; size, layout and disabled treatment stay utilities at the call site,
+   because those genuinely differ.
+
+   Resting on `race-deep` and brightening to `race` is the F-7 split: the
+   accent is what the button becomes when you reach for it, not what it is at
+   rest. See the palette note at the top for the contrast arithmetic. */
+.btn-race {
+  background: var(--color-race-deep);
+  color: #fff;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-race);
+  transition: background-color 160ms var(--ease-out-strong);
+}
+.btn-race:hover {
+  background: var(--color-race);
+}
+/* A disabled button is already dimmed by `disabled:opacity-*` at the call
+   site; without this it would still light up under the cursor. */
+.btn-race:disabled,
+.btn-race[aria-disabled="true"] {
+  box-shadow: none;
+}
+.btn-race:disabled:hover,
+.btn-race[aria-disabled="true"]:hover {
+  background: var(--color-race-deep);
 }
 
 /* ─── Hero aurora (pure CSS; swap for a photo by adding a bg-image layer) ── */
@@ -187,7 +324,7 @@ body {
   height: 20px;
   background-image: repeating-conic-gradient(
     rgb(244 246 250 / 0.92) 0% 25%,
-    rgb(7 8 11 / 1) 0% 50%
+    rgb(10 11 16 / 1) 0% 50%
   );
   background-size: 20px 20px; /* 10px squares → 2 rows */
   box-shadow:
@@ -389,7 +526,7 @@ body {
   .glass-card {
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.06),
-      0 10px 24px rgb(0 0 0 / 0.38);
+      var(--shadow-panel-sm);
   }
   .aurora::before,
   .aurora::after {

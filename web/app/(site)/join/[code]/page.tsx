@@ -48,7 +48,7 @@ export default async function JoinPage({
   if (!league) {
     return (
       <Frame>
-        <h1 className="mt-3 text-xl font-bold">This invite has expired</h1>
+        <h1 className="display mt-3 text-xl font-extrabold tracking-tight">This invite has expired</h1>
         <p className="mt-2 text-sm text-ink-dim">
           No league matches that link — it may have been deleted, or the link
           got cut short on the way here.
@@ -68,7 +68,7 @@ export default async function JoinPage({
   if (!user) {
     return (
       <Frame>
-        <h1 className="mt-3 text-2xl font-bold tracking-tight">{league.name}</h1>
+        <h1 className="display mt-3 text-2xl font-extrabold tracking-tight">{league.name}</h1>
         <p className="mt-2 text-sm text-ink-dim">
           {league.owner_username}&apos;s league · {size}
         </p>
@@ -79,7 +79,7 @@ export default async function JoinPage({
         </p>
         <Link
           href={`/login?next=${encodeURIComponent(`/join/${code}`)}`}
-          className="pressable mt-6 inline-block rounded-full bg-race px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-race-deep"
+          className="pressable mt-6 inline-block btn-race px-6 py-2.5 text-sm font-semibold"
         >
           Sign in to join
         </Link>
@@ -90,13 +90,13 @@ export default async function JoinPage({
   if (league.is_member) {
     return (
       <Frame>
-        <h1 className="mt-3 text-2xl font-bold tracking-tight">{league.name}</h1>
+        <h1 className="display mt-3 text-2xl font-extrabold tracking-tight">{league.name}</h1>
         <p className="mt-2 text-sm text-ink-dim">
           You&apos;re already in this one · {size}
         </p>
         <Link
           href={`/game/standings?league=${league.id}`}
-          className="pressable mt-6 inline-block rounded-full bg-race px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-race-deep"
+          className="pressable mt-6 inline-block btn-race px-6 py-2.5 text-sm font-semibold"
         >
           See the board
         </Link>
@@ -106,7 +106,7 @@ export default async function JoinPage({
 
   return (
     <Frame>
-      <h1 className="mt-3 text-2xl font-bold tracking-tight">{league.name}</h1>
+      <h1 className="display mt-3 text-2xl font-extrabold tracking-tight">{league.name}</h1>
       <p className="mt-2 text-sm text-ink-dim">
         {league.owner_username}&apos;s league · {size}
       </p>

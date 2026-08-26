@@ -46,7 +46,7 @@ export default function ContactPage() {
       <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
         Contact
       </p>
-      <h1 className="mt-3 text-4xl font-bold tracking-tight">
+      <h1 className="display mt-3 text-4xl font-extrabold tracking-tight">
         Found a bug? Got an idea?
       </h1>
       <p className="mt-4 text-lg leading-relaxed text-ink-dim">
@@ -95,7 +95,7 @@ export default function ContactPage() {
 
       {/* ── FAQ ── */}
       <section className="mt-14">
-        <h2 className="text-2xl font-bold tracking-tight">
+        <h2 className="display text-2xl font-extrabold tracking-tight">
           Questions people actually ask
         </h2>
         <div className="glass-card mt-5 px-5 py-2 sm:px-6">
@@ -212,7 +212,7 @@ export default function ContactPage() {
 
       {/* ── Credits ── */}
       <section className="mt-14">
-        <h2 className="text-2xl font-bold tracking-tight">Credits</h2>
+        <h2 className="display text-2xl font-extrabold tracking-tight">Credits</h2>
         <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink-dim">
           <p>
             Built, designed and maintained by{" "}

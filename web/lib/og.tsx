@@ -16,7 +16,7 @@ import { ImageResponse } from "next/og";
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 
-const BG = "#07080b";
+const BG = "#0a0b10";
 const INK = "#f4f6fa";
 const DIM = "#a7adba";
 const MUTE = "#6c7280";

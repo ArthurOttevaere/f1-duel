@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Wordmark from "@/components/Wordmark";
 import StartLights from "@/components/StartLights";
 
 const KEY = "f1duel-booted";
@@ -72,9 +73,7 @@ export default function BootScreen() {
   return (
     <>
       <div id="boot-screen" role="status" aria-label="Loading F1 Duel">
-        <span className="font-mono text-sm font-semibold tracking-widest">
-          <span className="text-race">F1</span> DUEL
-        </span>
+        <Wordmark />
         <StartLights />
       </div>
       {/* Runs before hydration: don't replay the screen on every page load of

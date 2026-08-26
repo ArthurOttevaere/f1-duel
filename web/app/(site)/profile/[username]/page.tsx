@@ -198,7 +198,7 @@ export default async function ProfilePage({
             )}
           </div>
 
-          <h1 className="mt-4 flex items-center gap-3 text-4xl font-bold tracking-tight sm:text-5xl">
+          <h1 className="display mt-4 flex items-center gap-3 text-4xl font-extrabold tracking-tight sm:text-5xl">
             {/* Owner-only: `details` is never fetched for a visitor, and the
                 country stays out of every public table, so no one else sees
                 this flag whatever they ask the page for. */}

@@ -164,7 +164,7 @@ export default async function StandingsPage({
         <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
           Season {CURRENT_SEASON}
         </p>
-        <h1 className="mt-1 text-3xl font-bold tracking-tight">Standings</h1>
+        <h1 className="display mt-1 text-3xl font-extrabold tracking-tight">Standings</h1>
       </header>
 
       {/* The model stands above the board, not in it — see GAME_DESIGN §2.5.
@@ -183,7 +183,7 @@ export default async function StandingsPage({
           {selectedLeague && (
             <section className="glass-card flex flex-col gap-4 p-5 sm:flex-row sm:items-start sm:justify-between sm:p-6">
               <div>
-                <h2 className="text-lg font-semibold">{selectedLeague.name}</h2>
+                <h2 className="display text-lg font-extrabold tracking-tight">{selectedLeague.name}</h2>
                 <p className="mt-1 font-mono text-xs text-ink-mute">
                   {totalPlayers} {totalPlayers === 1 ? "player" : "players"} ·
                   code{" "}

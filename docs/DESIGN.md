@@ -5,7 +5,9 @@
 > for the document: if a rule appears below, there is code enforcing it, and if
 > the code changes, this file is wrong until it is updated.
 
-**Status:** documents `main` as of 2026-08-26.
+**Status:** documents `main` as of 2026-08-26, including the F-series
+foundation pass (typeface, ground, red split, grain, shadows, weight
+hierarchy).
 **Scope:** the Next.js site in `web/`. The Flask model platform
 (`webapp/static/css/style.css`) is a separate, older surface that shares the
 palette and nothing else.
@@ -96,18 +98,27 @@ cheapest way to stop a fix from being re-broken. Keep doing it.
 
 ### 2.1 Name and logotype
 
-**F1 Duel.** Set in the mono face, semibold, `tracking-widest`, with `F1` in
-race red and `DUEL` in ink:
+**F1 Duel.** One component, `components/Wordmark.tsx`, and every appearance of
+the name goes through it:
 
 ```tsx
-<span className="font-mono text-sm font-semibold tracking-widest">
-  <span className="text-race">F1</span> DUEL
+<span className="display text-sm font-extrabold tracking-[0.2em] uppercase">
+  <span className="text-race">F1</span> Duel
 </span>
 ```
 
-It appears at three sizes and never any other way — nav, footer, boot screen.
-There is no logomark, no icon, and no wordmark image file. (`TeamWordmark.tsx`
-is unrelated: it sets a *constructor's* name in the same mono idiom.)
+It is set in the **display face** (§4.1) — Archivo at wdth 118, the same width
+as every headline — with `F1` in race red and `DUEL` in ink. It was in Geist
+Mono until the width axis arrived, which was a category error: mono is this
+site's voice for *data* (§4.2), and a name is not data.
+
+Wide letter-spacing, not a wide space between the words: at 14px the expanded
+cut needs air or it reads as a bold word rather than as lettering.
+
+It appears in eight places — nav, mobile menu, footer, boot screen, login,
+welcome, unsubscribe, 404 — and never any other way. There is no logomark, no
+icon, and no wordmark image file. (`TeamWordmark.tsx` is unrelated: it sets a
+*constructor's* name in the mono idiom.)
 
 ### 2.2 What the brand is about
 
@@ -124,9 +135,13 @@ Three, all drawn in CSS, all borrowed from the sport rather than from a UI kit:
 | **Start-light gantry** (`.start-lights`) | Boot screen, full-page loader | Waiting, about to begin |
 | **Checkered edge** (`.checker-edge`) | Above the footer, on the race poster | The end of the page as a finish line |
 | **Faint 72px grid** (`.hero-grid`, `.cover-grid`) | Hero, profile cover | Telemetry / technical drawing |
+| **Grain** (`.grain`) | Every page, fixed, 3.2% | Tooth. A surface, not a render. |
 
 Use them where they mean something. A start-light gantry that is not a wait, or
 a checkered band that is not an ending, is decoration and does not belong.
+
+The grain is the exception: it means nothing, it is everywhere, and that is the
+point. See §6.5.
 
 ---
 
@@ -143,20 +158,33 @@ a Tailwind utility (`bg-bg`, `text-ink-dim`, `border-line`, …).
 
 | Token | Value | Role |
 | --- | --- | --- |
-| `--color-bg` | `#07080b` | The page. Also the browser chrome (`viewport.themeColor`). |
+| `--color-bg` | `#0a0b10` | The page. Also the browser chrome (`viewport.themeColor`) and the manifest. |
 | `--color-ink` | `#f4f6fa` | Primary text, and the only white in the system. |
 | `--color-ink-dim` | `#a7adba` | Body copy, secondary text. |
 | `--color-ink-mute` | `#6c7280` | Labels, metadata, disabled, empty states. Also `NEUTRAL_COLOR`. |
-| `--color-race` | `#ff1e3c` | The accent. Primary actions, active state, errors, emphasis. |
-| `--color-race-deep` | `#e8002d` | Hover of a red button only. |
+| `--color-race` | `#ff1e3c` | The **signal**. Active state, errors, multipliers, eyebrows, emphasis — and the hover of a red button. |
+| `--color-race-deep` | `#c8102e` | The **surface**. The resting fill of any red button or large red area. |
 | `--color-glass` | `rgb(255 255 255 / 0.045)` | Chip and inert-row fill. |
 | `--color-glass-strong` | `rgb(255 255 255 / 0.07)` | The same, one step up — hover, "this is you". |
 | `--color-line` | `rgb(255 255 255 / 0.1)` | Default border. |
 | `--color-line-hi` | `rgb(255 255 255 / 0.16)` | Border on hover / focus-within. |
 | `--color-card` | `rgb(28 31 40 / 0.72)` | The card fill behind `.glass-card`. |
 
-Three greys, one red, two membranes and two hairlines. **Do not add a colour to
-this table without deleting one.**
+Three greys, one red in two strengths, two membranes and two hairlines. **Do
+not add a colour to this table without deleting one.**
+
+Two notes on the values, because both were arrived at rather than picked:
+
+**The ground is `#0a0b10`, not near-black.** `#07080b` is what you get when
+nobody chooses a background, and a red sitting on true black has nothing to sit
+on. Two points of blue is the whole change and it reads on every page.
+
+**The red splits by area, not by state.** At full saturation `#ff1e3c` is a
+signal — perfect for two per cent of a screen, a shout across two hundred
+pixels of button. It is also 3.8:1 against white, under the 4.5:1 a button
+label needs. `--color-race-deep` is 5.9:1 and unmistakably the same red, so it
+takes the fills; `race` is what a button *becomes* under the cursor. The accent
+moved into the interaction rather than out of the palette.
 
 ### 3.2 Semantic tones
 
@@ -211,27 +239,64 @@ one and was checked rather than guessed: the strongest fill composites to about
 `#e11b36`, which is 4.9:1 against `#f4f6fa` and only 4.0:1 against the page
 black. The middle band is not close — 10:1 light, 1.9:1 dark.
 
-### 3.5 Glows
+### 3.5 Shadows and glows
 
-Red glow under a red button, and nowhere else:
-`shadow-[0_10px_32px_rgb(255_30_60/0.4)]` at hero size,
-`shadow-[0_6px_20px_rgb(255_30_60/0.35)]` at nav size. The aurora (§6.3) is the
-only other light source on the site.
+Three tokens, declared in `@theme` beside the colours, and nothing hand-rolls a
+shadow any more:
+
+| Token | Value | For |
+| --- | --- | --- |
+| `--shadow-panel` | `0 22px 56px rgb(3 5 16 / 0.62)` | `.glass-card`, desktop. |
+| `--shadow-panel-sm` | `0 10px 24px rgb(3 5 16 / 0.44)` | The same card on a phone (§10.3). |
+| `--shadow-race` | `0 10px 30px rgb(168 12 40 / 0.38)` | The glow under `.btn-race`, and nowhere else. |
+
+**A shadow takes the hue of what is behind it.** Pure black at low opacity is
+the default nobody picked, and it greys a card rather than lifting it — these
+are the page ground pushed darker and a touch bluer. The red glow is tinted to
+`race-deep`, the colour the button actually is, not to the brighter red it used
+to borrow.
+
+The aurora (§6.3) is the only other light source on the site.
 
 ---
 
 ## 4. Typography
 
-### 4.1 The two faces
+### 4.1 The two faces, and the third that is the first again
 
 | Face | Variable | Loaded as | Carries |
 | --- | --- | --- | --- |
-| **Inter** | `--font-inter` → `font-sans` | `next/font/google`, latin subset | All prose, headings, buttons, names |
+| **Archivo** | `--font-archivo` → `font-sans` | `next/font/google`, latin subset, `axes: ["wdth"]` | All prose, buttons, names |
+| **Archivo, wdth 118** | `.display` | The same file | Headlines, the wordmark, the nav labels |
 | **Geist Mono** | `--font-geist-mono` → `font-mono` | `next/font/google`, latin subset | Every number, label, code, position, timer |
 
-Both are self-hosted by `next/font`, so there is no external font request and
-no FOUT to design around. `-webkit-font-smoothing: antialiased` and
+Both families are self-hosted by `next/font`, so there is no external font
+request and no FOUT to design around. `-webkit-font-smoothing: antialiased` and
 `text-rendering: optimizeLegibility` are set on `body`.
+
+**Why Archivo.** Inter is an excellent typeface and a completely anonymous one:
+it is the default of every generated interface, and it says nothing about this
+sport or this game. Archivo is a grotesque built to be read small and to be
+monumental large, which is the register of pit boards, timing towers and the
+name across the top of a livery.
+
+**One family, two widths.** Google ships Archivo variable on both `wdth`
+(62–125) and `wght` (100–900), so the display voice is the *same file* opened
+along its width axis — no second family, no second request. The served
+`@font-face` carries `font-stretch: 62% 125%`; if that line ever disappears
+from the build, the width axis went with it and `.display` silently stops
+doing anything.
+
+```css
+.display {
+  font-variation-settings: "wdth" 118;
+}
+```
+
+Width only. Tracking stays with the utility on each element — a 72px headline
+and a 14px uppercase wordmark want opposite amounts of it, and `.display` is
+unlayered, so a `letter-spacing` in here would beat every `tracking-*` it
+touched.
 
 ### 4.2 The mono rule
 
@@ -250,17 +315,41 @@ not an aspiration:
 
 | Role | Classes | Notes |
 | --- | --- | --- |
-| Hero headline | `text-4xl … sm:text-7xl`, `font-extrabold tracking-tight`, `leading-[1.05]`/`sm:leading-[1.02]` | Home only. One per site. |
-| Page title (h1) | `text-4xl font-bold tracking-tight sm:text-5xl` | Every top-level page. |
-| Section title (h2) | `text-2xl font-bold tracking-tight` | The workhorse — 32 uses. |
-| Card title (h3) | `text-lg font-semibold` | |
+| Hero headline | `display text-4xl … sm:text-7xl`, `font-extrabold tracking-tight`, `leading-[1.05]`/`sm:leading-[1.02]` | Home only. One per site. |
+| Page title (h1) | `display text-4xl font-extrabold tracking-tight sm:text-5xl` | Every top-level page. |
+| Section title (h2) | `display text-2xl font-extrabold tracking-tight` | The workhorse — 32 uses. |
+| Card title (h3) | `display text-lg font-extrabold tracking-tight` | |
+| Section **label** (h2/h3) | `text-sm font-semibold tracking-wide text-ink-dim` | **No `.display`, no negative tracking.** Nine of the site's h2s are these. |
 | Lead paragraph | `text-lg leading-relaxed text-ink-dim` | Directly under an h1. |
 | Body | `text-sm leading-relaxed text-ink-dim` | The default. 200 uses — if in doubt, this. |
 | Metadata | `text-xs text-ink-mute`, usually mono | |
 | Micro-label | `text-[0.65rem]` / `text-[0.6rem]`, mono, `tracking-wider uppercase` | Column headers, chip labels. |
 
 `tracking-tight` on every heading; `tracking-wider`/`tracking-widest` only on
-uppercase mono. Never letter-space lowercase sans.
+uppercase mono, and on the wordmark. Never letter-space lowercase sans.
+
+**Hierarchy is carried by weight and width, not only by three greys.** Every
+heading used to be the same `font-bold` and the ranking was left entirely to
+ink / ink-dim / ink-mute — consistent, and monotone: one channel doing all the
+work, and it runs out after three steps. Headlines are 800 at wdth 118; labels
+are 600 at natural width with *positive* tracking, which is what makes them
+read as labels rather than as small headlines. And a text does not drop to
+`ink-mute` merely for being secondary — that is what the weight is for now.
+
+This is deliberately **not** an `h1, h2 { … }` element rule. Nine of the site's
+h2s are `text-sm` section labels, and an unlayered element selector would have
+silently overridden every one of them.
+
+### 4.3.1 No orphans
+
+```css
+h1, h2, h3, h4 { text-wrap: balance; }
+p, li, dd, figcaption { text-wrap: pretty; }
+```
+
+Two rules in `globals.css`, and no headline on the site drops its last word
+onto a line of its own at an intermediate width. It is most of the difference
+between a page that was set and a page that was rendered.
 
 ### 4.4 The eyebrow
 
@@ -350,14 +439,14 @@ background: var(--color-card);           /* rgb(28 31 40 / 0.72) */
 border: 1px solid var(--color-line);
 border-radius: 1.25rem;
 box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.07),  /* top-edge highlight */
-            0 22px 56px rgb(0 0 0 / 0.55);
+            var(--shadow-panel);
 ```
 
 The inset highlight is what makes it read as a lit pane rather than a grey box.
 Padding is the caller's: `p-3` for a dense list, `p-5`/`p-6` for a content card,
 `p-8` for a feature panel.
 
-**On phones the shadow is cut to `0 10px 24px rgb(0 0 0 / 0.38)`** — see §10.3.
+**On phones the drop is cut to `--shadow-panel-sm`** — see §10.3.
 
 ### 6.2 `.glass-chip` — the floating element
 
@@ -387,6 +476,36 @@ three are `pointer-events: none` decoration drawn with gradients — no images.
 
 ---
 
+### 6.5 `.grain` — the tooth
+
+```css
+.grain {
+  position: fixed; inset: 0; z-index: 200;
+  pointer-events: none;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,…feTurbulence…");
+  background-size: 180px 180px;
+}
+```
+
+One fixed layer of monochrome noise over the whole site, at 3.2%, mounted once
+in `app/layout.tsx`.
+
+Absolutely flat colour is what makes a generated page look *rendered* rather
+than *made*: real surfaces have a tooth. The noise is an inline `feTurbulence`
+— no image file, no request, nothing on the wire beyond the rule — tiled at
+180px, and `feColorMatrix type="saturate" values="0"` desaturates it so it adds
+texture and not a colour cast.
+
+It deliberately sits above everything, sheets and the boot screen included: a
+texture that stops at the edge of an overlay announces itself. `pointer-events:
+none` means it never intercepts anything.
+
+If the phone paint budget (§10.3) ever suffers, this is the first layer to go
+behind a `@media (min-width: 768px)`. It has not needed to.
+
+---
+
 ## 7. Components
 
 ### 7.1 Navigation
@@ -411,9 +530,22 @@ Three variants and one shared behaviour. Everything clickable gets
 
 | Variant | Classes | Use |
 | --- | --- | --- |
-| **Primary** | `pressable rounded-full bg-race px-8 py-3.5 text-base font-semibold text-white shadow-[0_10px_32px_rgb(255_30_60/0.4)] transition-colors hover:bg-race-deep` | One per view. `px-6 py-3 text-sm` at inline size, `px-4 py-1.5` in the nav. |
+| **Primary** | `pressable btn-race px-8 py-3.5 text-base font-semibold` | One per view. `px-6 py-3 text-sm` at inline size, `px-4 py-1.5` in the nav. |
 | **Secondary** | `pressable glass-chip rounded-full px-8 py-3.5 text-base font-semibold text-ink transition-colors hover:border-line-hi` | Beside a primary. |
 | **Tertiary / full-width** | `pressable w-full rounded-xl border border-line-hi py-3 text-sm font-semibold transition-colors hover:bg-glass-strong` | Sheet and form actions on a phone. |
+
+**`.btn-race` is the primary action, and it lives in `globals.css`.** Fill,
+glow, hover and radius are in the class; size, layout and `disabled:opacity-*`
+stay utilities at the call site, because those genuinely differ. Twenty-two
+call sites used to carry the same four tokens by hand, which meant every change
+to the loudest surface on the site was twenty-two edits — and the glow had
+already drifted into three different values.
+
+```css
+.btn-race          { background: var(--color-race-deep); box-shadow: var(--shadow-race); … }
+.btn-race:hover    { background: var(--color-race); }
+.btn-race:disabled { box-shadow: none; }   /* and no hover brightening */
+```
 
 A button that starts work renders `<Spinner />` in place of, or beside, its
 label until the work returns (§1.3). A destructive action is a tertiary button
@@ -478,7 +610,7 @@ component holding a matrix does not have to fake one.
 | --- | --- | --- |
 | Inline | `Spinner` | Any busy control. `1em` square, `currentColor`, so it never needs a variant. |
 | Whole route | `RaceLoader` | `loading.tsx`. Start-light gantry over a rotating F1 in-joke, changing every 1.8s. |
-| First paint of a session | `BootScreen` | An opaque `#07080b` screen, in the server HTML, running the gantry on CSS alone. Lifts on `load`, held for 700ms minimum and 2500ms maximum, once per session (`sessionStorage`). |
+| First paint of a session | `BootScreen` | An opaque `#0a0b10` screen, in the server HTML, running the gantry on CSS alone. Lifts on `load`, held for 700ms minimum and 2500ms maximum, once per session (`sessionStorage`). |
 
 The loader phrases are original and name no real driver or team, so they neither
 date nor need clearing.
@@ -749,7 +881,7 @@ changes, change `C` in `draw.ts` in the same commit.**
 
 ### 14.3 Installed app
 
-`app/manifest.ts` and `viewport.themeColor = "#07080b"`, so the phone's browser
+`app/manifest.ts` and `viewport.themeColor = "#0a0b10"`, so the phone's browser
 chrome paints itself in the page colour and the address bar continues the page
 instead of ending it in a light grey band.
 
@@ -761,9 +893,10 @@ This file is a description, not a proposal. It is wrong the moment the code
 disagrees with it, so:
 
 1. **A change to any of these updates this file in the same PR:** the `@theme`
-   block, `.glass-card`/`.glass-chip`, the focus ring, `.pressable`, the
-   probability bands, the container widths, the breakpoint meanings, the button
-   variants, the poster palette, or `lib/format.ts`'s number rules.
+   block, `.glass-card`/`.glass-chip`, `.display`, `.btn-race`, `.grain`,
+   `Wordmark.tsx`, the focus ring, `.pressable`, the probability bands, the
+   container widths, the breakpoint meanings, the button variants, the poster
+   palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
    fourth button variant or a second spinner is either promoted into this
    document with a reason, or removed.
@@ -782,7 +915,7 @@ Everything a new component needs, in one place. All of it is already a Tailwind
 utility.
 
 ```
-Surface     bg-bg                #07080b        the page, nothing else
+Surface     bg-bg                #0a0b10        the page, nothing else
             glass-card                          cards
             glass-chip                          floating / secondary
             bg-glass             white 4.5%     inert rows
@@ -793,8 +926,9 @@ Ink         text-ink             #f4f6fa        primary
             text-ink-dim         #a7adba        body
             text-ink-mute        #6c7280        labels, empty, disabled
 
-Accent      text-race / bg-race  #ff1e3c        actions, active, errors, data
-            bg-race-deep         #e8002d        red-button hover only
+Accent      text-race / bg-race  #ff1e3c        signal: active, errors, data, hover
+            bg-race-deep         #c8102e        surface: any resting red fill
+            btn-race                            the primary button, whole
             bg-race/5 /10 /15                   tint steps, only these three
 
 Line        border-line          white 10%      default
@@ -805,7 +939,8 @@ Semantic    text-emerald-400                    exact, positive, won
             text-race                           error, lost
             text-ink-mute                       missed, none
 
-Type        font-sans (Inter)                   prose, headings, names
+Type        font-sans (Archivo)                 prose, buttons, names
+            .display (Archivo wdth 118)         headlines, wordmark, nav
             font-mono (Geist Mono)              every number and label
             tabular-nums                        anything that ticks
 
@@ -813,6 +948,12 @@ Radius      rounded-full                        pills, avatars, bars
             rounded-2xl                         nav, sheets, panels
             rounded-xl                          rows, inputs, tiles
             (glass-card = 1.25rem, in the class)
+
+Shadow      --shadow-panel                      glass-card, desktop
+            --shadow-panel-sm                   glass-card, phone
+            --shadow-race                       under btn-race, nowhere else
+
+Texture     .grain                              mounted once in layout.tsx
 
 Motion      --ease-out-strong    cubic-bezier(0.23, 1, 0.32, 1)
             --ease-in-out-strong cubic-bezier(0.77, 0, 0.175, 1)
@@ -837,3 +978,4 @@ Layout      w-[min(64rem,calc(100%-2rem))]      default container
 | `web/lib/poster/draw.ts` | The off-site palette copy. |
 | `web/components/Spinner.tsx`, `RaceLoader.tsx`, `BootScreen.tsx` | Waiting. |
 | `web/components/ProbabilityGrid.tsx` | The probability bands and both cuts of the matrix. |
+| `web/components/Wordmark.tsx` | The site's name, every appearance of it. |

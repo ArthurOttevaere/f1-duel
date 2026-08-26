@@ -157,7 +157,7 @@ export default async function LastRaceProof() {
       <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
         The last race · Round {race.round}
       </p>
-      <h2 className="mt-3 max-w-xl text-3xl font-bold tracking-tight sm:text-4xl">
+      <h2 className="display mt-3 max-w-xl text-3xl font-extrabold tracking-tight sm:text-4xl">
         The model called the {race.name}. Here&apos;s how it did.
       </h2>
       <p className="mt-4 max-w-xl leading-relaxed text-ink-dim">
@@ -253,7 +253,7 @@ export default async function LastRaceProof() {
         <div className="flex flex-wrap items-center gap-4">
           <Link
             href="/game"
-            className="pressable rounded-full bg-race px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgb(255_30_60/0.35)] transition-colors hover:bg-race-deep"
+            className="pressable btn-race px-7 py-3 text-sm font-semibold"
           >
             Play the next duel
           </Link>

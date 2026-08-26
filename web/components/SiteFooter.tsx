@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Wordmark from "@/components/Wordmark";
 import { AUTHOR, AUTHOR_URL, REPO_URL } from "@/lib/constants";
 
 export default function SiteFooter() {
@@ -7,8 +8,8 @@ export default function SiteFooter() {
       <div className="checker-edge" />
       <div className="mx-auto flex w-[min(64rem,calc(100%-2rem))] flex-col gap-8 py-12 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="font-mono text-sm font-semibold tracking-widest">
-            <span className="text-race">F1</span> DUEL
+          <p>
+            <Wordmark />
           </p>
           <p className="mt-2 max-w-xs text-sm text-ink-mute">
             One duel per Grand Prix, all season long. Humans versus the

@@ -236,7 +236,7 @@ export default async function RaceReviewPage({
           <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
             Round {race.round} · {race.country}
           </p>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight">{race.name}</h1>
+          <h1 className="display mt-1 text-3xl font-extrabold tracking-tight">{race.name}</h1>
         </div>
         {/* Signed out, the poster moves to the closing block below, where it
             is the thing being offered rather than a chip in a header. It is
@@ -401,7 +401,7 @@ export default async function RaceReviewPage({
           <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
             Your turn
           </p>
-          <h2 className="mt-2 max-w-2xl text-2xl font-bold tracking-tight sm:text-3xl">
+          <h2 className="display mt-2 max-w-2xl text-2xl font-extrabold tracking-tight sm:text-3xl">
             {entry?.total != null
               ? `The model scored ${formatPoints(entry.total)} here. Could you have done better?`
               : "The model has filed its top 10. Yours goes right next to it."}
@@ -415,7 +415,7 @@ export default async function RaceReviewPage({
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
               href="/login"
-              className="pressable rounded-full bg-race px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgb(255_30_60/0.35)] transition-colors hover:bg-race-deep"
+              className="pressable btn-race px-7 py-3 text-sm font-semibold"
             >
               Enter the duel — it takes 20 seconds
             </Link>
