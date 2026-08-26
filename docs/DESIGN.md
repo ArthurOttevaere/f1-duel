@@ -150,12 +150,19 @@ Four rules keep it honest.
   layout, never inside each instance. See §9.7: this is a bug, not a taste.
 - **The mark is sized in `em`** (`h-[1.7em]`), so the lockup tracks the type
   size and never needs a second measurement.
-- **The lockup pairs the drawn mark with Archivo lettering, and never the
-  lettering baked into the logo file.** The source file carries its own
-  vertical "F1 Duel" and a "Race Prediction Game" line; both are dropped here.
-  Two different cuts of the same two words on one line is the one thing a
-  logotype cannot do. The full lockup survives as `public/logo-lockup.svg`,
-  for a poster or an app-store listing, and is not used by the site.
+- **There are two cuts, and size decides which.** `<Logomark />` is the mark
+  alone; `<Logomark withName />` adds the vertical "F1 Duel" that comes with
+  the source file. The lettering is about a ninth of the drawing's width, so at
+  the 24px the nav gives it the name is three pixels wide — grit on the left
+  edge rather than type. Measured at 300 / 96 / 48 / 26px before choosing. The
+  named cut therefore appears in exactly one place, the **boot screen**, drawn
+  at 120px, where the identity has the whole viewport. Everywhere else the mark
+  stands alone beside the Archivo name, which also stops the page printing
+  "F1 Duel" twice on one line in two different cuts.
+
+The source file's "Race Prediction Game" line is dropped from both. The
+untouched original stays at `public/logo-lockup.svg` for a poster or an
+app-store listing, and the site never references it.
 
 Coordinates in the mark are rounded to one decimal — 22 kB of path data down to
 13 kB, and invisible, because the viewBox is 751 units wide and the mark is

@@ -9,17 +9,31 @@ import type { CSSProperties } from "react";
  * The mark is **a single fill plus a knockout.** Everything solid is
  * `currentColor`, so the caller decides the contrasting colour and the mark
  * inverts with whatever it sits on. The car and half the chequer are not
- * painted at all: they are cut out of the letter by a mask, so they show
- * **whatever is actually behind the logo** — the page, a glass card, a red
- * button, a blue banner. On the site's own ground the car is `#0a0b10`; drop
- * the same markup on blue and the car is blue, with nothing to configure.
+ * painted at all: a mask cuts them out of the letter, so they show **whatever
+ * is actually behind the logo** — the page, a glass card, a red button, a blue
+ * banner. On the site's ground the car is `#0a0b10`; drop the same markup on
+ * blue and the car is blue, with nothing to configure.
  *
- * The alternative was painting them with `var(--color-bg)`. That is right only
- * while the logo sits directly on the page background, and wrong the moment it
- * lands on a card, an image or a coloured surface. A hole is right everywhere.
+ * Painting them `var(--color-bg)` instead would be right only while the logo
+ * sits directly on the page background, and wrong the moment it lands on a
+ * card, an image or a coloured surface. A hole is right everywhere.
  *
- * The mask itself lives in `LogoSprite`, once per document — see the note
- * there, which is a real bug and not a preference.
+ * The masks live in `LogoSprite`, once per document — see the note there,
+ * which is a real bug and not a preference.
+ *
+ * ## Two cuts, and which one goes where
+ *
+ * `withName` draws the vertical "F1 Duel" that comes with the source file
+ * beside the mark. **It is for large surfaces only.** The lettering is about a
+ * ninth of the drawing's width, so at the 24px the nav gives it the name is
+ * three pixels wide: not small type, but grit on the left edge that makes the
+ * mark dirtier rather than richer. Measured at 300 / 96 / 48 / 26px before
+ * choosing.
+ *
+ * So: `withName` on the boot screen, where the mark is drawn at 120px and the
+ * name reads. Everywhere else the mark stands alone beside the Archivo name
+ * (`Wordmark`) — which also avoids printing "F1 Duel" twice on one line, in
+ * two different cuts, which is the one thing a logotype cannot do.
  *
  * **It has to be inlined, never `<img src>`.** An SVG in an `<img>` is an
  * isolated document: it cannot see the page's `color`, so the letter would
@@ -29,34 +43,37 @@ import type { CSSProperties } from "react";
  * `public/icon-{192,512}.png` — are therefore baked against the site's dark
  * ground, which is the only place they are ever seen.
  *
- * The vertical "F1 Duel" lettering and the "Race Prediction Game" line that
- * come with the source file are not here. The site sets its name in Archivo
- * (`Wordmark`), and two different cuts of the same two words on one line is
- * the one thing a logotype cannot do. The full lockup is kept at
- * `public/logo-lockup.svg`.
+ * Coordinates are rounded to one decimal: invisible, because the viewBox is
+ * 764 units wide and the mark is never drawn much above 300 pixels.
  */
 export default function Logomark({
   className = "",
   style,
+  withName = false,
 }: {
   className?: string;
   style?: CSSProperties;
+  /** Draw the vertical "F1 Duel" beside the mark. Large sizes only. */
+  withName?: boolean;
 }) {
+  // Tight to the ink in each cut, measured rather than guessed, so callers can
+  // size by height and get no stray padding on either.
+  const box = withName ? "326 244 946 1012" : "509 244 764 1012";
   return (
     <svg
-      viewBox="478 349 751 778"
+      viewBox={box}
       className={className}
       style={style}
       aria-hidden
       focusable="false"
     >
       <rect
-        x="478"
-        y="349"
-        width="751"
-        height="778"
+        x="0"
+        y="0"
+        width="1500"
+        height="1500"
         fill="currentColor"
-        mask="url(#duel-cut)"
+        mask={`url(#${withName ? "duel-cut-name" : "duel-cut"})`}
       />
     </svg>
   );

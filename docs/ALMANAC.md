@@ -1913,10 +1913,12 @@ the icon.
    `hidden`, and `#boot-screen[hidden]` is `display: none`. Chrome does not
    build SVG resources in a `display: none` subtree, so *every* reference on the
    page failed at once and all three marks rendered as unmasked white squares.
-   The fix is `components/LogoSprite.tsx`: one definition, in the root layout,
+   The fix is `components/LogoSprite.tsx`: the definitions, in the root layout,
    in a zero-sized but **rendered** `<svg>` (`position: absolute`, `width/height:
-   0`, never `display: none`). It also took the page from three copies of 13 kB
-   of path data to one.
+   0`, never `display: none`). It also took the page from a copy of the path
+   data per instance to one. It holds two masks — `duel-cut` for the mark and
+   `duel-cut-name` for the cut with the vertical "F1 Duel", which the boot
+   screen alone draws (DESIGN §2.1).
 
 1. **`backdrop-filter` traps `position: fixed`.** The nav uses `.glass-chip`,
    whose `backdrop-filter` creates a containing block. A `position: fixed`
