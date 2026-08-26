@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { CURRENT_SEASON, LIVE_MODEL_URL } from "@/lib/constants";
 import { formatRaceDate, shortName } from "@/lib/format";
+import { driverColor } from "@/lib/teams";
 import type { Driver, ModelEntry, Race } from "@/lib/types";
 import ProbabilityGrid, { type GridDriver } from "@/components/ProbabilityGrid";
 
@@ -86,6 +87,9 @@ async function latestMatrix(): Promise<{
       driverId,
       code: d?.code ?? shortName(driverId).slice(0, 3).toUpperCase(),
       name: d?.full_name ?? shortName(driverId),
+      // Only the phone cut draws it, but it is resolved here: this is the one
+      // place that has the roster row the colour is derived from.
+      color: driverColor(d),
       probs: probs.slice(0, GRID_POSITIONS),
     };
   });
@@ -187,6 +191,7 @@ export default async function ModelPage() {
               <ProbabilityGrid
                 drivers={matrix.drivers}
                 positions={GRID_POSITIONS}
+                modelOrder={matrix.entry.predicted_order}
               />
             </div>
           </section>

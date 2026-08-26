@@ -1,0 +1,839 @@
+# The Design System — F1 Duel
+
+> The visual and interaction language of https://f1-duel.com, written down as
+> it actually is. Everything here was read out of `web/` rather than invented
+> for the document: if a rule appears below, there is code enforcing it, and if
+> the code changes, this file is wrong until it is updated.
+
+**Status:** documents `main` as of 2026-08-26.
+**Scope:** the Next.js site in `web/`. The Flask model platform
+(`webapp/static/css/style.css`) is a separate, older surface that shares the
+palette and nothing else.
+**Maintenance rule:** same as the Almanac's — a change that alters something
+described here updates this file in the same PR. See
+[§15 Keeping this document true](#15-keeping-this-document-true).
+
+| Related document | Scope |
+| --- | --- |
+| [`ALMANAC.md`](ALMANAC.md) | The whole system: architecture, jobs, database, deployment. |
+| [`GAME_DESIGN.md`](GAME_DESIGN.md) | The game rules. Several visual decisions here exist to express them. |
+
+---
+
+## Table of contents
+
+1. [Principles](#1-principles)
+2. [Brand](#2-brand)
+3. [Colour](#3-colour)
+4. [Typography](#4-typography)
+5. [Layout and space](#5-layout-and-space)
+6. [Surfaces and materials](#6-surfaces-and-materials)
+7. [Components](#7-components)
+8. [Motion](#8-motion)
+9. [Imagery and icons](#9-imagery-and-icons)
+10. [Responsive behaviour](#10-responsive-behaviour)
+11. [Accessibility](#11-accessibility)
+12. [Data visualisation](#12-data-visualisation)
+13. [Voice and content](#13-voice-and-content)
+14. [Off-site surfaces](#14-off-site-surfaces)
+15. [Keeping this document true](#15-keeping-this-document-true)
+16. [Appendix — token reference](#16-appendix--token-reference)
+
+---
+
+## 1. Principles
+
+Six rules explain nearly every decision in the rest of this document. They are
+ordered: when two conflict, the earlier one wins.
+
+### 1.1 The rule and the picture are the same thing
+
+The game's central mechanic is that **points are multiplied by how unlikely the
+model thought your pick was**. Wherever that rule shows up visually, the visual
+*is* the rule — the probability chart's five colour bands are the five
+multiplier tiers, not a decorative ramp, so reading the chart teaches the
+scoring. Never invent a scale that merely looks like the rule.
+
+### 1.2 Colour is never the only channel
+
+Every quantity is printed as text beside its colour. Every state has a shape or
+a word as well as a hue. This is an accessibility floor, but it is also why the
+charts survive a phone screen in daylight.
+
+### 1.3 Nothing waits in silence
+
+Any control that fires off work shows a spinner until the work comes back; any
+route that can be slow has a `loading.tsx`. There is one spinner
+(`components/Spinner.tsx`) and one full-page loader (`components/RaceLoader.tsx`)
+— no variants, no exceptions. This is a house rule, not a preference.
+
+### 1.4 Separate with space and type, never with a band
+
+The home page carries no section backgrounds. Two attempts at one — a white
+veil (`.zone-fade`), then a blue radial glow (`.zone-glow`) — were both removed
+because the reason a section drew the eye was that *only one of them had a
+background at all*. A new section is announced by its red eyebrow, its heading
+and 6rem of air. The hero's aurora is the single exception, which is what makes
+it a signature rather than a motif.
+
+### 1.5 The phone is not a narrower desktop
+
+A table that needs 32–36rem gets a **phone twin**, not a horizontal scrollbar:
+iOS draws no bar for overflow, so a column past the edge is a column that does
+not exist. Three surfaces have been rebuilt on this rule — the race breakdown,
+the standings board, and the probability matrix (§12.2). The twin is allowed to
+show a *different cut* of the data, not a squeezed one.
+
+### 1.6 Comment the decision, not the code
+
+Every non-obvious rule in `web/` carries a comment saying what was tried and
+why it lost. That is why this document could be written at all, and it is the
+cheapest way to stop a fix from being re-broken. Keep doing it.
+
+---
+
+## 2. Brand
+
+### 2.1 Name and logotype
+
+**F1 Duel.** Set in the mono face, semibold, `tracking-widest`, with `F1` in
+race red and `DUEL` in ink:
+
+```tsx
+<span className="font-mono text-sm font-semibold tracking-widest">
+  <span className="text-race">F1</span> DUEL
+</span>
+```
+
+It appears at three sizes and never any other way — nav, footer, boot screen.
+There is no logomark, no icon, and no wordmark image file. (`TeamWordmark.tsx`
+is unrelated: it sets a *constructor's* name in the same mono idiom.)
+
+### 2.2 What the brand is about
+
+Human versus machine, once a Grand Prix. The tone is **racing broadcast, not
+sports-betting app**: confident, dry, specific about numbers, never hyped and
+never cute about the odds. See §13.
+
+### 2.3 Motifs
+
+Three, all drawn in CSS, all borrowed from the sport rather than from a UI kit:
+
+| Motif | Where | Meaning |
+| --- | --- | --- |
+| **Start-light gantry** (`.start-lights`) | Boot screen, full-page loader | Waiting, about to begin |
+| **Checkered edge** (`.checker-edge`) | Above the footer, on the race poster | The end of the page as a finish line |
+| **Faint 72px grid** (`.hero-grid`, `.cover-grid`) | Hero, profile cover | Telemetry / technical drawing |
+
+Use them where they mean something. A start-light gantry that is not a wait, or
+a checkered band that is not an ending, is decoration and does not belong.
+
+---
+
+## 3. Colour
+
+Dark only. `color-scheme: dark` is declared on `html` and there is no light
+theme, no toggle, and no `prefers-color-scheme` branch anywhere in the
+stylesheet. Do not add per-component light fallbacks — they would be dead code.
+
+### 3.1 Core tokens
+
+Declared in `web/app/globals.css` under `@theme`, so every one of them is also
+a Tailwind utility (`bg-bg`, `text-ink-dim`, `border-line`, …).
+
+| Token | Value | Role |
+| --- | --- | --- |
+| `--color-bg` | `#07080b` | The page. Also the browser chrome (`viewport.themeColor`). |
+| `--color-ink` | `#f4f6fa` | Primary text, and the only white in the system. |
+| `--color-ink-dim` | `#a7adba` | Body copy, secondary text. |
+| `--color-ink-mute` | `#6c7280` | Labels, metadata, disabled, empty states. Also `NEUTRAL_COLOR`. |
+| `--color-race` | `#ff1e3c` | The accent. Primary actions, active state, errors, emphasis. |
+| `--color-race-deep` | `#e8002d` | Hover of a red button only. |
+| `--color-glass` | `rgb(255 255 255 / 0.045)` | Chip and inert-row fill. |
+| `--color-glass-strong` | `rgb(255 255 255 / 0.07)` | The same, one step up — hover, "this is you". |
+| `--color-line` | `rgb(255 255 255 / 0.1)` | Default border. |
+| `--color-line-hi` | `rgb(255 255 255 / 0.16)` | Border on hover / focus-within. |
+| `--color-card` | `rgb(28 31 40 / 0.72)` | The card fill behind `.glass-card`. |
+
+Three greys, one red, two membranes and two hairlines. **Do not add a colour to
+this table without deleting one.**
+
+### 3.2 Semantic tones
+
+The only hues outside the core palette, and each has exactly one meaning:
+
+| Tone | Class | Means | Used in |
+| --- | --- | --- | --- |
+| Emerald | `text-emerald-400` (`#34d399` on the poster) | Exact hit, positive margin, won the duel | Race breakdown, standings, poster |
+| Amber | `text-amber-300` (`#fbbf24` on the poster) | One place off, a draw, a caution | Race breakdown, poster |
+| Race red | `text-race` | Error text, multipliers, the model winning | Everywhere |
+| Ink-mute | `text-ink-mute` | Missed, nothing there, not applicable | Everywhere |
+
+Note the deliberate overload: **red is both the brand accent and the failure
+tone.** It works because red is never the only signal — an error is a short
+sentence, and the model's win is labelled. Do not introduce a separate error
+red.
+
+### 3.3 Constructor colours
+
+Team colour is data, not design. `drivers.team_color` comes from FastF1 and is
+nullable, so `lib/teams.ts` resolves it in a fixed order and every consumer goes
+through one of its helpers:
+
+- `driverColor(driver)` — a driver's stripe, avatar wash, chip.
+- `teamColor(team, roster)` — a constructor on its own.
+- `seasonPickColor(pick, roster)` — the colour a profile wears all season.
+- `tint(color, alpha)` — the *only* way to make a translucent version. Never
+  paste an alpha suffix onto a hex string; the database can hand back a
+  three-digit hex or an `rgb()` string and that silently produced no colour at
+  all.
+
+`NEUTRAL_COLOR` (`#6c7280`) is the last resort. **Red is never a neutral
+fallback** — it is Ferrari's colour here, and a Mercedes pick once came out
+looking like a Ferrari one because of that.
+
+### 3.4 Probability bands
+
+The one sequential scale in the system. Single hue, low→high, **never a
+rainbow**. The five stops are the game's multiplier tiers (`GAME_DESIGN` §2.2),
+defined once in `components/ProbabilityGrid.tsx`:
+
+| Probability | Fill | Multiplier | Ink |
+| --- | --- | --- | --- |
+| 30%+ | `rgb(255 30 60 / 0.88)` | ×1 | `text-ink` |
+| 15–30% | `rgb(255 30 60 / 0.55)` | ×1.5 | `text-ink` |
+| 5–15% | `rgb(255 30 60 / 0.3)` | ×2 | `text-ink` |
+| 2–5% | `rgb(255 30 60 / 0.14)` | ×3 | `text-ink-dim` |
+| under 2% | `rgb(255 255 255 / 0.03)` | ×3 | `text-ink-mute` |
+
+Every band carries **light** ink, which is counter-intuitive for the brightest
+one and was checked rather than guessed: the strongest fill composites to about
+`#e11b36`, which is 4.9:1 against `#f4f6fa` and only 4.0:1 against the page
+black. The middle band is not close — 10:1 light, 1.9:1 dark.
+
+### 3.5 Glows
+
+Red glow under a red button, and nowhere else:
+`shadow-[0_10px_32px_rgb(255_30_60/0.4)]` at hero size,
+`shadow-[0_6px_20px_rgb(255_30_60/0.35)]` at nav size. The aurora (§6.3) is the
+only other light source on the site.
+
+---
+
+## 4. Typography
+
+### 4.1 The two faces
+
+| Face | Variable | Loaded as | Carries |
+| --- | --- | --- | --- |
+| **Inter** | `--font-inter` → `font-sans` | `next/font/google`, latin subset | All prose, headings, buttons, names |
+| **Geist Mono** | `--font-geist-mono` → `font-mono` | `next/font/google`, latin subset | Every number, label, code, position, timer |
+
+Both are self-hosted by `next/font`, so there is no external font request and
+no FOUT to design around. `-webkit-font-smoothing: antialiased` and
+`text-rendering: optimizeLegibility` are set on `body`.
+
+### 4.2 The mono rule
+
+**Mono means "this is data."** Points, percentages, multipliers, countdowns,
+positions (`P4`), round numbers, driver codes, dates, the logotype, and every
+small-caps label. Prose is never mono; a driver's *name* is sans, their *code*
+is mono.
+
+Numbers that update in place (countdowns, live scores) additionally take
+`tabular-nums` so digits do not jitter.
+
+### 4.3 Scale
+
+Measured across `web/app` and `web/components` — this is the real distribution,
+not an aspiration:
+
+| Role | Classes | Notes |
+| --- | --- | --- |
+| Hero headline | `text-4xl … sm:text-7xl`, `font-extrabold tracking-tight`, `leading-[1.05]`/`sm:leading-[1.02]` | Home only. One per site. |
+| Page title (h1) | `text-4xl font-bold tracking-tight sm:text-5xl` | Every top-level page. |
+| Section title (h2) | `text-2xl font-bold tracking-tight` | The workhorse — 32 uses. |
+| Card title (h3) | `text-lg font-semibold` | |
+| Lead paragraph | `text-lg leading-relaxed text-ink-dim` | Directly under an h1. |
+| Body | `text-sm leading-relaxed text-ink-dim` | The default. 200 uses — if in doubt, this. |
+| Metadata | `text-xs text-ink-mute`, usually mono | |
+| Micro-label | `text-[0.65rem]` / `text-[0.6rem]`, mono, `tracking-wider uppercase` | Column headers, chip labels. |
+
+`tracking-tight` on every heading; `tracking-wider`/`tracking-widest` only on
+uppercase mono. Never letter-space lowercase sans.
+
+### 4.4 The eyebrow
+
+The site's most repeated typographic device — 40+ uses. A short uppercase mono
+line above a heading, in red when it announces a section, in ink-mute when it
+labels a value:
+
+```tsx
+<p className="font-mono text-xs tracking-[0.2em] text-race uppercase">The opponent</p>
+<h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">…</h1>
+```
+
+Per §1.4, the eyebrow *is* the section divider. Two lines maximum, no
+punctuation.
+
+### 4.5 Emphasis
+
+`<strong className="text-ink">` — a lift from dim to full ink, not a colour
+change. Red bold text is reserved for numbers and multipliers.
+
+---
+
+## 5. Layout and space
+
+### 5.1 Containers
+
+Three widths, and a page picks one:
+
+| Width | Used for |
+| --- | --- |
+| `w-[min(64rem,calc(100%-2rem))]` | The default. Nav, footer, and every content page. |
+| `w-[min(48rem,calc(100%-2rem))]` | Long-form reading: rules, privacy, contact. |
+| `w-[min(28rem,calc(100%-2rem))]` | A single form: login, welcome, unsubscribe. |
+
+The `calc(100%-2rem)` half is what gives every page the same 1rem phone gutter
+without a `px-4` on each one. Do not swap in `max-w-* mx-auto px-4`.
+
+### 5.2 Page frame
+
+```tsx
+<main className="mx-auto w-[min(64rem,calc(100%-2rem))] flex-1 pt-28 pb-8">
+```
+
+`pt-28` clears the fixed nav — the nav floats over the page rather than
+reserving space, so top padding is the page's job. `flex-1` inside the
+`flex min-h-full flex-col` body is what pins the footer to the bottom on short
+pages.
+
+### 5.3 Vertical rhythm
+
+| Step | Class | Between |
+| --- | --- | --- |
+| 6rem | `mt-24` | Content and the footer |
+| 4rem | `mt-16` | Major sections of a page |
+| 2rem | `mt-8` | A heading block and its grid of cards |
+| 1.5rem | `mt-6` | A heading and its content |
+| 1rem | `mt-4` | Related blocks |
+| 0.5rem | `mt-2` | A label and its value |
+
+Grids use `gap-4` between cards, `gap-2`/`gap-1.5` between list rows.
+
+### 5.4 Radii
+
+Four steps, and they are semantic rather than free:
+
+| Radius | Class | For |
+| --- | --- | --- |
+| 9999px | `rounded-full` | Anything pill-shaped: buttons, chips, badges, avatars, bars. The most common radius on the site by a distance (76 uses). |
+| 1.25rem | `.glass-card` | Cards. Set in the class, not per use. |
+| 1rem | `rounded-2xl` | The nav bar, sheets, large panels. |
+| 0.75rem | `rounded-xl` | Rows, inputs, list items, tiles. |
+
+`rounded-md`/`rounded-lg` appear a handful of times and are legacy — prefer
+`rounded-xl`.
+
+---
+
+## 6. Surfaces and materials
+
+The site has exactly one background (`--color-bg`) and everything on it is one
+of four membranes.
+
+### 6.1 `.glass-card` — the card
+
+```css
+background: var(--color-card);           /* rgb(28 31 40 / 0.72) */
+border: 1px solid var(--color-line);
+border-radius: 1.25rem;
+box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.07),  /* top-edge highlight */
+            0 22px 56px rgb(0 0 0 / 0.55);
+```
+
+The inset highlight is what makes it read as a lit pane rather than a grey box.
+Padding is the caller's: `p-3` for a dense list, `p-5`/`p-6` for a content card,
+`p-8` for a feature panel.
+
+**On phones the shadow is cut to `0 10px 24px rgb(0 0 0 / 0.38)`** — see §10.3.
+
+### 6.2 `.glass-chip` — the floating element
+
+`--color-glass` fill, `--color-line` border, `backdrop-filter: blur(14px)`. The
+nav bar and secondary buttons. It is the only place `backdrop-filter` is used,
+and it has a consequence worth knowing: **a `backdrop-filter` creates a
+containing block**, which traps `position: fixed` descendants. The mobile menu
+overlay is portalled to `<body>` for exactly this reason.
+
+### 6.3 `.aurora` — the hero light
+
+Two blurred radial gradients inside the hero: a red one (`60rem`, top-right)
+and a blue counterweight (`44rem`, bottom-left, `rgb(72 92 255)`). The blue is
+the only non-red hue in the chrome and exists solely to stop the hero from
+being a single-source red wash.
+
+Blur is `72px` — down from an original `90px`, for compositing cost. The hero
+also fades its own bottom 8rem to `--color-bg` so the glow is never cut at the
+section change. Eight rem and no more: fourteen was tried and it reached far
+enough up to dim the aurora itself.
+
+### 6.4 Line work
+
+`.hero-grid` (72px cells, radial mask), `.cover-grid` (34px cells, linear
+bottom fade), `.checker-edge` (10px squares, two rows, masked at both ends). All
+three are `pointer-events: none` decoration drawn with gradients — no images.
+
+---
+
+## 7. Components
+
+### 7.1 Navigation
+
+**Desktop (`md:` and up).** A floating `.glass-chip` bar, `rounded-2xl`,
+`mt-4`, in the default 64rem container, `position: fixed`. Active section is
+`font-medium text-ink` plus a 2px red underline pinned `-bottom-2`; inactive is
+`text-ink-dim` hovering to `text-ink`. `aria-current="page"` on the active link.
+
+**Phone (`< md`).** A hamburger opens a full-screen `bg-bg` overlay, portalled
+to `<body>`, with links centred at `text-3xl font-semibold` and a per-item stagger
+(§8.3). Opening the menu prefetches every destination; body scroll is locked
+while it is open.
+
+`lib/nav.ts` is the single source of both, including `activeHref()`'s
+most-specific-match rule. Never hardcode a nav link in a component.
+
+### 7.2 Buttons
+
+Three variants and one shared behaviour. Everything clickable gets
+`.pressable` (§8.2).
+
+| Variant | Classes | Use |
+| --- | --- | --- |
+| **Primary** | `pressable rounded-full bg-race px-8 py-3.5 text-base font-semibold text-white shadow-[0_10px_32px_rgb(255_30_60/0.4)] transition-colors hover:bg-race-deep` | One per view. `px-6 py-3 text-sm` at inline size, `px-4 py-1.5` in the nav. |
+| **Secondary** | `pressable glass-chip rounded-full px-8 py-3.5 text-base font-semibold text-ink transition-colors hover:border-line-hi` | Beside a primary. |
+| **Tertiary / full-width** | `pressable w-full rounded-xl border border-line-hi py-3 text-sm font-semibold transition-colors hover:bg-glass-strong` | Sheet and form actions on a phone. |
+
+A button that starts work renders `<Spinner />` in place of, or beside, its
+label until the work returns (§1.3). A destructive action is a tertiary button
+in `text-race`, never a filled red one — filled red is the primary action.
+
+### 7.3 Chips and badges
+
+- **Pill badge:** `rounded-full bg-race/15 px-2 py-0.5 font-mono text-[0.65rem] text-race` — the `YOU` marker on a board.
+- **Tint fills** run `bg-race/5` (a selected row) → `/10` (a quiet badge) → `/15` (a loud one). Those three steps only.
+- **Toggle button:** `border-race bg-race text-white` when on, `border-line bg-glass text-ink-dim` when off, `aria-pressed` carrying the state. Used by the position picker in §12.2.
+
+### 7.4 Form fields
+
+One shared base, `FIELD` in `components/PlayerDetailsFields.tsx`:
+
+```
+min-w-0 rounded-xl border border-line bg-black/25 px-4 py-3 text-sm
+outline-none transition-colors placeholder:text-ink-mute focus:border-line-hi
+```
+
+The field is *darker* than the card it sits on (`bg-black/25`), which is what
+reads as "input" in a dark UI. Width is always the caller's — a `w-full` in the
+base beats a sibling's `w-28` in the generated CSS and collapsed a select to
+zero width once.
+
+`outline-none` here is safe because the global `:focus-visible` ring is
+unlayered (§11.1).
+
+- **Error:** `text-xs text-race` or `text-sm text-race` directly under the field. Never a red border alone.
+- **Hint:** `text-xs text-ink-mute`, in a `min-h-[1.25rem]` slot so the layout does not jump when an error replaces it.
+
+### 7.5 Tables and their phone twins
+
+Above `sm:`, a table lives in a `.glass-card` with `p-2`,
+`border-separate border-spacing-0`, a `min-w-[Nrem]` and `overflow-x-auto`.
+Header row: `text-left font-mono text-xs tracking-wider text-ink-mute uppercase`,
+cells `px-3 py-2`.
+
+Below `sm:`, the same data is a `<ul className="flex flex-col gap-1.5 sm:hidden">`
+of `rounded-xl border border-line bg-glass px-3 py-2.5` rows — or something
+better suited to the shape of the data (§12.2). Both halves live in the same
+component so they cannot drift.
+
+The current pairs: `RaceBreakdown`, the standings board, `ProbabilityGrid`.
+
+### 7.6 Driver row
+
+The repeated atom of the whole game. Left to right:
+
+1. `h-7 w-1 rounded-full` constructor-colour stripe,
+2. `DriverAvatar` — a circular WebP portrait, size passed in (26–36px), falling back to the three-letter code on a `tint(color, 0.2)` wash if the image 404s,
+3. the name in `text-sm` sans,
+4. numbers, mono, right-aligned.
+
+`DriverAvatar` takes `AvatarDriver` — a `driver_id`, a `code`, and whatever is
+known about the colour — deliberately narrower than a full roster row so a
+component holding a matrix does not have to fake one.
+
+### 7.7 Waiting
+
+| Surface | Component | When |
+| --- | --- | --- |
+| Inline | `Spinner` | Any busy control. `1em` square, `currentColor`, so it never needs a variant. |
+| Whole route | `RaceLoader` | `loading.tsx`. Start-light gantry over a rotating F1 in-joke, changing every 1.8s. |
+| First paint of a session | `BootScreen` | An opaque `#07080b` screen, in the server HTML, running the gantry on CSS alone. Lifts on `load`, held for 700ms minimum and 2500ms maximum, once per session (`sessionStorage`). |
+
+The loader phrases are original and name no real driver or team, so they neither
+date nor need clearing.
+
+### 7.8 Empty states
+
+`rounded-xl border border-line bg-glass px-4 py-8 text-center text-sm text-ink-mute`
+with one sentence that says what would fill it. Never an illustration, never a
+call to action inside the box.
+
+---
+
+## 8. Motion
+
+### 8.1 Easing and duration
+
+Two easings, both tokens: `--ease-out-strong` (`cubic-bezier(0.23, 1, 0.32, 1)`)
+for anything entering or responding, `--ease-in-out-strong` for anything
+symmetric. Durations cluster in three bands:
+
+- **160–240ms** — response to a touch: press, menu fade, sheet rise.
+- **300–340ms** — a change of state: item stagger, loader phrase, boot fade.
+- **620–640ms** — an entrance, first view only.
+
+Colour changes are `transition-colors` with Tailwind's default 150ms and are
+not tokenised.
+
+### 8.2 `.pressable`
+
+```css
+.pressable { transition: transform 160ms var(--ease-out-strong); }
+.pressable:active { transform: scale(0.97); }
+```
+
+On every clickable thing — 71 uses. It is the site's only universal
+interaction feedback and it is what makes the phone feel native. Add it to
+anything new that is tappable.
+
+### 8.3 Entrances
+
+`.rise-in` (14px up, 640ms) with `.rise-in-2`…`.rise-in-5` adding 70ms each.
+**First view only, and rare** — all six uses on the site are in the home hero.
+Never animate content that appears on every navigation.
+
+The mobile menu has its own version: `.menu-in` fades the overlay in 170ms,
+`.menu-item` staggers the links.
+
+### 8.4 Reduced motion
+
+`@media (prefers-reduced-motion: reduce)` is handled per effect, not globally:
+
+- the spinner slows to 1.6s rather than stopping (a frozen spinner reads as a hang),
+- the start lights hold lit at `opacity: 0.8` — still a gantry, just not running,
+- `.rise-in` becomes a fade with no transform,
+- menu items and the sheet appear with no animation at all.
+
+Any new animation adds its own branch here.
+
+---
+
+## 9. Imagery and icons
+
+**There is no icon library.** The handful of icons are inline `<svg>` with
+`fill="none" stroke="currentColor" strokeWidth="1.5"` and round caps, sized with
+`size-4`/`size-5`, always `aria-hidden`. Typographic glyphs do the rest: `×` for
+close, `↗` for an external link, `?` in a disc for "why".
+
+**Driver portraits** live at `web/public/drivers/{driver_id}.webp` — 22 files,
+~24 kB each. WebP is not optional: the same portraits as PNG-24 were ~210 kB
+each, and the pick screen renders all twenty-two, so it was pulling 4.6 MB.
+`lib/format.ts#driverPhoto` is the only place the path is built.
+
+Portraits are `loading="lazy" decoding="async"` and every use has an `onError`
+fallback to the driver's code on a tinted disc.
+
+**There are no other images.** No stock photography, no illustration, no icon
+sprites — the aurora, the grids and the checkered edge are all CSS.
+
+---
+
+## 10. Responsive behaviour
+
+### 10.1 Breakpoints
+
+Tailwind's defaults, used with intent:
+
+| Breakpoint | Width | What changes |
+| --- | --- | --- |
+| `sm:` | 640px | Data density. Tables replace their phone twins; a name replaces a code. |
+| `md:` | 768px | Navigation. Hamburger → inline links, profile and sign-out appear. |
+| `lg:` | 1024px | Interaction model. The prediction editor switches from a bottom sheet to a two-column drag-and-drop board. |
+
+`xl:` appears once, on a card grid, and carries no meaning of its own. Design
+mobile-up: the phone case is the one written first.
+
+### 10.2 Phone rules
+
+1. **Never a sideways scroll.** See §1.5. If content does not fit, change the cut.
+2. **Sheets, not modals.** A phone picker is a bottom sheet (`.sheet-panel`, rising 14% in 240ms) over a fading backdrop, portalled to `<body>`.
+3. **Touch targets ≥ 40px.** Rows are `py-2` around a 26–32px element; standalone controls are `h-10`/`size-10`.
+4. **Haptics where offered.** `navigator.vibrate?.(8)` on a successful drag pickup — a single 8ms tick, Android only, never for anything else.
+5. **`touch-manipulation` and `[-webkit-touch-callout:none]`** on anything draggable, or iOS raises the text-selection callout mid-drag.
+
+### 10.3 Paint budget
+
+Phone GPUs choke on large blurred layers and wide shadows — they land late, as
+a flat dark rectangle that only resolves on the next paint. Under `767px`,
+`globals.css` therefore cuts the card shadow to `0 10px 24px rgb(0 0 0 / 0.38)`
+and shrinks the aurora to roughly half its size at `48px` blur. Same look, a
+fraction of the cost. A new large blur or wide shadow needs a matching entry in
+that block.
+
+---
+
+## 11. Accessibility
+
+### 11.1 Focus
+
+One ring, on everything, keyboard only:
+
+```css
+:focus-visible {
+  outline: 2px solid var(--color-race);
+  outline-offset: 2px;
+}
+```
+
+Two details are deliberate. It is **unlayered** — Tailwind's utilities sit in a
+cascade layer and unlayered rules beat layered ones at any specificity, so this
+covers the elements carrying `outline-none` without hunting them down, and
+covers anything added later for free. And it is `:focus-visible`, not `:focus`,
+so a mouse click leaves no ring behind — which is why the outlines were removed
+in the first place. No `border-radius`: an outline follows the element's own.
+
+### 11.2 Rules
+
+- **Colour is never the only channel** (§1.2). Every chart cell, bar and badge prints its value.
+- **Real semantics.** Tables are `<table>` with `<caption>`, `scope="col"`, `scope="row"`. Charts are `<figure>`/`<figcaption>`. Lists of ranked things are `<ol>`.
+- **Half an ARIA pattern is worse than none.** Toggle buttons use `aria-pressed` rather than borrowing `role="tab"` without the `aria-controls` and tabpanel the tab pattern owes the reader.
+- **`sr-only` carries what colour implies** — `{name}, P{c}, {pct}` inside a heat-map cell, `Loading…` beside a gantry.
+- **Live regions** on anything that changes without a click: `role="status" aria-live="polite"` on the loaders.
+- **Decoration is `aria-hidden`** — stripes, bars, glyph icons, the gantry itself.
+- **Contrast is measured, not assumed.** §3.4 records the numbers for the one place it was close.
+
+---
+
+## 12. Data visualisation
+
+The site ships **no charting library**. Every chart is hand-drawn SVG, CSS, or
+canvas, because each one is a few dozen lines and a dependency would be larger
+than all of them together.
+
+### 12.1 `PointsCurve` — the season
+
+Two polylines in a `100 × 40` user-unit SVG with `preserveAspectRatio="none"`,
+so it stretches to any width; `vector-effect="non-scaling-stroke"` keeps the
+strokes an honest 1px through that stretch. Your line is your season-pick
+colour, the model's is race red. Below two scored races it renders nothing at
+all — one point is a dot, not a curve.
+
+### 12.2 `ProbabilityGrid` — the matrix, twice
+
+The model's Monte-Carlo output: for each driver, P(finishing in exactly this
+position), frozen at lock time. It is the same number the rarity multiplier is
+read from, which is why its colour bands are the multiplier tiers (§3.4, §1.1).
+
+**Above `sm:` — the heat map.** A real `<table>`, 20 rows × 10 columns,
+`border-spacing-[2px]`, cells `h-7 rounded-[4px]`. Values are printed in-cell
+only at ≥5%: a number in every one of two hundred cells is noise, and below 5%
+it rounds to nothing worth reading. Hovering a cell writes a full sentence into
+the figcaption — name, position, probability, multiplier.
+
+**Below `sm:` — the position list.** Not a smaller matrix: a different cut.
+Two hundred cells at 26px wide gave the phone the colour and nothing else, which
+breaks §1.2 outright. Instead the phone shows **one position at a time**:
+
+- a 5×2 grid of `P1…P10` toggle buttons — every position on screen at once, because a ten-chip rail would have to scroll sideways (§10.2);
+- a sentence naming what is being read and who the model actually played there;
+- the drivers ranked by their probability of finishing exactly there, each row a bar whose fill is the band colour, with the driver's stripe, portrait and name sitting *inside* the quantity, and the percentage and multiplier in a reserved right-hand gutter;
+- a tail line counting whoever fell under 1%.
+
+Three details are load-bearing. Bars are scaled against **the leader of that
+position**, not against 100%, or a flat field draws ten stubs — the printed
+percentage is the absolute value and remains the primary channel. The fill stops
+short of the numbers, because the multiplier is drawn in race red and vanished
+completely on a full-strength red bar. And names are full-strength ink on every
+row, unlike the heat map's cells: there the dimming *is* the reading, here the
+name is the identity and a 1% driver still has to be legible.
+
+This cut also matches what the player is about to do — fill P1…P10 with names —
+which is the general principle: **a phone chart should answer the question the
+player actually asks, not compress the desktop one.**
+
+### 12.3 Rules for a new chart
+
+1. One hue, sequential, low→high. Never a rainbow, never a diverging scale unless the data actually diverges.
+2. If the scale encodes a game rule, use the rule's own thresholds.
+3. Print the value next to the colour.
+4. `<figure>` + `<figcaption>`; the caption carries the interpretation, not a restatement of the title.
+5. Say what the pale end means. On this site the pale end is where the points are, and that sentence appears under the chart.
+
+---
+
+## 13. Voice and content
+
+### 13.1 Tone
+
+Second person, present tense, short sentences. Confident and specific —
+"Ten thousand simulated races, reduced to one number per driver per position" —
+never breathless. Dry humour is allowed in exactly one place: the loading
+phrases. Nowhere else.
+
+Headlines are declarative and can be fragments: *Beat the model. Every single
+Sunday.* Body copy explains the mechanic and then stops.
+
+### 13.2 Capitalisation
+
+Sentence case everywhere — headings, buttons, nav, labels. The only uppercase
+is the mono micro-label, where it is a typographic device rather than a
+capitalisation rule. `F1 DUEL` is a logotype, not a heading.
+
+### 13.3 Numbers
+
+Formatting lives in `lib/format.ts` and nowhere else:
+
+- `formatPoints` — integers bare, otherwise one decimal.
+- `formatMargin` — **always signed**, because the sign is the whole point of the column, and the minus is U+2212 (`−`) so it lines up with the digits in a tabular column. Never a hyphen.
+- `pos(n)` → `P4`. Positions are always written this way, never "4th".
+- Probabilities are whole percentages. Multipliers are `×1.5`, with the multiplication sign, never `x1.5`.
+
+### 13.4 Domain language
+
+"Grand Prix" not "race" in prose (a *round* is the numbered one). "The model",
+lower case, always definite — it is a character in the game. "Lock" is when
+predictions close. "Duel" is one player against the model for one Grand Prix.
+
+### 13.5 Footer disclaimer
+
+The site is an unofficial fan project and says so on every page, in
+`text-xs text-ink-mute` above the fold of the footer, along with data
+attribution to FastF1 and Jolpica. Do not remove or shrink it.
+
+---
+
+## 14. Off-site surfaces
+
+Three places the design has to survive outside a browser tab.
+
+### 14.1 Open Graph cards
+
+`app/opengraph-image.tsx` and the per-route ones under `join/[code]` and
+`profile/[username]`, drawn with `next/og` and sharing `lib/og.tsx`. Same
+palette, same logotype. `metadataBase` is absolute and read from the
+environment: a share card is fetched by WhatsApp or Slack, not by the browser on
+the page, so a relative base silently yields a card with no image.
+
+### 14.2 The race poster
+
+`lib/poster/draw.ts` — a 1080×1350 sheet drawn by hand on a canvas at 2× and
+downscaled, so it is identical on every device and the same drawing feeds the
+PDF writer. Deliberately not an html-to-image screenshot, which renders whatever
+the browser supports that day.
+
+It restates the site's language in canvas terms: the dark base, a red glow over
+a faint grid, glass rows, the checkered finish line, emerald for exact and amber
+for near. Its palette is a literal copy of the tokens in §3.1 — **if a token
+changes, change `C` in `draw.ts` in the same commit.**
+
+### 14.3 Installed app
+
+`app/manifest.ts` and `viewport.themeColor = "#07080b"`, so the phone's browser
+chrome paints itself in the page colour and the address bar continues the page
+instead of ending it in a light grey band.
+
+---
+
+## 15. Keeping this document true
+
+This file is a description, not a proposal. It is wrong the moment the code
+disagrees with it, so:
+
+1. **A change to any of these updates this file in the same PR:** the `@theme`
+   block, `.glass-card`/`.glass-chip`, the focus ring, `.pressable`, the
+   probability bands, the container widths, the breakpoint meanings, the button
+   variants, the poster palette, or `lib/format.ts`'s number rules.
+2. **New patterns get a home here or they get deleted.** A one-off card style, a
+   fourth button variant or a second spinner is either promoted into this
+   document with a reason, or removed.
+3. **Record what lost.** The most useful lines in this file are the ones saying
+   what was tried and why it was reverted — the section band, the 90px blur, the
+   14rem hero fade, the alpha-suffixed hex, the phone heat map. Keep adding
+   them; they are what stops a fix from being re-broken.
+4. Design decisions that are *game* decisions belong in
+   [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.
+
+---
+
+## 16. Appendix — token reference
+
+Everything a new component needs, in one place. All of it is already a Tailwind
+utility.
+
+```
+Surface     bg-bg                #07080b        the page, nothing else
+            glass-card                          cards
+            glass-chip                          floating / secondary
+            bg-glass             white 4.5%     inert rows
+            bg-glass-strong      white 7%       hover, "this is you"
+            bg-black/25                         form fields
+
+Ink         text-ink             #f4f6fa        primary
+            text-ink-dim         #a7adba        body
+            text-ink-mute        #6c7280        labels, empty, disabled
+
+Accent      text-race / bg-race  #ff1e3c        actions, active, errors, data
+            bg-race-deep         #e8002d        red-button hover only
+            bg-race/5 /10 /15                   tint steps, only these three
+
+Line        border-line          white 10%      default
+            border-line-hi       white 16%      hover / emphasis
+
+Semantic    text-emerald-400                    exact, positive, won
+            text-amber-300                      near, draw, caution
+            text-race                           error, lost
+            text-ink-mute                       missed, none
+
+Type        font-sans (Inter)                   prose, headings, names
+            font-mono (Geist Mono)              every number and label
+            tabular-nums                        anything that ticks
+
+Radius      rounded-full                        pills, avatars, bars
+            rounded-2xl                         nav, sheets, panels
+            rounded-xl                          rows, inputs, tiles
+            (glass-card = 1.25rem, in the class)
+
+Motion      --ease-out-strong    cubic-bezier(0.23, 1, 0.32, 1)
+            --ease-in-out-strong cubic-bezier(0.77, 0, 0.175, 1)
+            .pressable                          every clickable thing
+            .rise-in(-2…-5)                     first-view entrances only
+
+Layout      w-[min(64rem,calc(100%-2rem))]      default container
+            w-[min(48rem,calc(100%-2rem))]      long-form
+            w-[min(28rem,calc(100%-2rem))]      single form
+            pt-28                               clears the fixed nav
+```
+
+**Where things live**
+
+| File | Owns |
+| --- | --- |
+| `web/app/globals.css` | Tokens, all shared classes, all keyframes, the reduced-motion and mobile-paint blocks. |
+| `web/app/layout.tsx` | Fonts, metadata defaults, theme colour, the body frame. |
+| `web/lib/teams.ts` | Constructor colours, `tint`, `NEUTRAL_COLOR`. |
+| `web/lib/format.ts` | Every number, name and asset-path format. |
+| `web/lib/nav.ts` | The navigation, desktop and phone. |
+| `web/lib/poster/draw.ts` | The off-site palette copy. |
+| `web/components/Spinner.tsx`, `RaceLoader.tsx`, `BootScreen.tsx` | Waiting. |
+| `web/components/ProbabilityGrid.tsx` | The probability bands and both cuts of the matrix. |
