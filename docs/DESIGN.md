@@ -742,6 +742,13 @@ while it is open.
 `lib/nav.ts` is the single source of both, including `activeHref()`'s
 most-specific-match rule. Never hardcode a nav link in a component.
 
+**The profile chip.** Signed in, the right of the bar carries a `glass-chip`
+holding a bust glyph and the username, then a *Sign out* chip. The glyph is the
+house icon idiom (§9) — inline, `size-4`, `strokeWidth 1.5`, `currentColor` —
+and because it inherits, the chip reddens as one thing on hover:
+`hover:text-race hover:border-line-hi`. A name on its own read as a label; a
+name behind a figure reads as the way back to your own page.
+
 ### 7.2 Buttons
 
 Three variants and one shared behaviour. Everything clickable gets
@@ -862,6 +869,22 @@ The mark is an element now, which means it can:
 survive as glyphs, and only these two: **`↗`**, which means *leaving the site*
 (§9), and pagination's **`← Previous` / `Next →`**, where the arrow is the
 direction rather than an ornament on a label.
+
+### 7.10 Disclosure — the FAQ row
+
+Native `<details>`, never a JavaScript accordion: it opens before hydration and
+find-in-page can reach the answers. `group` on the `<details>`, a hairline
+`border-t`, and a mono `+` at the right that rotates 45° on `group-open`.
+
+**The question is a control, so it carries the control colour.** The summary is
+`hover:text-race group-open:text-race`, and the `+` follows on both. Open and
+shut therefore differ in two channels — the mark turns *and* lights (§1.2) —
+and a question you are pointing at answers back before you click it.
+
+One scoping rule: the marker's hover is `group-hover/q:` on the **summary**, not
+the `<details>` group. The group's box grows to contain the answer once it is
+open, so a `group-hover:` marker would light while you were merely reading —
+a hover state pointing at nothing.
 
 ---
 
