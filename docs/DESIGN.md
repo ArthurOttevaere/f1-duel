@@ -122,9 +122,35 @@ Wide letter-spacing, not a wide space between the words: at 14px the expanded
 cut needs air or it reads as a bold word rather than as lettering.
 
 It appears in eight places — nav, mobile menu, footer, boot screen, login,
-welcome, unsubscribe, 404 — and never any other way. There is no logomark, no
-icon, and no wordmark image file. (`TeamWordmark.tsx` is unrelated: it sets a
-*constructor's* name in the mono idiom.)
+welcome, unsubscribe, 404 — and never any other way. (`TeamWordmark.tsx` is
+unrelated: it sets a *constructor's* name in the mono idiom.)
+
+**Since 2026-08-27 there is a logomark, and `Wordmark` is a lockup.**
+`components/Logomark.tsx` draws a **D whose counter is a Formula 1 seen from
+above, with the start-finish chequer running down the stem.** Two colours:
+the letter is `currentColor`, so the mark inverts with whatever it sits on, and
+the car and chequer are `var(--color-race)` and stay put because red reads on
+dark, on light and on red.
+
+Three rules keep it honest.
+
+- **It is inlined, never `<img src>`.** An SVG in an `<img>` is an isolated
+  document with no access to the page's `color` or its custom properties, so
+  the letter would render black on black. The standalone files the platform
+  demands — `favicon.ico`, `apple-icon.png`, `public/icon-{192,512}.png` — are
+  baked with literal colours for that reason, and are the *only* raster copies.
+- **The mark is sized in `em`** (`h-[1.7em]`), so the lockup tracks the type
+  size and never needs a second measurement.
+- **The lockup pairs the drawn mark with Archivo lettering, and never the
+  lettering baked into the logo file.** The source file carries its own
+  vertical "F1 Duel" and a "Race Prediction Game" line; both are dropped here.
+  Two different cuts of the same two words on one line is the one thing a
+  logotype cannot do. The full lockup survives as `public/logo-lockup.svg`,
+  for a poster or an app-store listing, and is not used by the site.
+
+Coordinates in the mark are rounded to one decimal — 22 kB of path data down to
+13 kB, and invisible, because the viewBox is 751 units wide and the mark is
+never drawn much above 200 pixels.
 
 ### 2.2 What the brand is about
 
@@ -1027,6 +1053,12 @@ No stock photography, no illustration, no icon sprites. The grids, the checkered
 edge and the glows are CSS; the circuit trace (§6.3) is an inline `<path>`
 generated from telemetry, not an asset anyone drew.
 
+**The one drawn asset is the logomark** (§2.1), and it is the exception that
+proves the rule: it lives in the repository as vector, it is inlined rather
+than linked so it can take its colour from the page, and the four raster copies
+in `app/` and `public/` exist only because favicons and install manifests
+cannot be given an SVG that inherits anything.
+
 ---
 
 ## 10. Responsive behaviour
@@ -1238,7 +1270,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ProbabilityShot.tsx`, `Arrow.tsx`, `Wordmark.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a

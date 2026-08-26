@@ -227,7 +227,7 @@ f1-duel/
 │   └── migrations/000N_*.sql Incremental changes for a live project
 ├── web/                     Next.js 16 App Router (the game)
 │   ├── app/                 Routes (see §9.2)
-│   │   ├── favicon.ico      "F1" knocked out of the site red (see §9.6)
+│   │   ├── favicon.ico      The logomark, 16/32/48 (see §9.6)
 │   │   ├── apple-icon.png   180px, same mark
 │   │   └── manifest.ts      Install manifest (start_url = /game)
 │   ├── components/          33 components
@@ -1889,11 +1889,18 @@ alphaQuality: 90 })`; do not resize below ~300px, the profile avatar draws at
 
 **The tab has a mark.** `app/favicon.ico` was `create-next-app`'s file until
 2026-08-15 — every tab, bookmark and home-screen icon wore the Next.js logo.
-It is now the wordmark reduced to what survives at 16px: `F1` knocked out of
-`--color-race`, on red rather than the site's black so it reads against a light
-browser chrome too. Same mark at 180px (`apple-icon.png`) and 192/512
-(`public/icon-*.png`, referenced by `app/manifest.ts`). `viewport.themeColor`
-in the root layout paints the phone's address bar `#0a0b10`.
+It then wore `F1` knocked out of red, which was the riskiest asset in the
+repository: black-on-red letters in a rounded square is a short distance from
+the thing this project cannot use. Since 2026-08-27 all four raster icons are
+the **logomark** (DESIGN §2.1) on the site's own `#0a0b10`: `favicon.ico`
+(16/32/48), `apple-icon.png` (180), `public/icon-{192,512}.png` from
+`app/manifest.ts`. `viewport.themeColor` in the root layout paints the phone's
+address bar `#0a0b10`.
+
+They are generated from `public/logo-mark.svg` rather than drawn by hand, and
+**the `.ico` must be RGBA** — Next's image pipeline rejects an RGB one outright
+with *"The PNG is not in RGBA format"*, which fails the whole page, not just
+the icon.
 
 ### 9.7 Two gotchas that cost real debugging time
 
