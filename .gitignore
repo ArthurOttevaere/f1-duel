@@ -231,3 +231,9 @@ data/track_cache/
 data/accuracy_cache/
 
 webapp/static/teams/f1_teams/
+
+# oh-my-claudecode's local state: session ids, throttle timers, job runs.
+# Machine-local and rewritten constantly, so it is noise in every diff. The
+# pattern has no leading slash, which matches the directory at any depth --
+# web/.omc/ included.
+.omc/
