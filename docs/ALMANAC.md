@@ -227,7 +227,7 @@ f1-duel/
 │   └── migrations/000N_*.sql Incremental changes for a live project
 ├── web/                     Next.js 16 App Router (the game)
 │   ├── app/                 Routes (see §9.2)
-│   │   ├── favicon.ico      "F1" knocked out of the site red (see §9.6)
+│   │   ├── favicon.ico      The logomark, 16/32/48 (see §9.6)
 │   │   ├── apple-icon.png   180px, same mark
 │   │   └── manifest.ts      Install manifest (start_url = /game)
 │   ├── components/          33 components
@@ -1889,13 +1889,39 @@ alphaQuality: 90 })`; do not resize below ~300px, the profile avatar draws at
 
 **The tab has a mark.** `app/favicon.ico` was `create-next-app`'s file until
 2026-08-15 — every tab, bookmark and home-screen icon wore the Next.js logo.
-It is now the wordmark reduced to what survives at 16px: `F1` knocked out of
-`--color-race`, on red rather than the site's black so it reads against a light
-browser chrome too. Same mark at 180px (`apple-icon.png`) and 192/512
-(`public/icon-*.png`, referenced by `app/manifest.ts`). `viewport.themeColor`
-in the root layout paints the phone's address bar `#0a0b10`.
+It then wore `F1` knocked out of red, which was the riskiest asset in the
+repository: black-on-red letters in a rounded square is a short distance from
+the thing this project cannot use. Since 2026-08-27 all four raster icons are
+the **logomark** (DESIGN §2.1) on the site's own `#0a0b10`: `favicon.ico`
+(16/32/48), `apple-icon.png` (180), `public/icon-{192,512}.png` from
+`app/manifest.ts`. `viewport.themeColor` in the root layout paints the phone's
+address bar `#0a0b10`.
 
-### 9.7 Two gotchas that cost real debugging time
+They are generated from `public/logo-mark-icon.svg` — the letter and the car,
+**without the chequer**, because at 16px that column is a grey ladder rather
+than a pattern and it costs the letter its shape (DESIGN §2.1). Two colours in
+the finished file and nothing else. They are generated rather than drawn by
+hand, and **the `.ico` must be RGBA** — Next's image pipeline rejects an RGB one outright
+with *"The PNG is not in RGBA format"*, which fails the whole page, not just
+the icon.
+
+### 9.7 Three gotchas that cost real debugging time
+
+0. **An SVG resource inside `display: none` is dead in Chrome.** The logomark
+   is a `currentColor` rect with a `<mask>` cutting the car out of it. The mask
+   first lived inside every `Logomark`, under one shared id, on the reasoning
+   that identical duplicates resolve to the first and draw the same thing.
+   `url(#…)` does resolve to the first definition **in the document** — and the
+   first one belonged to `BootScreen`, which the pre-hydration script marks
+   `hidden`, and `#boot-screen[hidden]` is `display: none`. Chrome does not
+   build SVG resources in a `display: none` subtree, so *every* reference on the
+   page failed at once and all three marks rendered as unmasked white squares.
+   The fix is `components/LogoSprite.tsx`: the definitions, in the root layout,
+   in a zero-sized but **rendered** `<svg>` (`position: absolute`, `width/height:
+   0`, never `display: none`). It also took the page from a copy of the path
+   data per instance to one. It holds two masks — `duel-cut` for the mark and
+   `duel-cut-name` for the cut with the vertical "F1 Duel", which the boot
+   screen alone draws (DESIGN §2.1).
 
 1. **`backdrop-filter` traps `position: fixed`.** The nav uses `.glass-chip`,
    whose `backdrop-filter` creates a containing block. A `position: fixed`

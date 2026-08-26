@@ -15,7 +15,7 @@ export default async function SiteNav() {
       <nav className="glass-chip mx-auto mt-4 flex w-[min(64rem,calc(100%-2rem))] items-center justify-between rounded-panel px-5 py-3 shadow-[0_8px_26px_rgb(0_0_0/0.32)]">
         <Link
           href="/"
-          className="pressable flex items-baseline"
+          className="pressable flex items-center"
         >
           <Wordmark />
         </Link>

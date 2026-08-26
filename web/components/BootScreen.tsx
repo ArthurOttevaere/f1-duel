@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Wordmark from "@/components/Wordmark";
+import Logomark from "@/components/Logomark";
 import StartLights from "@/components/StartLights";
 
 const KEY = "f1duel-booted";
@@ -73,7 +73,11 @@ export default function BootScreen() {
   return (
     <>
       <div id="boot-screen" role="status" aria-label="Loading F1 Duel">
-        <Wordmark />
+        {/* The one surface big enough for the full cut: at 120px the vertical
+            name reads, and the boot screen is the only place the identity gets
+            the whole viewport to itself. Everywhere else the mark stands alone
+            beside the Archivo name — see Logomark. */}
+        <Logomark withName className="h-[7.5rem] w-auto text-ink" />
         <StartLights />
       </div>
       {/* Runs before hydration: don't replay the screen on every page load of

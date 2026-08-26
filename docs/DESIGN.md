@@ -122,9 +122,61 @@ Wide letter-spacing, not a wide space between the words: at 14px the expanded
 cut needs air or it reads as a bold word rather than as lettering.
 
 It appears in eight places — nav, mobile menu, footer, boot screen, login,
-welcome, unsubscribe, 404 — and never any other way. There is no logomark, no
-icon, and no wordmark image file. (`TeamWordmark.tsx` is unrelated: it sets a
-*constructor's* name in the mono idiom.)
+welcome, unsubscribe, 404 — and never any other way. (`TeamWordmark.tsx` is
+unrelated: it sets a *constructor's* name in the mono idiom.)
+
+**Since 2026-08-27 there is a logomark, and `Wordmark` is a lockup.**
+`components/Logomark.tsx` draws a **D whose counter is a Formula 1 seen from
+above, with the start-finish chequer running down the stem.**
+
+**One colour, and a hole.** Everything solid is `currentColor`. The car and
+half the chequer are not painted at all: a mask cuts them out of the letter, so
+they show *whatever is actually behind the logo* — the page, a glass card, a
+red button, a blue banner. On the site's ground the car is `#0a0b10`; on a blue
+banner it is blue, with nothing to configure. Painting them `var(--color-bg)`
+instead would be right only while the logo sits directly on the page and wrong
+the moment it lands on a card or an image. A hole is right everywhere.
+
+Four rules keep it honest.
+
+- **It is inlined, never `<img src>`.** An SVG in an `<img>` is an isolated
+  document with no access to the page's `color`, so the letter would render
+  black on black and the knockout would show the img's own transparent backdrop
+  rather than the surface. The standalone files the platform demands —
+  `favicon.ico`, `apple-icon.png`, `public/icon-{192,512}.png` — are baked
+  against the site's dark ground for that reason, and are the *only* raster
+  copies.
+- **The mask is defined once per document,** by `LogoSprite` in the root
+  layout, never inside each instance. See §9.7: this is a bug, not a taste.
+- **The mark is sized in `em`** (`h-[1.7em]`), so the lockup tracks the type
+  size and never needs a second measurement.
+- **There are two cuts, and size decides which.** `<Logomark />` is the mark
+  alone; `<Logomark withName />` adds the vertical "F1 Duel" that comes with
+  the source file. The lettering is about a ninth of the drawing's width, so at
+  the 24px the nav gives it the name is three pixels wide — grit on the left
+  edge rather than type. Measured at 300 / 96 / 48 / 26px before choosing. The
+  named cut therefore appears in exactly one place, the **boot screen**, drawn
+  at 120px, where the identity has the whole viewport. Everywhere else the mark
+  stands alone beside the Archivo name, which also stops the page printing
+  "F1 Duel" twice on one line in two different cuts.
+
+The source file's "Race Prediction Game" line is dropped from both. The
+untouched original stays at `public/logo-lockup.svg` for a poster or an
+app-store listing, and the site never references it.
+
+**The raster icons are a third cut, without the chequer.** `favicon.ico`,
+`apple-icon.png` and `public/icon-{192,512}.png` draw the letter and the car
+only. A tab favicon is 16 pixels, and at 16 pixels the chequer column is not a
+pattern, it is a grey ladder down the left edge that costs the letter its
+shape. Dropping it leaves the icon at **two colours and nothing else**: a solid
+`#0a0b10` tile, the D in `#f4f6fa`, and the car knocked through to the tile.
+Simplifying a mark for the smallest size it has to survive is normal; keeping
+one drawing at every size and calling it discipline is how favicons turn to
+mush. The cut lives at `public/logo-mark-icon.svg`.
+
+Coordinates in the mark are rounded to one decimal — 22 kB of path data down to
+13 kB, and invisible, because the viewBox is 751 units wide and the mark is
+never drawn much above 200 pixels.
 
 ### 2.2 What the brand is about
 
@@ -1027,6 +1079,12 @@ No stock photography, no illustration, no icon sprites. The grids, the checkered
 edge and the glows are CSS; the circuit trace (§6.3) is an inline `<path>`
 generated from telemetry, not an asset anyone drew.
 
+**The one drawn asset is the logomark** (§2.1), and it is the exception that
+proves the rule: it lives in the repository as vector, it is inlined rather
+than linked so it can take its colour from the page, and the four raster copies
+in `app/` and `public/` exist only because favicons and install manifests
+cannot be given an SVG that inherits anything.
+
 ---
 
 ## 10. Responsive behaviour
@@ -1238,7 +1296,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ProbabilityShot.tsx`, `Arrow.tsx`, `Wordmark.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
