@@ -189,14 +189,15 @@ figcaption {
    So: nothing. The page is one uninterrupted surface from the hero's fade down
    to the footer's checkered edge, and a new section is announced by its red
    eyebrow, its heading and 6rem of air — which is all "The game" ever had.
-   The hero keeps its aurora: it is the only section that carries one, which
-   makes it a signature rather than a motif.
+   The hero keeps its one light source — now the glow behind the circuit
+   trace — because it is the only section that carries one, which makes it a
+   signature rather than a motif.
 
    If a section here ever needs separating again, separate it with space or
    type. Not with a band, and not with a glow.
 
-   The hero is the exception and is not covered by any of this: its aurora and
-   grid, below, are what dress it, and they stay. */
+   The hero is the exception and is not covered by any of this: its circuit
+   trace and grid are what dress it, and they stay. */
 
 /* ─── Keyboard focus ───────────────────────────────────────────────────── */
 
@@ -262,50 +263,83 @@ figcaption {
   background: var(--color-race-deep);
 }
 
-/* ─── Hero aurora (pure CSS; swap for a photo by adding a bg-image layer) ── */
+/* ─── Hero ─────────────────────────────────────────────────────────────── */
 
-.aurora {
+/* The aurora is gone.
+
+   It was two blurred radial gradients — a 60rem red blob top right, a 44rem
+   blue counterweight bottom left — and it was the site's only ornament. It
+   was also its most generic gesture: an "ambient glow" is the first thing any
+   generated hero reaches for, and two soft blobs stay two soft blobs however
+   carefully they are placed.
+
+   What replaced it is the next Grand Prix's circuit, drawn as one hairline
+   (`components/CircuitTrace.tsx`). It keeps the part of the aurora that was
+   right — one light source in the hero, and only in the hero — and changes
+   the material: the glow now sits *behind the thing it lights*, and the
+   ornament is a reading of the calendar rather than a texture. It changes
+   every second Sunday and nobody can copy it without the sport.
+
+   The blue counterweight did not come back. One light source means one.
+
+   `.hero-grid` below stays: it is a separate motif and it is telemetry, not
+   atmosphere. */
+
+/* The auth pages (login, welcome) carried the aurora too, so they need
+   something when it goes. One red source from the top, no blue counterweight,
+   no second blob: a single sheet of light behind a single card is enough, and
+   it is the same rule the hero now follows. */
+.page-glow {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
 }
-.aurora::before,
-.aurora::after {
+.page-glow::before {
   content: "";
   position: absolute;
-  border-radius: 9999px;
-  /* Lighter blur than the original 90px: far cheaper to composite on mobile
-     while keeping the same soft glow. */
+  top: -30rem;
+  right: -14rem;
+  width: 52rem;
+  height: 52rem;
   filter: blur(72px);
+  background: radial-gradient(
+    closest-side,
+    rgb(255 30 60 / 0.24),
+    rgb(255 30 60 / 0.06) 55%,
+    transparent 75%
+  );
+}
+@media (max-width: 767px) {
+  .page-glow::before {
+    width: 32rem;
+    height: 32rem;
+    top: -16rem;
+    right: -9rem;
+    filter: blur(48px);
+  }
 }
 
-.aurora::before {
-  width: 60rem;
-  height: 60rem;
-  top: -28rem;
-  right: -18rem;
-  background: radial-gradient(
-    closest-side,
-    rgb(255 30 60 / 0.28),
-    rgb(255 30 60 / 0.07) 55%,
-    transparent 75%
-  );
+/* The hero's second line, cut out of the page instead of filled.
+
+   It was `bg-gradient-to-r from-race to-[#ff7a5c] bg-clip-text` — the single
+   most recognisable AI tell in the audit. Gradient text dates from 2021 and is
+   the first reflex of any model asked for a hero.
+
+   `-webkit-text-stroke` with a transparent fill gives a stencil: a pit board,
+   a number cut out of vinyl, the visor band on a helmet. The stroke is drawn
+   centred on the glyph outline, so it needs to grow with the type or it
+   vanishes at 72px — hence two sizes rather than one. `paint-order` is
+   defensive: if a fill is ever put back, the stroke must stay outside it. */
+.hero-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-race);
+  paint-order: stroke fill;
 }
-/* Bottom-left counterweight to the red glow up top. Sits inside the hero and
-   fades out well before the bottom (the hero's bottom overlay blends the rest),
-   so it's never clipped by the section change. */
-.aurora::after {
-  width: 44rem;
-  height: 44rem;
-  bottom: -8rem;
-  left: -12rem;
-  background: radial-gradient(
-    closest-side,
-    rgb(72 92 255 / 0.22),
-    rgb(72 92 255 / 0.07) 55%,
-    transparent 75%
-  );
+@media (min-width: 640px) {
+  .hero-outline {
+    -webkit-text-stroke-width: 2px;
+  }
 }
 
 .hero-grid {
@@ -544,22 +578,6 @@ figcaption {
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.06),
       var(--shadow-panel-sm);
-  }
-  .aurora::before,
-  .aurora::after {
-    filter: blur(48px);
-  }
-  .aurora::before {
-    width: 34rem;
-    height: 34rem;
-    top: -16rem;
-    right: -10rem;
-  }
-  .aurora::after {
-    width: 26rem;
-    height: 26rem;
-    bottom: -6rem;
-    left: -8rem;
   }
 }
 

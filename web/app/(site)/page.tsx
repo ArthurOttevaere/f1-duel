@@ -1,7 +1,10 @@
 import Link from "next/link";
 import NextRaceWidget from "@/components/NextRaceWidget";
+import CircuitTrace from "@/components/CircuitTrace";
 import LastRaceProof, { loadLastRace } from "@/components/LastRaceProof";
 import { formatPoints } from "@/lib/format";
+import { circuitTrace } from "@/lib/circuits";
+import { nextRace } from "@/lib/nextRace";
 
 const DUEL_STEPS = [
   {
@@ -36,56 +39,102 @@ const MODEL_FACTS = [
 ];
 
 export default async function Home() {
-  // Read here as well as in the section itself (both hit one cached load) so
-  // the hero only points down at proof that exists.
+  // Both reads are request-cached and shared with the components below, so
+  // the hero only points down at proof that exists and only draws a circuit
+  // the calendar actually has.
   const lastRace = await loadLastRace();
+  const race = await nextRace();
+  const trace = circuitTrace(race?.circuit);
 
   return (
     <>
       {/* ─── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-24 text-center sm:pt-24">
-        <div className="aurora" />
+      {/* Two columns from `lg` up, and the text is left-aligned at every
+          width. Centred-everything was the shape this page had, and it is the
+          shape every generated landing page has; a headline that starts on a
+          margin reads as typeset rather than as centred-by-default. Below
+          `lg` the trace drops under the buttons as a band. */}
+      <section className="relative flex min-h-svh flex-col justify-center overflow-hidden px-4 pt-28 pb-24 sm:pt-24">
+        {/* With no trace there is no light in the hero at all, and a section
+            lit by nothing reads as unfinished rather than as restrained. The
+            reduced glow stands in — still one source. */}
+        {!trace && <div className="page-glow" />}
         <div className="hero-grid" />
-        {/* Fade the bottom to the page background so the glow never gets cut
-            at the transition into the next section. Eight rem, and no more: it
-            was tried at fourteen to soften the step into the next section, and
-            fourteen reaches far enough up to dim the aurora and the grid — the
-            two things that dress the hero in the first place. The step is worth
-            keeping to keep them lit. */}
+        {/* Fade the bottom to the page background so the trace's glow is never
+            cut at the transition into the next section. Eight rem, and no
+            more: it was tried at fourteen and fourteen reaches far enough up
+            to dim the grid, which is half of what dresses the hero. */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-bg" />
 
-        <NextRaceWidget />
+        {/* Two columns only when there is a second column to fill. Between
+            seasons the grid collapses to one and the text takes the width it
+            wants, instead of hugging the left of an empty half. */}
+        <div
+          className={`mx-auto grid items-center gap-12 ${
+            trace
+              ? "w-[min(72rem,100%)] lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:gap-16"
+              : "w-[min(48rem,100%)]"
+          }`}
+        >
+          <div className="flex flex-col items-start">
+            <NextRaceWidget />
 
-        {/* Wider gap than the rest of the hero's rhythm on purpose: the
-            headline is 72px on desktop, and 24px under it left the widget
-            looking stuck to it rather than introducing it. */}
-        <h1 className="display rise-in rise-in-2 mt-10 max-w-4xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:mt-14 sm:text-7xl sm:leading-[1.02]">
-          Beat the model.
-          <br />
-          <span className="bg-gradient-to-r from-race to-[#ff7a5c] bg-clip-text text-transparent">
-            Every single Sunday.
-          </span>
-        </h1>
+            {/* Wider gap than the rest of the hero's rhythm on purpose: the
+                headline is 72px on desktop, and 24px under it left the widget
+                looking stuck to it rather than introducing it. */}
+            {/* 60px and no further. The headline used to be 72px across a
+                centred full-width hero; in a 600px column "Beat the model."
+                breaks onto two lines at 72 and the hero becomes four lines of
+                display type. The composition carries the scale now. */}
+            <h1 className="display rise-in rise-in-2 mt-10 text-4xl leading-[1.05] font-extrabold tracking-tight sm:mt-12 sm:text-6xl sm:leading-[1.02]">
+              Beat the model.
+              <br />
+              {/* F-2: the second line is cut out of the page rather than
+                  filled. A gradient across a headline is the single most
+                  recognisable tell in the whole audit — it dates from 2021 and
+                  it is the first reflex of any model asked for a hero. A
+                  stencil is what a pit board actually is. */}
+              <span className="hero-outline">Every single Sunday.</span>
+            </h1>
 
-        <p className="rise-in rise-in-3 mt-6 max-w-xl text-base text-ink-dim sm:text-lg">
-          Predict the top 10 of every Grand Prix and go head-to-head with a
-          machine-learning model — all season long. Bold calls score big.
-          Safe ones don&apos;t.
-        </p>
+            <p className="rise-in rise-in-3 mt-6 max-w-xl text-base text-ink-dim sm:text-lg">
+              Predict the top 10 of every Grand Prix and go head-to-head with a
+              machine-learning model — all season long. Bold calls score big.
+              Safe ones don&apos;t.
+            </p>
 
-        <div className="rise-in rise-in-4 mt-10 flex flex-col gap-3 sm:flex-row">
-          <Link
-            href="/game"
-            className="pressable btn-race px-8 py-3.5 text-base font-semibold"
-          >
-            Play F1 Duel
-          </Link>
-          <Link
-            href="/model"
-            className="pressable glass-chip rounded-control px-8 py-3.5 text-base font-semibold text-ink transition-colors hover:border-line-hi"
-          >
-            Explore the model
-          </Link>
+            <div className="rise-in rise-in-4 mt-10 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+              <Link
+                href="/game"
+                className="pressable btn-race px-8 py-3.5 text-center text-base font-semibold"
+              >
+                Play F1 Duel
+              </Link>
+              <Link
+                href="/model"
+                className="pressable glass-chip rounded-control px-8 py-3.5 text-center text-base font-semibold text-ink transition-colors hover:border-line-hi"
+              >
+                Explore the model
+              </Link>
+            </div>
+          </div>
+
+          {/* Last on a phone, beside the headline from `lg` up.
+              The mock put it directly under the title on mobile; that pushes
+              both buttons below the fold to make room for an ornament, and the
+              circuit is a signature, not a call to action. It stays where a
+              signature goes.
+
+              No trace between seasons, or at a venue that has never been
+              raced — the hero simply carries no ornament, which is better
+              than carrying somebody else's circuit. */}
+          {trace && (
+            <CircuitTrace
+              trace={trace}
+              round={race?.round}
+              className="rise-in rise-in-3 mx-auto w-full max-w-md lg:max-w-none"
+            />
+          )}
         </div>
 
         {/* The hero used to end here, with two fifths of the viewport empty

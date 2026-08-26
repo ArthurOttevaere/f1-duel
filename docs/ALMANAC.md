@@ -220,7 +220,8 @@ f1-duel/
 │   ├── set_dotd.py          Manual Driver of the Day        (46)
 │   ├── settle_season.py     Championship-pick payout        (62)
 │   ├── admin.py             Operator console (§8.5)         (191)
-│   └── backtest.py          Offline rules validation        (102)
+│   ├── backtest.py          Offline rules validation        (102)
+│   └── build_circuit_traces.py  Circuit SVG paths → web/lib/circuits.ts
 ├── supabase/
 │   ├── schema.sql           Full schema for a fresh project (484)
 │   └── migrations/000N_*.sql Incremental changes for a live project
@@ -229,8 +230,9 @@ f1-duel/
 │   │   ├── favicon.ico      "F1" knocked out of the site red (see §9.6)
 │   │   ├── apple-icon.png   180px, same mark
 │   │   └── manifest.ts      Install manifest (start_url = /game)
-│   ├── components/          29 components
+│   ├── components/          31 components
 │   ├── lib/                 supabase clients, types, helpers
+│   │   └── circuits.ts      GENERATED circuit geometry (see §9.6)
 │   │   └── poster/          The shareable race poster (see §9.9)
 │   ├── public/drivers/*.webp  Driver portraits, by driver_id (see §9.6)
 │   └── proxy.ts             Session refresh (Next 16's "middleware")
@@ -1660,6 +1662,16 @@ Two of those carry a rule that is easy to undo by accident:
   (avatars, bulbs, the spinner, a toggle knob, a bare-icon tap target). Bars
   and stripes are square-ended. Reaching for `rounded-full` on a new button is
   the regression to watch for.
+- **`web/lib/circuits.ts` is generated — never edit it.** It holds one SVG
+  path per circuit, built from FastF1 position telemetry by
+  `jobs/build_circuit_traces.py`, and the hero draws the next race's. Re-run
+  the job when the calendar gains a venue: `python jobs/build_circuit_traces.py
+  2026`. Two things in that job exist because of real bugs — it looks sessions
+  up by **round number**, because FastF1's fuzzy name match answers "Madrid"
+  with the Miami Grand Prix; and it skips events whose date is still in the
+  future, because asking for telemetry that does not exist is a network
+  round-trip that times out, twenty times over. A venue with no lap yet is
+  absent from the file and the hero renders without a trace.
 - **Archivo is loaded with `axes: ["wdth"]`.** Drop that and the served
   `@font-face` loses its `font-stretch: 62% 125%`, and `.display` — the
   headlines, the wordmark, the nav — silently falls back to normal width with
@@ -1680,8 +1692,11 @@ Shared classes: `.glass-card` (the card surface), `.glass-chip` (blurred pill),
 `.display` (Archivo opened to wdth 118 — headlines, wordmark, nav labels),
 `.btn-race` (the whole primary button: fill, glow, hover, radius),
 `.grain` (one fixed 3.2% noise layer over the site, mounted in `layout.tsx`),
+`.hero-outline` (the hero's second line, stroked and unfilled — one use),
+`.page-glow` (the single red source on `/login` and `/welcome`),
 `.pressable` (everything clickable answers a press with `scale(.97)`),
-`.aurora` / `.hero-grid` (hero background), `.cover-grid` (the same trame over
+`.hero-grid` (hero background — the aurora that sat beside it is gone, see
+below), `.cover-grid` (the same trame over
 the profile cover, masked to fade out at the bottom), `.checker-edge`
 (checkered footer separator), `.rise-in` (staggered hero entrance), `.spinner`
 (the one busy indicator), `.start-lights` / `.sl-*` (the gantry),
@@ -2338,6 +2353,7 @@ Also refresh the **Last reviewed** line and commit hash at the top.
 | Job scheduling | `.github/workflows/*.yml` |
 | A game page | `web/app/(site)/…` |
 | Nav links | `web/lib/nav.ts` |
+| Circuit geometry | `web/lib/circuits.ts` — **generated**, rebuild with `jobs/build_circuit_traces.py` |
 | Colours, spacing, motion | `web/app/globals.css` — and record the rule in `docs/DESIGN.md` |
 | A design rule, pattern or convention | `docs/DESIGN.md` |
 | The probability chart (both cuts) | `web/components/ProbabilityGrid.tsx` |
