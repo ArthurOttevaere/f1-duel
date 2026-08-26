@@ -516,19 +516,17 @@ screen reader would otherwise count everything twice. And the number is only
 allowed at all when the content **is** a sequence — steps that happen in order.
 A set of features numbered 01–04 is decoration pretending to be structure.
 
-**A step's evidence belongs inside the step.** The home page used to make the
-claim in step 03 ("Boldness pays") and prove it forty lines below, under a
-heading of its own — and both blocks were drawn in the same hand, hairline
-rows with a mono label on the left, four rem apart. That reads as one
-seven-row list, not as two subjects. `ScoringScale` now renders *inside* step
-03 against a single `border-l`, with `heading={null}`, because the step's own
-title already names it. One rule down the left is all the subordination a
-sub-block needs; a card there would be a band (§1.4).
+**A step does not have to carry its own proof — it can point at it.** The home
+page's step 03 ("Boldness pays") went through both other answers first. The
+four-rung scale was a block of its own further down the section, which read as
+one seven-row list because both halves were drawn in the same hand; then it was
+nested inside the step against a `border-l`, which fixed the reading but left
+the page reciting a formula that `/rules` already held in full. It is a link
+now (§7.9), to `/rules#scoring`.
 
-The knock-on is worth knowing: a step that grows tall makes its sibling column
-short. The two-column grid takes `lg:items-start` and the shot beside it takes
-a fixed height, so the crop stays a crop and the air below it is deliberate
-rather than a stretched empty box.
+The general rule the third attempt found: **a marketing page states the claim,
+the canonical page holds the numbers, and only one of them gets to be
+canonical.** Duplicating a rule in two places is a promise to update both.
 
 ---
 
@@ -1147,34 +1145,9 @@ player is about to do, which is fill P1…P10 with names.
 
 The five-swatch legend went with it. Every row prints its own multiplier beside
 its own bar, so the same five tiers spelled out underneath is a key to a chart
-that does not need one. The interpretive sentence stays (§12.4, rule 5).
+that does not need one. The interpretive sentence stays (§12.3, rule 5).
 
-### 12.3 `ScoringScale` — the barème
-
-Four numbers — `10 pts / ×3 / +15 / +100` — that used to sit in a `glass-card`
-as four equal centred columns. The stat row is the second most generic block a
-landing page can carry, and here it was also *wrong*: those are not four
-statistics, they are the four rungs of a scale, and setting them at equal weight
-erased the only thing worth knowing — a perfect top 10 is worth ten times an
-exact call.
-
-So the rule is drawn as the rule (§1.1). One `<dl>`, one row per rung, a
-hairline between: the label and its one-line gloss on the left, the number on
-the right, and between them a **1.5px bar whose width is the number** — 10%,
-15%, 100% of the same track. No axis, no gridlines, no card. Bars are
-square-ended (§5.4) and every value is printed beside its length (§1.2), so the
-bar is never the only channel.
-
-`×3` is the one that cannot be plotted, because a multiplier is not a quantity
-of points. It is drawn as what it actually *does*: the ten-point bar, continued
-in a hollow `bg-race/25` up to thirty. Putting it on the axis as a fourth
-independent value would have been a category error dressed as a chart.
-
-On a phone the track drops to its own line under the label/value pair rather
-than being squeezed into forty pixels — a tenth of forty pixels is four, and
-four pixels is not a quantity.
-
-### 12.4 Rules for a new chart
+### 12.3 Rules for a new chart
 
 1. One hue, sequential, low→high. Never a rainbow, never a diverging scale unless the data actually diverges.
 2. If the scale encodes a game rule, use the rule's own thresholds.
@@ -1265,7 +1238,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ScoringScale.tsx`, `Arrow.tsx`, `Wordmark.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `Arrow.tsx`, `Wordmark.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
