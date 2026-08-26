@@ -386,6 +386,44 @@ figcaption {
   mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 }
 
+/* The same flag, half as loud, for the top edge of the last-race card on the
+   home page. Two things had to be true at once: it has to read as a finish
+   line, and it must not compete with the footer's — which is the end of the
+   *site*, not the end of a race. Hence one row of 6px squares instead of two
+   rows of 10px, dimmer whites, no edge highlight, and it lives inside a card
+   rather than across the page. §1.4 bans section bands; this is the card's own
+   top edge. */
+.checker-rule {
+  height: 6px;
+  background-image: repeating-conic-gradient(
+    rgb(244 246 250 / 0.5) 0% 25%,
+    transparent 0% 50%
+  );
+  background-size: 12px 12px; /* 6px squares → 1 row */
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+
+/* The product shot on the home page (components/PickBoardShot.tsx). It is the
+   real pick screen, not a picture of one, so it is not put in a browser chrome
+   or a phone bezel — the two clichés. It simply runs past its column and
+   dissolves.
+
+   Two nested elements rather than one `mask-composite: intersect`, which still
+   wants a -webkit- prefix with a different keyword on Safari. The horizontal
+   fade is desktop-only: below `lg` the board is exactly as wide as its column
+   and there is nothing to run past. */
+.shot-fade-y {
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 74%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 74%, transparent 100%);
+}
+@media (min-width: 1024px) {
+  .shot-fade-x {
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 62%, transparent 100%);
+    mask-image: linear-gradient(to right, black 0%, black 62%, transparent 100%);
+  }
+}
+
 /* ─── Waiting ──────────────────────────────────────────────────────────── */
 
 /* Inline spinner for any control that is busy (components/Spinner.tsx).

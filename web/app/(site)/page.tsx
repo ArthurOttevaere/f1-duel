@@ -1,5 +1,8 @@
 import Link from "next/link";
+import Arrow from "@/components/Arrow";
 import NextRaceLine from "@/components/NextRaceLine";
+import PickBoardShot from "@/components/PickBoardShot";
+import ScoringScale from "@/components/ScoringScale";
 import HeroRaceCard from "@/components/HeroRaceCard";
 import HeroTraceBleed from "@/components/HeroTraceBleed";
 import LastRaceProof, { loadLastRace } from "@/components/LastRaceProof";
@@ -25,18 +28,18 @@ const DUEL_STEPS = [
   },
 ];
 
-const SCORING_HIGHLIGHTS = [
-  { value: "10 pts", label: "exact position" },
-  { value: "×3", label: "on the boldest calls" },
-  { value: "+15", label: "perfect podium" },
-  { value: "+100", label: "perfect top 10" },
-];
-
-const MODEL_FACTS = [
-  "XGBoost + LightGBM ensemble, blended by validation performance",
-  "39 engineered features: pace, form, reliability, circuit history, weather",
-  "Win & podium probabilities from Monte-Carlo simulation",
-  "Every prediction explained factor by factor (SHAP)",
+/**
+ * The four facts about the model, as what they always were: key/value pairs.
+ * They were bullets — a 6px red disc in front of each — which is a tic, and a
+ * tic that mislabels its own content. "Features: 39" is a spec, not an
+ * argument, and the site already has a shape for specs: the label/value/rule
+ * row of /rules.
+ */
+const MODEL_SPEC = [
+  { key: "Ensemble", value: "XGBoost + LightGBM, blended by validation performance" },
+  { key: "Features", value: "39 — pace, form, reliability, circuit history, weather" },
+  { key: "Probabilities", value: "Win and podium, from Monte-Carlo simulation" },
+  { key: "Explained", value: "Every prediction, factor by factor (SHAP)" },
 ];
 
 export default async function Home() {
@@ -195,30 +198,47 @@ export default async function Home() {
           A season-long duel against the machine
         </h2>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-3">
-          {DUEL_STEPS.map((s) => (
-            <article key={s.step} className="glass-card p-6">
-              <p className="font-mono text-sm text-race">{s.step}</p>
-              <h3 className="display mt-3 text-lg font-extrabold tracking-tight">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-dim">
-                {s.body}
-              </p>
-            </article>
-          ))}
+        <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-14">
+          {/* Three equal numbered cards is the block any model produces when
+              asked "how does it work", and this site had it twice. The cards
+              are gone: the numeral hangs in the margin, a hairline separates
+              the steps, and the whole thing is the house rule — space and
+              type, never a band (§1.4) — applied to the one block that had
+              forgotten it. */}
+          <ol className="border-b border-line">
+            {DUEL_STEPS.map((s) => (
+              <li
+                key={s.step}
+                className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-4 border-t border-line py-7 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-x-8 sm:py-9"
+              >
+                {/* The <ol> already numbers this list for a screen reader; the
+                    numeral is the same count, drawn. */}
+                <span
+                  aria-hidden
+                  className="font-mono text-2xl leading-none font-semibold text-race tabular-nums sm:text-4xl"
+                >
+                  {s.step}
+                </span>
+                <div>
+                  <h3 className="display text-lg font-extrabold tracking-tight sm:text-xl">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-dim">
+                    {s.body}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          {/* The screen the three steps describe, running past the column.
+              See PickBoardShot — it is the board itself, not a picture. */}
+          <PickBoardShot />
         </div>
 
-        <div className="glass-card mt-4 grid grid-cols-2 gap-y-8 p-8 sm:grid-cols-4">
-          {SCORING_HIGHLIGHTS.map((h) => (
-            <div key={h.label} className="text-center">
-              <p className="font-mono text-3xl font-semibold text-ink">
-                {h.value}
-              </p>
-              <p className="mt-1 text-sm text-ink-mute">{h.label}</p>
-            </div>
-          ))}
-        </div>
+        <ScoringScale className="mt-16" />
 
-        <p className="mt-6 text-sm text-ink-mute">
+        <p className="mt-10 max-w-2xl text-sm leading-relaxed text-ink-mute">
           Plus: vote the Driver of the Day, pick your world champions before
           it&apos;s obvious, and settle it all in a private league with your
           friends.
@@ -255,13 +275,14 @@ export default async function Home() {
                 publishes is the last race it actually played. */}
             <Link
               href="/model"
-              className="pressable mt-8 inline-block rounded-control border border-line-hi px-6 py-3 text-sm font-semibold transition-colors hover:bg-glass-strong"
+              className="pressable group mt-8 inline-flex items-center gap-2.5 rounded-control border border-line-hi px-6 py-3 text-sm font-semibold transition-colors hover:bg-glass-strong"
             >
-              See how it read the last race →
+              See how it read the last race
+              <Arrow />
             </Link>
           </div>
 
-          {/* A surface, and a heading over it. Four bullets floating in the
+          {/* A surface, and a heading over it. Four lines floating in the
               right half — under a left column that has an eyebrow, a heading,
               a paragraph and a button — read as text that had lost its card,
               and the two halves of the section didn't look like one thing.
@@ -272,20 +293,21 @@ export default async function Home() {
             <p className="px-4 pt-3 pb-2 font-mono text-[0.65rem] tracking-[0.18em] text-ink-mute uppercase">
               Under the hood
             </p>
-            <ul className="flex flex-col">
-              {MODEL_FACTS.map((f) => (
-                <li
-                  key={f}
-                  className="flex items-start gap-3 border-t border-line px-4 py-3.5 text-sm text-ink-dim"
+            <dl className="flex flex-col">
+              {MODEL_SPEC.map((f) => (
+                <div
+                  key={f.key}
+                  className="grid gap-x-4 gap-y-1 border-t border-line px-4 py-3.5 sm:grid-cols-[6.5rem_minmax(0,1fr)]"
                 >
-                  <span
-                    aria-hidden
-                    className="mt-1.5 size-1.5 shrink-0 rounded-full bg-race"
-                  />
-                  {f}
-                </li>
+                  <dt className="font-mono text-[0.65rem] tracking-[0.16em] text-ink-mute uppercase sm:pt-0.5">
+                    {f.key}
+                  </dt>
+                  <dd className="text-sm leading-relaxed text-ink-dim">
+                    {f.value}
+                  </dd>
+                </div>
               ))}
-            </ul>
+            </dl>
           </div>
         </div>
       </section>

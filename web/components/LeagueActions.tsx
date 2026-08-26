@@ -109,7 +109,7 @@ export default function LeagueActions({ hasLeagues }: { hasLeagues: boolean }) {
             : "glass-chip text-ink"
         }`}
       >
-        {hasLeagues ? "+ League" : "Play with friends →"}
+        {hasLeagues ? "+ League" : "Play with friends"}
       </button>
 
       {mode !== "idle" && (
