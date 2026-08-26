@@ -58,7 +58,7 @@ export default function LeagueSwitcher({
         // The pill only pulses while it loads. A spinner inside it would
         // resize the pill and shove the rest of the row sideways; the spinner
         // that matters is the one over the board.
-        className={`pressable max-w-[14rem] truncate rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+        className={`pressable max-w-[14rem] truncate rounded-control px-4 py-1.5 text-sm font-medium transition-colors ${
           active
             ? "bg-race text-white"
             : "glass-chip text-ink-dim hover:text-ink"

@@ -160,7 +160,7 @@ export default async function GamePage() {
       {needsPicks && (
         <Link
           href="/game/picks"
-          className="pressable glass-chip flex items-center justify-between rounded-2xl border-race/30 px-5 py-3 text-sm transition-colors hover:border-race/60"
+          className="pressable glass-chip flex items-center justify-between rounded-panel border-race/30 px-5 py-3 text-sm transition-colors hover:border-race/60"
         >
           <span>
             🏆 Call your {CURRENT_SEASON} world champions — one shot, big
@@ -188,7 +188,7 @@ export default async function GamePage() {
             <Countdown to={race.race_at} label="Predictions lock in" />
           )}
           <p
-            className={`glass-chip rounded-full px-3 py-1 text-xs ${
+            className={`glass-chip rounded-control px-3 py-1 text-xs ${
               entry ? "text-ink-dim" : "text-ink-mute"
             }`}
           >
@@ -206,7 +206,7 @@ export default async function GamePage() {
           // Gap and shrink-0, both load-bearing: `justify-between` alone let
           // the race name wrap under a call-to-action it was already touching,
           // and "Hungarian Grand" ran straight into "See the breakdown".
-          className="pressable glass-chip flex flex-col items-start gap-1 rounded-2xl px-5 py-3 text-sm transition-colors hover:border-line-hi sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+          className="pressable glass-chip flex flex-col items-start gap-1 rounded-panel px-5 py-3 text-sm transition-colors hover:border-line-hi sm:flex-row sm:items-center sm:justify-between sm:gap-4"
         >
           <span className="text-ink-dim">
             Last duel · {lastDuel.race.name}

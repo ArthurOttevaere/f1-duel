@@ -57,7 +57,7 @@ export default function PointsCurve({
           <span className="flex items-center gap-2">
             <span
               aria-hidden
-              className="h-0.5 w-4 rounded-full"
+              className="h-0.5 w-4"
               style={{ background: color }}
             />
             You {formatPoints(you)}
@@ -65,7 +65,7 @@ export default function PointsCurve({
           <span className="flex items-center gap-2">
             <span
               aria-hidden
-              className="h-0.5 w-4 rounded-full border-t border-dashed border-ink-mute"
+              className="h-0.5 w-4 border-t border-dashed border-ink-mute"
             />
             Model {formatPoints(model)}
           </span>

@@ -55,7 +55,7 @@ export default async function JoinPage({
         </p>
         <Link
           href="/game/standings"
-          className="pressable glass-chip mt-6 inline-block rounded-full px-5 py-2 text-sm font-semibold hover:border-line-hi"
+          className="pressable glass-chip mt-6 inline-block rounded-control px-5 py-2 text-sm font-semibold hover:border-line-hi"
         >
           Your leagues
         </Link>

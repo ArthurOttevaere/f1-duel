@@ -58,7 +58,7 @@ export default function SeasonPicksForm({
               key={d.driver_id}
               type="button"
               onClick={() => setDriver(d.driver_id)}
-              className={`pressable flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition-colors ${
+              className={`pressable flex items-center gap-2 rounded-control border px-2.5 py-2 text-left transition-colors ${
                 driver === d.driver_id
                   ? "border-race bg-race/10"
                   : "border-line bg-glass hover:border-line-hi"
@@ -83,7 +83,7 @@ export default function SeasonPicksForm({
               key={t}
               type="button"
               onClick={() => setTeam(t)}
-              className={`pressable flex items-center gap-2.5 rounded-xl border px-3 py-2.5 text-left text-sm font-medium transition-colors ${
+              className={`pressable flex items-center gap-2.5 rounded-control border px-3 py-2.5 text-left text-sm font-medium transition-colors ${
                 team === t
                   ? "border-race bg-race/10"
                   : "border-line bg-glass hover:border-line-hi"
@@ -123,7 +123,7 @@ export default function SeasonPicksForm({
               type="button"
               onClick={lockIn}
               disabled={busy}
-              className="pressable flex items-center gap-2 rounded-full bg-race px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+              className="pressable btn-race flex items-center gap-2 px-6 py-2.5 text-sm font-semibold disabled:opacity-60"
             >
               {busy && <Spinner />}
               {busy ? "Locking…" : "Lock it in"}

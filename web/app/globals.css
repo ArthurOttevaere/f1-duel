@@ -47,6 +47,24 @@
   --shadow-panel-sm: 0 10px 24px rgb(3 5 16 / 0.44);
   --shadow-race: 0 10px 30px rgb(168 12 40 / 0.38);
 
+  /* Two radii, and the gap between them is the whole idea.
+
+     The site was 76 `rounded-full`: every button, chip, badge and field was a
+     capsule. The capsule is the default control of the last few years, and it
+     is soft — where the visual language of this sport is rectangular and
+     technical. Pit boards, timing towers, number plates, entry tickets.
+
+     `--radius-control` is what you press or type into. `--radius-panel` is
+     what holds things — softer than its contents, per the usual rule that
+     inner corners are tighter than outer ones. The capsule survives in
+     exactly two places: a badge, and a status dot. Both are read as *shapes*
+     rather than as surfaces, and both would look like small buttons at 5px.
+
+     Round is also kept where the thing genuinely is a circle — an avatar, a
+     bulb, a toggle knob, a bare-icon tap target. */
+  --radius-control: 5px;
+  --radius-panel: 10px;
+
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
 }
@@ -146,7 +164,7 @@ figcaption {
 .glass-card {
   background: var(--color-card);
   border: 1px solid var(--color-line);
-  border-radius: 1.25rem;
+  border-radius: var(--radius-panel);
   /* The inner hairline stays: it is what makes the card read as a lit panel
      rather than a hole. The drop is `--shadow-panel`, tinted to the ground. */
   box-shadow:
@@ -226,7 +244,7 @@ figcaption {
 .btn-race {
   background: var(--color-race-deep);
   color: #fff;
-  border-radius: 9999px;
+  border-radius: var(--radius-control);
   box-shadow: var(--shadow-race);
   transition: background-color 160ms var(--ease-out-strong);
 }
@@ -378,7 +396,6 @@ figcaption {
   left: -0.35rem;
   right: -0.35rem;
   height: 2px;
-  border-radius: 9999px;
   background: linear-gradient(
     90deg,
     transparent,

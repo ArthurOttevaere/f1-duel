@@ -72,7 +72,7 @@ export default async function UnsubscribePage({
               <input type="hidden" name="value" value="false" />
               <button
                 type="submit"
-                className="pressable glass-chip rounded-full px-5 py-2.5 text-sm font-semibold transition-colors hover:border-line-hi"
+                className="pressable glass-chip rounded-control px-5 py-2.5 text-sm font-semibold transition-colors hover:border-line-hi"
               >
                 Turn them back on
               </button>

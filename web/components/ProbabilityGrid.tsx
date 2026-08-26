@@ -123,7 +123,7 @@ function PositionList({
               type="button"
               aria-pressed={on}
               onClick={() => setPosition(c)}
-              className={`pressable h-10 rounded-xl border font-mono text-sm transition-colors ${
+              className={`pressable h-10 rounded-control border font-mono text-sm transition-colors ${
                 on
                   ? "border-race bg-race font-semibold text-white"
                   : "border-line bg-glass text-ink-dim"
@@ -158,7 +158,7 @@ function PositionList({
           return (
             <li
               key={d.driverId}
-              className={`relative flex items-center gap-2.5 overflow-hidden rounded-xl border px-2.5 py-2 ${
+              className={`relative flex items-center gap-2.5 overflow-hidden rounded-control border px-2.5 py-2 ${
                 isPick ? "border-race/50" : "border-line"
               }`}
             >
@@ -183,7 +183,7 @@ function PositionList({
               </span>
               <span
                 aria-hidden
-                className="relative h-7 w-1 shrink-0 rounded-full"
+                className="relative h-7 w-1 shrink-0"
                 style={{ background: d.color ?? NEUTRAL_COLOR }}
               />
               <span className="relative shrink-0">

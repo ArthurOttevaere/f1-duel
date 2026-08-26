@@ -42,7 +42,7 @@ function DriverCell({
     <span className="flex min-w-0 items-center gap-2">
       <span
         aria-hidden
-        className="h-4 w-0.5 shrink-0 rounded-full"
+        className="h-4 w-0.5 shrink-0"
         style={{ background: driver.color }}
       />
       <span className="truncate">{driver.name}</span>

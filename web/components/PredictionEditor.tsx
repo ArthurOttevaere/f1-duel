@@ -113,7 +113,7 @@ function Slot({
       onTouchStart={onRowTouchStart}
       // A long press on iOS otherwise raises the text-selection callout on top
       // of the drag.
-      className={`relative flex touch-manipulation items-center gap-2.5 rounded-xl border px-2.5 py-2 transition-colors select-none [-webkit-touch-callout:none] sm:gap-3 sm:px-3 ${
+      className={`relative flex touch-manipulation items-center gap-2.5 rounded-control border px-2.5 py-2 transition-colors select-none [-webkit-touch-callout:none] sm:gap-3 sm:px-3 ${
         // Exactly one background: a dragged row travels over its neighbours,
         // and the translucent bg-glass showed both at once. #16181f is the
         // card colour composited onto the page background.
@@ -140,7 +140,7 @@ function Slot({
         <>
           <span
             aria-hidden
-            className="h-7 w-1 shrink-0 rounded-full"
+            className="h-7 w-1 shrink-0"
             style={{ background: color }}
           />
           <DriverAvatar driver={driver} size={32} />
@@ -267,7 +267,7 @@ function DriverPool({
             onClick={() => onPick(d.driver_id)}
             disabled={disabled}
             aria-pressed={Boolean(at)}
-            className={`pressable flex items-center gap-2 rounded-xl border px-2.5 py-2 text-left transition-colors disabled:opacity-45 ${
+            className={`pressable flex items-center gap-2 rounded-control border px-2.5 py-2 text-left transition-colors disabled:opacity-45 ${
               at
                 ? "border-race/50 bg-race/10"
                 : "border-line bg-glass hover:border-line-hi"
@@ -283,7 +283,7 @@ function DriverPool({
               </span>
             </span>
             {at && (
-              <span className="shrink-0 rounded-md bg-race px-1.5 py-0.5 font-mono text-[0.65rem] font-semibold text-white">
+              <span className="shrink-0 rounded-control bg-race px-1.5 py-0.5 font-mono text-[0.65rem] font-semibold text-white">
                 P{at}
               </span>
             )}
@@ -356,7 +356,7 @@ function PickerSheet({
             <button
               type="button"
               onClick={onClose}
-              className="pressable glass-chip rounded-full px-4 py-1.5 text-sm font-medium"
+              className="pressable glass-chip rounded-control px-4 py-1.5 text-sm font-medium"
             >
               Done
             </button>
@@ -367,7 +367,7 @@ function PickerSheet({
             {slots.map((id, i) => (
               <span
                 key={i}
-                className={`flex h-7 shrink-0 items-center gap-1 rounded-lg border px-2 font-mono text-[0.65rem] ${
+                className={`flex h-7 shrink-0 items-center gap-1 rounded-control border px-2 font-mono text-[0.65rem] ${
                   i === slot
                     ? "border-race bg-race/15 text-race"
                     : id
@@ -588,7 +588,7 @@ export default function PredictionEditor({
             {slots.map((id, i) => (
               <span
                 key={i}
-                className={`h-1 flex-1 rounded-full transition-colors ${
+                className={`h-1 flex-1 transition-colors ${
                   id ? "bg-race" : "bg-line"
                 }`}
               />
@@ -633,7 +633,7 @@ export default function PredictionEditor({
             <button
               type="button"
               onClick={() => selectSlot(complete ? active : nextEmpty(0, slots))}
-              className="pressable mt-3 w-full rounded-xl border border-line-hi py-3 text-sm font-semibold transition-colors hover:bg-glass-strong lg:hidden"
+              className="pressable mt-3 w-full rounded-control border border-line-hi py-3 text-sm font-semibold transition-colors hover:bg-glass-strong lg:hidden"
             >
               {complete
                 ? "Change a driver"
@@ -672,7 +672,7 @@ export default function PredictionEditor({
                 onClick={() =>
                   setDotd(dotd === d.driver_id ? null : d.driver_id)
                 }
-                className={`pressable rounded-full border px-3 py-1.5 font-mono text-xs transition-colors disabled:opacity-45 ${
+                className={`pressable rounded-control border px-3 py-1.5 font-mono text-xs transition-colors disabled:opacity-45 ${
                   dotd === d.driver_id
                     ? "border-race bg-race/15 text-race"
                     : "border-line text-ink-dim hover:border-line-hi"
@@ -704,7 +704,7 @@ export default function PredictionEditor({
                 type="button"
                 disabled={!canPlay}
                 onClick={() => setScBet(scBet === o.val ? null : o.val)}
-                className={`pressable flex-1 rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-45 ${
+                className={`pressable flex-1 rounded-control border px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-45 ${
                   scBet === o.val
                     ? "border-race bg-race/15 text-race"
                     : "border-line text-ink-dim hover:border-line-hi"
@@ -760,7 +760,7 @@ export default function PredictionEditor({
              surface, because at this opacity the grid behind it would
              otherwise read straight through the type. */}
       {!signedIn && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-bg/45 backdrop-blur-[2px]">
+        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-panel bg-bg/45 backdrop-blur-[2px]">
           <div className="glass-card mx-4 max-w-sm p-6 text-center">
             <p className="font-semibold">Sign in to enter the duel</p>
             {preview && (
@@ -771,7 +771,7 @@ export default function PredictionEditor({
             )}
             <Link
               href="/login"
-              className="pressable mt-4 inline-block rounded-full bg-race px-7 py-3 text-sm font-semibold text-white"
+              className="pressable btn-race mt-4 inline-block px-7 py-3 text-sm font-semibold"
             >
               Sign in — it takes 20 seconds
             </Link>

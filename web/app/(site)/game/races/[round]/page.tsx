@@ -292,7 +292,7 @@ export default async function RaceReviewPage({
       )}
 
       {race.status === "locked" && (
-        <p className="glass-chip rounded-2xl px-5 py-3 text-sm text-ink-dim">
+        <p className="glass-chip rounded-panel px-5 py-3 text-sm text-ink-dim">
           🏁 Race locked — scoring lands once the official classification is in.
         </p>
       )}
@@ -361,7 +361,7 @@ export default async function RaceReviewPage({
               return (
                 <li
                   key={s.user_id}
-                  className={`flex items-center gap-3 rounded-xl border border-line bg-glass px-4 py-2.5 text-sm ${
+                  className={`flex items-center gap-3 rounded-control border border-line bg-glass px-4 py-2.5 text-sm ${
                     user && s.user_id === user.id ? "border-line-hi" : ""
                   }`}
                 >

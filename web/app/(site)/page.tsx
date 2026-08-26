@@ -82,7 +82,7 @@ export default async function Home() {
           </Link>
           <Link
             href="/model"
-            className="pressable glass-chip rounded-full px-8 py-3.5 text-base font-semibold text-ink transition-colors hover:border-line-hi"
+            className="pressable glass-chip rounded-control px-8 py-3.5 text-base font-semibold text-ink transition-colors hover:border-line-hi"
           >
             Explore the model
           </Link>
@@ -192,7 +192,7 @@ export default async function Home() {
                 publishes is the last race it actually played. */}
             <Link
               href="/model"
-              className="pressable mt-8 inline-block rounded-full border border-line-hi px-6 py-3 text-sm font-semibold transition-colors hover:bg-glass-strong"
+              className="pressable mt-8 inline-block rounded-control border border-line-hi px-6 py-3 text-sm font-semibold transition-colors hover:bg-glass-strong"
             >
               See how it read the last race →
             </Link>

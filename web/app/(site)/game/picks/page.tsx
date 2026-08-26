@@ -52,7 +52,7 @@ export default async function PicksPage() {
       </p>
 
       {!user ? (
-        <p className="glass-chip mt-8 rounded-2xl px-5 py-4 text-sm text-ink-mute">
+        <p className="glass-chip mt-8 rounded-panel px-5 py-4 text-sm text-ink-mute">
           <Link href="/login" className="text-race underline">
             Sign in
           </Link>{" "}

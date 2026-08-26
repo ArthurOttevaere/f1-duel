@@ -47,7 +47,7 @@ export default function DeleteAccount({ username }: { username: string }) {
   }
 
   return (
-    <section className="mt-8 rounded-2xl border border-race/30 bg-race/[0.04] p-6">
+    <section className="mt-8 rounded-panel border border-race/30 bg-race/[0.04] p-6">
       <h2 className="text-sm font-semibold tracking-wide text-race">
         DELETE ACCOUNT
       </h2>
@@ -62,7 +62,7 @@ export default function DeleteAccount({ username }: { username: string }) {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="pressable shrink-0 rounded-full border border-race/60 px-5 py-2 text-sm font-semibold text-race transition-colors hover:bg-race/10"
+            className="pressable shrink-0 rounded-control border border-race/60 px-5 py-2 text-sm font-semibold text-race transition-colors hover:bg-race/10"
           >
             Delete my account
           </button>
@@ -87,7 +87,7 @@ export default function DeleteAccount({ username }: { username: string }) {
               autoComplete="off"
               autoCapitalize="none"
               spellCheck={false}
-              className="mt-1 block w-full max-w-xs rounded-xl border border-line bg-black/25 px-4 py-2.5 text-sm text-ink outline-none transition-colors focus:border-race/60"
+              className="mt-1 block w-full max-w-xs rounded-control border border-line bg-black/25 px-4 py-2.5 text-sm text-ink outline-none transition-colors focus:border-race/60"
             />
           </label>
           <div className="flex flex-wrap items-center gap-3">
