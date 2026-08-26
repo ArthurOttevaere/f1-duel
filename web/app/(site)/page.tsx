@@ -2,7 +2,6 @@ import Link from "next/link";
 import Arrow from "@/components/Arrow";
 import NextRaceLine from "@/components/NextRaceLine";
 import PickBoardShot from "@/components/PickBoardShot";
-import ScoringScale from "@/components/ScoringScale";
 import ProbabilityShot from "@/components/ProbabilityShot";
 import { latestMatrix } from "@/lib/latestMatrix";
 import HeroRaceCard from "@/components/HeroRaceCard";
@@ -31,15 +30,15 @@ const DUEL_STEPS = [
 ];
 
 /**
- * The last step is the one that carries the game, and it used to make its
- * claim here and prove it forty lines below, under a heading of its own. Two
- * blocks drawn in the same hand — hairline rows, mono label on the left — four
- * rem apart read as one seven-row list rather than as two subjects, which is
- * exactly what they looked like.
+ * The last step is the one that carries the game, so it is the one that gets a
+ * way out of the section.
  *
- * So the scale is the third step's evidence now, indented under it against a
- * single rule. One heading on the section, and the step that pays is visibly
- * taller than the two that only set it up.
+ * The four-rung scale used to be printed under it. Before that it was its own
+ * block further down the page, which read as one seven-row list because both
+ * halves were drawn in the same hand. Neither is here now: a home page states
+ * that boldness pays, and `/rules` is where somebody who wants the numbers
+ * goes — it has the whole formula, in three sections, and it was already the
+ * canonical copy of it. The step points there instead of paraphrasing it.
  */
 const PAYOFF_STEP = "03";
 
@@ -202,12 +201,7 @@ export default async function Home() {
           A season-long duel against the machine
         </h2>
 
-        {/* `lg:items-start` and a capped shot: since the scoring scale moved
-            inside step 03 the left column is half again as tall, and a
-            stretched board simply drew ten rows at the top of an empty box.
-            The board is a crop, so it keeps a crop's height and the air below
-            it is deliberate. */}
-        <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-start lg:gap-14">
+        <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-14">
           {/* Three equal numbered cards is the block any model produces when
               asked "how does it work", and this site had it twice. The cards
               are gone: the numeral hangs in the margin, a hairline separates
@@ -235,15 +229,18 @@ export default async function Home() {
                   <p className="mt-2 text-sm leading-relaxed text-ink-dim">
                     {s.body}
                   </p>
-                  {/* See PAYOFF_STEP: the scale is this step's evidence, not a
-                      second section. One rule down the left is all the
-                      subordination it needs — a card here would be a band, and
-                      the page separates with space and type (§1.4). */}
+                  {/* See PAYOFF_STEP. The one link out of the section, on the
+                      step that earns it (§7.9). */}
                   {s.step === PAYOFF_STEP && (
-                    <ScoringScale
-                      heading={null}
-                      className="mt-6 border-l border-line pl-4 sm:mt-7 sm:pl-6"
-                    />
+                    <Link
+                      href="/rules#scoring"
+                      className="pressable group mt-4 inline-flex items-center gap-2 text-sm font-semibold text-race"
+                    >
+                      <span className="group-hover:underline">
+                        What a call is worth
+                      </span>
+                      <Arrow />
+                    </Link>
                   )}
                 </div>
               </li>
@@ -252,7 +249,7 @@ export default async function Home() {
 
           {/* The screen the three steps describe, running past the column.
               See PickBoardShot — it is the board itself, not a picture. */}
-          <PickBoardShot className="lg:h-[34rem]" />
+          <PickBoardShot />
         </div>
 
         <p className="mt-10 max-w-2xl text-sm leading-relaxed text-ink-mute">

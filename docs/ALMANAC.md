@@ -1397,11 +1397,10 @@ generated shape, and they are rebuilt:**
   controls announced as real controls is a lie with ten rows in it; and with no
   scored race yet it renders empty, which is what the screen genuinely looks
   like in March.
-- **The barème.** The four centred numbers in a card are **`ScoringScale`**:
-  one row per rung, a bar whose width *is* the number, the value printed beside
-  it. `×3` is drawn as the ten-point bar continued in a hollow tone up to
-  thirty, because a multiplier is not a quantity of points and putting it on
-  the axis would have been a category error dressed as a chart. DESIGN §12.3.
+- **The barème is not here any more.** Step 03 used to print the four rungs
+  (`ScoringScale`, deleted); it links to `/rules#scoring` instead, which held
+  the whole formula all along. A marketing page states the claim, the canonical
+  page holds the numbers, and only one of them gets to be canonical.
 - **The opponent.** "Under the hood" was four red bullet discs in front of four
   sentences that were really key/value pairs. It is a `<dl>` spec sheet now —
   mono label, sans value, hairline between — which is the shape `/rules` has
