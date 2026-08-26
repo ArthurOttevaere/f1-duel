@@ -3,6 +3,7 @@ import { Archivo, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "@/lib/constants";
 import BootScreen from "@/components/BootScreen";
+import LogoSprite from "@/components/LogoSprite";
 import "./globals.css";
 
 // Archivo, and only Archivo: it is variable on both axes Google ships it with,
@@ -66,6 +67,11 @@ export default function RootLayout({
       className={`${archivo.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        {/* The logomark's mask, once per document and *before* anything that
+            references it — including BootScreen, whose own copy used to be the
+            first definition in the tree and went dead the moment the screen was
+            hidden. See LogoSprite. */}
+        <LogoSprite />
         <BootScreen />
         {/* The grain (globals.css). One fixed layer over the whole site, three
             per cent, and it is the difference between a surface and a render. */}

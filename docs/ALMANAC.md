@@ -1902,7 +1902,21 @@ They are generated from `public/logo-mark.svg` rather than drawn by hand, and
 with *"The PNG is not in RGBA format"*, which fails the whole page, not just
 the icon.
 
-### 9.7 Two gotchas that cost real debugging time
+### 9.7 Three gotchas that cost real debugging time
+
+0. **An SVG resource inside `display: none` is dead in Chrome.** The logomark
+   is a `currentColor` rect with a `<mask>` cutting the car out of it. The mask
+   first lived inside every `Logomark`, under one shared id, on the reasoning
+   that identical duplicates resolve to the first and draw the same thing.
+   `url(#…)` does resolve to the first definition **in the document** — and the
+   first one belonged to `BootScreen`, which the pre-hydration script marks
+   `hidden`, and `#boot-screen[hidden]` is `display: none`. Chrome does not
+   build SVG resources in a `display: none` subtree, so *every* reference on the
+   page failed at once and all three marks rendered as unmasked white squares.
+   The fix is `components/LogoSprite.tsx`: one definition, in the root layout,
+   in a zero-sized but **rendered** `<svg>` (`position: absolute`, `width/height:
+   0`, never `display: none`). It also took the page from three copies of 13 kB
+   of path data to one.
 
 1. **`backdrop-filter` traps `position: fixed`.** The nav uses `.glass-chip`,
    whose `backdrop-filter` creates a containing block. A `position: fixed`

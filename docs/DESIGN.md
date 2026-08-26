@@ -127,18 +127,27 @@ unrelated: it sets a *constructor's* name in the mono idiom.)
 
 **Since 2026-08-27 there is a logomark, and `Wordmark` is a lockup.**
 `components/Logomark.tsx` draws a **D whose counter is a Formula 1 seen from
-above, with the start-finish chequer running down the stem.** Two colours:
-the letter is `currentColor`, so the mark inverts with whatever it sits on, and
-the car and chequer are `var(--color-race)` and stay put because red reads on
-dark, on light and on red.
+above, with the start-finish chequer running down the stem.**
 
-Three rules keep it honest.
+**One colour, and a hole.** Everything solid is `currentColor`. The car and
+half the chequer are not painted at all: a mask cuts them out of the letter, so
+they show *whatever is actually behind the logo* — the page, a glass card, a
+red button, a blue banner. On the site's ground the car is `#0a0b10`; on a blue
+banner it is blue, with nothing to configure. Painting them `var(--color-bg)`
+instead would be right only while the logo sits directly on the page and wrong
+the moment it lands on a card or an image. A hole is right everywhere.
+
+Four rules keep it honest.
 
 - **It is inlined, never `<img src>`.** An SVG in an `<img>` is an isolated
-  document with no access to the page's `color` or its custom properties, so
-  the letter would render black on black. The standalone files the platform
-  demands — `favicon.ico`, `apple-icon.png`, `public/icon-{192,512}.png` — are
-  baked with literal colours for that reason, and are the *only* raster copies.
+  document with no access to the page's `color`, so the letter would render
+  black on black and the knockout would show the img's own transparent backdrop
+  rather than the surface. The standalone files the platform demands —
+  `favicon.ico`, `apple-icon.png`, `public/icon-{192,512}.png` — are baked
+  against the site's dark ground for that reason, and are the *only* raster
+  copies.
+- **The mask is defined once per document,** by `LogoSprite` in the root
+  layout, never inside each instance. See §9.7: this is a bug, not a taste.
 - **The mark is sized in `em`** (`h-[1.7em]`), so the lockup tracks the type
   size and never needs a second measurement.
 - **The lockup pairs the drawn mark with Archivo lettering, and never the
@@ -1270,7 +1279,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ProbabilityShot.tsx`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
