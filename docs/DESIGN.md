@@ -82,9 +82,15 @@ it a signature rather than a motif.
 
 A table that needs 32–36rem gets a **phone twin**, not a horizontal scrollbar:
 iOS draws no bar for overflow, so a column past the edge is a column that does
-not exist. Three surfaces have been rebuilt on this rule — the race breakdown,
-the standings board, and the probability matrix (§12.2). The twin is allowed to
-show a *different cut* of the data, not a squeezed one.
+not exist. Two surfaces are built as twins — the race breakdown and the
+standings board. The twin is allowed to show a *different cut* of the data, not
+a squeezed one.
+
+The probability matrix was the third, and it is the rule's most useful result:
+**the phone cut turned out to be the better chart at every width, and the
+desktop one was deleted** (§12.2). Writing for the narrow screen forces the
+question "what is actually being asked here", and the answer is not always
+narrower — sometimes it is just better.
 
 ### 1.6 Comment the decision, not the code
 
@@ -228,18 +234,19 @@ The one sequential scale in the system. Single hue, low→high, **never a
 rainbow**. The five stops are the game's multiplier tiers (`GAME_DESIGN` §2.2),
 defined once in `components/ProbabilityGrid.tsx`:
 
-| Probability | Fill | Multiplier | Ink |
-| --- | --- | --- | --- |
-| 30%+ | `rgb(255 30 60 / 0.88)` | ×1 | `text-ink` |
-| 15–30% | `rgb(255 30 60 / 0.55)` | ×1.5 | `text-ink` |
-| 5–15% | `rgb(255 30 60 / 0.3)` | ×2 | `text-ink` |
-| 2–5% | `rgb(255 30 60 / 0.14)` | ×3 | `text-ink-dim` |
-| under 2% | `rgb(255 255 255 / 0.03)` | ×3 | `text-ink-mute` |
+| Probability | Fill | Multiplier |
+| --- | --- | --- |
+| 30%+ | `rgb(255 30 60 / 0.88)` | ×1 |
+| 15–30% | `rgb(255 30 60 / 0.55)` | ×1.5 |
+| 5–15% | `rgb(255 30 60 / 0.3)` | ×2 |
+| 2–5% | `rgb(255 30 60 / 0.14)` | ×3 |
+| under 2% | `rgb(255 255 255 / 0.03)` | ×3 |
 
-Every band carries **light** ink, which is counter-intuitive for the brightest
-one and was checked rather than guessed: the strongest fill composites to about
-`#e11b36`, which is 4.9:1 against `#f4f6fa` and only 4.0:1 against the page
-black. The middle band is not close — 10:1 light, 1.9:1 dark.
+Text sits **on top of** its own fill, and it is **light** ink at every band —
+counter-intuitive for the brightest one, and checked rather than guessed: the
+strongest fill composites to about `#e11b36`, which is 4.9:1 against `#f4f6fa`
+and only 4.0:1 against the page black. The middle band is not close — 10:1
+light, 1.9:1 dark.
 
 ### 3.5 Shadows and glows
 
@@ -802,7 +809,8 @@ of `rounded-xl border border-line bg-glass px-3 py-2.5` rows — or something
 better suited to the shape of the data (§12.2). Both halves live in the same
 component so they cannot drift.
 
-The current pairs: `RaceBreakdown`, the standings board, `ProbabilityGrid`.
+The current pairs: `RaceBreakdown` and the standings board. `ProbabilityGrid`
+used to be the third and no longer is — see §1.5 and §12.2.
 
 ### 7.6 Driver row
 
@@ -1029,38 +1037,43 @@ strokes an honest 1px through that stretch. Your line is your season-pick
 colour, the model's is race red. Below two scored races it renders nothing at
 all — one point is a dot, not a curve.
 
-### 12.2 `ProbabilityGrid` — the matrix, twice
+### 12.2 `ProbabilityGrid` — the matrix, one position at a time
 
 The model's Monte-Carlo output: for each driver, P(finishing in exactly this
 position), frozen at lock time. It is the same number the rarity multiplier is
 read from, which is why its colour bands are the multiplier tiers (§3.4, §1.1).
 
-**Above `sm:` — the heat map.** A real `<table>`, 20 rows × 10 columns,
-`border-spacing-[2px]`, cells `h-7 rounded-[4px]`. Values are printed in-cell
-only at ≥5%: a number in every one of two hundred cells is noise, and below 5%
-it rounds to nothing worth reading. Hovering a cell writes a full sentence into
-the figcaption — name, position, probability, multiplier.
+**One chart, at every width.** Ten position toggles and, beside them, the
+drivers ranked by how often they finished *there*:
 
-**Below `sm:` — the position list.** Not a smaller matrix: a different cut.
-Two hundred cells at 26px wide gave the phone the colour and nothing else, which
-breaks §1.2 outright. Instead the phone shows **one position at a time**:
-
-- a 5×2 grid of `P1…P10` toggle buttons — every position on screen at once, because a ten-chip rail would have to scroll sideways (§10.2);
+- the `P1…P10` toggles are a **5×2 pad** below `sm:` and a **vertical rail** from `sm:` up — every position on screen at once at both, because a ten-chip rail that scrolled sideways was never an option (§10.2). Toggle buttons with `aria-pressed`, not `role="tablist"`: the tab pattern owes the reader an `aria-controls` and a real tabpanel, and half a pattern announces worse than none;
 - a sentence naming what is being read and who the model actually played there;
-- the drivers ranked by their probability of finishing exactly there, each row a bar whose fill is the band colour, with the driver's stripe, portrait and name sitting *inside* the quantity, and the percentage and multiplier in a reserved right-hand gutter;
+- one row per driver: the constructor stripe, the portrait and the name sitting *inside* a bar whose fill is the band colour, with the percentage and multiplier in a reserved right-hand gutter;
 - a tail line counting whoever fell under 1%.
 
-Three details are load-bearing. Bars are scaled against **the leader of that
+Four details are load-bearing. Bars are scaled against **the leader of that
 position**, not against 100%, or a flat field draws ten stubs — the printed
-percentage is the absolute value and remains the primary channel. The fill stops
-short of the numbers, because the multiplier is drawn in race red and vanished
-completely on a full-strength red bar. And names are full-strength ink on every
-row, unlike the heat map's cells: there the dimming *is* the reading, here the
-name is the identity and a 1% driver still has to be legible.
+percentage is the absolute value and remains the primary channel. The fill
+stops short of the numbers, because the multiplier is drawn in race red and
+vanished completely on a full-strength red bar. Names are full-strength ink on
+every row: the name is the identity, and a 1% driver still has to be legible.
+And from `sm:` up the rail carries `self-start`, because a grid item stretched
+to the height of an eighteen-row list stretches its own rows with it, and ten
+fixed-height buttons ended up spaced across six hundred pixels by gaps that
+meant nothing.
 
-This cut also matches what the player is about to do — fill P1…P10 with names —
-which is the general principle: **a phone chart should answer the question the
-player actually asks, not compress the desktop one.**
+**What was deleted, and why it is worth remembering.** Above `sm:` this used to
+be a twenty-by-ten heat map — a real `<table>`, two hundred cells, the whole
+matrix at once. It is an impressive object and a poor read: answering "who does
+the model think finishes third, and what does calling it pay?" meant finding a
+column, scanning it against four tints, and then looking the tint up in a
+legend below. The list answers it sorted, in one glance, with the number and
+the multiplier printed on every row — and it is the shape of the thing the
+player is about to do, which is fill P1…P10 with names.
+
+The five-swatch legend went with it. Every row prints its own multiplier beside
+its own bar, so the same five tiers spelled out underneath is a key to a chart
+that does not need one. The interpretive sentence stays (§12.4, rule 5).
 
 ### 12.3 `ScoringScale` — the barème
 
@@ -1188,7 +1201,8 @@ disagrees with it, so:
    what was tried and why it was reverted — the section band, the 90px blur, the
    14rem hero fade, the alpha-suffixed hex, the phone heat map, the aurora, the
    gradient headline, the seventy-six capsules, the three equal numbered cards,
-   the centred stat row, the red bullet discs, the arrows glued to labels.
+   the centred stat row, the red bullet discs, the arrows glued to labels, the
+   two-hundred-cell heat map.
    Keep adding them; they are what stops a fix from being re-broken.
 4. Design decisions that are *game* decisions belong in
    [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.
@@ -1264,7 +1278,7 @@ Layout      w-[min(64rem,calc(100%-2rem))]      default container
 | `web/lib/nav.ts` | The navigation, desktop and phone. |
 | `web/lib/poster/draw.ts` | The off-site palette copy. |
 | `web/components/Spinner.tsx`, `RaceLoader.tsx`, `BootScreen.tsx` | Waiting. |
-| `web/components/ProbabilityGrid.tsx` | The probability bands and both cuts of the matrix. |
+| `web/components/ProbabilityGrid.tsx` | The probability bands and the one reading of the matrix. |
 | `web/components/Wordmark.tsx` | The site's name, every appearance of it. |
 | `web/components/CircuitTrace.tsx` | One circuit, drawn, and the hover marker. Client, for the pointer. |
 | `web/components/HeroRaceCard.tsx` | The hero's right column from `lg`: trace, facts, clock. |

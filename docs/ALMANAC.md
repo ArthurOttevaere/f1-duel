@@ -1609,33 +1609,40 @@ prose. The read is deliberately three cheap steps (races → the set of race_ids
 with entries → that one entry) rather than one clever join, because a matrix is
 a fat JSON blob and only the one being drawn should cross the wire.
 
-**The heat map's colour bands are the game's own multiplier tiers** (§6.1), not
-a generic ramp. That is the point of the chart: intensity is the model's
-confidence, and since the multiplier runs the other way, *the pale cells are
-where the points are*. Rule and data become the same picture. It is a real
-`<table>` with `<th scope>` on both axes, so the values are in the DOM for a
-screen reader and colour is never the only channel; rows are the model's own
-predicted order, then everyone else by P(top 10).
+**The chart's colour bands are the game's own multiplier tiers** (§6.1), not a
+generic ramp. That is the point of it: intensity is the model's confidence, and
+since the multiplier runs the other way, *the pale end is where the points
+are*. Rule and data become the same picture.
 
-One thing not to undo: every band carries **light** ink — the strongest fill
-composites to ≈`#e11b36`, which is 4.9:1 against `#f4f6fa` and only 4.0:1
-against the page black, so the instinctive dark-on-bright treatment is the
-worse one and on the middle band (≈`#8f1426`) it is 1.9:1.
+One thing not to undo: text sits on top of its own fill and is **light** ink at
+every band — the strongest fill composites to ≈`#e11b36`, which is 4.9:1
+against `#f4f6fa` and only 4.0:1 against the page black, so the instinctive
+dark-on-bright treatment is the worse one, and on the middle band (≈`#8f1426`)
+it is 1.9:1.
 
-**The phone gets a different cut of the matrix, not a smaller one.** Two
-hundred cells at 26px wide could not carry their own numbers, so a phone got
-the colour and nothing else — colour as the only channel, which is the one
-thing this project's charts may not do. Below `sm` the component renders a
-**position list** instead: a 5×2 grid of `P1`…`P10` toggles (every position on
-screen at once — a rail would scroll sideways, and iOS draws no bar for that),
-then the drivers ranked by P(finishing exactly there), each row a bar in its
-band colour with the percentage and multiplier in a reserved right-hand gutter,
-and a tail line counting whoever fell under 1%. It answers the question a
-player actually asks — "who finishes third, and what does calling it pay?" —
-and mirrors what they are about to do, which is fill P1…P10 with names. The
-`<table>` above `sm` keeps the whole-matrix overview and, now that it is
-desktop-only, has had its phone compromises removed. Details and the three
-load-bearing decisions are in [`DESIGN.md`](DESIGN.md) §12.2.
+**It reads one position at a time, and it used to read two ways.** Above `sm`
+this was a twenty-by-ten heat map — a real `<table>`, two hundred cells at
+once. Below `sm` it could not be: 26px cells cannot carry their own numbers, so
+a phone got the colour and nothing else, which is the one thing this project's
+charts may not do. The phone therefore got a **different cut** — ten position
+toggles, then the drivers ranked by P(finishing exactly there), each row a bar
+in its band colour with the percentage and multiplier in a reserved right-hand
+gutter, and a tail line counting whoever fell under 1%.
+
+That cut then won outright, and the heat map is gone. Two hundred cells is an
+impressive object and a poor read: answering "who finishes third, and what does
+calling it pay?" meant finding a column, scanning four tints and looking the
+tint up in a legend. The list answers it sorted, in one glance. What changed
+for the desktop is only the furniture: the ten toggles are a 5×2 pad on a phone
+and a vertical timing-tower rail from `sm:` up (with `self-start` — a stretched
+grid item stretches its own rows, which spaced the ten buttons across six
+hundred pixels), rows and numbers step up a size, and the five-swatch legend
+went with the heat map because every row already prints its own multiplier.
+
+This is the phone-first rule (`DESIGN.md` §1.5) producing its most useful
+result: writing for the narrow screen forces the question *what is actually
+being asked here*, and the answer is not always narrower. Details in
+[`DESIGN.md`](DESIGN.md) §12.2.
 
 ### 9.5 `PredictionEditor` — the most complex component (733 lines)
 
@@ -2420,7 +2427,7 @@ Also refresh the **Last reviewed** line and commit hash at the top.
 | Circuit geometry | `web/lib/circuits.ts` — **generated**, rebuild with `jobs/build_circuit_traces.py` |
 | Colours, spacing, motion | `web/app/globals.css` — and record the rule in `docs/DESIGN.md` |
 | A design rule, pattern or convention | `docs/DESIGN.md` |
-| The probability chart (both cuts) | `web/components/ProbabilityGrid.tsx` |
+| The probability chart | `web/components/ProbabilityGrid.tsx` |
 | The prediction UX (incl. the press-and-hold reorder) | `web/components/PredictionEditor.tsx` |
 | How a race's points are explained | `web/components/RaceBreakdown.tsx` |
 | The shareable poster | `web/lib/poster/{draw,data,pdf,types}.ts`, `web/components/PosterExport.tsx` |

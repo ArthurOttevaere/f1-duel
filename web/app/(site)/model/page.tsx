@@ -67,8 +67,10 @@ async function latestMatrix(): Promise<{
 
   const byId = new Map(((roster as Driver[]) ?? []).map((d) => [d.driver_id, d]));
 
-  // The model's own order first — the grid then reads top to bottom the way it
-  // played the race — then everyone else by how likely a top-10 finish was.
+  // The model's own order first, then everyone else by how likely a top-10
+  // finish was. The grid re-sorts by the selected position, so this is only
+  // the tie-break — but it is the right tie-break: two drivers the model gave
+  // the same 3% at P7 read better in the order it actually played them.
   const top10 = (t: number[]) => t.slice(0, GRID_POSITIONS).reduce((a, b) => a + b, 0);
   const ranked = Object.entries(entry.prob_matrix)
     .map(([driverId, probs]) => ({ driverId, probs }))
@@ -87,8 +89,8 @@ async function latestMatrix(): Promise<{
       driverId,
       code: d?.code ?? shortName(driverId).slice(0, 3).toUpperCase(),
       name: d?.full_name ?? shortName(driverId),
-      // Only the phone cut draws it, but it is resolved here: this is the one
-      // place that has the roster row the colour is derived from.
+      // Resolved here because this is the one place that has the roster row
+      // the colour is derived from.
       color: driverColor(d),
       probs: probs.slice(0, GRID_POSITIONS),
     };

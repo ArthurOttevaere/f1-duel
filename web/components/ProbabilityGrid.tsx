@@ -5,12 +5,13 @@ import { DriverAvatar } from "@/components/DriverChip";
 import { NEUTRAL_COLOR } from "@/lib/teams";
 
 /**
- * The model's position-probability matrix — two readings of one dataset.
+ * The model's position-probability matrix, read one position at a time.
  *
  * This is the most impressive thing the system produces and it had never been
  * shown: /model described a 10,000-run Monte-Carlo simulation entirely in
- * prose. One cell is P(this driver finishes in exactly this position), frozen
- * at lock time — the same numbers the rarity multiplier is computed from.
+ * prose. One number is P(this driver finishes in exactly this position),
+ * frozen at lock time — the same numbers the rarity multiplier is computed
+ * from.
  *
  * **The bands are the game's own multiplier tiers** (GAME_DESIGN §2.2), not a
  * generic ramp. That is the whole point of the chart: colour intensity is the
@@ -18,30 +19,32 @@ import { NEUTRAL_COLOR } from "@/lib/teams";
  * end is exactly where the points are. The rule and the data are the same
  * picture.
  *
- * ## Why there are two of these
+ * ## Why there is only one of these now
  *
- * A twenty-by-ten heat map needs two hundred cells laid out at once, and a
- * phone gives it 21rem. Every cell was 26px wide, too narrow for its own
- * number, so the phone got the colour and nothing else — a wall of red with
- * no values, no headers it could hold onto, and no way to compare anything.
- * Colour was the only channel, which is the one thing a chart may never do.
+ * There used to be two cuts. Above `sm:` a twenty-by-ten heat map — two
+ * hundred cells at once, the whole matrix — and below it, because a phone
+ * gives that 21rem and every cell came out 26px wide, too narrow for its own
+ * number, a different cut: **one position at a time, as a ranked bar list.**
  *
- * So the phone doesn't get a smaller matrix, it gets a different cut of it:
- * **one position at a time, as a ranked bar list.** That is also the shape of
- * the question a player actually asks — "who does the model think finishes
- * third, and what does calling it pay?" — and the shape of the thing they are
- * about to do, which is fill P1…P10 with names. The desktop table keeps the
- * whole-matrix overview, where there is room for it.
+ * The phone cut turned out to be the better chart at every width, and the
+ * desktop one is gone. Two hundred cells is an impressive object and a poor
+ * read: to answer "who does the model think finishes third, and what does
+ * calling it pay?" you had to find a column, scan it against four tints and
+ * then look up the tint in a legend. The list answers it in one glance, sorted,
+ * with the percentage and the multiplier printed on every row — and it is the
+ * shape of the thing the player is about to do, which is fill P1…P10 with
+ * names.
  *
- * Both are sequential, one hue, low→high — never a rainbow — and both print
- * the value as text next to the colour.
+ * So this is not a phone twin (§1.5) any more. It is one chart that uses the
+ * width it is given: the ten positions are a 5×2 pad on a phone and a vertical
+ * timing-tower rail from `sm:` up, and the list sits beside it.
  */
 
 export interface GridDriver {
   driverId: string;
   code: string;
   name: string;
-  /** Constructor colour, for the identity stripe on the phone list. */
+  /** Constructor colour, for the identity stripe on each row. */
   color?: string;
   /** Probabilities for P1…P10, already sliced. */
   probs: number[];
@@ -50,38 +53,38 @@ export interface GridDriver {
 /**
  * Probability floor, then the tier it falls in. Highest band first.
  *
- * Every band carries light ink, checked rather than guessed: the strongest
- * fill composites to about #e11b36 on this surface, which is 4.9:1 against
- * #f4f6fa and only 4.0:1 against the page black — so the "obvious" dark-text
- * treatment for a bright cell is the worse one here, and the middle band
- * (#8f1426) is not close: 10:1 light, 1.9:1 dark.
+ * The row's text sits *on top of* its own fill, so the contrast was checked
+ * rather than guessed: the strongest fill composites to about #e11b36 on this
+ * surface, which is 4.9:1 against #f4f6fa and only 4.0:1 against the page
+ * black — the "obvious" dark-text treatment for a bright band is the worse one
+ * here, and the middle band (#8f1426) is not close: 10:1 light, 1.9:1 dark.
+ * Every row is light ink for that reason, at every band.
  */
 const BANDS = [
-  { min: 0.3, mult: "×1", label: "30%+", fill: "rgb(255 30 60 / 0.88)", ink: "text-ink" },
-  { min: 0.15, mult: "×1.5", label: "15–30%", fill: "rgb(255 30 60 / 0.55)", ink: "text-ink" },
-  { min: 0.05, mult: "×2", label: "5–15%", fill: "rgb(255 30 60 / 0.3)", ink: "text-ink" },
-  { min: 0.02, mult: "×3", label: "2–5%", fill: "rgb(255 30 60 / 0.14)", ink: "text-ink-dim" },
-  { min: 0, mult: "×3", label: "under 2%", fill: "rgb(255 255 255 / 0.03)", ink: "text-ink-mute" },
+  { min: 0.3, mult: "×1", fill: "rgb(255 30 60 / 0.88)" },
+  { min: 0.15, mult: "×1.5", fill: "rgb(255 30 60 / 0.55)" },
+  { min: 0.05, mult: "×2", fill: "rgb(255 30 60 / 0.3)" },
+  { min: 0.02, mult: "×3", fill: "rgb(255 30 60 / 0.14)" },
+  { min: 0, mult: "×3", fill: "rgb(255 255 255 / 0.03)" },
 ] as const;
 
 const bandFor = (p: number) => BANDS.find((b) => p >= b.min) ?? BANDS[BANDS.length - 1];
 
 const pct = (p: number) => `${Math.round(p * 100)}%`;
 
-/** Under this, the phone list stops printing rows and starts counting them. */
+/** Under this, the list stops printing rows and starts counting them. */
 const TAIL_FLOOR = 0.01;
 /** …unless that would leave a stub. A field this flat is worth seeing. */
 const MIN_ROWS = 6;
 
-// ─── Phone: one position, as a ranked bar list ───────────────────────────────
-
-function PositionList({
+export default function ProbabilityGrid({
   drivers,
-  positions,
+  positions = 10,
   modelOrder,
 }: {
   drivers: GridDriver[];
-  positions: number;
+  positions?: number;
+  /** The top 10 the model actually played, so the list can name its own pick. */
   modelOrder?: string[];
 }) {
   const [position, setPosition] = useState(1);
@@ -107,276 +110,162 @@ function PositionList({
   const picked = modelOrder?.[position - 1];
 
   return (
-    <div className="glass-card p-3 sm:hidden">
-      {/* Every position on screen at once. A ten-chip rail would have to
-          scroll sideways, and iOS draws no bar for that — the same trap the
-          race breakdown and the standings board were both pulled out of. */}
-      {/* Toggle buttons, not `role="tablist"`: the tab pattern owes the reader
-          an `aria-controls` and a real tabpanel, and half a pattern announces
-          worse than none. `aria-pressed` says exactly what this is. */}
-      <div role="group" aria-label="Finishing position" className="grid grid-cols-5 gap-1.5">
-        {Array.from({ length: positions }, (_, i) => i + 1).map((c) => {
-          const on = c === position;
-          return (
-            <button
-              key={c}
-              type="button"
-              aria-pressed={on}
-              onClick={() => setPosition(c)}
-              className={`pressable h-10 rounded-control border font-mono text-sm transition-colors ${
-                on
-                  ? "border-race bg-race font-semibold text-white"
-                  : "border-line bg-glass text-ink-dim"
-              }`}
+    <figure className="m-0">
+      <div className="glass-card p-3 sm:p-4">
+        <div className="grid gap-4 sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-6">
+          {/* Every position on screen at once, at every width. A ten-chip rail
+              that scrolled sideways was never an option — iOS draws no bar for
+              overflow, the same trap the race breakdown and the standings
+              board were both pulled out of — so the phone gets a 5×2 pad. From
+              `sm:` up the same ten stack into a column, which is what a timing
+              tower is, and the selected one stays level with its own list.
+
+              Toggle buttons, not `role="tablist"`: the tab pattern owes the
+              reader an `aria-controls` and a real tabpanel, and half a pattern
+              announces worse than none. `aria-pressed` says exactly what this
+              is. */}
+          <div
+            role="group"
+            aria-label="Finishing position"
+            // `self-start` is load-bearing from `sm:` up: the rail is a grid
+            // item stretched to the height of the list beside it, and a grid
+            // whose rows have nowhere to go stretches them — which spaced ten
+            // fixed-height buttons out across six hundred pixels with gaps
+            // that meant nothing.
+            className="grid grid-cols-5 gap-1.5 sm:w-16 sm:grid-cols-1 sm:gap-1 sm:self-start"
+          >
+            {Array.from({ length: positions }, (_, i) => i + 1).map((c) => {
+              const on = c === position;
+              return (
+                <button
+                  key={c}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => setPosition(c)}
+                  className={`pressable h-10 rounded-control border font-mono text-sm transition-colors sm:h-9 ${
+                    on
+                      ? // A resting red fill is `race-deep`, not `race` (§3.1):
+                        // #ff1e3c on white is 3.8:1 and fails AA for a label
+                        // this small. It was `race` while this control only
+                        // existed on the phone cut, where it was one chip
+                        // among ten; it is the chart's primary control now.
+                        "border-race bg-race-deep font-semibold text-white"
+                      : "border-line bg-glass text-ink-dim hover:border-line-hi hover:text-ink"
+                  }`}
+                >
+                  P{c}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="min-w-0">
+            <p
+              // The one line that says what is being read. It carries the
+              // interpretation rather than restating the title (§12.4).
+              aria-live="polite"
+              className="text-sm leading-relaxed text-ink-dim"
             >
-              P{c}
-            </button>
-          );
-        })}
-      </div>
+              Out of 10,000 simulated races, how often each driver finished{" "}
+              <span className="font-mono text-ink">P{position}</span>
+              {picked && (
+                <>
+                  {" "}
+                  — the model played{" "}
+                  <span className="text-ink">
+                    {drivers.find((d) => d.driverId === picked)?.name ?? "—"}
+                  </span>{" "}
+                  here
+                </>
+              )}
+              .
+            </p>
 
-      <p className="mt-4 text-sm leading-relaxed text-ink-dim">
-        Out of 10,000 simulated races, how often each driver finished{" "}
-        <span className="font-mono text-ink">P{position}</span>
-        {picked && (
-          <>
-            {" "}
-            — the model played{" "}
-            <span className="text-ink">
-              {drivers.find((d) => d.driverId === picked)?.name ?? "—"}
-            </span>{" "}
-            here
-          </>
-        )}
-        .
-      </p>
-
-      <ol className="mt-3 flex flex-col gap-1.5">
-        {shown.map((d) => {
-          const band = bandFor(d.p);
-          const isPick = d.driverId === picked;
-          return (
-            <li
-              key={d.driverId}
-              className={`relative flex items-center gap-2.5 overflow-hidden rounded-control border px-2.5 py-2 ${
-                isPick ? "border-race/50" : "border-line"
-              }`}
-            >
-              {/* The bar is the row's own background, so the name sits inside
-                  the quantity instead of beside a second little chart. It
-                  stops short of the right gutter rather than filling the row:
-                  the multiplier is drawn in the site red, and on top of a
-                  full-strength red fill it disappeared completely. Reserving
-                  the numbers a strip of plain card is what keeps every one of
-                  them legible, whatever band the row is in. */}
-              <span
-                aria-hidden
-                className="absolute inset-y-0 left-0 right-[5.25rem] pr-2"
-              >
-                <span
-                  className="block h-full"
-                  style={{
-                    width: `${lead > 0 ? Math.max(2, (d.p / lead) * 100) : 2}%`,
-                    background: band.fill,
-                  }}
-                />
-              </span>
-              <span
-                aria-hidden
-                className="relative h-7 w-1 shrink-0"
-                style={{ background: d.color ?? NEUTRAL_COLOR }}
-              />
-              <span className="relative shrink-0">
-                <DriverAvatar
-                  driver={{
-                    driver_id: d.driverId,
-                    code: d.code,
-                    team_color: d.color ?? null,
-                  }}
-                  size={26}
-                />
-              </span>
-              {/* Full-strength ink on every row, unlike the heat map's cells:
-                  there the dimming *is* the reading, here the name is the
-                  identity and a 1% driver still has to be readable. The band
-                  is carried by the bar behind it and the multiplier beside
-                  it. */}
-              <span className="relative min-w-0 flex-1 truncate text-sm text-ink">
-                {d.name}
-              </span>
-              <span className="relative shrink-0 font-mono text-sm tabular-nums">
-                {pct(d.p)}
-              </span>
-              <span className="relative w-9 shrink-0 text-right font-mono text-[0.65rem] text-race">
-                {band.mult}
-              </span>
-            </li>
-          );
-        })}
-      </ol>
-
-      {tail > 0 && (
-        <p className="mt-2 px-2.5 font-mono text-[0.7rem] text-ink-mute">
-          {tail} more under 1% · <span className="text-race">×3</span> each
-        </p>
-      )}
-    </div>
-  );
-}
-
-// ─── Tablet and up: the whole matrix at once ─────────────────────────────────
-
-function Heatmap({
-  drivers,
-  positions,
-  onHover,
-  hover,
-}: {
-  drivers: GridDriver[];
-  positions: number;
-  hover: { driver: string; position: number } | null;
-  onHover: (h: { driver: string; position: number; p: number } | null) => void;
-}) {
-  const cols = Array.from({ length: positions }, (_, i) => i + 1);
-
-  return (
-    <div className="glass-card hidden overflow-hidden p-4 sm:block">
-      <table className="w-full border-separate border-spacing-[2px]">
-        <caption className="sr-only">
-          For each driver, the model&apos;s probability of finishing in each of
-          the top ten positions.
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col" className="w-32">
-              <span className="sr-only">Driver</span>
-            </th>
-            {cols.map((c) => (
-              <th
-                key={c}
-                scope="col"
-                className="pb-1 text-center font-mono text-[0.65rem] font-medium tracking-wider text-ink-mute"
-              >
-                P{c}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {drivers.map((d) => (
-            <tr key={d.driverId}>
-              <th
-                scope="row"
-                className="pr-2 text-left align-middle font-mono text-xs font-medium text-ink-dim"
-              >
-                <span className="truncate">{d.name}</span>
-              </th>
-              {cols.map((c) => {
-                const p = d.probs[c - 1] ?? 0;
-                const band = bandFor(p);
-                const on = hover?.driver === d.driverId && hover?.position === c;
+            <ol className="mt-3 flex flex-col gap-1.5">
+              {shown.map((d) => {
+                const band = bandFor(d.p);
+                const isPick = d.driverId === picked;
                 return (
-                  <td key={c} className="p-0">
-                    <div
-                      onMouseEnter={() => onHover({ driver: d.driverId, position: c, p })}
-                      onMouseLeave={() => onHover(null)}
-                      title={`${d.name} · P${c} · ${pct(p)} · ${band.mult}`}
-                      className={`flex h-7 items-center justify-center rounded-[4px] text-[0.6rem] transition-shadow ${band.ink} ${
-                        on ? "ring-2 ring-ink/70" : ""
-                      }`}
-                      style={{ background: band.fill }}
+                  <li
+                    key={d.driverId}
+                    className={`relative flex items-center gap-2.5 overflow-hidden rounded-control border px-2.5 py-2 sm:gap-3 sm:px-3 ${
+                      isPick ? "border-race/50" : "border-line"
+                    }`}
+                  >
+                    {/* The bar is the row's own background, so the name sits
+                        inside the quantity instead of beside a second little
+                        chart. It stops short of the right gutter rather than
+                        filling the row: the multiplier is drawn in the site
+                        red, and on top of a full-strength red fill it
+                        disappeared completely. Reserving the numbers a strip
+                        of plain card is what keeps every one of them legible,
+                        whatever band the row is in. */}
+                    <span
+                      aria-hidden
+                      className="absolute inset-y-0 left-0 right-[5.25rem] pr-2 sm:right-[7.5rem]"
                     >
-                      {/* Selective labels: a number in every one of two
-                          hundred cells is noise, and below 5% it rounds to
-                          nothing worth reading. */}
-                      <span className="font-mono">
-                        {p >= 0.05 ? Math.round(p * 100) : ""}
-                      </span>
-                      <span className="sr-only">
-                        {d.name}, P{c}, {pct(p)}
-                      </span>
-                    </div>
-                  </td>
+                      <span
+                        className="block h-full"
+                        style={{
+                          width: `${lead > 0 ? Math.max(2, (d.p / lead) * 100) : 2}%`,
+                          background: band.fill,
+                        }}
+                      />
+                    </span>
+                    <span
+                      aria-hidden
+                      className="relative h-7 w-1 shrink-0"
+                      style={{ background: d.color ?? NEUTRAL_COLOR }}
+                    />
+                    <span className="relative shrink-0">
+                      <DriverAvatar
+                        driver={{
+                          driver_id: d.driverId,
+                          code: d.code,
+                          team_color: d.color ?? null,
+                        }}
+                        size={26}
+                      />
+                    </span>
+                    {/* Full-strength ink on every row: the name is the
+                        identity, and a 1% driver still has to be readable. The
+                        band is carried by the bar behind it and the multiplier
+                        beside it. */}
+                    <span className="relative min-w-0 flex-1 truncate text-sm text-ink">
+                      {d.name}
+                    </span>
+                    {/* Fixed width, right-aligned: `tabular-nums` lines up
+                        digits but not string lengths, so "7%" beside "27%"
+                        shifted the multiplier column by a character. */}
+                    <span className="relative w-10 shrink-0 text-right font-mono text-sm tabular-nums sm:w-12 sm:text-base">
+                      {pct(d.p)}
+                    </span>
+                    <span className="relative w-9 shrink-0 text-right font-mono text-[0.65rem] text-race sm:w-14 sm:text-xs">
+                      {band.mult}
+                    </span>
+                  </li>
                 );
               })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+            </ol>
 
-export default function ProbabilityGrid({
-  drivers,
-  positions = 10,
-  modelOrder,
-}: {
-  drivers: GridDriver[];
-  positions?: number;
-  /** The top 10 the model actually played, so each cut can name its own pick. */
-  modelOrder?: string[];
-}) {
-  const [hover, setHover] = useState<{
-    driver: string;
-    position: number;
-    p: number;
-  } | null>(null);
-
-  return (
-    <figure className="m-0">
-      <PositionList drivers={drivers} positions={positions} modelOrder={modelOrder} />
-      <Heatmap
-        drivers={drivers}
-        positions={positions}
-        hover={hover}
-        onHover={setHover}
-      />
-
-      {/* ── Legend: the bands are the multiplier tiers ──
-          Tablet and up only. On the phone every row already prints its own
-          multiplier next to its own bar, so the same five tiers spelled out
-          underneath is a key to a chart that doesn't need one. */}
-      <figcaption className="mt-4 flex flex-col gap-3">
-        <div className="hidden flex-wrap items-center gap-x-4 gap-y-2 sm:flex">
-          <span className="font-mono text-[0.65rem] tracking-wider text-ink-mute uppercase">
-            Model&apos;s confidence
-          </span>
-          {BANDS.map((b) => (
-            <span key={b.label} className="flex items-center gap-1.5">
-              <span
-                aria-hidden
-                className="size-3 shrink-0 rounded-[3px]"
-                style={{ background: b.fill }}
-              />
-              <span className="font-mono text-[0.65rem] text-ink-dim">
-                {b.label}
-              </span>
-              <span className="font-mono text-[0.65rem] text-race">
-                {b.mult}
-              </span>
-            </span>
-          ))}
+            {tail > 0 && (
+              <p className="mt-2 px-2.5 font-mono text-[0.7rem] text-ink-mute">
+                {tail} more under 1% · <span className="text-race">×3</span>{" "}
+                each
+              </p>
+            )}
+          </div>
         </div>
-        <p className="text-sm leading-relaxed text-ink-dim">
-          {hover ? (
-            <span className="font-mono text-ink">
-              {drivers.find((d) => d.driverId === hover.driver)?.name} at P
-              {hover.position} — {pct(hover.p)} likely, worth{" "}
-              <span className="text-race">{bandFor(hover.p).mult}</span> if you
-              call it and it lands.
-            </span>
-          ) : (
-            <>
-              Colour is how sure the model is. The multiplier runs the other
-              way, so{" "}
-              <strong className="text-ink">
-                the faint end is where the points are
-              </strong>{" "}
-              — a call the model rated under 5% pays triple.
-            </>
-          )}
-        </p>
+      </div>
+
+      {/* The five-swatch legend went with the heat map. Every row prints its
+          own multiplier beside its own bar, so a key spelling out the same
+          five tiers underneath is a key to a chart that does not need one.
+          What stays is the sentence — what the pale end means (§12.4). */}
+      <figcaption className="mt-4 text-sm leading-relaxed text-ink-dim">
+        Colour is how sure the model is. The multiplier runs the other way, so{" "}
+        <strong className="text-ink">the faint end is where the points are</strong>{" "}
+        — a call the model rated under 5% pays triple.
       </figcaption>
     </figure>
   );
