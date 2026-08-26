@@ -386,20 +386,30 @@ figcaption {
   mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
 }
 
-/* The same flag, half as loud, for the top edge of the last-race card on the
-   home page. Two things had to be true at once: it has to read as a finish
-   line, and it must not compete with the footer's — which is the end of the
-   *site*, not the end of a race. Hence one row of 6px squares instead of two
-   rows of 10px, dimmer whites, no edge highlight, and it lives inside a card
-   rather than across the page. §1.4 bans section bands; this is the card's own
-   top edge. */
+/* The same flag, quieter, for the top edge of the last-race card on the home
+   page. Two things have to be true at once: it has to read as a finish line,
+   and it must not compete with the footer's — which is the end of the *site*,
+   not the end of a race.
+
+   It used to hold that second requirement by being **one row** of 6px squares
+   at half opacity, and that was the wrong economy: a single row of alternating
+   squares is not a chequerboard, it is a dashed line. The pattern only becomes
+   a flag when a square has another square diagonally beneath it, so two rows
+   is the floor, not a luxury.
+
+   So it is two rows now, and it stays subordinate to the footer by the other
+   three levers instead: smaller squares (6px against 10px), an unlit edge
+   where the footer carries two inset highlights, and transparent seconds
+   rather than the footer's opaque black, so the card shows through where the
+   footer shows nothing. §1.4 bans section bands; this is the card's own top
+   edge. */
 .checker-rule {
-  height: 6px;
+  height: 12px;
   background-image: repeating-conic-gradient(
-    rgb(244 246 250 / 0.5) 0% 25%,
+    rgb(244 246 250 / 0.72) 0% 25%,
     transparent 0% 50%
   );
-  background-size: 12px 12px; /* 6px squares → 1 row */
+  background-size: 12px 12px; /* 6px squares → 2 rows */
   -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
   mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
 }
