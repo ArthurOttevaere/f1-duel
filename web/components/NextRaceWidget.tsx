@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
+import { nextRace } from "@/lib/nextRace";
 import NextRaceCountdown from "@/components/NextRaceCountdown";
 
 /**
@@ -12,24 +12,7 @@ import NextRaceCountdown from "@/components/NextRaceCountdown";
  * Only the digits are client-side.
  */
 export default async function NextRaceWidget() {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("races")
-    .select("round, name, circuit, country, race_at")
-    .eq("season", CURRENT_SEASON)
-    .not("race_at", "is", null)
-    .gte("race_at", new Date().toISOString())
-    .order("race_at", { ascending: true })
-    .limit(1)
-    .maybeSingle();
-
-  const race = data as {
-    round: number;
-    name: string;
-    circuit: string | null;
-    country: string | null;
-    race_at: string;
-  } | null;
+  const race = await nextRace();
 
   // Between seasons, before the calendar is synced, or if the query fails:
   // fall back to the line this widget replaced rather than an empty box.
@@ -63,7 +46,7 @@ export default async function NextRaceWidget() {
           clock off the side of a narrow phone. */}
       <div className="min-w-0">
         <p className="font-mono text-[0.55rem] tracking-[0.2em] text-race uppercase sm:text-[0.6rem]">
-          Next race · Round {race.round}
+          Next race
         </p>
         <p className="mt-0.5 flex flex-wrap items-baseline gap-x-2">
           <span className="truncate text-sm font-semibold sm:text-lg">

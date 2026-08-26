@@ -41,7 +41,7 @@ export default async function WelcomePage({
 
   return (
     <main className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 py-16">
-      <div className="aurora" />
+      <div className="page-glow" />
 
       <Link
         href="/"
