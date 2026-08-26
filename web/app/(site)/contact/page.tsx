@@ -24,11 +24,19 @@ export const metadata = {
 function Faq({ q, children }: { q: string; children: React.ReactNode }) {
   return (
     <details className="group border-t border-line py-4 first:border-t-0">
-      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium">
+      {/* Red on hover and red while open: the question is the control, so it
+          carries the same state colour the nav and the tabs do. The `+` was
+          already turning; it now turns *and* lights, so open and closed are
+          two channels apart, not one (§1.2). */}
+      <summary className="group/q flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium transition-colors group-open:text-race hover:text-race">
         {q}
+        {/* The `+` follows the summary's own hover, not the <details> group —
+            the group's box grows to include the answer once it is open, and
+            the marker lighting up while you read the answer is a hover state
+            pointing at nothing. */}
         <span
           aria-hidden
-          className="shrink-0 font-mono text-ink-mute transition-transform group-open:rotate-45"
+          className="shrink-0 font-mono text-ink-mute transition-[transform,color] group-open:rotate-45 group-open:text-race group-hover/q:text-race"
         >
           +
         </span>
