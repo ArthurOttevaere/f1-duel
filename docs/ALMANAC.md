@@ -230,7 +230,7 @@ f1-duel/
 │   │   ├── favicon.ico      "F1" knocked out of the site red (see §9.6)
 │   │   ├── apple-icon.png   180px, same mark
 │   │   └── manifest.ts      Install manifest (start_url = /game)
-│   ├── components/          31 components
+│   ├── components/          33 components
 │   ├── lib/                 supabase clients, types, helpers
 │   │   └── circuits.ts      GENERATED circuit geometry (see §9.6)
 │   │   └── poster/          The shareable race poster (see §9.9)
@@ -1320,14 +1320,31 @@ lets `/join/<code>` survive a sign-up: you land back on the invite, not on
 
 ### 9.4 Page-by-page behaviour
 
-**`/`** — the hero opens with `NextRaceWidget`: a server-rendered strip naming
-the next Grand Prix (round, circuit, country) above a client-side countdown
-(`NextRaceCountdown`). Only the digits are client-side, so the race is in the
+**`/`** — the hero is a two-column composition from `lg` up, and the next Grand
+Prix appears in exactly one of two places depending on width. `lib/nextRace.ts`
+is the single request-cached read both of them share, so they cannot disagree
+about which race is next.
+
+- **`lg` and up:** `HeroRaceCard` fills the right column — the circuit trace,
+  a rule, the race name, `MONZA · ROUND 13 · 11 CORNERS`, and the countdown as
+  a four-column lap board. The eyebrow above the headline is hidden here, so
+  the headline opens the page.
+- **Below `lg`:** the card would land under the buttons, so instead
+  `HeroTraceBleed` runs the same circuit in from the top-right corner as a
+  masked, `aria-hidden` ornament, and `NextRaceLine` carries the words and the
+  clock in one line above the headline.
+
+Only the digits are client-side (`NextRaceCountdown`), so the race is in the
 HTML whether or not the clock ever starts, and the placeholder holds the same
-width so hydration shifts nothing. Between seasons it falls back to the plain
-season line it replaced. Below `sm` it stays one row — the place is dropped,
-the name truncates and the clock collapses to `12d 04:33:12` — because stacked
-it ate a third of the viewport before the headline got a word in.
+width so hydration shifts nothing. Between seasons there is no race and no
+circuit: the grid collapses to one column, `.page-glow` stands in for the
+trace's light, and the line falls back to `2026 season · one duel per Grand
+Prix`. Same when the venue has never been raced — Madrid and Kuala Lumpur have
+no telemetry, so `circuitTrace()` returns null and the hero carries no
+ornament rather than somebody else's circuit.
+
+The glass chip that used to sit above the headline is gone. It was a box doing
+an eyebrow's job, and it pushed the headline a third of the way down the hero.
 
 Below the hero, **`LastRaceProof`** is the page's evidence: the model's ten
 picks at the last **scored** Grand Prix, the ten drivers who actually finished

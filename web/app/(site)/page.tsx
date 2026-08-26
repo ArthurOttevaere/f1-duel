@@ -1,6 +1,7 @@
 import Link from "next/link";
-import NextRaceWidget from "@/components/NextRaceWidget";
-import CircuitTrace from "@/components/CircuitTrace";
+import NextRaceLine from "@/components/NextRaceLine";
+import HeroRaceCard from "@/components/HeroRaceCard";
+import HeroTraceBleed from "@/components/HeroTraceBleed";
 import LastRaceProof, { loadLastRace } from "@/components/LastRaceProof";
 import { formatPoints } from "@/lib/format";
 import { circuitTrace } from "@/lib/circuits";
@@ -59,6 +60,9 @@ export default async function Home() {
             lit by nothing reads as unfinished rather than as restrained. The
             reduced glow stands in — still one source. */}
         {!trace && <div className="page-glow" />}
+        {/* Below `lg` the circuit is a corner bleed rather than a card under
+            the buttons — see HeroTraceBleed. */}
+        {trace && <HeroTraceBleed trace={trace} />}
         <div className="hero-grid" />
         {/* Fade the bottom to the page background so the trace's glow is never
             cut at the transition into the next section. Eight rem, and no
@@ -76,17 +80,27 @@ export default async function Home() {
               : "w-[min(48rem,100%)]"
           }`}
         >
-          <div className="flex flex-col items-start">
-            <NextRaceWidget />
+          <div className="flex max-w-2xl flex-col items-start lg:max-w-none">
+            {/* The eyebrow is one line of 12px type now, not a chip, so the
+                headline follows it the way it follows every other eyebrow on
+                the site — closely. It used to need forty pixels of air to stop
+                looking stuck to a box.
 
-            {/* Wider gap than the rest of the hero's rhythm on purpose: the
-                headline is 72px on desktop, and 24px under it left the widget
-                looking stuck to it rather than introducing it. */}
+                The gap belongs to the line, not to the headline: from `lg` up
+                the line is hidden (the race card owns the clock there) and a
+                `mt-*` on the h1 would leave its margin behind as dead space at
+                the top of the hero. */}
+            <NextRaceLine
+              race={race}
+              hasTrace={Boolean(trace)}
+              className="rise-in mb-4 sm:mb-5"
+            />
+
             {/* 60px and no further. The headline used to be 72px across a
                 centred full-width hero; in a 600px column "Beat the model."
                 breaks onto two lines at 72 and the hero becomes four lines of
                 display type. The composition carries the scale now. */}
-            <h1 className="display rise-in rise-in-2 mt-10 text-4xl leading-[1.05] font-extrabold tracking-tight sm:mt-12 sm:text-6xl sm:leading-[1.02]">
+            <h1 className="display rise-in rise-in-2 text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-6xl sm:leading-[1.02]">
               Beat the model.
               <br />
               {/* F-2: the second line is cut out of the page rather than
@@ -128,11 +142,11 @@ export default async function Home() {
               No trace between seasons, or at a venue that has never been
               raced — the hero simply carries no ornament, which is better
               than carrying somebody else's circuit. */}
-          {trace && (
-            <CircuitTrace
+          {trace && race && (
+            <HeroRaceCard
               trace={trace}
-              round={race?.round}
-              className="rise-in rise-in-3 mx-auto w-full max-w-md lg:max-w-none"
+              race={race}
+              className="rise-in rise-in-3 hidden lg:block"
             />
           )}
         </div>
