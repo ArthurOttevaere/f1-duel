@@ -3,6 +3,8 @@ import Arrow from "@/components/Arrow";
 import NextRaceLine from "@/components/NextRaceLine";
 import PickBoardShot from "@/components/PickBoardShot";
 import ScoringScale from "@/components/ScoringScale";
+import ProbabilityShot from "@/components/ProbabilityShot";
+import { latestMatrix } from "@/lib/latestMatrix";
 import HeroRaceCard from "@/components/HeroRaceCard";
 import HeroTraceBleed from "@/components/HeroTraceBleed";
 import LastRaceProof, { loadLastRace } from "@/components/LastRaceProof";
@@ -29,18 +31,17 @@ const DUEL_STEPS = [
 ];
 
 /**
- * The four facts about the model, as what they always were: key/value pairs.
- * They were bullets — a 6px red disc in front of each — which is a tic, and a
- * tic that mislabels its own content. "Features: 39" is a spec, not an
- * argument, and the site already has a shape for specs: the label/value/rule
- * row of /rules.
+ * The last step is the one that carries the game, and it used to make its
+ * claim here and prove it forty lines below, under a heading of its own. Two
+ * blocks drawn in the same hand — hairline rows, mono label on the left — four
+ * rem apart read as one seven-row list rather than as two subjects, which is
+ * exactly what they looked like.
+ *
+ * So the scale is the third step's evidence now, indented under it against a
+ * single rule. One heading on the section, and the step that pays is visibly
+ * taller than the two that only set it up.
  */
-const MODEL_SPEC = [
-  { key: "Ensemble", value: "XGBoost + LightGBM, blended by validation performance" },
-  { key: "Features", value: "39 — pace, form, reliability, circuit history, weather" },
-  { key: "Probabilities", value: "Win and podium, from Monte-Carlo simulation" },
-  { key: "Explained", value: "Every prediction, factor by factor (SHAP)" },
-];
+const PAYOFF_STEP = "03";
 
 export default async function Home() {
   // Both reads are request-cached and shared with the components below, so
@@ -49,6 +50,9 @@ export default async function Home() {
   const lastRace = await loadLastRace();
   const race = await nextRace();
   const trace = circuitTrace(race?.circuit);
+  // Only to know whether the opponent section has a second column to fill.
+  // The read is request-cached and ProbabilityShot below shares it.
+  const hasMatrix = Boolean(await latestMatrix());
 
   return (
     <>
@@ -198,7 +202,12 @@ export default async function Home() {
           A season-long duel against the machine
         </h2>
 
-        <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-14">
+        {/* `lg:items-start` and a capped shot: since the scoring scale moved
+            inside step 03 the left column is half again as tall, and a
+            stretched board simply drew ten rows at the top of an empty box.
+            The board is a crop, so it keeps a crop's height and the air below
+            it is deliberate. */}
+        <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-start lg:gap-14">
           {/* Three equal numbered cards is the block any model produces when
               asked "how does it work", and this site had it twice. The cards
               are gone: the numeral hangs in the margin, a hairline separates
@@ -226,6 +235,16 @@ export default async function Home() {
                   <p className="mt-2 text-sm leading-relaxed text-ink-dim">
                     {s.body}
                   </p>
+                  {/* See PAYOFF_STEP: the scale is this step's evidence, not a
+                      second section. One rule down the left is all the
+                      subordination it needs — a card here would be a band, and
+                      the page separates with space and type (§1.4). */}
+                  {s.step === PAYOFF_STEP && (
+                    <ScoringScale
+                      heading={null}
+                      className="mt-6 border-l border-line pl-4 sm:mt-7 sm:pl-6"
+                    />
+                  )}
                 </div>
               </li>
             ))}
@@ -233,10 +252,8 @@ export default async function Home() {
 
           {/* The screen the three steps describe, running past the column.
               See PickBoardShot — it is the board itself, not a picture. */}
-          <PickBoardShot />
+          <PickBoardShot className="lg:h-[34rem]" />
         </div>
-
-        <ScoringScale className="mt-16" />
 
         <p className="mt-10 max-w-2xl text-sm leading-relaxed text-ink-mute">
           Plus: vote the Driver of the Day, pick your world champions before
@@ -245,29 +262,37 @@ export default async function Home() {
         </p>
       </section>
 
-      {/* ─── The model ────────────────────────────────────────────────── */}
+      {/* ─── The opponent ─────────────────────────────────────────────── */}
       {/* No background treatment here, on purpose — see the note in
           globals.css where `.zone-glow` used to be. */}
       <section>
-        <div className="mx-auto grid w-[min(64rem,calc(100%-2rem))] gap-12 py-24 sm:grid-cols-2 sm:items-center">
+        {/* Two columns only when there is a second column to fill. Between
+            seasons, and before the model has played a race, there is no matrix
+            to crop and the text takes the width it wants rather than hugging
+            the left of an empty half — the same rule the hero follows with its
+            circuit trace. */}
+        <div
+          className={`mx-auto grid gap-12 py-24 ${
+            hasMatrix
+              ? "w-[min(64rem,calc(100%-2rem))] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-16"
+              : "w-[min(48rem,calc(100%-2rem))]"
+          }`}
+        >
           <div>
             <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
               The opponent
             </p>
+            {/* "Not just any opponent" said nothing: strip the words and it
+                could sit on any product. The heading is the claim the section
+                is actually making, with the number in it. */}
             <h2 className="display mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Not just any opponent
+              It runs the race ten thousand times before you do
             </h2>
-            {/* This used to promise "a full prediction platform" with live
-                weather, circuit maps and championship scenarios. All of that
-                exists — in the Flask app, which isn't deployed, so the button
-                led to a page that described things nobody could reach. It now
-                promises the thing you can actually open: the model's own
-                probability matrix for the last Grand Prix it played. */}
             <p className="mt-4 leading-relaxed text-ink-dim">
-              Before every Grand Prix it simulates the race ten thousand times
-              and works out, for each driver, how often they finish in each
-              position. You can read that grid yourself — it&apos;s the same one
-              your rarity multipliers come out of.
+              Then it reads off, for every driver, how often they finished in
+              each position. That grid is the whole game: the model plays the
+              top 10 that maximises its own score from it, and your rarity
+              multiplier is read straight out of the same numbers.
             </p>
             {/* Not "what it expects this weekend": since migration 0009 the
                 grid for a race that is still open is nobody's to read — the
@@ -282,33 +307,12 @@ export default async function Home() {
             </Link>
           </div>
 
-          {/* A surface, and a heading over it. Four lines floating in the
-              right half — under a left column that has an eyebrow, a heading,
-              a paragraph and a button — read as text that had lost its card,
-              and the two halves of the section didn't look like one thing.
-              The rule from globals.css still holds: sections aren't separated
-              with bands. This is a card inside a section, which the page
-              already does in "The game". */}
-          <div className="glass-card p-2">
-            <p className="px-4 pt-3 pb-2 font-mono text-[0.65rem] tracking-[0.18em] text-ink-mute uppercase">
-              Under the hood
-            </p>
-            <dl className="flex flex-col">
-              {MODEL_SPEC.map((f) => (
-                <div
-                  key={f.key}
-                  className="grid gap-x-4 gap-y-1 border-t border-line px-4 py-3.5 sm:grid-cols-[6.5rem_minmax(0,1fr)]"
-                >
-                  <dt className="font-mono text-[0.65rem] tracking-[0.16em] text-ink-mute uppercase sm:pt-0.5">
-                    {f.key}
-                  </dt>
-                  <dd className="text-sm leading-relaxed text-ink-dim">
-                    {f.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
+          {/* The matrix itself, cropped, instead of the spec card that used to
+              sit here. `Ensemble · XGBoost + LightGBM` is a résumé, and the
+              paragraph beside it described a grid nobody could see; /model
+              publishes all four of those facts anyway. See ProbabilityShot —
+              like the pick board, it is the real thing, not a picture of it. */}
+          <ProbabilityShot />
         </div>
       </section>
     </>
