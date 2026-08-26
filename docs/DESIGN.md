@@ -164,6 +164,16 @@ The source file's "Race Prediction Game" line is dropped from both. The
 untouched original stays at `public/logo-lockup.svg` for a poster or an
 app-store listing, and the site never references it.
 
+**The raster icons are a third cut, without the chequer.** `favicon.ico`,
+`apple-icon.png` and `public/icon-{192,512}.png` draw the letter and the car
+only. A tab favicon is 16 pixels, and at 16 pixels the chequer column is not a
+pattern, it is a grey ladder down the left edge that costs the letter its
+shape. Dropping it leaves the icon at **two colours and nothing else**: a solid
+`#0a0b10` tile, the D in `#f4f6fa`, and the car knocked through to the tile.
+Simplifying a mark for the smallest size it has to survive is normal; keeping
+one drawing at every size and calling it discipline is how favicons turn to
+mush. The cut lives at `public/logo-mark-icon.svg`.
+
 Coordinates in the mark are rounded to one decimal — 22 kB of path data down to
 13 kB, and invisible, because the viewBox is 751 units wide and the mark is
 never drawn much above 200 pixels.

@@ -1897,8 +1897,11 @@ the **logomark** (DESIGN §2.1) on the site's own `#0a0b10`: `favicon.ico`
 `app/manifest.ts`. `viewport.themeColor` in the root layout paints the phone's
 address bar `#0a0b10`.
 
-They are generated from `public/logo-mark.svg` rather than drawn by hand, and
-**the `.ico` must be RGBA** — Next's image pipeline rejects an RGB one outright
+They are generated from `public/logo-mark-icon.svg` — the letter and the car,
+**without the chequer**, because at 16px that column is a grey ladder rather
+than a pattern and it costs the letter its shape (DESIGN §2.1). Two colours in
+the finished file and nothing else. They are generated rather than drawn by
+hand, and **the `.ico` must be RGBA** — Next's image pipeline rejects an RGB one outright
 with *"The PNG is not in RGBA format"*, which fails the whole page, not just
 the icon.
 
