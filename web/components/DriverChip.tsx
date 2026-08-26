@@ -5,11 +5,20 @@ import { driverPhoto } from "@/lib/format";
 import { driverColor, tint } from "@/lib/teams";
 import type { Driver } from "@/lib/types";
 
+/**
+ * All the avatar needs: a photo to look up, a code to fall back to, and
+ * whatever is known about the constructor colour. Narrower than `Driver` on
+ * purpose — the probability grid holds a matrix, not a roster row, and copying
+ * a full driver record into it just to draw a 26px circle would be theatre.
+ */
+export type AvatarDriver = Pick<Driver, "driver_id" | "code"> &
+  Partial<Pick<Driver, "team" | "team_color">>;
+
 export function DriverAvatar({
   driver,
   size = 36,
 }: {
-  driver: Driver;
+  driver: AvatarDriver;
   size?: number;
 }) {
   const [broken, setBroken] = useState(false);

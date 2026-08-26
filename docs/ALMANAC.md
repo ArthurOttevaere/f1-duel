@@ -15,6 +15,7 @@ Related documents (this one links them together, it does not replace them):
 | Document | Scope |
 | --- | --- |
 | [`GAME_DESIGN.md`](GAME_DESIGN.md) | Source of truth for the **game rules**. Change rules there first. |
+| [`DESIGN.md`](DESIGN.md) | Source of truth for the **design system** — palette, type, components, motion, a11y, the phone rules. §9.6 here is the short version. |
 | [`DEPLOYMENT.md`](DEPLOYMENT.md) | Step-by-step first-time deployment (Supabase → Actions → Vercel → Render). |
 | [`DATABASE.md`](DATABASE.md) | **"I want to do X, what do I type?"** — every operator action against the live database, as a command. Start there; §12 here is the reasoning behind it. |
 | [`../supabase/README.md`](../supabase/README.md) | Database setup, security model, migrations, the 1000-row cap. |
@@ -1542,7 +1543,7 @@ to a real remote URL (a `localhost` value is ignored on purpose).
 
 It now also **shows** the model rather than only describing it. `latestMatrix()`
 finds the highest-round race of the season that has a `model_entries` row and
-draws its `prob_matrix` as a heat map (`components/ProbabilityGrid.tsx`) — the
+draws its `prob_matrix` (`components/ProbabilityGrid.tsx`) — the
 actual output of the 10,000-run simulation the page had been describing in
 prose. The read is deliberately three cheap steps (races → the set of race_ids
 with entries → that one entry) rather than one clever join, because a matrix is
@@ -1556,13 +1557,25 @@ where the points are*. Rule and data become the same picture. It is a real
 screen reader and colour is never the only channel; rows are the model's own
 predicted order, then everyone else by P(top 10).
 
-Two things not to undo: every band carries **light** ink — the strongest fill
+One thing not to undo: every band carries **light** ink — the strongest fill
 composites to ≈`#e11b36`, which is 4.9:1 against `#f4f6fa` and only 4.0:1
 against the page black, so the instinctive dark-on-bright treatment is the
-worse one and on the middle band (≈`#8f1426`) it is 1.9:1. And the driver
-column shows the **three-letter code below `sm`**: a column wide enough for
-"Verstappen" pushes the ten cells off a 390px screen, which is the bug §9.6
-exists to prevent.
+worse one and on the middle band (≈`#8f1426`) it is 1.9:1.
+
+**The phone gets a different cut of the matrix, not a smaller one.** Two
+hundred cells at 26px wide could not carry their own numbers, so a phone got
+the colour and nothing else — colour as the only channel, which is the one
+thing this project's charts may not do. Below `sm` the component renders a
+**position list** instead: a 5×2 grid of `P1`…`P10` toggles (every position on
+screen at once — a rail would scroll sideways, and iOS draws no bar for that),
+then the drivers ranked by P(finishing exactly there), each row a bar in its
+band colour with the percentage and multiplier in a reserved right-hand gutter,
+and a tail line counting whoever fell under 1%. It answers the question a
+player actually asks — "who finishes third, and what does calling it pay?" —
+and mirrors what they are about to do, which is fill P1…P10 with names. The
+`<table>` above `sm` keeps the whole-matrix overview and, now that it is
+desktop-only, has had its phone compromises removed. Details and the three
+load-bearing decisions are in [`DESIGN.md`](DESIGN.md) §12.2.
 
 ### 9.5 `PredictionEditor` — the most complex component (733 lines)
 
@@ -1615,6 +1628,11 @@ exists to prevent.
   longer on the active roster are filtered out so the preview has no holes.
 
 ### 9.6 Design system
+
+> The **full** design system — palette, semantic tones, type scale, containers,
+> every component pattern, motion, accessibility, the data-viz rules and the
+> voice guide — is [`DESIGN.md`](DESIGN.md). What follows is the operational
+> subset: the tokens and the decisions that cost debugging time.
 
 Tokens live in `app/globals.css` under Tailwind v4's `@theme`:
 
@@ -2247,7 +2265,8 @@ PR — a stale almanac is worse than no almanac.
 | `src/app.py` routes or caching | §5 |
 | `supabase/schema.sql` or a new migration | §7 (including the migration table) and `supabase/README.md` |
 | `jobs/*` or `.github/workflows/*` | §8 |
-| Routes, components, auth flow, design tokens | §9 |
+| Routes, components, auth flow | §9 |
+| Anything visual — tokens, a component pattern, motion, a chart, the voice | `DESIGN.md` **first**, then §9 here if it also changed behaviour |
 | Env vars, hosting, secrets | §10 and `DEPLOYMENT.md` |
 | Git conventions | §11 |
 | A new failure mode you had to debug | §12.2 — write the symptom, cause and fix while it's fresh |
@@ -2296,7 +2315,9 @@ Also refresh the **Last reviewed** line and commit hash at the top.
 | Job scheduling | `.github/workflows/*.yml` |
 | A game page | `web/app/(site)/…` |
 | Nav links | `web/lib/nav.ts` |
-| Colours, spacing, motion | `web/app/globals.css` |
+| Colours, spacing, motion | `web/app/globals.css` — and record the rule in `docs/DESIGN.md` |
+| A design rule, pattern or convention | `docs/DESIGN.md` |
+| The probability chart (both cuts) | `web/components/ProbabilityGrid.tsx` |
 | The prediction UX (incl. the press-and-hold reorder) | `web/components/PredictionEditor.tsx` |
 | How a race's points are explained | `web/components/RaceBreakdown.tsx` |
 | The shareable poster | `web/lib/poster/{draw,data,pdf,types}.ts`, `web/components/PosterExport.tsx` |
