@@ -18,7 +18,7 @@ export default function PrivacyPage() {
       <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
         Privacy
       </p>
-      <h1 className="mt-3 text-4xl font-bold tracking-tight">
+      <h1 className="display mt-3 text-4xl font-extrabold tracking-tight">
         What we know about you
       </h1>
       <p className="mt-4 text-lg leading-relaxed text-ink-dim">
@@ -28,7 +28,7 @@ export default function PrivacyPage() {
 
       <div className="mt-12 flex flex-col gap-10 text-sm leading-relaxed text-ink-dim">
         <section>
-          <h2 className="text-2xl font-bold tracking-tight text-ink">
+          <h2 className="display text-2xl font-extrabold tracking-tight text-ink">
             What we collect
           </h2>
           <ul className="mt-4 flex flex-col gap-2">
@@ -63,7 +63,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold tracking-tight text-ink">
+          <h2 className="display text-2xl font-extrabold tracking-tight text-ink">
             Why, and on what basis
           </h2>
           <p className="mt-4">
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold tracking-tight text-ink">
+          <h2 className="display text-2xl font-extrabold tracking-tight text-ink">
             Who sees it
           </h2>
           <p className="mt-4">
@@ -111,7 +111,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold tracking-tight text-ink">
+          <h2 className="display text-2xl font-extrabold tracking-tight text-ink">
             How long
           </h2>
           <p className="mt-4">
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold tracking-tight text-ink">
+          <h2 className="display text-2xl font-extrabold tracking-tight text-ink">
             Your rights
           </h2>
           <p className="mt-4">
@@ -165,7 +165,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold tracking-tight text-ink">
+          <h2 className="display text-2xl font-extrabold tracking-tight text-ink">
             Under 13
           </h2>
           <p className="mt-4">

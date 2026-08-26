@@ -28,7 +28,7 @@ export default async function GamePage() {
   if (!race) {
     return (
       <div className="glass-card mx-auto max-w-lg p-10 text-center">
-        <h1 className="text-xl font-bold">No upcoming race</h1>
+        <h1 className="display text-xl font-extrabold tracking-tight">No upcoming race</h1>
         <p className="mt-2 text-sm text-ink-dim">
           The season is over (or the calendar hasn&apos;t been synced yet).
           Check the{" "}
@@ -175,7 +175,7 @@ export default async function GamePage() {
           <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
             Round {race.round} · {race.country}
           </p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight">
+          <h1 className="display mt-1 text-2xl font-extrabold tracking-tight">
             {race.name}
           </h1>
           <p className="mt-1 text-sm text-ink-dim">

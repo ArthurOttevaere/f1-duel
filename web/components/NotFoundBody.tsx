@@ -23,7 +23,7 @@ export default function NotFoundBody() {
       <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
         Error 404
       </p>
-      <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+      <h1 className="display mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">
         You&apos;ve run wide.
       </h1>
       <p className="mt-4 max-w-md leading-relaxed text-ink-dim">
@@ -34,7 +34,7 @@ export default function NotFoundBody() {
       <div className="mt-10 flex flex-wrap gap-3">
         <Link
           href="/game"
-          className="pressable rounded-full bg-race px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_32px_rgb(255_30_60/0.4)] transition-colors hover:bg-race-deep"
+          className="pressable btn-race px-6 py-3 text-sm font-semibold"
         >
           Back to the duel
         </Link>

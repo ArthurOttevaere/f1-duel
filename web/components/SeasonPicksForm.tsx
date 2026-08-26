@@ -105,7 +105,7 @@ export default function SeasonPicksForm({
           type="button"
           disabled={!driver || !team}
           onClick={() => setConfirming(true)}
-          className="pressable self-start rounded-full bg-race px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgb(255_30_60/0.35)] transition-colors hover:bg-race-deep disabled:opacity-45 disabled:shadow-none"
+          className="pressable self-start btn-race px-7 py-3 text-sm font-semibold disabled:opacity-45"
         >
           Review my picks
         </button>

@@ -100,7 +100,7 @@ export default function LeagueCardActions({
           <button
             type="button"
             onClick={share}
-            className="pressable rounded-full bg-race px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-race-deep"
+            className="pressable btn-race px-4 py-1.5 text-sm font-semibold"
           >
             Invite a friend
           </button>
@@ -111,7 +111,7 @@ export default function LeagueCardActions({
           className={`pressable rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
             shareable
               ? "glass-chip hover:border-line-hi"
-              : "bg-race text-white hover:bg-race-deep"
+              : "btn-race"
           }`}
         >
           {copied ? "Link copied ✓" : "Copy invite link"}

@@ -3,6 +3,7 @@ import { getUser } from "@/lib/supabase/server";
 import { getOwnProfile } from "@/lib/auth";
 import MobileNav from "@/components/MobileNav";
 import NavLinks from "@/components/NavLinks";
+import Wordmark from "@/components/Wordmark";
 
 export default async function SiteNav() {
   const user = await getUser();
@@ -14,10 +15,9 @@ export default async function SiteNav() {
       <nav className="glass-chip mx-auto mt-4 flex w-[min(64rem,calc(100%-2rem))] items-center justify-between rounded-2xl px-5 py-3 shadow-[0_8px_26px_rgb(0_0_0/0.32)]">
         <Link
           href="/"
-          className="pressable flex items-baseline gap-2 font-mono text-sm font-semibold tracking-widest"
+          className="pressable flex items-baseline"
         >
-          <span className="text-race">F1</span>
-          <span>DUEL</span>
+          <Wordmark />
         </Link>
 
         <NavLinks />
@@ -44,7 +44,7 @@ export default async function SiteNav() {
           ) : (
             <Link
               href="/login"
-              className="pressable hidden rounded-full bg-race px-4 py-1.5 text-sm font-semibold text-white shadow-[0_6px_20px_rgb(255_30_60/0.35)] hover:bg-race-deep md:inline-block"
+              className="pressable hidden btn-race px-4 py-1.5 text-sm font-semibold md:inline-block"
             >
               Sign in
             </Link>

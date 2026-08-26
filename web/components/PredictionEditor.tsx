@@ -726,7 +726,7 @@ export default function PredictionEditor({
             type="button"
             onClick={save}
             disabled={!complete || !dirty || saveState === "saving"}
-            className="pressable flex flex-1 items-center justify-center gap-2 rounded-full bg-race px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_rgb(255_30_60/0.35)] transition-colors hover:bg-race-deep disabled:opacity-45 disabled:shadow-none sm:flex-none"
+            className="pressable flex flex-1 items-center justify-center gap-2 btn-race px-7 py-3 text-sm font-semibold disabled:opacity-45 sm:flex-none"
           >
             {saveState === "saving" && <Spinner />}
             {saveState === "saving"

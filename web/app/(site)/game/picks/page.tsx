@@ -41,7 +41,7 @@ export default async function PicksPage() {
       <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
         Season {CURRENT_SEASON} · one shot
       </p>
-      <h1 className="mt-1 text-3xl font-bold tracking-tight">
+      <h1 className="display mt-1 text-3xl font-extrabold tracking-tight">
         Championship picks
       </h1>
       <p className="mt-3 text-sm leading-relaxed text-ink-dim">

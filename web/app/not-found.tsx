@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Wordmark from "@/components/Wordmark";
 import SiteFooter from "@/components/SiteFooter";
 import NotFoundBody from "@/components/NotFoundBody";
 
@@ -22,10 +23,9 @@ export default function NotFound() {
         <nav className="glass-chip mx-auto mt-4 flex w-[min(64rem,calc(100%-2rem))] items-center rounded-2xl px-5 py-3 shadow-[0_8px_26px_rgb(0_0_0/0.32)]">
           <Link
             href="/"
-            className="pressable flex items-baseline gap-2 font-mono text-sm font-semibold tracking-widest"
+            className="pressable flex items-baseline"
           >
-            <span className="text-race">F1</span>
-            <span>DUEL</span>
+            <Wordmark />
           </Link>
         </nav>
       </header>

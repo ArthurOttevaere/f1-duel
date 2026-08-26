@@ -59,7 +59,7 @@ export default async function Home() {
         {/* Wider gap than the rest of the hero's rhythm on purpose: the
             headline is 72px on desktop, and 24px under it left the widget
             looking stuck to it rather than introducing it. */}
-        <h1 className="rise-in rise-in-2 mt-10 max-w-4xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:mt-14 sm:text-7xl sm:leading-[1.02]">
+        <h1 className="display rise-in rise-in-2 mt-10 max-w-4xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:mt-14 sm:text-7xl sm:leading-[1.02]">
           Beat the model.
           <br />
           <span className="bg-gradient-to-r from-race to-[#ff7a5c] bg-clip-text text-transparent">
@@ -76,7 +76,7 @@ export default async function Home() {
         <div className="rise-in rise-in-4 mt-10 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/game"
-            className="pressable rounded-full bg-race px-8 py-3.5 text-base font-semibold text-white shadow-[0_10px_32px_rgb(255_30_60/0.4)] transition-colors hover:bg-race-deep"
+            className="pressable btn-race px-8 py-3.5 text-base font-semibold"
           >
             Play F1 Duel
           </Link>
@@ -128,7 +128,7 @@ export default async function Home() {
         <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
           The game
         </p>
-        <h2 className="mt-3 max-w-xl text-3xl font-bold tracking-tight sm:text-4xl">
+        <h2 className="display mt-3 max-w-xl text-3xl font-extrabold tracking-tight sm:text-4xl">
           A season-long duel against the machine
         </h2>
 
@@ -136,7 +136,7 @@ export default async function Home() {
           {DUEL_STEPS.map((s) => (
             <article key={s.step} className="glass-card p-6">
               <p className="font-mono text-sm text-race">{s.step}</p>
-              <h3 className="mt-3 text-lg font-semibold">{s.title}</h3>
+              <h3 className="display mt-3 text-lg font-extrabold tracking-tight">{s.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-dim">
                 {s.body}
               </p>
@@ -171,7 +171,7 @@ export default async function Home() {
             <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
               The opponent
             </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="display mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
               Not just any opponent
             </h2>
             {/* This used to promise "a full prediction platform" with live

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Wordmark from "@/components/Wordmark";
 import { redirect } from "next/navigation";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { hasDetails } from "@/lib/auth";
@@ -44,9 +45,9 @@ export default async function WelcomePage({
 
       <Link
         href="/"
-        className="mb-8 font-mono text-sm font-semibold tracking-widest"
+        className="mb-8"
       >
-        <span className="text-race">F1</span> DUEL
+        <Wordmark />
       </Link>
 
       <div className="glass-card w-full max-w-sm p-6 sm:p-8">
@@ -56,7 +57,7 @@ export default async function WelcomePage({
 
         {needsName ? (
           <>
-            <h1 className="mt-2 text-xl font-bold">Pick your name</h1>
+            <h1 className="display mt-2 text-xl font-extrabold tracking-tight">Pick your name</h1>
             <p className="mt-2 text-sm text-ink-dim">
               This is how you appear on the standings, in leagues and on your
               profile. You can change it later from your profile.
@@ -72,7 +73,7 @@ export default async function WelcomePage({
           </>
         ) : (
           <>
-            <h1 className="mt-2 text-xl font-bold">Tell us who you are</h1>
+            <h1 className="display mt-2 text-xl font-extrabold tracking-tight">Tell us who you are</h1>
             <p className="mt-2 text-sm text-ink-dim">
               So we know who&apos;s actually playing. This stays private — your
               username is the only thing other players ever see.

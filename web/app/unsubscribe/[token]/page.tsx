@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Wordmark from "@/components/Wordmark";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
@@ -47,13 +48,13 @@ export default async function UnsubscribePage({
   return (
     <main className="mx-auto flex min-h-svh w-[min(28rem,calc(100%-2rem))] flex-col justify-center py-16">
       <div className="glass-card p-8 text-center sm:p-10">
-        <p className="font-mono text-sm font-semibold tracking-widest">
-          <span className="text-race">F1</span> DUEL
+        <p>
+          <Wordmark />
         </p>
 
         {!prefs ? (
           <>
-            <h1 className="mt-6 text-xl font-bold">This link has expired</h1>
+            <h1 className="display mt-6 text-xl font-extrabold tracking-tight">This link has expired</h1>
             <p className="mt-2 text-sm text-ink-dim">
               It doesn&apos;t match an account any more. If you still want the
               reminders off, the toggle is on your profile.
@@ -61,7 +62,7 @@ export default async function UnsubscribePage({
           </>
         ) : prefs.email_opt_out ? (
           <>
-            <h1 className="mt-6 text-xl font-bold">Reminders are off</h1>
+            <h1 className="display mt-6 text-xl font-extrabold tracking-tight">Reminders are off</h1>
             <p className="mt-2 text-sm text-ink-dim">
               {prefs.username}, you won&apos;t hear from us before or after a
               Grand Prix. Your duels still score as normal.
@@ -79,7 +80,7 @@ export default async function UnsubscribePage({
           </>
         ) : (
           <>
-            <h1 className="mt-6 text-xl font-bold">
+            <h1 className="display mt-6 text-xl font-extrabold tracking-tight">
               Turn off race reminders?
             </h1>
             <p className="mt-2 text-sm text-ink-dim">
@@ -92,7 +93,7 @@ export default async function UnsubscribePage({
               <input type="hidden" name="value" value="true" />
               <button
                 type="submit"
-                className="pressable rounded-full bg-race px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-race-deep"
+                className="pressable btn-race px-6 py-2.5 text-sm font-semibold"
               >
                 Turn them off
               </button>

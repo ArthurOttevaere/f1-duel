@@ -13,8 +13,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Predict the top 10 of every Grand Prix and battle a machine-learning model all season long.",
     start_url: "/game",
     display: "standalone",
-    background_color: "#07080b",
-    theme_color: "#07080b",
+    background_color: "#0a0b10",
+    theme_color: "#0a0b10",
     icons: [
       { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
       {

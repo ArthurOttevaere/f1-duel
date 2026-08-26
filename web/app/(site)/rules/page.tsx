@@ -32,7 +32,7 @@ export default function RulesPage() {
       <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
           The manual
         </p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+        <h1 className="display mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">
           How F1 Duel works
         </h1>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-dim">
@@ -57,7 +57,7 @@ export default function RulesPage() {
         <div className="mt-12 flex flex-col gap-12">
           {/* Duel */}
           <section id="duel" className="scroll-mt-28">
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="display text-2xl font-extrabold tracking-tight">
               The weekly duel
             </h2>
             <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink-dim">
@@ -79,7 +79,7 @@ export default function RulesPage() {
 
           {/* Scoring */}
           <section id="scoring" className="scroll-mt-28">
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="display text-2xl font-extrabold tracking-tight">
               Scoring your top 10
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-ink-dim">
@@ -96,7 +96,7 @@ export default function RulesPage() {
 
           {/* Rarity */}
           <section id="rarity" className="scroll-mt-28">
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="display text-2xl font-extrabold tracking-tight">
               Rarity multiplier — boldness pays
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink-dim">
@@ -117,7 +117,7 @@ export default function RulesPage() {
 
           {/* Bonuses */}
           <section id="bonuses" className="scroll-mt-28">
-            <h2 className="text-2xl font-bold tracking-tight">Bonuses</h2>
+            <h2 className="display text-2xl font-extrabold tracking-tight">Bonuses</h2>
             <div className="glass-card mt-5 p-6">
               <Row left="Exact podium — P1, P2, P3 all spot on" right="+15" />
               <Row left="Perfect top 10 — all ten exact" right="+100" />
@@ -133,7 +133,7 @@ export default function RulesPage() {
 
           {/* Safety car */}
           <section id="safety-car" className="scroll-mt-28">
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="display text-2xl font-extrabold tracking-tight">
               Safety-car bet
             </h2>
             <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink-dim">
@@ -158,7 +158,7 @@ export default function RulesPage() {
 
           {/* DotD */}
           <section id="dotd" className="scroll-mt-28">
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="display text-2xl font-extrabold tracking-tight">
               Driver of the Day
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink-dim">
@@ -170,7 +170,7 @@ export default function RulesPage() {
 
           {/* Champions */}
           <section id="champions" className="scroll-mt-28">
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="display text-2xl font-extrabold tracking-tight">
               Championship picks
             </h2>
             <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink-dim">
@@ -191,7 +191,7 @@ export default function RulesPage() {
 
           {/* Standings */}
           <section id="standings" className="scroll-mt-28">
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="display text-2xl font-extrabold tracking-tight">
               Standings &amp; leagues
             </h2>
             <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink-dim">
@@ -223,7 +223,7 @@ export default function RulesPage() {
           <p className="text-sm text-ink-dim">Ready? Your first duel is waiting.</p>
           <Link
             href="/game"
-            className="pressable rounded-full bg-race px-8 py-3.5 text-base font-semibold text-white shadow-[0_10px_32px_rgb(255_30_60/0.4)] transition-colors hover:bg-race-deep"
+            className="pressable btn-race px-8 py-3.5 text-base font-semibold"
           >
             Play F1 Duel
           </Link>

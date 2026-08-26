@@ -1,13 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Archivo, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL } from "@/lib/constants";
 import BootScreen from "@/components/BootScreen";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+// Archivo, and only Archivo: it is variable on both axes Google ships it with,
+// so the running text (wdth 100) and the display voice (wdth 118, set by the
+// `.display` class in globals.css) come out of one file rather than two
+// families. `axes` has to name `wdth` explicitly — next/font drops every axis
+// but weight unless asked.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  axes: ["wdth"],
 });
 
 const geistMono = Geist_Mono({
@@ -46,7 +52,7 @@ export const metadata: Metadata = {
 // The phone's browser chrome paints itself in this, so the address bar carries
 // on from the page instead of ending it in a light grey band.
 export const viewport: Viewport = {
-  themeColor: "#07080b",
+  themeColor: "#0a0b10",
 };
 
 export default function RootLayout({
@@ -57,10 +63,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${archivo.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <BootScreen />
+        {/* The grain (globals.css). One fixed layer over the whole site, three
+            per cent, and it is the difference between a surface and a render. */}
+        <div className="grain" aria-hidden />
         {children}
         <Analytics />
       </body>

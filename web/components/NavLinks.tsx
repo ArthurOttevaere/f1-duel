@@ -18,10 +18,13 @@ export default function NavLinks() {
             key={l.href}
             href={l.href}
             aria-current={isActive ? "page" : undefined}
-            className={`relative transition-colors ${
+            // `display` here too: the labels sit a few pixels from the
+            // wordmark, and at the same width they read as one masthead
+            // rather than as a logo with a menu bolted on.
+            className={`display relative transition-colors ${
               isActive
-                ? "font-medium text-ink"
-                : "text-ink-dim hover:text-ink"
+                ? "font-semibold text-ink"
+                : "font-medium text-ink-dim hover:text-ink"
             }`}
           >
             {l.label}

@@ -139,7 +139,7 @@ export default async function ModelPage() {
           <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
             The opponent
           </p>
-          <h1 className="mt-3 max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">
+          <h1 className="display mt-3 max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl">
             The machine you&apos;re racing
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-dim">
@@ -154,7 +154,7 @@ export default async function ModelPage() {
               href={LIVE_MODEL_URL}
               target="_blank"
               rel="noreferrer"
-              className="pressable mt-8 inline-block rounded-full bg-race px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_32px_rgb(255_30_60/0.4)] transition-colors hover:bg-race-deep"
+              className="pressable mt-8 inline-block btn-race px-6 py-3 text-sm font-semibold"
             >
               Open the live prediction platform ↗
             </a>
@@ -169,7 +169,7 @@ export default async function ModelPage() {
           <section className="mt-16">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
-                <h2 className="text-2xl font-bold tracking-tight">
+                <h2 className="display text-2xl font-extrabold tracking-tight">
                   What it thought of {matrix.race.name}
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-dim">
@@ -199,12 +199,12 @@ export default async function ModelPage() {
 
         {/* ── Pipeline ── */}
         <section className="mt-16">
-          <h2 className="text-2xl font-bold tracking-tight">How it predicts</h2>
+          <h2 className="display text-2xl font-extrabold tracking-tight">How it predicts</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {PIPELINE.map((s) => (
               <article key={s.step} className="glass-card p-6">
                 <p className="font-mono text-sm text-race">{s.step}</p>
-                <h3 className="mt-3 text-lg font-semibold">{s.title}</h3>
+                <h3 className="display mt-3 text-lg font-extrabold tracking-tight">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-dim">
                   {s.body}
                 </p>
@@ -215,7 +215,7 @@ export default async function ModelPage() {
 
         {/* ── Features ── */}
         <section className="mt-16">
-          <h2 className="text-2xl font-bold tracking-tight">
+          <h2 className="display text-2xl font-extrabold tracking-tight">
             39 features, six angles
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-dim">
@@ -237,7 +237,7 @@ export default async function ModelPage() {
         {/* ── Calibration / fairness ── */}
         <section className="mt-16">
           <div className="glass-card p-8">
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="display text-2xl font-extrabold tracking-tight">
               Why it&apos;s a <span className="text-race">fair</span> fight
             </h2>
             <div className="mt-6 grid gap-8 sm:grid-cols-2">
@@ -276,7 +276,7 @@ export default async function ModelPage() {
         {/* ── CTA ── */}
         <section className="mt-16 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="display text-2xl font-extrabold tracking-tight">
               Think you can read a race better?
             </h2>
             <p className="mt-2 text-sm text-ink-dim">
@@ -285,7 +285,7 @@ export default async function ModelPage() {
           </div>
           <Link
             href="/game"
-            className="pressable rounded-full bg-race px-8 py-3.5 text-base font-semibold text-white shadow-[0_10px_32px_rgb(255_30_60/0.4)] transition-colors hover:bg-race-deep"
+            className="pressable btn-race px-8 py-3.5 text-base font-semibold"
           >
             Play F1 Duel
           </Link>

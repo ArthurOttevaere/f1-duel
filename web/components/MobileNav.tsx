@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Wordmark from "@/components/Wordmark";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -50,9 +51,8 @@ export default function MobileNav({
               <Link
                 href="/"
                 onClick={close}
-                className="font-mono text-sm font-semibold tracking-widest"
               >
-                <span className="text-race">F1</span> DUEL
+                <Wordmark />
               </Link>
               <button
                 type="button"
@@ -74,7 +74,7 @@ export default function MobileNav({
                     onClick={close}
                     aria-current={isActive ? "page" : undefined}
                     style={{ animationDelay: `${50 + i * 45}ms` }}
-                    className={`menu-item pressable text-3xl font-semibold tracking-tight transition-colors ${
+                    className={`menu-item pressable display text-3xl font-extrabold tracking-tight transition-colors ${
                       isActive ? "text-race" : "text-ink-dim active:text-race"
                     }`}
                   >

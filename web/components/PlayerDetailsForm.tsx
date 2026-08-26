@@ -105,7 +105,7 @@ export default function PlayerDetailsForm({
       <button
         type="submit"
         disabled={saving}
-        className="pressable flex items-center justify-center gap-2 rounded-xl bg-race py-3 text-sm font-semibold text-white transition-colors hover:bg-race-deep disabled:opacity-45"
+        className="pressable flex items-center justify-center gap-2 btn-race py-3 text-sm font-semibold disabled:opacity-45"
       >
         {saving && <Spinner />}
         {saving ? "Saving…" : mode === "edit" ? "Save details" : "Finish"}
