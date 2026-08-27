@@ -1664,15 +1664,20 @@ three blocks the home page had been carrying:
 
 - **The pipeline is drawn** (`components/ModelPipeline.tsx`). Four numbered
   glass cards in a 2×2 grid — the arrangement that destroys a sequence's
-  reading order — became one horizontal track whose picture is the quantities
-  themselves: eight strokes for eight seasons, two for two models, a hatch at
-  the same pitch running off its own edge for the ten thousand simulations, one
-  red stroke for the single top 10 played. `DESIGN.md` §5.5 carries the two
-  construction rules (the trait is the cells' touching top borders; the air
-  above the strokes is a margin, never padding).
-- **The six feature groups are a spec sheet**, not six cards — a `<dl>` of mono
-  label / enumeration rows on hairlines (`DESIGN.md` §7.11). It was the third
-  grid of equal cards on the site, holding content that is a two-column list.
+  reading order — became one horizontal track standing on a single rule, where
+  the picture is the four counts set the size of a car number: **8** seasons,
+  **2** models, **10,000** simulated races, **1** top 10 played, the last in
+  race red. They are mono, because every number on this site is (§9.6). An
+  earlier cut drew the same counts as tallies of strokes and was thrown away:
+  it raised the question "what are those marks?", which a number never does.
+  `DESIGN.md` §5.5 carries that and the two construction rules (the trait is
+  the cells' touching top borders; the air above the numerals is a margin,
+  never padding).
+- **The six feature groups are six titled blocks**, not six cards — a small
+  `.display` title, its enumeration under it, two wide columns, no rule and no
+  fill (`DESIGN.md` §7.11, which also says when to reach for the spec sheet
+  instead: when the right-hand column is a *value*, not prose). It was the
+  third grid of equal cards on the site.
 - **"Why it's a fair fight" lost its outer card** — a `glass-card` wrapped
   round a two-column grid is a surface stacked on a surface with no hierarchy
   to carry.
@@ -1681,7 +1686,10 @@ three blocks the home page had been carrying:
   human goes from 8–0–3 against the raw ML order to 3–5–3 against the
   calibrated entry (§4.4, `GAME_DESIGN.md` §2.2) — was a grey 12px sentence at
   the bottom of that card. It is two eleven-block tracks now, grouped by
-  outcome, in the site's own W/D/L tones. **The numbers live in
+  outcome, **in a qualifying screen's colours**: purple where the grid-copier
+  wins, green for a draw, yellow where the model takes the weekend. Those three
+  tokens (`--color-sector-*`) are new to the palette and exist only as that
+  scale — see `DESIGN.md` §3.2 for the rule and for what the borrow costs. **The numbers live in
   `GAME_DESIGN.md`; the component is the only place that draws them, and if the
   backtest is ever re-run both have to move.**
 

@@ -113,24 +113,23 @@ export default async function ModelPage() {
             weekend is described from six directions:
           </p>
           {/* Six equal cards was the third grid of equal cards on the site,
-              and the content is tabular: a category and the things in it.
-              A card carries hierarchy; there is none here to carry. It reads
-              as the spec sheet of a model now, which is what the page is. */}
-          <dl className="mt-8 border-b border-line">
+              and the content is tabular: a category and the things in it. A
+              card carries hierarchy; there is none here to carry. What is
+              left is the house rule at its plainest — space and type, never a
+              band (§1.4): a small display title, its enumeration under it,
+              two wide columns and a lot of air. No card, no rule, no fill. */}
+          <div className="mt-10 grid gap-x-12 gap-y-10 sm:grid-cols-2 sm:gap-y-12 lg:gap-x-20">
             {FEATURE_GROUPS.map((g) => (
-              <div
-                key={g.label}
-                className="grid gap-x-8 gap-y-1.5 border-t border-line py-4 sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:py-5"
-              >
-                <dt className="font-mono text-[0.65rem] tracking-[0.18em] text-ink uppercase">
+              <div key={g.label}>
+                <h3 className="display text-lg font-extrabold tracking-tight">
                   {g.label}
-                </dt>
-                <dd className="text-sm leading-relaxed text-ink-dim">
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-dim">
                   {g.items}
-                </dd>
+                </p>
               </div>
             ))}
-          </dl>
+          </div>
         </section>
 
         {/* ── Calibration / fairness (M-3, M-4) ── */}

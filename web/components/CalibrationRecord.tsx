@@ -13,11 +13,18 @@
  * than run in calendar order — this is a tally, not a season. The eye compares
  * the two runs of green and the argument lands before the sentence does.
  *
- * The tones are the site's, unchanged (§3.2): emerald won the duel, amber a
- * draw, race red the model winning. Which is why the *human* here is green and
- * the model red, even though the human is the one copying the grid — the
- * perspective is the player's everywhere else on the site (FormStrip), and a
- * chart that flips it for one figure would teach the reader nothing.
+ * **The tones are a qualifying screen's** (§3.2, the timing set): purple is
+ * the fastest anyone has gone, green a personal best, yellow slower than that.
+ * A W/D/L triple has no order of its own — emerald/amber/red are three
+ * categories that happen to sit side by side — where the mini-sector colours
+ * are a scale the sport has already taught every viewer to read best → worst
+ * at a glance. So the weekends the grid-copier wins are purple, the draws
+ * green, the ones the model takes yellow.
+ *
+ * The one thing it costs: red means "the model winning" everywhere else on the
+ * site, and here the model's weekends are yellow. That is the trade, and it is
+ * why the three colours may only ever appear together as this scale — a lone
+ * purple block somewhere else would mean nothing.
  *
  * Colour is never the only channel (§1.2): every row prints its own record,
  * and the legend names the three tones in words.
@@ -50,9 +57,9 @@ const RECORDS: DuelRecord[] = [
 ];
 
 const TONES = [
-  { key: "won", fill: "bg-emerald-400/70", legend: "Copying the grid won" },
-  { key: "drawn", fill: "bg-amber-300/50", legend: "Draw" },
-  { key: "lost", fill: "bg-race/80", legend: "The model won" },
+  { key: "won", fill: "bg-sector-purple", legend: "Copying the grid won" },
+  { key: "drawn", fill: "bg-sector-green", legend: "Draw" },
+  { key: "lost", fill: "bg-sector-yellow", legend: "The model won" },
 ] as const;
 
 export default function CalibrationRecord({

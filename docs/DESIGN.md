@@ -269,6 +269,27 @@ tone.** It works because red is never the only signal — an error is a short
 sentence, and the model's win is labelled. Do not introduce a separate error
 red.
 
+**The timing set — three colours borrowed whole from a qualifying screen.**
+
+| Token | Value | Means |
+| --- | --- | --- |
+| `--color-sector-purple` | `#b24bf3` | Fastest anyone has gone |
+| `--color-sector-green` | `#00e701` | A personal best |
+| `--color-sector-yellow` | `#ffd800` | Slower than that |
+
+They exist because a W/D/L triple has no order of its own — emerald, amber and
+race red are three categories that happen to sit side by side — where the
+mini-sector colours are a **scale the sport has already taught every viewer to
+read best → worst at a glance**. `CalibrationRecord` (§12.3) is the only
+consumer: the weekends a grid-copying human wins are purple, the draws green,
+the ones the model takes yellow.
+
+**They are only ever used together, as that scale.** A lone purple block
+somewhere else on the site would mean nothing, and the set costs one real
+thing — red means "the model winning" everywhere else (§12.3 says so out loud).
+Anything that is a *state* rather than a ranking keeps the emerald/amber/red
+row above.
+
 ### 3.3 Constructor colours
 
 Team colour is data, not design. `drivers.team_color` comes from FastF1 and is
@@ -595,11 +616,19 @@ numerals. Its four steps already count something — 8 seasons, 2 models, 10,000
 simulations, 1 top 10 played — and an `01`–`04` series beside those would be
 four indices arguing with four counts.
 
-`components/ModelPipeline.tsx` draws the counts instead: eight strokes, then
-two, then a hatch on the same 7px pitch running off its own edge behind a mask,
-then one in race red. Left to right that funnel *is* the claim the prose makes,
-so the picture and the rule are the same thing (§1.1), and red stays on the one
-stage that is the model acting rather than the model reading.
+`components/ModelPipeline.tsx` sets those counts **the size of a car number** —
+48px of mono, standing on the connecting rule, one size for all four so that
+what varies along the track is the *width* of the number. Left to right that
+funnel is the claim the prose makes, so the picture and the rule are the same
+thing (§1.1), and race red stays on the one stage that is the model acting
+rather than the model reading.
+
+**What lost: the same four counts as tallies** — eight strokes, two, a hatch on
+the same 7px pitch running off its own edge, one in red. It was legible as a
+funnel and completely mute as to why there were marks there at all: the first
+question it raised was what the strokes meant, which is the one question an
+illustration may not raise. A number needs no key. (It is also why the numerals
+are mono and not `.display`: every number on this site is data, §4.2.)
 
 Two construction notes, both load-bearing:
 
@@ -1029,11 +1058,18 @@ column headers.
 ```
 
 `/rules`' `Row` is the same device with the value right-aligned in mono;
-`/model`'s six feature groups and `CalibrationRecord`'s two rows are the
-`<dl>` form. It is what replaced the site's third and fourth grids of equal
-cards, and the reason is always the same: **a card carries hierarchy, and a
-label-and-value pair has none to carry.** Six of them side by side is six
-surfaces drawn to say "these are six things", which the rules already said.
+`CalibrationRecord`'s two rows are the `<dl>` form. The reason is always the
+same: **a card carries hierarchy, and a label-and-value pair has none to
+carry.** Six of them side by side is six surfaces drawn to say "these are six
+things", which the rule already said.
+
+**It is not the only answer, and `/model`'s six feature groups took the other
+one.** Where the right-hand side is a sentence rather than a value — the six
+angles are enumerations, not measurements — the rules and the fixed label
+column earn nothing, so that block is six small `.display` titles with their
+enumeration under them, in two wide columns with `gap-y-12` and no line
+anywhere. Same principle (§1.4), less furniture. Reach for the spec sheet when
+the right column is a *value*, and for titled blocks when it is prose.
 
 On a phone the two halves stack (the grid columns only exist from `sm:`), which
 is why the label is set in mono caps rather than in bold sans — it still reads
@@ -1288,13 +1324,17 @@ of green are the whole argument.
 It exists because the most interesting decision in the project was a single
 grey sentence at the bottom of a card. Nobody reads a proof set in 12px mute.
 
-The tones are §3.2's, unchanged: emerald won the duel, amber a draw, race red
-the model winning. Which means the *human* is green here and the model red even
-though the human is the one being lazy — the perspective is the player's
-everywhere else on the site (`FormStrip`), and a chart that flips it for one
-figure teaches the reader nothing. Every row prints its own record and the
-legend names the three tones in words, so colour is never carrying it alone
-(§1.2).
+**The tones are a qualifying screen's** (§3.2, the timing set): purple where
+the grid-copier wins, green for a draw, yellow where the model takes the
+weekend. Emerald/amber/red were tried first and are the wrong family here —
+they are three states, and this is a ranking. The mini-sector colours are the
+one scale every viewer of this sport can already read best → worst without a
+legend, which is exactly what two records eleven weekends long need.
+
+It costs one thing, and it is worth stating: race red means "the model winning"
+everywhere else on the site, and here the model's weekends are yellow. Every
+row prints its own record and the legend names the three tones in words, so
+colour is never carrying it alone (§1.2).
 
 Blocks are square-ended and 3px apart (§5.4). Below `sm:` the track drops to
 its own line under the label and the record, rather than being squeezed into a
@@ -1402,8 +1442,9 @@ disagrees with it, so:
    14rem hero fade, the alpha-suffixed hex, the phone heat map, the aurora, the
    gradient headline, the seventy-six capsules, the three equal numbered cards,
    the centred stat row, the red bullet discs, the arrows glued to labels, the
-   two-hundred-cell heat map, the four steps in a 2×2 grid, the six feature
-   cards, the card wrapped round the fair-fight grid.
+   two-hundred-cell heat map, the four steps in a 2×2 grid, the four counts
+   drawn as tallies, the six feature cards, the card wrapped round the
+   fair-fight grid.
    Keep adding them; they are what stops a fix from being re-broken.
 4. Design decisions that are *game* decisions belong in
    [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.
@@ -1439,6 +1480,11 @@ Semantic    text-emerald-400                    exact, positive, won
             text-amber-300                      near, draw, caution
             text-race                           error, lost
             text-ink-mute                       missed, none
+
+Timing      bg-sector-purple     #b24bf3        fastest anyone has gone
+            bg-sector-green      #00e701        a personal best
+            bg-sector-yellow     #ffd800        slower than that
+            (the three together, as a scale, or none of them — §3.2)
 
 Type        font-sans (Archivo)                 prose, buttons, names
             .display (Archivo wdth 118)         headlines, wordmark, nav
