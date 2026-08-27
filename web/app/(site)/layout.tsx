@@ -1,3 +1,4 @@
+import ScrollReset from "@/components/ScrollReset";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -9,6 +10,8 @@ export default function SiteLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="flex min-h-svh flex-col">
+      {/* Every navigation starts at the top of the new page — see ScrollReset. */}
+      <ScrollReset />
       <SiteNav />
       {/* The skip link's target (app/layout.tsx). Every page of the group
           renders its own <main> inside this. */}

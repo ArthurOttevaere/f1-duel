@@ -2065,6 +2065,17 @@ page rather than one:
   their own hand-copied hexes. `globals.css` remains the site's own source; the
   two files are named together in `DESIGN.md` §16.
 
+**Every navigation starts at the top** (`components/ScrollReset.tsx`, in the
+`(site)` layout). The App Router decides case by case whether to scroll, and
+with a fixed nav, `min-h-svh` sections and a `loading.tsx` in between it got it
+wrong where it shows most: measured at 390×844, tapping *The model* from the
+bottom of `/rules` landed at **scrollY 228** — past the page title, and past
+the loader, so the wait looked like nothing happening. It is 0 now. Three
+guards, each measured: a URL with a hash still lands on its section (1975, the
+same as clicking the anchor), the back button still restores where you were
+(unchanged from before the component existed), and the first paint is never
+touched.
+
 ### 9.7 Three gotchas that cost real debugging time
 
 0. **An SVG resource inside `display: none` is dead in Chrome.** The logomark
