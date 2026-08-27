@@ -1693,6 +1693,28 @@ three blocks the home page had been carrying:
   `GAME_DESIGN.md`; the component is the only place that draws them, and if the
   backtest is ever re-run both have to move.**
 
+**`/rules`** — the rulebook, and the longest read on the site. Static, no
+database. The redesign programme's R series (2026-08-27) gave it three things:
+
+- **A spine** (`components/RulesIndex.tsx`, R-1). The table of contents was
+  eight capsules wrapping under the title; it is a numbered `01`–`08` list now,
+  sticky beside the reading column from `lg` up, with the current section lit
+  by an `IntersectionObserver` banded `-30% / -55%` — a section is current once
+  its heading reaches the upper third of the viewport. The **section heads
+  carry the same numerals**, so the rail is an index rather than a second
+  navigation. On a phone it is the same list, once, not sticky (`DESIGN.md`
+  §7.12).
+- **The multiplier has a picture** (`components/RarityScale.tsx`, R-2). Four
+  bars in the matrix's own bands, the multiplier facing each one: read down,
+  the fill fades and the multiplier climbs. This is why the bands moved out of
+  `ProbabilityGrid` into **`lib/bands.ts`** — `/model` and `/rules` now draw
+  the same four thresholds from one definition, and a tier that changes in
+  `GAME_DESIGN.md` §2.2 has one place to change here (`DESIGN.md` §12.4).
+- **A lead that says something** (R-3). "Everything you need to know is below"
+  told the reader what the scrollbar already had. It now gives the price and
+  the payoff: eight sections, about ten minutes, and which one decides most
+  weekends.
+
 ### 9.5 `PredictionEditor` — the most complex component (733 lines)
 
 - A fixed **10-slot list**, `null` = empty, so positions are stable while you
