@@ -62,6 +62,74 @@ function tick() {
 
 // ─── One row of the top 10 ───────────────────────────────────────────────────
 
+/**
+ * The padlock. One of the site's handful of inline icons (§9): no library, no
+ * asset, `currentColor` so it takes the colour of the label it sits in.
+ */
+function LockGlyph() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden className="size-3.5 shrink-0">
+      <path
+        d="M4.5 7V5a3.5 3.5 0 1 1 7 0v2M3.5 7h9v6h-9z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/**
+ * What a signed-out visitor gets instead of the driver pool and the two side
+ * bets — all of which are controls they cannot use.
+ *
+ * **The editor used to be veiled.** A scrim and 2px of blur over the one
+ * screen where the game happens, with a card in the middle saying there was
+ * something behind it. Blurred content behind a wall is a growth pattern that
+ * became a cliché, and here it was wrong twice over: what it hid was not
+ * secret — a finished Grand Prix, played by the model, published on /model —
+ * and a blur makes nobody want anything.
+ *
+ * So the top 10 is simply legible now, labelled with a padlock and the race it
+ * was played at, and the promise turns from "there is something here" into
+ * "this is what you would have been up against".
+ */
+function SignInPanel({ raceName }: { raceName: string | null }) {
+  return (
+    <section className="flex flex-col justify-center">
+      <p className="font-mono text-[0.65rem] tracking-[0.18em] text-race uppercase">
+        The duel
+      </p>
+      <h3 className="display mt-3 text-xl font-extrabold tracking-tight sm:text-2xl">
+        {raceName
+          ? "This is what you'd have been up against"
+          : "The model files its ten. You file yours."}
+      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-ink-dim">
+        {raceName
+          ? `The model's real entry at the ${raceName} — the order it actually played, scored against the classification like everybody else's.`
+          : "Every Grand Prix, the model locks a top 10 after qualifying and you lock yours before lights out."}{" "}
+        Sign in and yours goes next to it: same race, same rules, one duel.
+      </p>
+      <Link
+        href="/login"
+        className="pressable btn-race mt-6 inline-block self-start px-7 py-3 text-sm font-semibold"
+      >
+        Sign in — it takes 20 seconds
+      </Link>
+      {/* What this column holds once you are in — the three things the pitch
+          is standing on top of, named rather than mimed. */}
+      <ul className="mt-6 flex flex-col gap-1.5 border-t border-line pt-4 font-mono text-[0.65rem] tracking-[0.18em] text-ink-mute uppercase">
+        <li>Your top 10</li>
+        <li>Driver of the Day · +5</li>
+        <li>Safety-car bet · +8</li>
+      </ul>
+    </section>
+  );
+}
+
 function Slot({
   driver,
   position,
@@ -571,29 +639,34 @@ export default function PredictionEditor({
         {/* ── Your top 10 ── */}
         <section>
           <div className="mb-3 flex items-baseline justify-between gap-3">
-            <h3 className="text-sm font-semibold tracking-wide text-ink-dim">
+            <h3 className="flex items-center gap-2 text-sm font-semibold tracking-wide text-ink-dim">
+              {/* A padlock, not a blur (see the sign-in panel below): the
+                  state is *stated*, and what it guards stays readable. */}
+              {preview && <LockGlyph />}
               {preview ? "THE MODEL'S TOP 10" : "YOUR TOP 10"}
             </h3>
             {/* The counter is yours; over the model's entry it would read as a
-                score. */}
-            {!preview && (
-              <span className="font-mono text-xs text-ink-mute">
-                {filled}/10
-              </span>
-            )}
+                score — so that slot carries the race it was played at. */}
+            <span className="font-mono text-xs text-ink-mute">
+              {preview ? previewEntry?.raceName : `${filled}/10`}
+            </span>
           </div>
 
-          {/* Progress rail: 10 ticks that fill as the grid comes together. */}
-          <div aria-hidden className="mb-3 flex gap-1">
-            {slots.map((id, i) => (
-              <span
-                key={i}
-                className={`h-1 flex-1 transition-colors ${
-                  id ? "bg-race" : "bg-line"
-                }`}
-              />
-            ))}
-          </div>
+          {/* Progress rail: 10 ticks that fill as the grid comes together.
+              Not over the model's entry — ten red ticks under a finished top
+              10 read as a score, and there is nothing in progress. */}
+          {!preview && (
+            <div aria-hidden className="mb-3 flex gap-1">
+              {slots.map((id, i) => (
+                <span
+                  key={i}
+                  className={`h-1 flex-1 transition-colors ${
+                    id ? "bg-race" : "bg-line"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
 
           <DndContext
             sensors={sensors}
@@ -642,7 +715,13 @@ export default function PredictionEditor({
           )}
         </section>
 
-        {/* ── Roster (desktop) + side bets ── */}
+        {/* ── Roster (desktop) + side bets ──
+               Signed out, all of this is dead controls: a pool that cannot be
+               picked from, a Driver of the Day that cannot be chosen, a bet
+               that cannot be placed. The pitch takes the column instead. ── */}
+        {!signedIn ? (
+          <SignInPanel raceName={previewEntry?.raceName ?? null} />
+        ) : (
         <section className="flex flex-col">
           <div className="hidden lg:block">
             <h3 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
@@ -715,6 +794,7 @@ export default function PredictionEditor({
             ))}
           </div>
         </section>
+        )}
       </div>
 
       {/* ── Save — rides the bottom of the viewport while the editor is in
@@ -751,33 +831,6 @@ export default function PredictionEditor({
         onClose={() => setSheetOpen(false)}
       />
 
-      {/* ── Sign-in gate ──
-             The veil used to be 70% ground and 3px of blur over an empty
-             form, which turned the one screen where the game happens into a
-             grey rectangle. It is thinner now — the point is to say "not yet
-             yours", not to hide the product — and what it covers is a real
-             top 10 (see `previewOrder`). The call to action carries its own
-             surface, because at this opacity the grid behind it would
-             otherwise read straight through the type. */}
-      {!signedIn && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-panel bg-bg/45 backdrop-blur-[2px]">
-          <div className="glass-card mx-4 max-w-sm p-6 text-center">
-            <p className="font-semibold">Sign in to enter the duel</p>
-            {preview && (
-              <p className="mt-2 text-sm text-ink-dim">
-                Behind this is the model&apos;s own top 10 at the{" "}
-                {previewEntry?.raceName}. Yours goes next to it.
-              </p>
-            )}
-            <Link
-              href="/login"
-              className="pressable btn-race mt-4 inline-block px-7 py-3 text-sm font-semibold"
-            >
-              Sign in — it takes 20 seconds
-            </Link>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

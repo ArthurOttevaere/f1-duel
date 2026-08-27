@@ -523,6 +523,19 @@ figcaption {
    lights come on in sequence but must go out together, and a delay would
    stagger the blackout too. Both bulbs of a column share the column's name, so
    they always light as a pair. */
+/* Driven by a count instead of a loop (components/Countdown.tsx): the last
+   hour before predictions lock fills the gantry one light at a time, and the
+   lock itself is the blackout. The fade is a state change, not motion, so it
+   stays under reduced-motion. */
+.start-lights--driven .sl-bulb::after {
+  animation: none;
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out-strong);
+}
+.start-lights--driven .sl-col--on .sl-bulb::after {
+  opacity: 1;
+}
+
 .sl-col:nth-child(1) .sl-bulb::after { animation-name: sl-1; }
 .sl-col:nth-child(2) .sl-bulb::after { animation-name: sl-2; }
 .sl-col:nth-child(3) .sl-bulb::after { animation-name: sl-3; }

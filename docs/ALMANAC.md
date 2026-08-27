@@ -1426,8 +1426,29 @@ filters `status <> 'scheduled'` itself, so the page cannot quietly come to
 depend on being denied.
 
 The one `predicted_order` this page reads is the **last scored race's**, and
-only for a signed-out visitor: it fills the grid behind the sign-in gate
+only for a signed-out visitor: it fills the grid on the signed-out surface
 (§9.5).
+
+**The D series of the redesign programme (2026-08-27) rebuilt three states of
+this page:**
+
+- **The sign-in gate stopped being a blur** (D-1). The editor sat under a scrim
+  and 2px of blur; the model's ten are simply legible now, labelled with a
+  padlock and the Grand Prix they were played at, and the column that used to
+  hold controls a signed-out visitor cannot use (driver pool, DotD, safety car)
+  holds the pitch instead. `DESIGN.md` §7.13.
+- **"No upcoming race" became the end of the season** (D-2,
+  `components/SeasonOver.tsx`). Same branch, new reads: the scored-race count
+  and the model's season (`lib/model.ts`, extracted from the standings page so
+  both count it the same way), the top of `standings_page`, the viewer's own
+  `scores` rows for their record, and the next `scheduled` race **in any
+  season** for the clock. With nothing scored it says the calendar has not been
+  synced — never "the season is over" on missing data. It is deliberately not
+  the season recap of `GAME_DESIGN` §2.3, which is still unbuilt.
+- **The countdown speaks the sport's language under the last hour** (D-3).
+  `StartLights` takes a `lit` count (0–5) and holds it; `Countdown` lights one
+  bulb every twelve minutes and the lock is the blackout. The digits stay
+  printed beside the lights, which are `aria-hidden`.
 
 ⚠️ The Flask app (§5) predicts the *upcoming* race by design. It is not
 deployed; deploying it publicly would reopen exactly what 0009 closed.

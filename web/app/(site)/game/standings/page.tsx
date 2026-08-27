@@ -5,42 +5,13 @@ import { formatMargin, formatPoints } from "@/lib/format";
 import type { LeaderboardRow, League, Race } from "@/lib/types";
 import LeagueSwitcher from "@/components/LeagueSwitcher";
 import LeagueCardActions from "@/components/LeagueCardActions";
+import { modelEntries, modelSeason } from "@/lib/model";
 
 export const metadata = { title: "Standings" };
 export const revalidate = 120;
 
 /** Players per page. Keeps the HTML bounded however many sign up. */
 const PER_PAGE = 100;
-
-interface ModelRaceEntry {
-  race_id: number;
-  total: number | null;
-  counts_in_standings: boolean;
-}
-
-/**
- * The model's scored races, and whether each one counts towards its season
- * total (migration 0006: the operator can drop past races so the machine
- * doesn't meet new players 400 points up — race pages still show the real
- * score either way).
- *
- * Falls back to counting everything if the column isn't there, because a
- * migration that hasn't been applied yet should cost the board its newest
- * behaviour, not its ability to render.
- */
-async function modelEntries(
-  supabase: Awaited<ReturnType<typeof createClient>>,
-): Promise<ModelRaceEntry[]> {
-  const flagged = await supabase
-    .from("model_entries")
-    .select("race_id, total, counts_in_standings");
-  if (!flagged.error) return (flagged.data as ModelRaceEntry[]) ?? [];
-
-  const plain = await supabase.from("model_entries").select("race_id, total");
-  return ((plain.data as Omit<ModelRaceEntry, "counts_in_standings">[]) ?? []).map(
-    (e) => ({ ...e, counts_in_standings: true }),
-  );
-}
 
 /** Your own line in a race card: points, and whether you took the model down. */
 interface MyRace {
@@ -105,11 +76,7 @@ export default async function StandingsPage({
   const leagueId = selectedLeague?.id ?? null;
 
   const seasonRaceIds = new Set(((races as Race[]) ?? []).map((r) => r.id));
-  const counted = entries.filter(
-    (e) =>
-      seasonRaceIds.has(e.race_id) && e.total !== null && e.counts_in_standings,
-  );
-  const modelTotal = counted.reduce((sum, e) => sum + Number(e.total), 0);
+  const model = modelSeason(entries, seasonRaceIds);
 
   // Filtering, ordering and counting all happen in SQL. Reading the whole
   // board to slice it here stopped working at 1000 players, which is where
@@ -170,7 +137,7 @@ export default async function StandingsPage({
       {/* The model stands above the board, not in it — see GAME_DESIGN §2.5.
           Outside the league switcher on purpose: its season is the same
           whichever league you are looking at, so it should not blink. */}
-      <ModelBar points={modelTotal} races={counted.length} />
+      <ModelBar points={model.points} races={model.races} />
 
       {/* Signed out there is nothing to filter and nothing to administer, so
           the board goes straight in. Signed in, everything below the pills is

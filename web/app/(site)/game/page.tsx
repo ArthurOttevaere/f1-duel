@@ -1,11 +1,14 @@
 import Link from "next/link";
 import Arrow from "@/components/Arrow";
 import { createClient, getUser } from "@/lib/supabase/server";
+import { getOwnProfile } from "@/lib/auth";
 import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, formatRaceDate, formatRaceTime } from "@/lib/format";
-import type { Driver, ModelEntry, Race, Score } from "@/lib/types";
+import type { Driver, LeaderboardRow, ModelEntry, Race, Score } from "@/lib/types";
 import Countdown from "@/components/Countdown";
 import PredictionEditor from "@/components/PredictionEditor";
+import SeasonOver from "@/components/SeasonOver";
+import { modelEntries, modelSeason } from "@/lib/model";
 
 export const metadata = { title: "This weekend" };
 export const revalidate = 60;
@@ -26,19 +29,77 @@ export default async function GamePage() {
     .limit(1);
   const race = (nextRaces?.[0] as Race | undefined) ?? null;
 
+  // ── No race to play: the end of the season, not an empty state (D-2) ──
+  // Everything below is read only on this branch, so the weekly page pays
+  // nothing for it.
   if (!race) {
+    const [{ data: seasonRaces }, entries, { data: board }] = await Promise.all([
+      supabase
+        .from("races")
+        .select("id, status")
+        .eq("season", CURRENT_SEASON),
+      modelEntries(supabase),
+      supabase.rpc("standings_page", {
+        p_league_id: null,
+        p_limit: 3,
+        p_offset: 0,
+      }),
+    ]);
+
+    const seasonRows = (seasonRaces as Pick<Race, "id" | "status">[]) ?? [];
+    const seasonIds = new Set(seasonRows.map((r) => r.id));
+    const racesScored = seasonRows.filter((r) => r.status === "scored").length;
+    const podium = (board as LeaderboardRow[]) ?? [];
+
+    // The viewer's own season, counted from their own rows rather than by
+    // paging the board looking for themselves — that read is capped at a
+    // thousand players and a season is at most two dozen scores.
+    const [{ data: myScores }, profile] = user
+      ? await Promise.all([
+          supabase
+            .from("scores")
+            .select("race_id, total, beat_model, drew_model")
+            .eq("user_id", user.id),
+          getOwnProfile(),
+        ])
+      : [{ data: null }, null];
+
+    const mine = (
+      (myScores as Pick<Score, "race_id" | "total" | "beat_model" | "drew_model">[]) ??
+      []
+    ).filter((r) => seasonIds.has(r.race_id));
+
+    // Whatever the calendar holds next, even if it belongs to another season:
+    // between seasons that clock is the only thing on the page facing
+    // forwards.
+    const { data: upcoming } = await supabase
+      .from("races")
+      .select("name, race_at, season")
+      .eq("status", "scheduled")
+      .gt("race_at", nowIso)
+      .order("race_at", { ascending: true })
+      .limit(1);
+    const next = (upcoming?.[0] as Pick<Race, "name" | "race_at" | "season"> | undefined) ?? null;
+
     return (
-      <div className="glass-card mx-auto max-w-lg p-10 text-center">
-        <h1 className="display text-xl font-extrabold tracking-tight">No upcoming race</h1>
-        <p className="mt-2 text-sm text-ink-dim">
-          The season is over (or the calendar hasn&apos;t been synced yet).
-          Check the{" "}
-          <Link href="/game/standings" className="text-race underline">
-            final standings
-          </Link>
-          .
-        </p>
-      </div>
+      <SeasonOver
+        season={CURRENT_SEASON}
+        racesScored={racesScored}
+        model={modelSeason(entries, seasonIds)}
+        podium={podium}
+        mine={
+          mine.length > 0
+            ? {
+                username: profile?.username ?? null,
+                won: mine.filter((r) => r.beat_model).length,
+                drawn: mine.filter((r) => r.drew_model).length,
+                lost: mine.filter((r) => !r.beat_model && !r.drew_model).length,
+                points: mine.reduce((sum, r) => sum + Number(r.total), 0),
+              }
+            : null
+        }
+        nextRace={next}
+      />
     );
   }
 
