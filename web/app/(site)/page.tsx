@@ -5,7 +5,6 @@ import PickBoardShot from "@/components/PickBoardShot";
 import ProbabilityShot from "@/components/ProbabilityShot";
 import { latestMatrix } from "@/lib/latestMatrix";
 import HeroRaceCard from "@/components/HeroRaceCard";
-import HeroTraceBleed from "@/components/HeroTraceBleed";
 import LastRaceProof, { loadLastRace } from "@/components/LastRaceProof";
 import { formatPoints } from "@/lib/format";
 import { circuitTrace } from "@/lib/circuits";
@@ -61,15 +60,26 @@ export default async function Home() {
           shape every generated landing page has; a headline that starts on a
           margin reads as typeset rather than as centred-by-default. Below
           `lg` the trace drops under the buttons as a band. */}
-      <section className="relative flex min-h-svh flex-col justify-center overflow-hidden px-4 pt-28 pb-24 sm:pt-24">
-        {/* With no trace there is no light in the hero at all, and a section
-            lit by nothing reads as unfinished rather than as restrained. The
-            reduced glow stands in — still one source. */}
-        {!trace && <div className="page-glow" />}
-        {/* Below `lg` the circuit is a corner bleed rather than a card under
-            the buttons — see HeroTraceBleed. */}
-        {trace && <HeroTraceBleed trace={trace} />}
-        <div className="hero-grid" />
+      {/* ── The phone hero is a different composition, not a narrower one ──
+          It used to stack five blocks of type on three layers of decoration
+          inside one screen: eyebrow, two lines of display, three lines of
+          body, two full-width buttons and a cue, over the circuit trace, the
+          grid and the glow. The trace was the worst of it — on a phone it has
+          no column of its own, so it bled in from the top-right corner and
+          arrived *behind* the first line anyone reads.
+
+          Below `lg` there is now one light and nothing else. The type gets the
+          screen, and the air it needs; the trace keeps its column from `lg`
+          up, where it was always the right idea. */}
+      <section className="relative flex min-h-svh flex-col justify-center overflow-hidden px-4 pt-36 pb-24 sm:pt-24">
+        {/* One source of light at every width — the glow when the phone (or a
+            season between calendars) has no trace to be lit by, the trace's
+            own glow from `lg` up. A section lit by nothing reads as unfinished
+            rather than as restrained. */}
+        <div className={trace ? "page-glow lg:hidden" : "page-glow"} />
+        {/* Telemetry, not atmosphere — and on a 390px screen it is a third
+            texture behind type that already has to share with a glow. */}
+        <div className="hero-grid hidden sm:block" />
         {/* Fade the bottom to the page background so the trace's glow is never
             cut at the transition into the next section. Eight rem, and no
             more: it was tried at fourteen and fourteen reaches far enough up
@@ -99,7 +109,7 @@ export default async function Home() {
             <NextRaceLine
               race={race}
               hasTrace={Boolean(trace)}
-              className="rise-in mb-4 sm:mb-5"
+              className="rise-in mb-6 sm:mb-5"
             />
 
             {/* 60px and no further. The headline used to be 72px across a
@@ -117,22 +127,33 @@ export default async function Home() {
               <span className="hero-outline">Every single Sunday.</span>
             </h1>
 
-            <p className="rise-in rise-in-3 mt-6 max-w-xl text-base text-ink-dim sm:text-lg">
+            <p className="rise-in rise-in-3 mt-7 max-w-xl text-base leading-relaxed text-ink-dim sm:mt-6 sm:text-lg">
               Predict the top 10 of every Grand Prix and go head-to-head with a
               machine-learning model — all season long. Bold calls score big.
               Safe ones don&apos;t.
             </p>
 
-            <div className="rise-in rise-in-4 mt-10 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            {/* Two full-width buttons of equal weight is one button: the
+                second halves the pull of the first instead of adding to it.
+                From `sm` up they sit side by side and both earn their place;
+                below it, the secondary is a link (§7.9) under the primary. */}
+            <div className="rise-in rise-in-4 mt-12 flex w-full flex-col items-start gap-5 sm:mt-10 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
               <Link
                 href="/game"
-                className="pressable btn-race px-8 py-3.5 text-center text-base font-semibold"
+                className="pressable btn-race w-full px-8 py-4 text-center text-base font-semibold sm:w-auto sm:py-3.5"
               >
                 Play F1 Duel
               </Link>
               <Link
                 href="/model"
-                className="pressable glass-chip rounded-control px-8 py-3.5 text-center text-base font-semibold text-ink transition-colors hover:border-line-hi"
+                className="pressable group inline-flex items-center gap-2 text-base font-semibold text-race sm:hidden"
+              >
+                <span className="group-hover:underline">Explore the model</span>
+                <Arrow />
+              </Link>
+              <Link
+                href="/model"
+                className="pressable glass-chip hidden rounded-control px-8 py-3.5 text-center text-base font-semibold text-ink transition-colors hover:border-line-hi sm:inline-block"
               >
                 Explore the model
               </Link>
@@ -157,43 +178,50 @@ export default async function Home() {
           )}
         </div>
 
-        {/* The hero used to end here, with two fifths of the viewport empty
-            under the buttons and nothing saying the page continued. The cue
-            fills that gap with the one line that earns the scroll — a real
-            score, from a real Grand Prix, waiting a screen below. It is only
-            rendered when there is something to scroll to. */}
-        {lastRace && (
-          <Link
-            href="#last-race"
-            className="rise-in rise-in-5 group absolute inset-x-0 bottom-10 mx-auto flex w-fit flex-col items-center gap-2 px-4 text-center"
+        {/* The foot of the hero, and the one thing that says the page
+            continues. It is a real score from a real Grand Prix when there is
+            one — the strongest line the site owns — and the plain invitation
+            when there is not, because a hero that ends in nothing on a phone
+            is a hero people think is the whole site. */}
+        <Link
+          href={lastRace ? "#last-race" : "#the-game"}
+          className="rise-in rise-in-5 group absolute inset-x-0 bottom-10 mx-auto flex w-fit flex-col items-center gap-2.5 px-4 text-center"
+        >
+          <span className="font-mono text-[0.7rem] tracking-[0.18em] text-ink-dim uppercase transition-colors group-hover:text-ink sm:text-[0.65rem]">
+            {lastRace ? (
+              <>
+                Last time out it scored {formatPoints(lastRace.total)} ·{" "}
+                {lastRace.exact} of 10 exact
+              </>
+            ) : (
+              <>How the duel works</>
+            )}
+          </span>
+          <svg
+            aria-hidden
+            viewBox="0 0 16 16"
+            className="size-5 text-race transition-transform group-hover:translate-y-0.5 sm:size-4 sm:text-ink-mute"
           >
-            <span className="font-mono text-[0.65rem] tracking-[0.18em] text-ink-mute uppercase transition-colors group-hover:text-ink-dim">
-              Last time out it scored {formatPoints(lastRace.total)} ·{" "}
-              {lastRace.exact} of 10 exact
-            </span>
-            <svg
-              aria-hidden
-              viewBox="0 0 16 16"
-              className="size-4 text-ink-mute transition-transform group-hover:translate-y-0.5"
-            >
-              <path
-                d="M8 3v9m0 0 4-4m-4 4-4-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
-        )}
+            <path
+              d="M8 3v9m0 0 4-4m-4 4-4-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Link>
       </section>
 
       {/* ─── The proof ────────────────────────────────────────────────── */}
       <LastRaceProof />
 
       {/* ─── The game ─────────────────────────────────────────────────── */}
-      <section className="mx-auto w-[min(64rem,calc(100%-2rem))] py-24">
+      <section
+        id="the-game"
+        className="mx-auto w-[min(64rem,calc(100%-2rem))] scroll-mt-24 py-24"
+      >
         <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
           The game
         </p>

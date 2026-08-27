@@ -1330,10 +1330,14 @@ about which race is next.
   a rule, the race name, `MONZA · ROUND 13 · 11 CORNERS`, and the countdown as
   a four-column lap board. The eyebrow above the headline is hidden here, so
   the headline opens the page.
-- **Below `lg`:** the card would land under the buttons, so instead
-  `HeroTraceBleed` runs the same circuit in from the top-right corner as a
-  masked, `aria-hidden` ornament, and `NextRaceLine` carries the words and the
-  clock in one line above the headline.
+- **Below `lg`:** no circuit at all. It used to run in from the top-right
+  corner (`HeroTraceBleed`, deleted 2026-08-27) where it landed behind the
+  first line anyone reads, on a screen that was already carrying five blocks of
+  type over three layers of decoration. The phone hero is one light, one
+  headline, one button and a link, with `NextRaceLine` carrying the words and
+  the clock above the headline — and a foot that always invites the scroll: the
+  last Grand Prix's score when there is one, `How the duel works ↓` when there
+  is not. See `DESIGN.md` §6.3.
 
 On the card the trace carries a marker: a red dot that follows the mouse
 **along the track**, projecting onto the nearest point of the lap rather than
