@@ -999,11 +999,37 @@ component holding a matrix does not have to fake one.
 The loader phrases are original and name no real driver or team, so they neither
 date nor need clearing.
 
+**And the gantry is not only for waiting.** `StartLights` takes an optional
+`lit` (0–5): given one, it stops cycling and holds that many lights.
+`Countdown` uses it for the last hour before predictions lock — twelve minutes
+a light, dark at an hour out, all five from twelve minutes, and the lock itself
+is the blackout, which is what a blackout means on a real grid. The digits
+never leave: the lights are `aria-hidden` and a five-step scale besides, so the
+exact time stays printed beside them (§1.2). It is the site's own asset, put
+where it means something rather than only where something is loading.
+
 ### 7.8 Empty states
 
 `rounded-xl border border-line bg-glass px-4 py-8 text-center text-sm text-ink-mute`
 with one sentence that says what would fill it. Never an illustration, never a
 call to action inside the box.
+
+**An empty state is for a container that happens to be empty — not for a moment
+that is full.** Two screens looked like empty states and were not:
+
+- **`/game` with no Grand Prix to play** is the end of the season. There is a
+  champion, the model has a final total, and the viewer has a record against
+  it; a centred card saying "No upcoming race" states the one thing on that
+  page that is not interesting. `components/SeasonOver.tsx` prints the season
+  instead — a page title, a three-row spec sheet (§7.11), the next lights when
+  the calendar already has them, and the way to the final table. With nothing
+  scored at all it says the *honest* other thing — the calendar has not been
+  synced — because "the season is over" is not a fallback, it is a claim.
+- **A signed-out game surface is not empty either**, it is locked. See §7.13.
+
+**The rule this leaves:** reach for the empty box when there is genuinely
+nothing to say. When the reason the container is empty is itself the story, the
+screen tells that story.
 
 ### 7.9 Links, and the one arrow
 
@@ -1109,6 +1135,29 @@ upper third of the viewport, which is where the eye is, rather than when it
 crosses the top edge under a fixed nav. Entries arrive unordered, so the
 visible ones are re-sorted by `boundingClientRect.top` and the topmost wins.
 
+### 7.13 Locked, not veiled
+
+**The site does not blur anything.** `/game`'s editor used to sit under a scrim
+and 2px of blur with a card in the middle announcing there was something
+behind it. Content blurred behind a wall is a growth pattern that became a
+cliché, and here it was wrong twice over: what it hid was not secret — a
+finished Grand Prix, played by the model, published on `/model` — and a blur
+makes nobody want anything.
+
+The state is **stated** instead, and what it guards stays legible:
+
+- a padlock (§9) and the race it was played at, in the label above the list;
+- the list itself at full strength, non-interactive — `Slot` already renders
+  clean when `disabled`, without a clear button or a grip;
+- the sign-in pitch taking the column that would otherwise hold controls
+  nobody can use — a driver pool that cannot be picked from, a Driver of the
+  Day that cannot be chosen — and naming those three things in mono rather
+  than miming them.
+
+The promise moves from "there is something here" to **"this is what you would
+have been up against"**. Anything else that has to be withheld follows the same
+shape: say what it is, show what can be shown, and put the way in beside it.
+
 ---
 
 ## 8. Motion
@@ -1164,7 +1213,9 @@ Any new animation adds its own branch here.
 **There is no icon library.** The handful of icons are inline `<svg>` with
 `fill="none" stroke="currentColor" strokeWidth="1.5"` and round caps, sized with
 `size-4`/`size-5`, always `aria-hidden`. Typographic glyphs do the rest: `×` for
-close, `↗` for an external link, `?` in a disc for "why".
+close, `↗` for an external link, `?` in a disc for "why". The **padlock**
+(`PredictionEditor`) is one of the inline ones: it says a surface is locked
+without dimming what it locks (§7.13).
 
 **The compound ring** is the one drawn mark, and it is a border:
 
@@ -1496,7 +1547,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `RarityScale.tsx`, `RulesIndex.tsx`, `lib/bands.ts`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `RarityScale.tsx`, `RulesIndex.tsx`, `SeasonOver.tsx`, `StartLights.tsx`, `Countdown.tsx`, `lib/bands.ts`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
@@ -1509,7 +1560,8 @@ disagrees with it, so:
    the centred stat row, the red bullet discs, the arrows glued to labels, the
    two-hundred-cell heat map, the four steps in a 2×2 grid, the four counts
    drawn as tallies, the six feature cards, the card wrapped round the
-   fair-fight grid, the table of contents as a heap of capsules.
+   fair-fight grid, the table of contents as a heap of capsules, the blurred
+   veil over the editor, "No upcoming race" as an empty state.
    Keep adding them; they are what stops a fix from being re-broken.
 4. Design decisions that are *game* decisions belong in
    [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.
