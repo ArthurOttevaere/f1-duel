@@ -312,7 +312,9 @@ looking like a Ferrari one because of that.
 
 The one sequential scale in the system. Single hue, low→high, **never a
 rainbow**. The five stops are the game's multiplier tiers (`GAME_DESIGN` §2.2),
-defined once in `components/ProbabilityGrid.tsx`:
+defined once in **`lib/bands.ts`** — they left `ProbabilityGrid` when `/rules`
+needed to draw the rule in the chart's own colours, because a tier that changes
+in the game has to have exactly one place to change:
 
 | Probability | Fill | Multiplier |
 | --- | --- | --- |
@@ -1082,6 +1084,31 @@ On a phone the two halves stack (the grid columns only exist from `sm:`), which
 is why the label is set in mono caps rather than in bold sans — it still reads
 as a label with nothing to its right.
 
+### 7.12 The page index
+
+One page is long enough to need a spine (`/rules`, eight sections) and it had
+eight `glass-chip rounded-full` pills wrapping under the title — a heap that
+says neither that it is an index, nor how many sections there are, nor where
+you are in them.
+
+`components/RulesIndex.tsx` is a numbered list: `01`–`08` in mono ink-mute, the
+label in `text-sm`, sticky beside the reading column from `lg` up
+(`lg:sticky lg:top-28 lg:self-start`), the current section lit — label to full
+ink, numeral to race red. On a phone it is the same list, once, under the lead
+and not sticky: a rail on a 380px screen spends the width the reading needs
+(§1.5).
+
+**The section heads carry the same numerals**, in mono at `text-base`, so the
+rail is an index and not a second navigation — `01` on the left is `01` on the
+right. They are `aria-hidden`; the index is a `<nav aria-label>` of real
+anchors and the headings are already the document's structure.
+
+`IntersectionObserver`, never a scroll handler, with `rootMargin:
+"-30% 0px -55% 0px"` — a section becomes current when its heading reaches the
+upper third of the viewport, which is where the eye is, rather than when it
+crosses the top edge under a fixed nav. Entries arrive unordered, so the
+visible ones are re-sorted by `boundingClientRect.top` and the topmost wins.
+
 ---
 
 ## 8. Motion
@@ -1328,7 +1355,7 @@ player is about to do, which is fill P1…P10 with names.
 
 The five-swatch legend went with it. Every row prints its own multiplier beside
 its own bar, so the same five tiers spelled out underneath is a key to a chart
-that does not need one. The interpretive sentence stays (§12.4, rule 5).
+that does not need one. The interpretive sentence stays (§12.5, rule 5).
 
 ### 12.3 `CalibrationRecord` — what calibration did
 
@@ -1358,7 +1385,27 @@ Blocks are square-ended and 3px apart (§5.4). Below `sm:` the track drops to
 its own line under the label and the record, rather than being squeezed into a
 third of a phone.
 
-### 12.4 Rules for a new chart
+### 12.4 `RarityScale` — the rule, in the chart's colours
+
+Four bars on `/rules`, filled with `lib/bands.ts`'s first four fills, each
+carrying its own probability range and a sentence, with the multiplier facing
+it outside the fill. Read down, the fill fades and the multiplier climbs:
+**colour is how sure the model was, and the pale end is where the points are.**
+
+It replaced four table rows ("≥ 30% → ×1") for the mechanic the whole game
+turns on — while the picture of it already existed one page away. Drawing the
+rule with the chart's own colours makes `/model` and `/rules` one idea rather
+than two descriptions of it (§1.1), and it is the reason the bands are shared
+code and not two copies of five hex values.
+
+Two details carried over from the matrix's rows: the fill **stops short of the
+multiplier**, because ×3 is drawn in race red and a full-strength red bar
+swallowed it whole; and text on a band is light ink at every band, contrast
+checked (§3.4). The scale prints **four** steps where the bands have five — the
+fifth is a shade for a flat field, it pays the same ×3, and a rule listing two
+identical payouts is one nobody finishes reading.
+
+### 12.5 Rules for a new chart
 
 1. One hue, sequential, low→high. Never a rainbow, never a diverging scale unless the data actually diverges.
 2. If the scale encodes a game rule, use the rule's own thresholds.
@@ -1449,7 +1496,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `RarityScale.tsx`, `RulesIndex.tsx`, `lib/bands.ts`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
@@ -1462,7 +1509,7 @@ disagrees with it, so:
    the centred stat row, the red bullet discs, the arrows glued to labels, the
    two-hundred-cell heat map, the four steps in a 2×2 grid, the four counts
    drawn as tallies, the six feature cards, the card wrapped round the
-   fair-fight grid.
+   fair-fight grid, the table of contents as a heap of capsules.
    Keep adding them; they are what stops a fix from being re-broken.
 4. Design decisions that are *game* decisions belong in
    [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.

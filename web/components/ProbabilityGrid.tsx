@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { DriverAvatar } from "@/components/DriverChip";
 import { NEUTRAL_COLOR } from "@/lib/teams";
+import { bandFor } from "@/lib/bands";
 
 /**
  * The model's position-probability matrix, read one position at a time.
@@ -49,26 +50,6 @@ export interface GridDriver {
   /** Probabilities for P1…P10, already sliced. */
   probs: number[];
 }
-
-/**
- * Probability floor, then the tier it falls in. Highest band first.
- *
- * The row's text sits *on top of* its own fill, so the contrast was checked
- * rather than guessed: the strongest fill composites to about #e11b36 on this
- * surface, which is 4.9:1 against #f4f6fa and only 4.0:1 against the page
- * black — the "obvious" dark-text treatment for a bright band is the worse one
- * here, and the middle band (#8f1426) is not close: 10:1 light, 1.9:1 dark.
- * Every row is light ink for that reason, at every band.
- */
-const BANDS = [
-  { min: 0.3, mult: "×1", fill: "rgb(255 30 60 / 0.88)" },
-  { min: 0.15, mult: "×1.5", fill: "rgb(255 30 60 / 0.55)" },
-  { min: 0.05, mult: "×2", fill: "rgb(255 30 60 / 0.3)" },
-  { min: 0.02, mult: "×3", fill: "rgb(255 30 60 / 0.14)" },
-  { min: 0, mult: "×3", fill: "rgb(255 255 255 / 0.03)" },
-] as const;
-
-const bandFor = (p: number) => BANDS.find((b) => p >= b.min) ?? BANDS[BANDS.length - 1];
 
 const pct = (p: number) => `${Math.round(p * 100)}%`;
 
@@ -162,7 +143,7 @@ export default function ProbabilityGrid({
           <div className="min-w-0">
             <p
               // The one line that says what is being read. It carries the
-              // interpretation rather than restating the title (§12.4).
+              // interpretation rather than restating the title (§12.5).
               aria-live="polite"
               className="text-sm leading-relaxed text-ink-dim"
             >
@@ -261,7 +242,7 @@ export default function ProbabilityGrid({
       {/* The five-swatch legend went with the heat map. Every row prints its
           own multiplier beside its own bar, so a key spelling out the same
           five tiers underneath is a key to a chart that does not need one.
-          What stays is the sentence — what the pale end means (§12.4). */}
+          What stays is the sentence — what the pale end means (§12.5). */}
       <figcaption className="mt-4 text-sm leading-relaxed text-ink-dim">
         Colour is how sure the model is. The multiplier runs the other way, so{" "}
         <strong className="text-ink">the faint end is where the points are</strong>{" "}
