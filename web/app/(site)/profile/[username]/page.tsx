@@ -268,8 +268,8 @@ export default async function ProfilePage({
       {/* ── The two calls that theme this whole page ── */}
       {pick && value && (
         <section className="mt-6">
-          <h2 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
-            CHAMPIONSHIP CALL
+          <h2 className="mb-3 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+            Championship call
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <div
@@ -344,8 +344,8 @@ export default async function ProfilePage({
       {/* ── Form ── */}
       {form.length > 0 && (
         <section className="mt-8">
-          <h2 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
-            RECENT FORM
+          <h2 className="mb-3 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+            Recent form
           </h2>
           <FormStrip entries={form} />
         </section>
@@ -360,8 +360,8 @@ export default async function ProfilePage({
 
       {/* ── Duel history ── */}
       <section className="mt-8">
-        <h2 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
-          DUEL HISTORY
+        <h2 className="mb-3 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+          Duel history
         </h2>
         {chrono.length === 0 ? (
           <p className="glass-chip rounded-panel px-5 py-4 text-sm text-ink-mute">
@@ -421,8 +421,8 @@ export default async function ProfilePage({
           delete is actually armed (see DeleteAccount). */}
       {isOwner && (
         <section className="mt-8">
-          <h2 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
-            ACCOUNT
+          <h2 className="mb-3 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+            Account
           </h2>
           <div className="border-b border-line">
             <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-line py-4">

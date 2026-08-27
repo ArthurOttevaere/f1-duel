@@ -80,8 +80,8 @@ export function PickBoard({
               past the frame. Below `lg` it is the column. */}
           <div className="w-full lg:w-[27rem] lg:max-w-none">
             <div className="mb-3 flex items-baseline justify-between gap-3">
-              <span className="text-sm font-semibold tracking-wide text-ink-dim">
-                YOUR TOP 10
+              <span className="font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+                Your top 10
               </span>
               <span className="font-mono text-xs text-ink-mute">
                 {filled}/10

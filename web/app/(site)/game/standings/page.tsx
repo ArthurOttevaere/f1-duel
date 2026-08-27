@@ -5,6 +5,8 @@ import { formatMargin, formatPoints } from "@/lib/format";
 import type { LeaderboardRow, League, Race } from "@/lib/types";
 import LeagueSwitcher from "@/components/LeagueSwitcher";
 import LeagueCardActions from "@/components/LeagueCardActions";
+import SeasonRaces from "@/components/SeasonRaces";
+import StandingsPager from "@/components/StandingsPager";
 import { modelEntries, modelSeason } from "@/lib/model";
 
 export const metadata = { title: "Standings" };
@@ -18,34 +20,6 @@ interface MyRace {
   total: number;
   beat_model: boolean;
   drew_model: boolean;
-}
-
-function PageLink({
-  page,
-  leagueId,
-  disabled,
-  label,
-}: {
-  page: number;
-  leagueId: number | null;
-  disabled: boolean;
-  label: string;
-}) {
-  if (disabled) {
-    return <span className="text-ink-mute opacity-40">{label}</span>;
-  }
-  const params = new URLSearchParams();
-  if (leagueId !== null) params.set("league", String(leagueId));
-  if (page > 1) params.set("page", String(page));
-  const query = params.toString();
-  return (
-    <Link
-      href={`/game/standings${query ? `?${query}` : ""}`}
-      className="pressable glass-chip rounded-control px-4 py-1.5 text-ink-dim transition-colors hover:text-ink"
-    >
-      {label}
-    </Link>
-  );
 }
 
 export default async function StandingsPage({
@@ -169,17 +143,39 @@ export default async function StandingsPage({
             </section>
           )}
 
-          <Board lines={lines} empty={board.length === 0} viewerId={user.id} />
+          <Board
+            lines={lines}
+            empty={board.length === 0}
+            viewerId={user.id}
+            model={model}
+          />
 
           {totalPages > 1 && (
-            <Pagination page={page} totalPages={totalPages} totalPlayers={totalPlayers} leagueId={leagueId} />
+            <StandingsPager
+              page={page}
+              totalPages={totalPages}
+              totalPlayers={totalPlayers}
+              leagueId={leagueId}
+              perPage={PER_PAGE}
+            />
           )}
         </LeagueSwitcher>
       ) : (
         <>
-          <Board lines={lines} empty={board.length === 0} viewerId={null} />
+          <Board
+            lines={lines}
+            empty={board.length === 0}
+            viewerId={null}
+            model={model}
+          />
           {totalPages > 1 && (
-            <Pagination page={page} totalPages={totalPages} totalPlayers={totalPlayers} leagueId={leagueId} />
+            <StandingsPager
+              page={page}
+              totalPages={totalPages}
+              totalPlayers={totalPlayers}
+              leagueId={leagueId}
+              perPage={PER_PAGE}
+            />
           )}
         </>
       )}
@@ -187,111 +183,65 @@ export default async function StandingsPage({
       {/* Outside the switcher on purpose: the season's races are the same
           whichever league you are looking at, so they should not blink. */}
       {scoredRaces.length > 0 && (
-        <section>
-          <div className="mb-3 flex items-baseline justify-between gap-4">
-            <h2 className="text-sm font-semibold tracking-wide text-ink-dim">
-              RACE BY RACE
-            </h2>
-            {user && (
-              <p className="font-mono text-xs text-ink-mute">
-                your score · duel result
-              </p>
-            )}
-          </div>
-
-          {/* Was a wrap of identical pills, which at 24 rounds read as one
-              undifferentiated heap. One card per race instead: two columns on
-              a phone is too tight, three on a desktop keeps a full season to
-              a few rows. */}
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {scoredRaces.map((r) => {
-              const mine = myRaces.get(r.id);
-              return (
-                <Link
-                  key={r.id}
-                  href={`/game/races/${r.round}`}
-                  className="pressable glass-chip flex items-center gap-3 rounded-panel px-3 py-2.5 transition-colors hover:border-line-hi"
-                >
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-control bg-race/10 font-mono text-xs font-semibold text-race">
-                    {String(r.round).padStart(2, "0")}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-medium">
-                      {r.name.replace(" Grand Prix", "")}
-                    </span>
-                    <span className="block truncate font-mono text-[0.7rem] text-ink-mute">
-                      {r.circuit ?? "Grand Prix"}
-                    </span>
-                  </span>
-                  {user && (
-                    <span className="flex shrink-0 flex-col items-end leading-tight">
-                      <span className="font-mono text-sm">
-                        {mine ? formatPoints(Number(mine.total)) : "—"}
-                      </span>
-                      {mine && (
-                        <span
-                          className={`font-mono text-[0.6rem] tracking-wider ${
-                            mine.beat_model
-                              ? "text-race"
-                              : mine.drew_model
-                                ? "text-ink-dim"
-                                : "text-ink-mute"
-                          }`}
-                        >
-                          {mine.beat_model
-                            ? "BEAT"
-                            : mine.drew_model
-                              ? "DREW"
-                              : "LOST"}
-                        </span>
-                      )}
-                    </span>
-                  )}
-                </Link>
-              );
-            })}
-          </div>
-        </section>
+        <SeasonRaces
+          races={scoredRaces.map((r) => ({
+            id: r.id,
+            round: r.round,
+            name: r.name,
+            circuit: r.circuit,
+          }))}
+          mine={user ? myRaces : null}
+        />
       )}
     </div>
   );
 }
 
-function Pagination({
-  page,
-  totalPages,
-  totalPlayers,
-  leagueId,
-}: {
-  page: number;
-  totalPages: number;
-  totalPlayers: number;
-  leagueId: number | null;
-}) {
+/**
+ * The board before anybody has scored.
+ *
+ * It used to say "No duels scored yet — the season table fills in after the
+ * first race weekend": honest, and with nothing to take hold of. The hook was
+ * already on screen, one block up, in `ModelBar` — **the opponent has a score
+ * and you do not.** So the empty state is built on that asymmetry instead of
+ * announcing an absence, and it is the one empty state on the site allowed a
+ * call to action inside it (§7.8), because the thing it is missing is exactly
+ * the thing the button does.
+ *
+ * Before the model has played either — a genuinely empty season — there is no
+ * asymmetry to point at and the screen says the plain thing.
+ */
+function EmptyBoard({ points, races }: { points: number; races: number }) {
+  const started = races > 0;
   return (
-    <nav className="flex items-center justify-between text-sm">
-      <PageLink
-        page={page - 1}
-        leagueId={leagueId}
-        disabled={page === 1}
-        label="← Previous"
-      />
-      <span className="font-mono text-xs text-ink-mute">
-        Page {page} of {totalPages} · {totalPlayers} player
-        {totalPlayers === 1 ? "" : "s"}
-      </span>
-      <PageLink
-        page={page + 1}
-        leagueId={leagueId}
-        disabled={page === totalPages}
-        label="Next →"
-      />
-    </nav>
+    <section className="border-t border-line py-12">
+      <h3 className="display max-w-lg text-xl font-extrabold tracking-tight sm:text-2xl">
+        {started ? (
+          <>
+            The model is already on{" "}
+            <span className="text-race tabular-nums">
+              {formatPoints(points)}
+            </span>{" "}
+            points. Nobody else is on the board.
+          </>
+        ) : (
+          <>Nobody has played yet — the model included.</>
+        )}
+      </h3>
+      <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-dim">
+        {started
+          ? `It has played ${races} ${races === 1 ? "Grand Prix" : "Grands Prix"} and won every duel it was offered, because nobody has offered one. The table starts counting the moment somebody does.`
+          : "The table fills in after the first Grand Prix is scored — the model files its top 10 after qualifying, you file yours before lights out."}
+      </p>
+      <Link
+        href="/game"
+        className="pressable btn-race mt-6 inline-block px-7 py-3 text-sm font-semibold"
+      >
+        Enter this weekend&apos;s duel
+      </Link>
+    </section>
   );
 }
-
-const EMPTY_BOARD =
-  "No duels scored yet — the season table fills in after the first race weekend.";
 
 /**
  * The model, above the board rather than on it.
@@ -340,11 +290,18 @@ function Board({
   lines,
   empty,
   viewerId,
+  model,
 }: {
   lines: { row: LeaderboardRow; rank: number }[];
   empty: boolean;
   viewerId: string | null;
+  /** Only used when there is nobody on the board — see EmptyBoard. */
+  model: { points: number; races: number };
 }) {
+  // One empty state, not an empty list on a phone and an empty table beside
+  // it: with no rows there is nothing for the two cuts to disagree about.
+  if (empty) return <EmptyBoard points={model.points} races={model.races} />;
+
   const rows = lines.map(({ row, rank }) => ({
     key: row.user_id,
     rank,
@@ -413,11 +370,6 @@ function Board({
             </span>
           </li>
         ))}
-        {empty && (
-          <li className="rounded-control border border-line bg-glass px-4 py-8 text-center text-sm text-ink-mute">
-            {EMPTY_BOARD}
-          </li>
-        )}
       </ul>
 
       {/* ── Tablet and up: the full table ── */}
@@ -462,13 +414,6 @@ function Board({
                 </td>
               </tr>
             ))}
-            {empty && (
-              <tr>
-                <td colSpan={6} className="px-3 py-10 text-center text-ink-mute">
-                  {EMPTY_BOARD}
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
       </section>

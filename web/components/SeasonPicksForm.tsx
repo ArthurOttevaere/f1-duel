@@ -49,8 +49,8 @@ export default function SeasonPicksForm({
   return (
     <div className="mt-8 flex flex-col gap-8">
       <section>
-        <h2 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
-          DRIVERS&apos; CHAMPION
+        <h2 className="mb-3 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+          Drivers&apos; champion
         </h2>
         <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
           {roster.map((d) => (
@@ -74,8 +74,8 @@ export default function SeasonPicksForm({
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
-          CONSTRUCTORS&apos; CHAMPION
+        <h2 className="mb-3 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+          Constructors&apos; champion
         </h2>
         <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
           {teams.map(({ team: t, color }) => (
