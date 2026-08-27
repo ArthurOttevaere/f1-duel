@@ -1071,6 +1071,13 @@ enumeration under them, in two wide columns with `gap-y-12` and no line
 anywhere. Same principle (§1.4), less furniture. Reach for the spec sheet when
 the right column is a *value*, and for titled blocks when it is prose.
 
+**A titled block needs a mark, or it competes with the section head.** At
+`text-lg` extrabold the six titles read as six more headings under a
+`text-2xl` one, and the page loses which of the seven is in charge. They are
+`text-base` with a **compound ring** hanging beside them (§9) — the same
+distance in size, plus a mark that says "item", plus the red the section head
+does not have.
+
 On a phone the two halves stack (the grid columns only exist from `sm:`), which
 is why the label is set in mono caps rather than in bold sans — it still reads
 as a label with nothing to its right.
@@ -1131,6 +1138,17 @@ Any new animation adds its own branch here.
 `fill="none" stroke="currentColor" strokeWidth="1.5"` and round caps, sized with
 `size-4`/`size-5`, always `aria-hidden`. Typographic glyphs do the rest: `×` for
 close, `↗` for an external link, `?` in a disc for "why".
+
+**The compound ring** is the one drawn mark, and it is a border:
+
+```tsx
+<span aria-hidden className="size-3.5 shrink-0 rounded-full border-[3px] border-race" />
+```
+
+A red annulus is how a timing screen says *soft*, so it is a bullet this sport
+already owns — and it costs one element, no asset and no `<svg>`. It marks the
+items of a titled list (§7.11) and nothing else; it is always the red one,
+because varying the compound would promise a meaning the list does not have.
 
 **Driver portraits** live at `web/public/drivers/{driver_id}.webp` — 22 files,
 ~24 kB each. WebP is not optional: the same portraits as PNG-24 were ~210 kB

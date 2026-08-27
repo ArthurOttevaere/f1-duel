@@ -121,10 +121,20 @@ export default async function ModelPage() {
           <div className="mt-10 grid gap-x-12 gap-y-10 sm:grid-cols-2 sm:gap-y-12 lg:gap-x-20">
             {FEATURE_GROUPS.map((g) => (
               <div key={g.label}>
-                <h3 className="display text-lg font-extrabold tracking-tight">
+                {/* The compound ring — a red annulus is how a timing screen
+                    says "soft", and it is the one mark this site can draw
+                    without owning an icon set: a circle, a border, nothing
+                    else. It hangs in the margin so the six titles read as
+                    items under the section head rather than as six more
+                    headings competing with it (§9). */}
+                <h3 className="display flex items-center gap-2.5 text-base font-extrabold tracking-tight">
+                  <span
+                    aria-hidden
+                    className="size-3.5 shrink-0 rounded-full border-[3px] border-race"
+                  />
                   {g.label}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-dim">
+                <p className="mt-2 pl-6 text-sm leading-relaxed text-ink-dim">
                   {g.items}
                 </p>
               </div>
