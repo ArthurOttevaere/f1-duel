@@ -71,7 +71,7 @@ export default async function Home() {
           Below `lg` there is now one light and nothing else. The type gets the
           screen, and the air it needs; the trace keeps its column from `lg`
           up, where it was always the right idea. */}
-      <section className="relative flex min-h-svh flex-col justify-center overflow-hidden px-4 pt-36 pb-24 sm:pt-24">
+      <section className="relative flex min-h-svh flex-col justify-center overflow-hidden px-4 pt-36 pb-32 sm:pt-24 sm:pb-24">
         {/* One source of light at every width — the glow when the phone (or a
             season between calendars) has no trace to be lit by, the trace's
             own glow from `lg` up. A section lit by nothing reads as unfinished
@@ -179,23 +179,34 @@ export default async function Home() {
         </div>
 
         {/* The foot of the hero, and the one thing that says the page
-            continues. It is a real score from a real Grand Prix when there is
-            one — the strongest line the site owns — and the plain invitation
-            when there is not, because a hero that ends in nothing on a phone
-            is a hero people think is the whole site. */}
+            continues.
+
+            **On a phone it is two words.** It used to carry the last Grand
+            Prix's score — the strongest line the site owns — but on a 390px
+            screen that line lands within a few pixels of the "Explore the
+            model" link above it, and two pieces of red-adjacent type touching
+            each other read as one broken block. The score keeps its place from
+            `sm` up, where there is room between them.
+
+            The offset carries `env(safe-area-inset-bottom)` because the last
+            thing at the bottom of an iPhone is the home indicator, not the
+            page: without it the arrow sits under the bar. */}
         <Link
           href={lastRace ? "#last-race" : "#the-game"}
-          className="rise-in rise-in-5 group absolute inset-x-0 bottom-10 mx-auto flex w-fit flex-col items-center gap-2.5 px-4 text-center"
+          className="rise-in rise-in-5 group absolute inset-x-0 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] mx-auto flex w-fit flex-col items-center gap-2 px-4 text-center sm:bottom-10 sm:gap-2.5"
         >
-          <span className="font-mono text-[0.7rem] tracking-[0.18em] text-ink-dim uppercase transition-colors group-hover:text-ink sm:text-[0.65rem]">
-            {lastRace ? (
-              <>
-                Last time out it scored {formatPoints(lastRace.total)} ·{" "}
-                {lastRace.exact} of 10 exact
-              </>
-            ) : (
-              <>How the duel works</>
-            )}
+          <span className="font-mono text-[0.65rem] tracking-[0.18em] text-ink-mute uppercase transition-colors group-hover:text-ink-dim sm:text-ink-dim sm:group-hover:text-ink">
+            <span className="sm:hidden">Scroll down</span>
+            <span className="hidden sm:inline">
+              {lastRace ? (
+                <>
+                  Last time out it scored {formatPoints(lastRace.total)} ·{" "}
+                  {lastRace.exact} of 10 exact
+                </>
+              ) : (
+                <>How the duel works</>
+              )}
+            </span>
           </span>
           <svg
             aria-hidden
