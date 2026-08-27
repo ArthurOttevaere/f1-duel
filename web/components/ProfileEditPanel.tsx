@@ -4,6 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import UsernameForm from "@/components/UsernameForm";
 import PlayerDetailsForm from "@/components/PlayerDetailsForm";
+import ProfileThemeToggle, {
+  type ProfileTheme,
+} from "@/components/ProfileThemeToggle";
 import type { Details } from "@/components/PlayerDetailsFields";
 
 /**
@@ -21,9 +24,25 @@ import type { Details } from "@/components/PlayerDetailsFields";
 export default function ProfileEditPanel({
   username,
   details,
+  theme,
+  variant = "chip",
 }: {
   username: string;
   details: Details;
+  /** Absent when the player has no championship call to take a colour from. */
+  theme?: {
+    value: ProfileTheme;
+    driverColor: string;
+    teamColor: string;
+    driverLabel: string;
+    teamLabel: string;
+  };
+  /**
+   * `chip` is the button on the cover; `row` is the same panel opened from a
+   * line of the account sheet at the bottom of the page. One control, two
+   * places — like signing out, which is in the nav and on this page.
+   */
+  variant?: "chip" | "row";
 }) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -81,7 +100,30 @@ export default function ProfileEditPanel({
                 </button>
               </div>
 
-              <section className="mt-6">
+              {theme && (
+                <>
+                  <section className="mt-6">
+                    <h3 className="mb-3 font-mono text-[0.65rem] tracking-[0.18em] text-ink-dim uppercase">
+                      Profile colour
+                    </h3>
+                    <ProfileThemeToggle
+                      initial={theme.value}
+                      driverColor={theme.driverColor}
+                      teamColor={theme.teamColor}
+                      driverLabel={theme.driverLabel}
+                      teamLabel={theme.teamLabel}
+                    />
+                    <p className="mt-2 text-xs leading-relaxed text-ink-mute">
+                      Paints the cover, the portrait ring, the season curve and
+                      your championship stubs.
+                    </p>
+                  </section>
+
+                  <hr className="my-6 border-line" />
+                </>
+              )}
+
+              <section className={theme ? "" : "mt-6"}>
                 <h3 className="mb-3 font-mono text-[0.65rem] tracking-[0.18em] text-ink-dim uppercase">
                   Username
                 </h3>
@@ -107,9 +149,13 @@ export default function ProfileEditPanel({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="pressable glass-chip rounded-control px-5 py-2 text-sm font-medium text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
+        className={
+          variant === "chip"
+            ? "pressable glass-chip rounded-control px-5 py-2 text-sm font-medium text-ink-dim transition-colors hover:border-line-hi hover:text-ink"
+            : "pressable rounded-control px-3 py-1.5 text-sm font-medium text-ink-dim underline-offset-4 transition-colors hover:text-ink hover:underline"
+        }
       >
-        Edit profile
+        {variant === "chip" ? "Edit profile" : "Edit"}
       </button>
       {overlay}
     </>

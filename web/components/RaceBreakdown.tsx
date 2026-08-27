@@ -262,16 +262,24 @@ function Cell({ entry, divider }: { entry: BreakdownEntry | null; divider?: bool
   );
 }
 
-/** The "?" disc that marks a row as openable, and shows it is open. */
-function WhyDot({ open }: { open: boolean }) {
+/**
+ * What marks a row as openable — and it is a word, not a glyph.
+ *
+ * It was a 20px disc with a question mark in it, which is the default help
+ * icon of every interface and says nothing about what it opens. This site has
+ * no icon set (DESIGN §9) and did not need to invent one here: "why" is
+ * shorter than the disc, states the question the row answers, and can say
+ * "close" when the row is open, which a "?" never could.
+ */
+function WhyMark({ open }: { open: boolean }) {
   return (
     <span
       aria-hidden
-      className={`grid size-5 shrink-0 place-items-center rounded-full border text-[0.65rem] font-semibold transition-colors ${
-        open ? "border-race bg-race text-white" : "border-line text-ink-mute"
+      className={`shrink-0 font-mono text-[0.65rem] tracking-[0.14em] underline decoration-dotted underline-offset-4 uppercase transition-colors ${
+        open ? "text-race" : "text-ink-mute"
       }`}
     >
-      ?
+      {open ? "close" : "why"}
     </span>
   );
 }
@@ -317,7 +325,7 @@ export default function RaceBreakdown({
                   <span className="font-mono text-sm font-semibold text-ink-mute">
                     P{r.position}
                   </span>
-                  <WhyDot open={isOpen} />
+                  <WhyMark open={isOpen} />
                 </span>
 
                 <span className="grid grid-cols-[3.6rem_1fr] items-center gap-x-2 gap-y-1.5">
@@ -400,7 +408,7 @@ export default function RaceBreakdown({
                       <span className="font-mono text-sm text-ink-mute">
                         P{r.position}
                       </span>
-                      <WhyDot open={isOpen} />
+                      <WhyMark open={isOpen} />
                     </button>
                   </td>
                   {signedIn && <Cell entry={r.mine} divider />}

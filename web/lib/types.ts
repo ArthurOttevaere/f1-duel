@@ -101,6 +101,11 @@ export interface Profile {
   username: string;
   /** false while the name is only a suggestion (OAuth signup, see /welcome). */
   username_set: boolean;
+  /**
+   * Which half of the championship call paints the profile (migration 0010).
+   * Optional: a deploy that lands before the migration reads it as "driver".
+   */
+  theme?: "driver" | "team";
   created_at: string;
 }
 

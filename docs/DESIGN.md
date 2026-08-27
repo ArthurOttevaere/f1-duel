@@ -1206,6 +1206,33 @@ tabular, and the two controls are `size-9` squares with a chevron and an
 `aria-label` — a chevron is not a word and does not need one beside it. The
 disabled end is a `<span>` at 40%, not a dead link.
 
+### 7.15 The betting stub
+
+`components/PickStub.tsx`, on the profile, and the one place the site borrows a
+register from outside its own furniture.
+
+A championship call is **a bet locked for life, taken on a date, whose value
+depends on that date** — and every part of that is already in the database:
+when it was locked, where the driver stood at the time, how much of the season
+was still to run, what it finally paid. It used to be two `glass-card`s
+carrying a name and a team, and none of that was rendered anywhere.
+
+So the stub prints the four as a ticket: the call, then `Called` / `Standing
+then` / `Season left` (a square-ended bar) / `Worth`, in the pick's own colour.
+Settled, the value becomes a `✓` and the pair carries what was banked.
+
+The tear line is `.stub-perf` — a `repeating-linear-gradient` and a notch
+punched at each end with two page-coloured discs. Like `.checker-edge` (§6.4),
+it is a line, not an image.
+
+**The colour is the player's choice** (migration 0010, `ProfileThemeToggle`).
+`profiles.theme` is `driver` or `team`, and it repaints the cover, the portrait
+ring, the season curve and both stubs. It exists because a driver and their
+constructor are frequently two shades of one hue: the site's single identity
+choice was invisible half the time. The toggle is two swatches rather than a
+dropdown — there are two values and both are colours — with `aria-pressed` and
+a ring on the chosen one, so the state is never colour alone (§1.2).
+
 ---
 
 ## 8. Motion
@@ -1283,6 +1310,12 @@ each, and the pick screen renders all twenty-two, so it was pulling 4.6 MB.
 
 Portraits are `loading="lazy" decoding="async"` and every use has an `onError`
 fallback to the driver's code on a tinted disc.
+
+**And no flags.** The profile carried the owner's country as an emoji flag
+beside their username, visible to nobody else. An ornament only its owner can
+see is a setting that escaped into the layout, and a colour emoji was the one
+glyph on the site that came from outside the type. The country is still
+collected, and still private.
 
 **There are no other images — including the product shot.**
 `components/PickBoardShot.tsx` is the only picture of the product on the home
@@ -1414,9 +1447,21 @@ than all of them together.
 
 Two polylines in a `100 × 40` user-unit SVG with `preserveAspectRatio="none"`,
 so it stretches to any width; `vector-effect="non-scaling-stroke"` keeps the
-strokes an honest 1px through that stretch. Your line is your season-pick
-colour, the model's is race red. Below two scored races it renders nothing at
-all — one point is a dot, not a curve.
+strokes an honest 1px through that stretch. Your line is your profile colour
+(§7.15), the model's is a dashed grey. Below two scored races it renders
+nothing at all — one point is a dot, not a curve.
+
+**The last five duels are marked on the line**, in the W/D/L tones of §3.2.
+They were a strip of five coloured capsules above it — a summary of the list
+that followed, in the last pills left on the site — and they sit where the
+results actually happened now. The markers are **HTML spans positioned over
+the SVG**, not `<circle>`s: the stretched viewBox turns any circle into an
+ellipse, and the percentages that place them are the same numbers the path is
+built from.
+
+It also lost its `glass-card`: it sits beside the duel history inside one "The
+season" block, and a card around a chart that is already framed by its own axis
+is the surface-on-surface habit M-3 removed on `/model`.
 
 ### 12.2 `ProbabilityGrid` — the matrix, one position at a time
 
@@ -1595,7 +1640,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `RarityScale.tsx`, `RulesIndex.tsx`, `SeasonOver.tsx`, `SeasonRaces.tsx`, `StandingsPager.tsx`, `StartLights.tsx`, `Countdown.tsx`, `lib/bands.ts`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `RarityScale.tsx`, `RulesIndex.tsx`, `SeasonOver.tsx`, `SeasonRaces.tsx`, `StandingsPager.tsx`, `StartLights.tsx`, `Countdown.tsx`, `PickStub.tsx`, `ProfileView.tsx`, `lib/bands.ts`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
@@ -1610,7 +1655,8 @@ disagrees with it, so:
    drawn as tallies, the six feature cards, the card wrapped round the
    fair-fight grid, the table of contents as a heap of capsules, the blurred
    veil over the editor, "No upcoming race" as an empty state, the season as a
-   grid of cards, `RACE BY RACE` typed in capitals, "← Previous / Next →".
+   grid of cards, `RACE BY RACE` typed in capitals, "← Previous / Next →", the
+   profile's flag emoji, the five form capsules, the "?" disc.
    Keep adding them; they are what stops a fix from being re-broken.
 4. Design decisions that are *game* decisions belong in
    [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.
