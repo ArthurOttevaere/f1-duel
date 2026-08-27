@@ -27,6 +27,15 @@
   --color-race: #ff1e3c;
   --color-race-deep: #c8102e;
 
+  /* The timing set — the three colours of a qualifying mini-sector, and the
+     only place the site borrows a scale from the sport's own screens: purple
+     is the fastest anyone has gone, green is a personal best, yellow is
+     slower than that. They exist as a *scale* and are never used one at a
+     time; `CalibrationRecord` is the only consumer. */
+  --color-sector-purple: #b24bf3;
+  --color-sector-green: #00e701;
+  --color-sector-yellow: #ffd800;
+
   --color-glass: rgb(255 255 255 / 0.045);
   --color-glass-strong: rgb(255 255 255 / 0.07);
   --color-line: rgb(255 255 255 / 0.1);

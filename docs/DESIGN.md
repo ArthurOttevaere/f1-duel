@@ -269,6 +269,27 @@ tone.** It works because red is never the only signal — an error is a short
 sentence, and the model's win is labelled. Do not introduce a separate error
 red.
 
+**The timing set — three colours borrowed whole from a qualifying screen.**
+
+| Token | Value | Means |
+| --- | --- | --- |
+| `--color-sector-purple` | `#b24bf3` | Fastest anyone has gone |
+| `--color-sector-green` | `#00e701` | A personal best |
+| `--color-sector-yellow` | `#ffd800` | Slower than that |
+
+They exist because a W/D/L triple has no order of its own — emerald, amber and
+race red are three categories that happen to sit side by side — where the
+mini-sector colours are a **scale the sport has already taught every viewer to
+read best → worst at a glance**. `CalibrationRecord` (§12.3) is the only
+consumer: the weekends a grid-copying human wins are purple, the draws green,
+the ones the model takes yellow.
+
+**They are only ever used together, as that scale.** A lone purple block
+somewhere else on the site would mean nothing, and the set costs one real
+thing — red means "the model winning" everywhere else (§12.3 says so out loud).
+Anything that is a *state* rather than a ranking keeps the emerald/amber/red
+row above.
+
 ### 3.3 Constructor colours
 
 Team colour is data, not design. `drivers.team_color` comes from FastF1 and is
@@ -586,6 +607,44 @@ now (§7.9), to `/rules#scoring`.
 The general rule the third attempt found: **a marketing page states the claim,
 the canonical page holds the numbers, and only one of them gets to be
 canonical.** Duplicating a rule in two places is a promise to update both.
+
+**And where the steps carry numbers of their own, the sequence is drawn rather
+than numbered.** `/model`'s pipeline was the second instance of the three-card
+block — four cards, in a 2×2 grid, which is the one arrangement that destroys
+the only thing a sequence has: a reading order. It did not become hanging
+numerals. Its four steps already count something — 8 seasons, 2 models, 10,000
+simulations, 1 top 10 played — and an `01`–`04` series beside those would be
+four indices arguing with four counts.
+
+`components/ModelPipeline.tsx` sets those counts **the size of a car number** —
+48px of mono, standing on the connecting rule, one size for all four so that
+what varies along the track is the *width* of the number. Left to right that
+funnel is the claim the prose makes, so the picture and the rule are the same
+thing (§1.1), and race red stays on the one stage that is the model acting
+rather than the model reading.
+
+**What lost: the same four counts as tallies** — eight strokes, two, a hatch on
+the same 7px pitch running off its own edge, one in red. It was legible as a
+funnel and completely mute as to why there were marks there at all: the first
+question it raised was what the strokes meant, which is the one question an
+illustration may not raise. A number needs no key. (It is also why the numerals
+are mono and not `.display`: every number on this site is data, §4.2.)
+
+Two construction notes, both load-bearing:
+
+- **The connecting trait is the cells' own top borders**, touching, not an
+  absolutely-positioned rule — so it is continuous by construction and there is
+  nothing to keep in sync when the copy changes. Gutters therefore live on the
+  content *inside* each cell; a `gap-x` on the grid would cut the line into
+  four. Below `lg` the same borders stack and the block is a vertical list
+  again, one rule per step.
+- **The air above each glyph is a margin, never padding.** The strokes stand in
+  a fixed `h-9`, and a `pt-8` on that box left them four pixels tall on a
+  phone — a dotted line where a tally should be.
+
+The titles carry a `lg:min-h-[3.5rem]`, because two of the four wrap to a second
+line at a quarter of 64rem and four bodies starting at four heights read as four
+columns that happen to be adjacent, not as one track.
 
 ---
 
@@ -981,6 +1040,48 @@ the `<details>` group. The group's box grows to contain the answer once it is
 open, so a `group-hover:` marker would light while you were merely reading —
 a hover state pointing at nothing.
 
+### 7.11 The spec sheet — a label, a rule, a value
+
+The site's answer to any content that is really a two-column list: a mono
+uppercase label on the left, the thing itself on the right, hairline `border-t`
+between the rows and a `border-b` closing the last one. No card, no fill, no
+column headers.
+
+```tsx
+<dl className="border-b border-line">
+  <div className="grid gap-x-8 gap-y-1.5 border-t border-line py-4
+                  sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:py-5">
+    <dt className="font-mono text-[0.65rem] tracking-[0.18em] text-ink uppercase">Pace &amp; form</dt>
+    <dd className="text-sm leading-relaxed text-ink-dim">recent finishing pace, qualifying gap, …</dd>
+  </div>
+</dl>
+```
+
+`/rules`' `Row` is the same device with the value right-aligned in mono;
+`CalibrationRecord`'s two rows are the `<dl>` form. The reason is always the
+same: **a card carries hierarchy, and a label-and-value pair has none to
+carry.** Six of them side by side is six surfaces drawn to say "these are six
+things", which the rule already said.
+
+**It is not the only answer, and `/model`'s six feature groups took the other
+one.** Where the right-hand side is a sentence rather than a value — the six
+angles are enumerations, not measurements — the rules and the fixed label
+column earn nothing, so that block is six small `.display` titles with their
+enumeration under them, in two wide columns with `gap-y-12` and no line
+anywhere. Same principle (§1.4), less furniture. Reach for the spec sheet when
+the right column is a *value*, and for titled blocks when it is prose.
+
+**A titled block needs a mark, or it competes with the section head.** At
+`text-lg` extrabold the six titles read as six more headings under a
+`text-2xl` one, and the page loses which of the seven is in charge. They are
+`text-base` with a **compound ring** hanging beside them (§9) — the same
+distance in size, plus a mark that says "item", plus the red the section head
+does not have.
+
+On a phone the two halves stack (the grid columns only exist from `sm:`), which
+is why the label is set in mono caps rather than in bold sans — it still reads
+as a label with nothing to its right.
+
 ---
 
 ## 8. Motion
@@ -1037,6 +1138,17 @@ Any new animation adds its own branch here.
 `fill="none" stroke="currentColor" strokeWidth="1.5"` and round caps, sized with
 `size-4`/`size-5`, always `aria-hidden`. Typographic glyphs do the rest: `×` for
 close, `↗` for an external link, `?` in a disc for "why".
+
+**The compound ring** is the one drawn mark, and it is a border:
+
+```tsx
+<span aria-hidden className="size-3.5 shrink-0 rounded-full border-[3px] border-race" />
+```
+
+A red annulus is how a timing screen says *soft*, so it is a bullet this sport
+already owns — and it costs one element, no asset and no `<svg>`. It marks the
+items of a titled list (§7.11) and nothing else; it is always the red one,
+because varying the compound would promise a meaning the list does not have.
 
 **Driver portraits** live at `web/public/drivers/{driver_id}.webp` — 22 files,
 ~24 kB each. WebP is not optional: the same portraits as PNG-24 were ~210 kB
@@ -1216,9 +1328,37 @@ player is about to do, which is fill P1…P10 with names.
 
 The five-swatch legend went with it. Every row prints its own multiplier beside
 its own bar, so the same five tiers spelled out underneath is a key to a chart
-that does not need one. The interpretive sentence stays (§12.3, rule 5).
+that does not need one. The interpretive sentence stays (§12.4, rule 5).
 
-### 12.3 Rules for a new chart
+### 12.3 `CalibrationRecord` — what calibration did
+
+Two tracks of eleven blocks, one per version of the opponent: how a human who
+does nothing but copy the starting grid fares against the model's raw ML order
+(8–0–3) and against the calibrated entry it actually plays (3–5–3,
+`GAME_DESIGN` §2.2). One block is one Grand Prix, **grouped by outcome rather
+than run in calendar order** — this is a tally, not a season, and the two runs
+of green are the whole argument.
+
+It exists because the most interesting decision in the project was a single
+grey sentence at the bottom of a card. Nobody reads a proof set in 12px mute.
+
+**The tones are a qualifying screen's** (§3.2, the timing set): purple where
+the grid-copier wins, green for a draw, yellow where the model takes the
+weekend. Emerald/amber/red were tried first and are the wrong family here —
+they are three states, and this is a ranking. The mini-sector colours are the
+one scale every viewer of this sport can already read best → worst without a
+legend, which is exactly what two records eleven weekends long need.
+
+It costs one thing, and it is worth stating: race red means "the model winning"
+everywhere else on the site, and here the model's weekends are yellow. Every
+row prints its own record and the legend names the three tones in words, so
+colour is never carrying it alone (§1.2).
+
+Blocks are square-ended and 3px apart (§5.4). Below `sm:` the track drops to
+its own line under the label and the record, rather than being squeezed into a
+third of a phone.
+
+### 12.4 Rules for a new chart
 
 1. One hue, sequential, low→high. Never a rainbow, never a diverging scale unless the data actually diverges.
 2. If the scale encodes a game rule, use the rule's own thresholds.
@@ -1309,7 +1449,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ProbabilityShot.tsx`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
@@ -1320,7 +1460,9 @@ disagrees with it, so:
    14rem hero fade, the alpha-suffixed hex, the phone heat map, the aurora, the
    gradient headline, the seventy-six capsules, the three equal numbered cards,
    the centred stat row, the red bullet discs, the arrows glued to labels, the
-   two-hundred-cell heat map.
+   two-hundred-cell heat map, the four steps in a 2×2 grid, the four counts
+   drawn as tallies, the six feature cards, the card wrapped round the
+   fair-fight grid.
    Keep adding them; they are what stops a fix from being re-broken.
 4. Design decisions that are *game* decisions belong in
    [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.
@@ -1356,6 +1498,11 @@ Semantic    text-emerald-400                    exact, positive, won
             text-amber-300                      near, draw, caution
             text-race                           error, lost
             text-ink-mute                       missed, none
+
+Timing      bg-sector-purple     #b24bf3        fastest anyone has gone
+            bg-sector-green      #00e701        a personal best
+            bg-sector-yellow     #ffd800        slower than that
+            (the three together, as a scale, or none of them — §3.2)
 
 Type        font-sans (Archivo)                 prose, buttons, names
             .display (Archivo wdth 118)         headlines, wordmark, nav

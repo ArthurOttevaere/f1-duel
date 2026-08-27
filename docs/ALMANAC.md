@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-08-15 (`main`, PRs #33–#41 merged; live on https://f1-duel.com).
+**Last reviewed:** 2026-08-27 (`main` at `35b6211`; redesign programme M-1…M-4 on `design/model-page`; live on https://f1-duel.com).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -1657,6 +1657,41 @@ This is the phone-first rule (`DESIGN.md` §1.5) producing its most useful
 result: writing for the narrow screen forces the question *what is actually
 being asked here*, and the answer is not always narrower. Details in
 [`DESIGN.md`](DESIGN.md) §12.2.
+
+**The rest of the page stopped looking generated too** (the redesign
+programme's M-1…M-4, 2026-08-27). Everything around the matrix was the same
+three blocks the home page had been carrying:
+
+- **The pipeline is drawn** (`components/ModelPipeline.tsx`). Four numbered
+  glass cards in a 2×2 grid — the arrangement that destroys a sequence's
+  reading order — became one horizontal track standing on a single rule, where
+  the picture is the four counts set the size of a car number: **8** seasons,
+  **2** models, **10,000** simulated races, **1** top 10 played, the last in
+  race red. They are mono, because every number on this site is (§9.6). An
+  earlier cut drew the same counts as tallies of strokes and was thrown away:
+  it raised the question "what are those marks?", which a number never does.
+  `DESIGN.md` §5.5 carries that and the two construction rules (the trait is
+  the cells' touching top borders; the air above the numerals is a margin,
+  never padding).
+- **The six feature groups are six titled blocks**, not six cards — a small
+  `.display` title, its enumeration under it, two wide columns, no rule and no
+  fill (`DESIGN.md` §7.11, which also says when to reach for the spec sheet
+  instead: when the right-hand column is a *value*, not prose). It was the
+  third grid of equal cards on the site.
+- **"Why it's a fair fight" lost its outer card** — a `glass-card` wrapped
+  round a two-column grid is a surface stacked on a surface with no hierarchy
+  to carry.
+- **Calibration has a picture** (`components/CalibrationRecord.tsx`,
+  `DESIGN.md` §12.3). The line that proves the duel is fair — a grid-copying
+  human goes from 8–0–3 against the raw ML order to 3–5–3 against the
+  calibrated entry (§4.4, `GAME_DESIGN.md` §2.2) — was a grey 12px sentence at
+  the bottom of that card. It is two eleven-block tracks now, grouped by
+  outcome, **in a qualifying screen's colours**: purple where the grid-copier
+  wins, green for a draw, yellow where the model takes the weekend. Those three
+  tokens (`--color-sector-*`) are new to the palette and exist only as that
+  scale — see `DESIGN.md` §3.2 for the rule and for what the borrow costs. **The numbers live in
+  `GAME_DESIGN.md`; the component is the only place that draws them, and if the
+  backtest is ever re-run both have to move.**
 
 ### 9.5 `PredictionEditor` — the most complex component (733 lines)
 
