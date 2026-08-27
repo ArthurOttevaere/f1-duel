@@ -19,7 +19,7 @@ export const metadata = { title: "Not found" };
 export default function NotFound() {
   return (
     <div className="flex min-h-svh flex-col">
-      <header className="fixed inset-x-0 top-0 z-50">
+      <header className="fixed inset-x-0 top-0 z-[var(--z-nav)]">
         <nav className="glass-chip mx-auto mt-4 flex w-[min(64rem,calc(100%-2rem))] items-center rounded-panel px-5 py-3 shadow-[0_8px_26px_rgb(0_0_0/0.32)]">
           <Link
             href="/"

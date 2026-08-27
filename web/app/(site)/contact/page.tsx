@@ -16,35 +16,25 @@ export const metadata = {
 /**
  * The "who do I tell?" page.
  *
- * Native `<details>` for the FAQ rather than a JavaScript accordion: it opens
- * before hydration, it is searchable by the browser's own find-in-page, and it
- * costs nothing. The contact routes are deliberately two — an issue tracker for
- * people who have a GitHub account, and an address for everyone else.
+ * The contact routes are deliberately two — an issue tracker for people who
+ * have a GitHub account, and an address for everyone else.
+ *
+ * **The FAQ is not an accordion any more.** It was nine native `<details>`
+ * with a `+` that turned, which is a better accordion than most and still an
+ * accordion: a click per answer to hide three lines of text, and nine
+ * questions whose answers a browser's find-in-page cannot reach while they are
+ * shut. They are open. A question in full ink, its answer beside it, a hairline
+ * between entries — the spec sheet the rest of the site reads in (§7.11) —
+ * and the whole page becomes one ⌘F away.
  */
 function Faq({ q, children }: { q: string; children: React.ReactNode }) {
   return (
-    <details className="group border-t border-line py-4 first:border-t-0">
-      {/* Red on hover and red while open: the question is the control, so it
-          carries the same state colour the nav and the tabs do. The `+` was
-          already turning; it now turns *and* lights, so open and closed are
-          two channels apart, not one (§1.2). */}
-      <summary className="group/q flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium transition-colors group-open:text-race hover:text-race">
-        {q}
-        {/* The `+` follows the summary's own hover, not the <details> group —
-            the group's box grows to include the answer once it is open, and
-            the marker lighting up while you read the answer is a hover state
-            pointing at nothing. */}
-        <span
-          aria-hidden
-          className="shrink-0 font-mono text-ink-mute transition-[transform,color] group-open:rotate-45 group-open:text-race group-hover/q:text-race"
-        >
-          +
-        </span>
-      </summary>
-      <div className="mt-3 max-w-prose space-y-3 text-sm leading-relaxed text-ink-dim">
+    <div className="grid gap-2 border-t border-line py-5 first:border-t-0 first:pt-0 sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] sm:gap-8">
+      <h3 className="text-sm font-semibold text-ink">{q}</h3>
+      <div className="max-w-prose space-y-3 text-sm leading-relaxed text-ink-dim">
         {children}
       </div>
-    </details>
+    </div>
   );
 }
 
@@ -106,7 +96,9 @@ export default function ContactPage() {
         <h2 className="display text-2xl font-extrabold tracking-tight">
           Questions people actually ask
         </h2>
-        <div className="glass-card mt-5 px-5 py-2 sm:px-6">
+        {/* No card: nine questions on hairlines are a list, and a surface
+            around a list carries nothing (M-3). */}
+        <div className="mt-6 border-b border-line">
           <Faq q="Is this an official Formula 1 product?">
             <p>
               No. It&apos;s an unofficial fan project with no connection to

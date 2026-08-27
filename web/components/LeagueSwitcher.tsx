@@ -95,7 +95,7 @@ export default function LeagueSwitcher({
           <div
             role="status"
             aria-live="polite"
-            className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center"
+            className="pointer-events-none fixed inset-0 z-[var(--z-veil)] flex items-center justify-center"
           >
             <Spinner className="text-[2.75rem] text-race" />
             <span className="sr-only">Loading the board…</span>

@@ -201,7 +201,7 @@ export default function PosterExport({ data }: { data: PosterData }) {
         typeof document !== "undefined" &&
         createPortal(
           <div
-            className="sheet-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm sm:p-8"
+            className="sheet-backdrop fixed inset-0 z-[var(--z-overlay)] flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm sm:p-8"
             onClick={(e) => {
               if (e.target === e.currentTarget) setOpen(false);
             }}

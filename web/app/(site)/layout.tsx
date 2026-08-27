@@ -10,7 +10,11 @@ export default function SiteLayout({
   return (
     <div className="flex min-h-svh flex-col">
       <SiteNav />
-      <div className="flex flex-1 flex-col">{children}</div>
+      {/* The skip link's target (app/layout.tsx). Every page of the group
+          renders its own <main> inside this. */}
+      <div id="content" className="flex flex-1 flex-col">
+        {children}
+      </div>
       <SiteFooter />
     </div>
   );
