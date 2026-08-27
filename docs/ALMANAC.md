@@ -849,6 +849,7 @@ editor.
 | `0007_duel_standings.sql` | strips the duel bonus from `scores` history; `leaderboard` gains `margin` and drops the championship payout from `points`; `standings_page` returns `margin` and orders on the duel | ✅ confirmed 2026-08-15 |
 | `0008_race_emails.sql` | `profiles.email_opt_out` + `unsubscribe_token`, `email_log`, `email_recipients()`, `email_prefs()`, `set_email_opt_out()` | ✅ confirmed 2026-08-15 |
 | `0009_model_picks_secret_until_lock.sql` | replaces `public read` on `model_entries` with `read post-lock`; adds the `model_entry_status` view | ⚠️ **apply before the next race weekend** — until it runs, the model's picks are readable while the race is open |
+| `0010_profile_theme.sql` | `profiles.theme` (`driver` \| `team`, default `driver`) — which half of the championship call paints the profile | ⚠️ **pending** — without it the switch reports "not enabled on this server yet" and every profile wears its driver's colour |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
@@ -1634,6 +1635,38 @@ that cannot be undone. The red is held back until the delete is armed (§7.2 of
 the design doc). Typing your username arms it, it calls `delete_account()`,
 signs out and leaves through a full navigation to `/login?deleted=1` so no
 server-rendered page is left holding dead cookies.
+
+**The profile was rebuilt (2026-08-27)** — the P series of the redesign
+programme plus the owner's own review. `components/ProfileView.tsx` is now the
+whole page as a presentational component and the route only reads and counts,
+which is also what lets the page be rendered from fixtures while the local
+database is a placeholder.
+
+- **The nationality flag is gone.** It was owner-only, which made it an
+  ornament nobody else could see, and a colour emoji in an Archivo headline.
+  The country is still collected in `player_details` and still private.
+- **A profile picks the colour it wears** (migration 0010). `profiles.theme`
+  is `driver` or `team`; `ProfileThemeToggle`, inside the edit panel, writes
+  it, and everything the pick paints — cover, ring, curve, stubs — follows.
+  A driver and their constructor are often two shades of one hue, so the site's
+  one identity choice used to be invisible half the time.
+- **The four equal figures became one** (P-1): the duel record at 60px with
+  the other three as a spec sheet beside it. Only one of the four is the game.
+- **The championship call is told once, as a betting stub** (P-2,
+  `components/PickStub.tsx`). It was said twice — chips under the username and
+  two cards below — and never showed what the database already holds:
+  `locked_at`, the standing at lock, `prorate`, and what it finally paid.
+- **Form, curve and history became one "The season" block.** The five capsules
+  of `FormStrip` (deleted) are five markers on the curve now, drawn in HTML
+  over the SVG because `preserveAspectRatio="none"` turns a `<circle>` into an
+  ellipse. The history is the standings' own table, so the two pages read the
+  same way.
+- **The account section is a spec sheet, then a danger zone**: username,
+  member since, private details (the same edit panel, opened from the row) and
+  the sign-out, then a gap, a red hairline, a mono `No way back`, and the
+  delete row with a red-outlined button. The confirmation flow is unchanged.
+- **P-4:** the race review's `?` disc is the word `why` / `close`
+  (`RaceBreakdown`). The site has no icon set and did not need one here.
 
 **`/contact`** — where a player takes a bug or an idea, the FAQ, and the
 credits. The FAQ is native `<details>` rather than a JavaScript accordion: it

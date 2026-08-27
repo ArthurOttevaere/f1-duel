@@ -28,9 +28,15 @@ import Spinner from "@/components/Spinner";
  * destructive control wants.
  *
  * So the loudness tracks the actual risk, which is also what the site's other
- * destructive control does (`LeagueCardActions`): grey at rest, red once you
- * have asked for it. The red arrives with the confirmation, along with the
- * demand that you type your own name.
+ * destructive control does (`LeagueCardActions`): quiet at rest, loud once you
+ * have asked for it. The tint and the typed name arrive with the confirmation.
+ *
+ * What changed when the account section was rebuilt: the row now sits under a
+ * red hairline and a mono `No way back`, and the button is outlined in red
+ * rather than grey. The section above it is four calm rows of a spec sheet, and
+ * against those a grey button read as the fifth. This is still not the red
+ * panel that was removed — nothing is filled, nothing is tinted until the
+ * confirmation.
  */
 export default function DeleteAccount({ username }: { username: string }) {
   const [open, setOpen] = useState(false);
@@ -64,20 +70,23 @@ export default function DeleteAccount({ username }: { username: string }) {
 
   if (!open) {
     return (
-      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-line py-4">
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 pt-3">
         <p className="max-w-prose text-sm text-ink-mute">
           <span className="font-medium text-ink-dim">Delete your account</span>{" "}
           and everything attached to it: details, predictions, scores, league
           membership, and any league you created. There is no undo.
         </p>
-        {/* Grey, and red only under the pointer. The site's other destructive
-            control rests grey too; the difference here is that this one warms
-            to `race` rather than to `ink`, so the one irreversible button on
-            the page says so before it is pressed. */}
+        {/* Outlined in red at rest, filled by nothing. The row used to be a
+            grey button that warmed to red on hover, which was too quiet once
+            it stopped being the only thing under the heading: the account
+            sheet above it is four calm rows, and this one has to read as a
+            different kind of thing from across the page. Outlined, not
+            filled — filled red is the site's primary action (§7.2), and the
+            primary action here is keeping the account. */}
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="pressable shrink-0 rounded-control px-3 py-1.5 text-sm font-medium text-ink-mute transition-colors hover:text-race"
+          className="pressable shrink-0 rounded-control border border-race/45 px-4 py-1.5 text-sm font-medium text-race transition-colors hover:bg-race/10 hover:border-race/70"
         >
           Delete account
         </button>
@@ -93,7 +102,7 @@ export default function DeleteAccount({ username }: { username: string }) {
         e.preventDefault();
         void destroy();
       }}
-      className="border-t border-line border-l-2 border-l-race bg-race/[0.05] py-4 pr-4 pl-4"
+      className="mt-3 border-l-2 border-l-race bg-race/[0.05] py-4 pr-4 pl-4"
     >
       <p className="max-w-prose text-sm text-ink-dim">
         <span className="font-semibold text-ink">This cannot be undone.</span>{" "}

@@ -31,6 +31,17 @@ export const TIER_LABEL: Record<Tier, string> = {
 };
 
 /**
+ * The same three tiers as a value in a column — the betting stub prints the
+ * standing at lock beside a date and a percentage, and a full sentence in that
+ * slot would be the only thing on the stub that is not a value.
+ */
+export const TIER_SHORT: Record<Tier, string> = {
+  leader: "Championship leader",
+  chasing: "P2 – P3",
+  outsider: "P4 or lower",
+};
+
+/**
  * The tier a rank falls in, or null when the rank isn't known yet — the weekly
  * sync fills `driver_rank_at_lock` in, so a pick made minutes ago has none.
  */
