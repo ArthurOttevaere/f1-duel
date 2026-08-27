@@ -399,7 +399,7 @@ function PickerSheet({
   const filled = slots.filter(Boolean).length;
 
   return createPortal(
-    <div className="fixed inset-0 z-[60] lg:hidden" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-[var(--z-sheet)] lg:hidden" role="dialog" aria-modal="true">
       <button
         type="button"
         aria-label="Close driver picker"

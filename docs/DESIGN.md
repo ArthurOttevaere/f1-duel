@@ -1027,6 +1027,13 @@ component holding a matrix does not have to fake one.
 The loader phrases are original and name no real driver or team, so they neither
 date nor need clearing.
 
+**And no skeletons. Decided, not overlooked** (C-5, 2026-08-27). The received
+advice is to replace generic spinners with skeletons shaped like the layout to
+come. It is wrong here in both halves: this loader is *not* generic — the
+gantry and its rotating line are one of the few moments of character the site
+has — while a pulsing grey skeleton is generic in every product that ships one.
+The lights stay.
+
 **And the gantry is not only for waiting.** `StartLights` takes an optional
 `lit` (0–5): given one, it stops cycling and holds that many lights.
 `Countdown` uses it for the last hour before predictions lock — twelve minutes
@@ -1087,21 +1094,26 @@ survive as glyphs, and only these two: **`↗`**, which means *leaving the site*
 (§9), and pagination's **`← Previous` / `Next →`**, where the arrow is the
 direction rather than an ornament on a label.
 
-### 7.10 Disclosure — the FAQ row
+### 7.10 The FAQ, and why it is not an accordion any more
 
-Native `<details>`, never a JavaScript accordion: it opens before hydration and
-find-in-page can reach the answers. `group` on the `<details>`, a hairline
-`border-t`, and a mono `+` at the right that rotates 45° on `group-open`.
+`/contact`'s nine questions were nine native `<details>` with a `+` that turned
+and lit — a better accordion than most, and still an accordion. It cost a click
+per answer to hide three lines of text, and a browser's find-in-page cannot
+reach what is shut.
 
-**The question is a control, so it carries the control colour.** The summary is
-`hover:text-race group-open:text-race`, and the `+` follows on both. Open and
-shut therefore differ in two channels — the mark turns *and* lights (§1.2) —
-and a question you are pointing at answers back before you click it.
+**They are open.** A question in full ink on the left, its answer on the right,
+a hairline between entries and no card — the spec sheet of §7.11, at reading
+width. Nine short answers read in one pass, and the page is one ⌘F away.
 
-One scoping rule: the marker's hover is `group-hover/q:` on the **summary**, not
-the `<details>` group. The group's box grows to contain the answer once it is
-open, so a `group-hover:` marker would light while you were merely reading —
-a hover state pointing at nothing.
+What that decision *keeps* from the old one is worth restating, because it is
+the reason the `<details>` was defensible in the first place: no JavaScript, no
+hydration to wait for, nothing that only works once a bundle lands. Open text
+is simply the shorter road to the same property.
+
+If a disclosure is ever genuinely needed — a long legal block, a debug dump —
+it is `<details>` again, never a scripted accordion. The rule that stands is
+the one that removed this one: **hide something only when showing it costs the
+reader more than the click costs.**
 
 ### 7.11 The spec sheet — a label, a rule, a value
 
@@ -1270,6 +1282,16 @@ Never animate content that appears on every navigation.
 The mobile menu has its own version: `.menu-in` fades the overlay in 170ms,
 `.menu-item` staggers the links.
 
+**No scroll-triggered reveals. Decided, not overlooked** (C-6, 2026-08-27).
+Current practice would put a fade-and-rise on every section of every page, and
+this document forbids it; both positions are defensible, so it was arbitrated
+rather than assumed. The rule holds, for two reasons: a scroll reveal has
+itself become one of the tells this whole programme is about, and content that
+animates on arrival is content you cannot read until the page has finished
+performing. **The motion budget went somewhere better** — the start gantry that
+fills through the last hour before a race locks (§7.7). One moment, and it
+means something.
+
 ### 8.4 Reduced motion
 
 `@media (prefers-reduced-motion: reduce)` is handled per effect, not globally:
@@ -1424,6 +1446,14 @@ covers the elements carrying `outline-none` without hunting them down, and
 covers anything added later for free. And it is `:focus-visible`, not `:focus`,
 so a mouse click leaves no ring behind — which is why the outlines were removed
 in the first place. No `border-radius`: an outline follows the element's own.
+
+**And a focus ring is only as useful as what it can skip.** The nav is fixed
+and first in the DOM, so a keyboard reader walked the whole masthead on every
+page before reaching the content. `app/layout.tsx` opens with one link —
+`.skip-link`, off-screen at `translate(-50%, -160%)` until `:focus-visible`
+slides it in, on the overlay layer so it lands above the nav — pointing at
+`#content`, which is the wrapper in the `(site)` layout and the `<main>` of
+`/login`. Five lines, and the first Tab on any page is now "Skip to content".
 
 ### 11.2 Rules
 
@@ -1668,6 +1698,13 @@ disagrees with it, so:
 Everything a new component needs, in one place. All of it is already a Tailwind
 utility.
 
+**Two surfaces draw outside the cascade** and cannot read any of it: the canvas
+poster (§14.2) and the Open Graph cards (§14.1), which render through Satori
+with no stylesheet. Their colours come from **`lib/palette.ts`**, the one module
+that holds them — they used to be two hand-copied sets of hexes, so every
+palette decision left both behind. The debt is now a single link: a colour
+changed in `@theme` has to be changed there too, and nowhere else.
+
 ```
 Surface     bg-bg                #0a0b10        the page, nothing else
             glass-card                          cards
@@ -1703,6 +1740,14 @@ Type        font-sans (Archivo)                 prose, buttons, names
             .hero-outline                       the hero's second line, once
             font-mono (Geist Mono)              every number and label
             tabular-nums                        anything that ticks
+
+Layer       z-[var(--z-veil)]    40            an inert overlay under the nav
+            z-[var(--z-nav)]     50            the fixed masthead
+            z-[var(--z-sheet)]   60            a panel anchored to an edge
+            z-[var(--z-overlay)] 100           menus, dialogs, the skip link
+            z-[var(--z-boot)]    150           the first-paint screen
+            z-[var(--z-grain)]   200           the tooth, over everything
+            (never a literal — the site once had two layers on 100)
 
 Radius      rounded-control      5px           buttons, fields, chips, rows
             rounded-panel        10px          cards, nav, sheets, panels

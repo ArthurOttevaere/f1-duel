@@ -73,6 +73,13 @@ export default function RootLayout({
             hidden. See LogoSprite. */}
         <LogoSprite />
         <BootScreen />
+        {/* First in the tab order on every page, and off-screen until it is
+            focused (`.skip-link`). The nav is fixed and comes first in the
+            DOM, so without this a keyboard reader walked the whole masthead
+            before reaching the page — on every navigation. */}
+        <a href="#content" className="skip-link">
+          Skip to content
+        </a>
         {/* The grain (globals.css). One fixed layer over the whole site, three
             per cent, and it is the difference between a surface and a render. */}
         <div className="grain" aria-hidden />

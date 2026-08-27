@@ -71,6 +71,27 @@
 
      Round is also kept where the thing genuinely is a circle — an avatar, a
      bulb, a toggle knob, a bare-icon tap target. */
+  /* ─── Layers ───────────────────────────────────────────────────────────
+     Four names and a floor, because the site had `z-50`, `z-40`, `z-[60]`
+     and two different layers both sitting on `z-[100]` — the mobile menu and
+     the boot screen — which is the kind of collision that is discovered in
+     production. Every fixed layer on the site takes one of these and nothing
+     writes a literal any more.
+
+       veil     an inert overlay *under* the nav (the league switcher's)
+       nav      the fixed masthead
+       sheet    a panel anchored to the viewport edge (the picker)
+       overlay  anything that takes the whole screen: menu, dialogs
+       boot     the first-paint screen, which must cover the overlay too
+       grain    the tooth over everything, including the boot screen (§6.5)
+  */
+  --z-veil: 40;
+  --z-nav: 50;
+  --z-sheet: 60;
+  --z-overlay: 100;
+  --z-boot: 150;
+  --z-grain: 200;
+
   --radius-control: 5px;
   --radius-panel: 10px;
 
@@ -161,7 +182,7 @@ figcaption {
 .grain {
   position: fixed;
   inset: 0;
-  z-index: 200;
+  z-index: var(--z-grain);
   pointer-events: none;
   opacity: 0.032;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -469,6 +490,29 @@ figcaption {
 .stub-perf::before { left: -6px; }
 .stub-perf::after { right: -6px; }
 
+/* ─── Skip to content ──────────────────────────────────────────────────── */
+/* The site spends real care on its focus ring (§11.1) and then made a keyboard
+   reader walk the whole fixed masthead on every page before reaching anything.
+   One link, first in the DOM, off-screen until it is focused — and it lands
+   *above* the nav, which is why it takes the overlay layer. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 50%;
+  z-index: var(--z-overlay);
+  transform: translate(-50%, -160%);
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-control);
+  background: var(--color-race-deep);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: transform 160ms var(--ease-out-strong);
+}
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+}
+
 /* ─── Waiting ──────────────────────────────────────────────────────────── */
 
 /* Inline spinner for any control that is busy (components/Spinner.tsx).
@@ -685,7 +729,7 @@ figcaption {
 #boot-screen {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: var(--z-boot);
   display: flex;
   flex-direction: column;
   align-items: center;

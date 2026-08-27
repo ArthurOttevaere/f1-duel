@@ -76,7 +76,7 @@ export default function ProfileEditPanel({
     open && mounted
       ? createPortal(
           <div
-            className="sheet-backdrop fixed inset-0 z-[100] flex items-end justify-center bg-black/70 backdrop-blur-sm sm:items-center"
+            className="sheet-backdrop fixed inset-0 z-[var(--z-overlay)] flex items-end justify-center bg-black/70 backdrop-blur-sm sm:items-center"
             onClick={() => setOpen(false)}
           >
             <div

@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { PALETTE } from "@/lib/palette";
 
 /**
  * The share card, in one place.
@@ -16,11 +17,9 @@ import { ImageResponse } from "next/og";
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 
-const BG = "#0a0b10";
-const INK = "#f4f6fa";
-const DIM = "#a7adba";
-const MUTE = "#6c7280";
-const RACE = "#ff1e3c";
+// The palette comes from the one module that holds it for everything drawn
+// outside the DOM — this card and the canvas poster (lib/palette.ts).
+const { bg: BG, ink: INK, dim: DIM, mute: MUTE, race: RACE } = PALETTE;
 
 export interface CardStat {
   value: string;

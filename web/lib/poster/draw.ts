@@ -25,20 +25,10 @@ const H = 1350;
 const SCALE = 2;
 const PAD = 64;
 const INNER = W - PAD * 2;
+import { PALETTE } from "@/lib/palette";
 
-const C = {
-  bgTop: "#101320",
-  bgBottom: "#0a0b10",
-  ink: "#f4f6fa",
-  dim: "#a7adba",
-  mute: "#6c7280",
-  race: "#ff1e3c",
-  exact: "#34d399",
-  near: "#fbbf24",
-  line: "rgba(255,255,255,0.10)",
-  glass: "rgba(255,255,255,0.045)",
-  row: "rgba(255,255,255,0.035)",
-};
+/** The site's palette, read from the one module that holds it (lib/palette.ts). */
+const C = PALETTE;
 
 const VERDICT = {
   beat: { label: "You beat the model", tone: C.exact },
@@ -133,7 +123,7 @@ function toneFor(kind: SlotKind | null): string {
 function drawBackground(ctx: CanvasRenderingContext2D) {
   const base = ctx.createLinearGradient(0, 0, 0, H);
   base.addColorStop(0, C.bgTop);
-  base.addColorStop(1, C.bgBottom);
+  base.addColorStop(1, C.bg);
   ctx.fillStyle = base;
   ctx.fillRect(0, 0, W, H);
 

@@ -158,7 +158,10 @@ export default function LoginPage() {
   const sent = status === "sent-link" || status === "sent-verify";
 
   return (
-    <main className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 py-16">
+    <main
+      id="content"
+      className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 py-16"
+    >
       <div className="page-glow" />
 
       <Link
@@ -204,28 +207,12 @@ export default function LoginPage() {
               </div>
             )}
 
-            {/* Mode toggle */}
-            <div className="glass-chip flex rounded-control p-1 text-sm">
-              {(["signin", "signup"] as Mode[]).map((m) => (
-                <button
-                  key={m}
-                  type="button"
-                  onClick={() => {
-                    setMode(m);
-                    resetMessages();
-                  }}
-                  className={`flex-1 rounded-control py-2 font-medium transition-colors ${
-                    mode === m
-                      ? "bg-race text-white"
-                      : "text-ink-dim hover:text-ink"
-                  }`}
-                >
-                  {m === "signin" ? "Sign in" : "Create account"}
-                </button>
-              ))}
-            </div>
-
-            <h1 className="display mt-6 text-xl font-extrabold tracking-tight">
+            {/* C-2: a two-half capsule with the active side filled red used
+                to sit here — the segmented control is the default component of
+                every generated sign-in screen, and it asks for a decision
+                before the first field. There is one form now; the heading says
+                which one it is, and the line under the button switches it. */}
+            <h1 className="display text-xl font-extrabold tracking-tight">
               {mode === "signin" ? "Welcome back" : "Join the duel"}
             </h1>
             <p className="mt-1 text-sm text-ink-dim">
@@ -319,6 +306,22 @@ export default function LoginPage() {
                 Forgot your password? Email me a one-time link instead
               </button>
             )}
+
+            {/* The whole of the mode switch: one line of text, where the
+                decision actually comes up. */}
+            <p className="mt-4 text-center text-sm text-ink-mute">
+              {mode === "signin" ? "First time here? " : "Already have an account? "}
+              <button
+                type="button"
+                onClick={() => {
+                  setMode(mode === "signin" ? "signup" : "signin");
+                  resetMessages();
+                }}
+                className="pressable font-medium text-ink-dim underline underline-offset-4 transition-colors hover:text-ink"
+              >
+                {mode === "signin" ? "Create an account" : "Sign in"}
+              </button>
+            </p>
 
             <div className="my-5 flex items-center gap-3 text-xs text-ink-mute">
               <span className="h-px flex-1 bg-line" />

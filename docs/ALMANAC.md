@@ -849,7 +849,7 @@ editor.
 | `0007_duel_standings.sql` | strips the duel bonus from `scores` history; `leaderboard` gains `margin` and drops the championship payout from `points`; `standings_page` returns `margin` and orders on the duel | ✅ confirmed 2026-08-15 |
 | `0008_race_emails.sql` | `profiles.email_opt_out` + `unsubscribe_token`, `email_log`, `email_recipients()`, `email_prefs()`, `set_email_opt_out()` | ✅ confirmed 2026-08-15 |
 | `0009_model_picks_secret_until_lock.sql` | replaces `public read` on `model_entries` with `read post-lock`; adds the `model_entry_status` view | ⚠️ **apply before the next race weekend** — until it runs, the model's picks are readable while the race is open |
-| `0010_profile_theme.sql` | `profiles.theme` (`driver` \| `team`, default `driver`) — which half of the championship call paints the profile | ⚠️ **pending** — without it the switch reports "not enabled on this server yet" and every profile wears its driver's colour |
+| `0010_profile_theme.sql` | `profiles.theme` (`driver` \| `team`, default `driver`) — which half of the championship call paints the profile | ✅ confirmed 2026-08-27 |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
@@ -2039,6 +2039,31 @@ carries its own 22.4% radius. They are generated rather than drawn by hand, and
 **the `.ico` must be RGBA** — Next's image pipeline rejects an RGB one outright
 with *"The PNG is not in RGBA format"*, which fails the whole page, not just
 the icon.
+
+### 9.6.1 The cross-cutting pass (C-1 → C-7, 2026-08-27)
+
+The last series of the redesign programme, and the only one that touches every
+page rather than one:
+
+- **The FAQ is not an accordion** (C-1). `/contact`'s nine `<details>` are open
+  text: question left, answer right, hairlines between. A click per answer to
+  hide three lines, and find-in-page cannot reach what is shut.
+- **The sign-in screen lost its segmented control** (C-2). One form; the
+  heading says which one it is and a single line under the button switches it.
+- **Every fixed layer is named** (C-3). `--z-veil / nav / sheet / overlay /
+  boot / grain` in `@theme`, used as `z-[var(--z-nav)]`. There is no
+  `--z-index-*` namespace in Tailwind v4, so these are plain custom properties
+  rather than generated utilities. The mobile menu and the boot screen both sat
+  on `z-[100]` before this.
+- **A skip link** (C-4), first in the DOM of every page, pointing at
+  `#content` — the `(site)` layout wrapper and `/login`'s `<main>`.
+- **No skeletons** (C-5) and **no scroll reveals** (C-6): both arbitrated in
+  favour of what the charte already said, and written down as decisions in
+  `DESIGN.md` §7.7 and §8.3 so they are not silently "fixed" later.
+- **One palette for everything drawn outside the DOM** (C-7). `lib/palette.ts`
+  is read by the canvas poster and the Open Graph cards, which each carried
+  their own hand-copied hexes. `globals.css` remains the site's own source; the
+  two files are named together in `DESIGN.md` §16.
 
 ### 9.7 Three gotchas that cost real debugging time
 
