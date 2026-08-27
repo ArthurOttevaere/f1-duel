@@ -587,6 +587,36 @@ The general rule the third attempt found: **a marketing page states the claim,
 the canonical page holds the numbers, and only one of them gets to be
 canonical.** Duplicating a rule in two places is a promise to update both.
 
+**And where the steps carry numbers of their own, the sequence is drawn rather
+than numbered.** `/model`'s pipeline was the second instance of the three-card
+block — four cards, in a 2×2 grid, which is the one arrangement that destroys
+the only thing a sequence has: a reading order. It did not become hanging
+numerals. Its four steps already count something — 8 seasons, 2 models, 10,000
+simulations, 1 top 10 played — and an `01`–`04` series beside those would be
+four indices arguing with four counts.
+
+`components/ModelPipeline.tsx` draws the counts instead: eight strokes, then
+two, then a hatch on the same 7px pitch running off its own edge behind a mask,
+then one in race red. Left to right that funnel *is* the claim the prose makes,
+so the picture and the rule are the same thing (§1.1), and red stays on the one
+stage that is the model acting rather than the model reading.
+
+Two construction notes, both load-bearing:
+
+- **The connecting trait is the cells' own top borders**, touching, not an
+  absolutely-positioned rule — so it is continuous by construction and there is
+  nothing to keep in sync when the copy changes. Gutters therefore live on the
+  content *inside* each cell; a `gap-x` on the grid would cut the line into
+  four. Below `lg` the same borders stack and the block is a vertical list
+  again, one rule per step.
+- **The air above each glyph is a margin, never padding.** The strokes stand in
+  a fixed `h-9`, and a `pt-8` on that box left them four pixels tall on a
+  phone — a dotted line where a tally should be.
+
+The titles carry a `lg:min-h-[3.5rem]`, because two of the four wrap to a second
+line at a quarter of 64rem and four bodies starting at four heights read as four
+columns that happen to be adjacent, not as one track.
+
 ---
 
 ## 6. Surfaces and materials
@@ -981,6 +1011,34 @@ the `<details>` group. The group's box grows to contain the answer once it is
 open, so a `group-hover:` marker would light while you were merely reading —
 a hover state pointing at nothing.
 
+### 7.11 The spec sheet — a label, a rule, a value
+
+The site's answer to any content that is really a two-column list: a mono
+uppercase label on the left, the thing itself on the right, hairline `border-t`
+between the rows and a `border-b` closing the last one. No card, no fill, no
+column headers.
+
+```tsx
+<dl className="border-b border-line">
+  <div className="grid gap-x-8 gap-y-1.5 border-t border-line py-4
+                  sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:py-5">
+    <dt className="font-mono text-[0.65rem] tracking-[0.18em] text-ink uppercase">Pace &amp; form</dt>
+    <dd className="text-sm leading-relaxed text-ink-dim">recent finishing pace, qualifying gap, …</dd>
+  </div>
+</dl>
+```
+
+`/rules`' `Row` is the same device with the value right-aligned in mono;
+`/model`'s six feature groups and `CalibrationRecord`'s two rows are the
+`<dl>` form. It is what replaced the site's third and fourth grids of equal
+cards, and the reason is always the same: **a card carries hierarchy, and a
+label-and-value pair has none to carry.** Six of them side by side is six
+surfaces drawn to say "these are six things", which the rules already said.
+
+On a phone the two halves stack (the grid columns only exist from `sm:`), which
+is why the label is set in mono caps rather than in bold sans — it still reads
+as a label with nothing to its right.
+
 ---
 
 ## 8. Motion
@@ -1216,9 +1274,33 @@ player is about to do, which is fill P1…P10 with names.
 
 The five-swatch legend went with it. Every row prints its own multiplier beside
 its own bar, so the same five tiers spelled out underneath is a key to a chart
-that does not need one. The interpretive sentence stays (§12.3, rule 5).
+that does not need one. The interpretive sentence stays (§12.4, rule 5).
 
-### 12.3 Rules for a new chart
+### 12.3 `CalibrationRecord` — what calibration did
+
+Two tracks of eleven blocks, one per version of the opponent: how a human who
+does nothing but copy the starting grid fares against the model's raw ML order
+(8–0–3) and against the calibrated entry it actually plays (3–5–3,
+`GAME_DESIGN` §2.2). One block is one Grand Prix, **grouped by outcome rather
+than run in calendar order** — this is a tally, not a season, and the two runs
+of green are the whole argument.
+
+It exists because the most interesting decision in the project was a single
+grey sentence at the bottom of a card. Nobody reads a proof set in 12px mute.
+
+The tones are §3.2's, unchanged: emerald won the duel, amber a draw, race red
+the model winning. Which means the *human* is green here and the model red even
+though the human is the one being lazy — the perspective is the player's
+everywhere else on the site (`FormStrip`), and a chart that flips it for one
+figure teaches the reader nothing. Every row prints its own record and the
+legend names the three tones in words, so colour is never carrying it alone
+(§1.2).
+
+Blocks are square-ended and 3px apart (§5.4). Below `sm:` the track drops to
+its own line under the label and the record, rather than being squeezed into a
+third of a phone.
+
+### 12.4 Rules for a new chart
 
 1. One hue, sequential, low→high. Never a rainbow, never a diverging scale unless the data actually diverges.
 2. If the scale encodes a game rule, use the rule's own thresholds.
@@ -1309,7 +1391,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ProbabilityShot.tsx`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
@@ -1320,7 +1402,8 @@ disagrees with it, so:
    14rem hero fade, the alpha-suffixed hex, the phone heat map, the aurora, the
    gradient headline, the seventy-six capsules, the three equal numbered cards,
    the centred stat row, the red bullet discs, the arrows glued to labels, the
-   two-hundred-cell heat map.
+   two-hundred-cell heat map, the four steps in a 2×2 grid, the six feature
+   cards, the card wrapped round the fair-fight grid.
    Keep adding them; they are what stops a fix from being re-broken.
 4. Design decisions that are *game* decisions belong in
    [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.
