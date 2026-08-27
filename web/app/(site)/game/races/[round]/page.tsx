@@ -27,7 +27,7 @@ import type {
 export const revalidate = 120;
 
 /**
- * How many players "THE FIELD" lists. The page used to render every score for
+ * How many players "The field" lists. The page used to render every score for
  * the race, which is unbounded in the number of players and silently truncated
  * at 1000 by PostgREST anyway. Your own row is fetched separately, so you
  * always see yourself even when you finish outside this cut.
@@ -347,8 +347,8 @@ export default async function RaceReviewPage({
       {/* ── Everyone's race ── */}
       {scores.length > 0 && (
         <section>
-          <h2 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
-            THE FIELD
+          <h2 className="mb-3 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+            The field
             {scores.length === FIELD_LIMIT && (
               <span className="ml-2 font-normal text-ink-mute normal-case">
                 — top {FIELD_LIMIT}

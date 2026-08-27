@@ -639,11 +639,11 @@ export default function PredictionEditor({
         {/* ── Your top 10 ── */}
         <section>
           <div className="mb-3 flex items-baseline justify-between gap-3">
-            <h3 className="flex items-center gap-2 text-sm font-semibold tracking-wide text-ink-dim">
+            <h3 className="flex items-center gap-2 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
               {/* A padlock, not a blur (see the sign-in panel below): the
                   state is *stated*, and what it guards stays readable. */}
               {preview && <LockGlyph />}
-              {preview ? "THE MODEL'S TOP 10" : "YOUR TOP 10"}
+              {preview ? "The model's top 10" : "Your top 10"}
             </h3>
             {/* The counter is yours; over the model's entry it would read as a
                 score — so that slot carries the race it was played at. */}
@@ -724,8 +724,8 @@ export default function PredictionEditor({
         ) : (
         <section className="flex flex-col">
           <div className="hidden lg:block">
-            <h3 className="mb-3 text-sm font-semibold tracking-wide text-ink-dim">
-              DRIVERS{" "}
+            <h3 className="mb-3 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+              Drivers{" "}
               <span className="font-normal text-ink-mute">
                 · click to place in P{active + 1}
               </span>
@@ -738,8 +738,8 @@ export default function PredictionEditor({
             />
           </div>
 
-          <h3 className="mb-2 text-sm font-semibold tracking-wide text-ink-dim lg:mt-6">
-            DRIVER OF THE DAY{" "}
+          <h3 className="mb-2 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase lg:mt-6">
+            Driver of the day{" "}
             <span className="font-normal text-ink-mute">· +5 pts, optional</span>
           </h3>
           <div className="flex flex-wrap gap-1.5">
@@ -762,8 +762,8 @@ export default function PredictionEditor({
             ))}
           </div>
 
-          <h3 className="mt-6 mb-2 text-sm font-semibold tracking-wide text-ink-dim">
-            SAFETY CAR{" "}
+          <h3 className="mt-6 mb-2 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+            Safety car{" "}
             <span className="font-normal text-ink-mute">
               · +8 pts · the model bets too
             </span>

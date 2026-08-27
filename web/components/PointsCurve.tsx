@@ -50,8 +50,8 @@ export default function PointsCurve({
   return (
     <div className="glass-card p-5 sm:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <h2 className="text-sm font-semibold tracking-wide text-ink-dim">
-          SEASON CURVE
+        <h2 className="font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+          Season curve
         </h2>
         <div className="flex items-center gap-4 text-xs text-ink-mute">
           <span className="flex items-center gap-2">

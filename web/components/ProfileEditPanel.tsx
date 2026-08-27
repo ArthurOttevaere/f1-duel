@@ -82,8 +82,8 @@ export default function ProfileEditPanel({
               </div>
 
               <section className="mt-6">
-                <h3 className="mb-3 text-xs font-semibold tracking-wide text-ink-dim">
-                  USERNAME
+                <h3 className="mb-3 font-mono text-[0.65rem] tracking-[0.18em] text-ink-dim uppercase">
+                  Username
                 </h3>
                 <UsernameForm initial={username} mode="edit" />
               </section>
@@ -91,8 +91,8 @@ export default function ProfileEditPanel({
               <hr className="my-6 border-line" />
 
               <section>
-                <h3 className="mb-3 text-xs font-semibold tracking-wide text-ink-dim">
-                  YOUR DETAILS
+                <h3 className="mb-3 font-mono text-[0.65rem] tracking-[0.18em] text-ink-dim uppercase">
+                  Your details
                 </h3>
                 <PlayerDetailsForm initial={details} mode="edit" />
               </section>

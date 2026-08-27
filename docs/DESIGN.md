@@ -410,7 +410,7 @@ not an aspiration:
 | Page title (h1) | `display text-4xl font-extrabold tracking-tight sm:text-5xl` | Every top-level page. |
 | Section title (h2) | `display text-2xl font-extrabold tracking-tight` | The workhorse — 32 uses. |
 | Card title (h3) | `display text-lg font-extrabold tracking-tight` | |
-| Section **label** (h2/h3) | `text-sm font-semibold tracking-wide text-ink-dim` | **No `.display`, no negative tracking.** Nine of the site's h2s are these. |
+| Section **label** (h2/h3) | `font-mono text-xs tracking-[0.2em] text-ink-dim uppercase` | The eyebrow's shape in ink-dim (§4.4). Fifteen of the site's h2/h3s are these. |
 | Lead paragraph | `text-lg leading-relaxed text-ink-dim` | Directly under an h1. |
 | Body | `text-sm leading-relaxed text-ink-dim` | The default. 200 uses — if in doubt, this. |
 | Metadata | `text-xs text-ink-mute`, usually mono | |
@@ -418,6 +418,14 @@ not an aspiration:
 
 `tracking-tight` on every heading; `tracking-wider`/`tracking-widest` only on
 uppercase mono, and on the wordmark. Never letter-space lowercase sans.
+
+**The label was sans-semibold, and the caps were typed into the markup.**
+`<h2>RACE BY RACE</h2>`, fifteen times over — which is a fourth eyebrow style
+on a site that already had one, and worse: capitals in the *text* are read out
+letter by letter by some screen readers, cannot be translated, and cannot be
+lower-cased by anyone who wants to. The case is now `text-transform` and the
+markup says "Race by race". Anything that looks uppercase on this site is
+uppercase in CSS.
 
 **Hierarchy is carried by weight and width, not only by three greys.** Every
 heading used to be the same `font-bold` and the ranking was left entirely to
@@ -455,6 +463,12 @@ labels a value:
 
 Per §1.4, the eyebrow *is* the section divider. Two lines maximum, no
 punctuation.
+
+**Red opens a page, ink-dim labels a block inside it.** A page gets one red
+eyebrow — `Season 2026`, `The manual`, `The opponent` — and the section labels
+further down take the same shape in `text-ink-dim` (§4.3), so a screen never
+has two reds arguing over which one is the top of it. `text-ink-mute` stays for
+the smallest labels: column heads, chip labels, the legend under a chart.
 
 The home hero's line is the same device carrying live data —
 `Round 13 · Italian Grand Prix · Lights out in 2d 14h`, the countdown lifted
@@ -975,6 +989,20 @@ component so they cannot drift.
 The current pairs: `RaceBreakdown` and the standings board. `ProbabilityGrid`
 used to be the third and no longer is — see §1.5 and §12.2.
 
+**A season is a table, and it took three tries to admit it.**
+`components/SeasonRaces.tsx` was a wrap of identical pills (twenty-four of
+them, one undifferentiated heap), then one card per Grand Prix in a
+three-column grid — a real improvement, and still the site's fourth grid of
+equal cards. It is a line per round now: the number hanging in the margin, the
+Grand Prix, then points and result in tabular columns. Twenty-four lines read
+faster than twenty-four tiles, an eye can run down a column, and it is the
+shape a calendar takes everywhere else in this sport.
+
+It is an `<ol>` of `<Link>` rows rather than a `<table>`, because every line
+goes somewhere; the header is a mono `aria-hidden` grid on the same column
+template. **Signed out, the two right-hand columns are not rendered at all** —
+a table with two empty columns promises data it does not have.
+
 ### 7.6 Driver row
 
 The repeated atom of the whole game. Left to right:
@@ -1025,6 +1053,13 @@ that is full.** Two screens looked like empty states and were not:
   the calendar already has them, and the way to the final table. With nothing
   scored at all it says the *honest* other thing — the calendar has not been
   synced — because "the season is over" is not a fallback, it is a claim.
+- **The standings before anybody has scored** is not "no rows", it is the one
+  moment the game's whole proposition is legible: the opponent has a score and
+  you do not. `EmptyBoard` composes on that asymmetry — *the model is already
+  on 934 points, nobody else is on the board* — and it is the **one empty state
+  allowed a call to action inside it**, because the thing it is missing is
+  exactly the thing the button does. Before the model has played either, there
+  is no asymmetry to point at and it says the plain thing.
 - **A signed-out game surface is not empty either**, it is locked. See §7.13.
 
 **The rule this leaves:** reach for the empty box when there is genuinely
@@ -1157,6 +1192,19 @@ The state is **stated** instead, and what it guards stays legible:
 The promise moves from "there is something here" to **"this is what you would
 have been up against"**. Anything else that has to be withheld follows the same
 shape: say what it is, show what can be shown, and put the way in beside it.
+
+### 7.14 Paging a long table
+
+`components/StandingsPager.tsx`, and it only exists above one page of rows —
+most leagues never see it.
+
+**A band of positions, not a pagination.** "← Previous · Page 2 of 5 · Next →"
+is the component everybody writes without thinking, arrows glued to their
+labels included (§7.9). What a reader of a leaderboard wants is *which places
+they are looking at*, so the line reads `21–40 of 96 players`, mono and
+tabular, and the two controls are `size-9` squares with a chevron and an
+`aria-label` — a chevron is not a word and does not need one beside it. The
+disabled end is a `<span>` at 40%, not a dead link.
 
 ---
 
@@ -1547,7 +1595,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `RarityScale.tsx`, `RulesIndex.tsx`, `SeasonOver.tsx`, `StartLights.tsx`, `Countdown.tsx`, `lib/bands.ts`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `RarityScale.tsx`, `RulesIndex.tsx`, `SeasonOver.tsx`, `SeasonRaces.tsx`, `StandingsPager.tsx`, `StartLights.tsx`, `Countdown.tsx`, `lib/bands.ts`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
@@ -1561,7 +1609,8 @@ disagrees with it, so:
    two-hundred-cell heat map, the four steps in a 2×2 grid, the four counts
    drawn as tallies, the six feature cards, the card wrapped round the
    fair-fight grid, the table of contents as a heap of capsules, the blurred
-   veil over the editor, "No upcoming race" as an empty state.
+   veil over the editor, "No upcoming race" as an empty state, the season as a
+   grid of cards, `RACE BY RACE` typed in capitals, "← Previous / Next →".
    Keep adding them; they are what stops a fix from being re-broken.
 4. Design decisions that are *game* decisions belong in
    [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.

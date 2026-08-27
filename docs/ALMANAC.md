@@ -1530,6 +1530,28 @@ Since PR #26 this page **is** the leagues page (see below). Three parts:
    rendered *outside* the switcher: the season's races are the same whichever
    league you look at, so they must not blink on every switch.
 
+**The S series of the redesign programme (2026-08-27)** rebuilt three of this
+page's four blocks and one site-wide habit:
+
+- **Capitals moved from the markup into CSS** (S-1). `<h2>RACE BY RACE</h2>`
+  was fifteen headings across the standings, the profile, the race review, the
+  editor, `PointsCurve` and two forms — unreadable to some screen readers,
+  untranslatable, and a fourth eyebrow style on a site that already had one.
+  They are `font-mono text-xs tracking-[0.2em] text-ink-dim uppercase` now,
+  with sentence case in the text (`DESIGN.md` §4.3, §4.4).
+- **The season became a table** (S-2, `components/SeasonRaces.tsx`). Pills →
+  cards → one line per round, number hanging in the margin, points and duel
+  result in tabular columns; signed out, those two columns are not rendered.
+  The result letter also picked up the site's own W/D/L tones, correcting a
+  card that drew *your* win in race red — the colour that means the model won
+  everywhere else.
+- **The empty board leans on the asymmetry** (S-3): the model has a score and
+  nobody else does. It is the one empty state on the site with a call to
+  action in it (`DESIGN.md` §7.8).
+- **Pagination became a band of positions** (S-4,
+  `components/StandingsPager.tsx`): `21–40 of 96 players` and two square
+  chevron controls, above one page only.
+
 **`/game/leagues`** — a `redirect()` to `/game/standings`, nothing more. Kept
 because invite links, bookmarks and messages players already sent point at it.
 
