@@ -2170,6 +2170,18 @@ column — see the third bullet.
   card reads `FINAL SCORE` (or `OFFICIAL RESULT` on a race you skipped). It's
   for showing your race rather than the duel, and it's disabled outright when
   the race has no model entry.
+- **Copy has to be issued before the first `await`.** `clipboard.write` needs
+  the click's transient activation, and an `await` hands control back to the
+  event loop, which spends it. Encoding the 1080×1350 bitmap first still lands
+  inside Chrome's window; WebKit's is stricter, so Copy was the one button that
+  reported failure while PNG and PDF — neither of which needs activation —
+  worked beside it. `ClipboardItem` accepts a **promise** of a blob for exactly
+  this: the write is issued synchronously inside the gesture and the encoding
+  runs behind it. A successful copy also says so now, in the line under the
+  buttons rather than in the button, because swapping "Copy" for "Copied ✓"
+  resizes it and makes the row jump — the same reason the spinner joins the
+  label instead of replacing it. Nothing else on the sheet leaves a trace: no
+  file lands, no sheet opens, so silence looked identical to failure.
 - Layout is **self-fitting**: the table's row height is derived from the space
   left between the verdict card and the stats band, so no arithmetic slip can
   push content off the sheet.
