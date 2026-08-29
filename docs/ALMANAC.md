@@ -2235,17 +2235,52 @@ differ:
 | `app/(site)/join/[code]/opengraph-image.tsx` | League name, who is inviting, how many players |
 | `app/(site)/profile/[username]/opengraph-image.tsx` | Username, W-D-L against the model, races, points |
 
+The two dynamic ones are served at a **hashed path** — `/join/<code>/opengraph-image-bp3zyz`
+— not at the plain segment, which is worth knowing before concluding from a
+404 that the route is broken.
+
 The join card leaks nothing new: `league_by_code()` already answers name, owner
 and size to anyone holding the code (§7.3), and the card shows exactly that.
 
-**Three things `ImageResponse` will punish you for.** It renders through
+**The lockup is the site's**, not a second one drawn here. The card used to set
+"F1" + "DUEL" by hand, which predates the mark existing. `loadAssets()` reads
+`public/logo-mark.svg` and recolours it exactly as the poster does — the file
+paints itself in `currentColor`, which resolves to black once it is an image
+rather than an element in a page — then hands Satori a base64 data URI. The
+knockout survives, so the car shows the card's own ground.
+
+**Assets are read with `readFile`, not `fetch`.** Next's documented pattern for
+this is `fetch(new URL(…, import.meta.url))`, which is written for the Edge
+runtime; these routes run on Node, where the bundler resolves that to a `file:`
+URL and Node's fetch refuses the scheme outright — `TypeError: fetch failed`,
+caused by `not implemented... yet...`. `readFile` takes the file URL directly:
+same asset reference, no network in the middle. Verified by build rather than by
+argument — `next build` prerenders `/opengraph-image` as static, which it can
+only do if the fonts and the mark resolved.
+
+**Four things `ImageResponse` will punish you for.** It renders through
 Satori, not a browser:
 
 1. **No stylesheet, and a very small CSS subset.** Inline styles only —
    Tailwind classes do nothing here.
 2. **No block layout.** A `<div>` with more than one child and no
    `display: flex` throws at render time, not at build time.
-3. **`radial-gradient(closest-side …)` renders as a ring with a dark hole.**
+3. **No font, either.** Satori inherits nothing, so given no `fonts` option it
+   falls back to its own bundled face — and from the day these cards were added
+   until 2026-08-29 they went out in a typeface that appears nowhere else on the
+   site. That is the worst surface to
+   lose: it is what a stranger meets first, in a group chat, before any page.
+   `lib/fonts/` now holds three committed cuts, the charte's three voices —
+   Archivo 400 for running text, Archivo at display width 800 for the headline
+   and the name, Geist Mono 700 for numbers and labels. Committed rather than
+   fetched at render: a card that must reach fonts.gstatic.com before it can
+   answer is a card that sometimes doesn't. Both families are OFL.
+
+   Google Fonts has **no static instance at `wdth 118`**, the width `.display`
+   uses — `semi-expanded` (112.5) and `expanded` (125) and nothing between. The
+   card takes 112.5, which is the same rung the canvas poster lands on for the
+   same reason by a different route (§9.9).
+4. **`radial-gradient(closest-side …)` renders as a ring with a dark hole.**
    The hero's glow had to become a corner-anchored `linear-gradient`, and its
    transparent stop sits at 55% so the box has a dead margin — at 72% the
    corners furthest from the gradient origin still carried colour and left a

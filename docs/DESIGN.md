@@ -1654,10 +1654,21 @@ Three places the design has to survive outside a browser tab.
 ### 14.1 Open Graph cards
 
 `app/opengraph-image.tsx` and the per-route ones under `join/[code]` and
-`profile/[username]`, drawn with `next/og` and sharing `lib/og.tsx`. Same
-palette, same logotype. `metadataBase` is absolute and read from the
-environment: a share card is fetched by WhatsApp or Slack, not by the browser on
-the page, so a relative base silently yields a card with no image.
+`profile/[username]`, drawn with `next/og` and sharing `lib/og.tsx`.
+
+Same palette, same lockup, **and now the same typefaces**. Satori inherits no
+stylesheet and therefore no font: given none it renders in its own bundled face,
+which is how the most-seen surface the project has — the thing a stranger meets
+first, in a group chat — shipped outside the charte from the day it was added. The
+three voices of §3.3 are committed under `lib/fonts/` and handed to Satori
+explicitly: Archivo for running text, Archivo at display width for the headline
+and the name, Geist Mono for every number and label. Google Fonts has no static
+instance at `wdth 118`, so the card takes `semi-expanded` (112.5), the same rung
+the poster lands on (§14.2).
+
+`metadataBase` is absolute and read from the environment: a share card is
+fetched by WhatsApp or Slack, not by the browser on the page, so a relative base
+silently yields a card with no image.
 
 ### 14.2 The race poster
 
