@@ -5,7 +5,7 @@ export const alt = "F1 Duel — predict the top 10, beat the model";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
-export default function Image() {
+export default async function Image() {
   return shareCard({
     eyebrow: "One duel per Grand Prix",
     title: "Beat the model. Every single Sunday.",
