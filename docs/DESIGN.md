@@ -1671,6 +1671,13 @@ a faint grid, glass rows, the checkered finish line, emerald for exact and amber
 for near. Its palette is a literal copy of the tokens in §3.1 — **if a token
 changes, change `C` in `draw.ts` in the same commit.**
 
+Its footer signs the sheet with the brand on the left and **the site's host on
+the right, in mono**. That is a design rule, not a detail: the poster is the one
+piece of this site that travels without a browser around it — into a story, a
+group chat, a camera roll — and a signature with no address is a dead end. The
+same reasoning gives the button that produces it a `primary` variant (`.btn-race`)
+under the duel verdict, where the sheet is wanted, rather than a chip in a header.
+
 ### 14.3 Installed app
 
 `app/manifest.ts` and `viewport.themeColor = "#0a0b10"`, so the phone's browser

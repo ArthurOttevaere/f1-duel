@@ -26,6 +26,7 @@ const SCALE = 2;
 const PAD = 64;
 const INNER = W - PAD * 2;
 import { PALETTE } from "@/lib/palette";
+import { CANONICAL_HOST } from "@/lib/constants";
 
 /** The site's palette, read from the one module that holds it (lib/palette.ts). */
 const C = PALETTE;
@@ -782,12 +783,27 @@ export async function drawPoster(
   const brandW = ctx.measureText("F1 DUEL").width;
   ctx.font = `600 13px ${sans}`;
   ctx.fillStyle = C.mute;
-  ctx.fillText("· one duel per Grand Prix", PAD + brandW + 8, footerBaseline);
+  ctx.fillText("· humans versus the machine", PAD + brandW + 8, footerBaseline);
+  // The address, right where a footer signature belongs. The sheet travels on
+  // its own — into a story, a group chat, a camera roll — and a poster nobody
+  // can follow back is a dead end. Two taglines used to sit here; one of them
+  // was worth less than knowing where the thing lives.
   ctx.textAlign = "right";
-  ctx.fillText("Humans versus the machine", W - PAD, footerBaseline);
+  ctx.font = `700 13px ${mono}`;
+  ctx.fillStyle = C.dim;
+  ctx.fillText(posterHost(), W - PAD, footerBaseline);
   ctx.textAlign = "left";
 
   return canvas;
+}
+
+/**
+ * What the poster prints as its address. The configured canonical host wins, so
+ * a sheet exported from a Vercel URL still points at the real domain; with none
+ * set, the host the exporter is on is the one that is certain to work.
+ */
+function posterHost(): string {
+  return CANONICAL_HOST ?? window.location.host;
 }
 
 /** `f1-duel-round-14-2026.png` — sorts by season and reads in a share sheet. */

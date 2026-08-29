@@ -1472,9 +1472,20 @@ page the site has — a shared link lands here — and it used to end on a two-l
 receipt and the footer, with no button anywhere. A visitor now gets a final
 block: what the model scored here, a live countdown to the next Grand Prix
 (one extra `races` read, signed-out only), a sign-in call to action, and the
-race poster. The poster button **moves** rather than doubling: signed in it
-stays in the header, signed out it sits in that block, because `PosterExport`
-serializes its data into the HTML and two of them would ship it twice.
+race poster. The poster button **moves** rather than doubling — `PosterExport`
+serializes its data into the HTML and two of them would ship it twice — and it
+goes wherever it is most wanted: **under the duel verdict** on a race you
+played, in this closing block signed out, and only in the header on the
+leftover case, a scored race you sat out.
+
+**The share lives with the verdict.** Reading "You beat the model" is the one
+moment you want to show someone, and the poster used to be a grey `Export
+poster` chip in the page header, two hundred pixels away and worded like a file
+menu. The banner now carries a `variant="primary"` `PosterExport` under a
+divider, labelled for the result it depicts — *Share the win* / *Share the dead
+heat* / *Share the race* — with the sheet's dimensions spelled out beside it.
+`PosterExport` takes `label` and `variant` for exactly this; the default
+(`"Export poster"`, `chip`) is what the two quieter placements still render.
 
 `RaceBreakdown` (client) owns the 4-column table — Pos / You / Model /
 Official — above `sm`, one stacked card per position below it, and takes
@@ -2162,6 +2173,16 @@ column — see the third bullet.
 - Layout is **self-fitting**: the table's row height is derived from the space
   left between the verdict card and the stats band, so no arithmetic slip can
   push content off the sheet.
+- **The footer prints the address.** A PNG in a group chat or an Instagram
+  story carries no link of its own, so a poster without its domain on it is a
+  dead end — the whole point of the sheet is that it travels. The right-hand
+  tagline ("Humans versus the machine", which the left one already implied) gave
+  its place to the host, in mono. `posterHost()` prefers `CANONICAL_HOST`
+  (`lib/constants.ts`, set from `NEXT_PUBLIC_SITE_URL`) so a sheet exported from
+  a Vercel URL still points at the real domain, and falls back to
+  `location.host`. `SITE_URL` itself is unusable here: its Vercel fallback reads
+  a server-only variable, so in the browser it would resolve to the hardcoded
+  default.
 
 ### 9.10 Share cards (`lib/og.tsx` + `opengraph-image` routes)
 

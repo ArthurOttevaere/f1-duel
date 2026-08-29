@@ -49,3 +49,17 @@ export const AUTHOR_URL = "https://github.com/ArthurOttevaere";
 const contact = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim();
 export const CONTACT_EMAIL =
   contact && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact) ? contact : null;
+
+/**
+ * The bare canonical host (`f1-duel.com`), or null when none is configured.
+ *
+ * The race poster signs itself with it. A PNG that lands in a group chat or a
+ * story carries no link of its own, so the address has to be printed on the
+ * sheet or the poster is a dead end. `SITE_URL` can't be used for this: its
+ * Vercel fallback is a server-only variable, so in the browser it would resolve
+ * to the hardcoded default. Unset, the poster falls back to the host the
+ * exporter is actually on — see `lib/poster/draw.ts`.
+ */
+export const CANONICAL_HOST = explicitSite
+  ? explicitSite.replace(/^https?:\/\//, "").replace(/\/+$/, "")
+  : null;

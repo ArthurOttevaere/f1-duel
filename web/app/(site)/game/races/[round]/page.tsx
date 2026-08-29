@@ -238,17 +238,18 @@ export default async function RaceReviewPage({
           </p>
           <h1 className="display mt-1 text-3xl font-extrabold tracking-tight">{race.name}</h1>
         </div>
-        {/* Signed out, the poster moves to the closing block below, where it
-            is the thing being offered rather than a chip in a header. It is
-            only ever rendered once: the data it carries is serialized into the
-            page. */}
-        {poster && user && <PosterExport data={poster} />}
+        {/* The poster is rendered exactly once — its data is serialized into
+            the page, so a second copy would ship it twice — and it moves to
+            wherever it is most wanted. Played the race: the duel banner, under
+            the verdict. Signed out: the closing block. This header chip is the
+            leftover case, a scored race you sat out. */}
+        {poster && user && !myScore && <PosterExport data={poster} />}
       </header>
 
       {/* ── Duel banner ── */}
       {race.status === "scored" && myScore && (
         <section
-          className={`glass-card flex items-center justify-between p-6 ${
+          className={`glass-card p-6 ${
             myScore.beat_model
               ? "border-emerald-400/40"
               : myScore.drew_model
@@ -256,38 +257,64 @@ export default async function RaceReviewPage({
                 : "border-race/40"
           }`}
         >
-          <div>
-            <p className="text-sm text-ink-dim">
-              {myScore.beat_model
-                ? "You beat the model 🎉"
-                : myScore.drew_model
-                  ? "Dead heat with the model"
-                  : "The model takes this one"}
-            </p>
-            <p className="mt-1 font-mono text-2xl font-semibold">
-              {formatPoints(myScore.total)}{" "}
-              <span className="text-ink-mute">—</span>{" "}
-              {formatPoints(entry?.total ?? 0)}
-            </p>
-          </div>
-          {/* The margin, not a bonus. Beating the model stopped paying points
-              when the standings started ranking on the duel itself — this is
-              the number that breaks ties between equal records. */}
-          <div className="text-right text-xs text-ink-mute">
-            <p>you · model</p>
-            <p
-              className={`mt-1 font-mono ${
-                myScore.beat_model
-                  ? "text-emerald-400"
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm text-ink-dim">
+                {myScore.beat_model
+                  ? "You beat the model 🎉"
                   : myScore.drew_model
-                    ? "text-amber-300"
-                    : "text-race"
-              }`}
-            >
-              {formatMargin(myScore.total - (entry?.total ?? 0))} on the season
-              margin
-            </p>
+                    ? "Dead heat with the model"
+                    : "The model takes this one"}
+              </p>
+              <p className="mt-1 font-mono text-2xl font-semibold">
+                {formatPoints(myScore.total)}{" "}
+                <span className="text-ink-mute">—</span>{" "}
+                {formatPoints(entry?.total ?? 0)}
+              </p>
+            </div>
+            {/* The margin, not a bonus. Beating the model stopped paying points
+                when the standings started ranking on the duel itself — this is
+                the number that breaks ties between equal records. */}
+            <div className="text-right text-xs text-ink-mute">
+              <p>you · model</p>
+              <p
+                className={`mt-1 font-mono ${
+                  myScore.beat_model
+                    ? "text-emerald-400"
+                    : myScore.drew_model
+                      ? "text-amber-300"
+                      : "text-race"
+                }`}
+              >
+                {formatMargin(myScore.total - (entry?.total ?? 0))} on the
+                season margin
+              </p>
+            </div>
           </div>
+
+          {/* Reading the verdict is the moment you want to show it to someone,
+              and the poster used to be a grey chip in the header two hundred
+              pixels away. It belongs here, under the score it depicts, worded
+              for the result it carries. */}
+          {poster && (
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line pt-5">
+              <PosterExport
+                data={poster}
+                variant="primary"
+                label={
+                  myScore.beat_model
+                    ? "Share the win"
+                    : myScore.drew_model
+                      ? "Share the dead heat"
+                      : "Share the race"
+                }
+              />
+              <p className="text-xs text-ink-mute">
+                A 1080 × 1350 sheet of this race, signed with your name — sized
+                for a story.
+              </p>
+            </div>
+          )}
         </section>
       )}
 
