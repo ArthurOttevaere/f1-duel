@@ -70,7 +70,21 @@ function ModelToggle({
   );
 }
 
-export default function PosterExport({ data }: { data: PosterData }) {
+export default function PosterExport({
+  data,
+  label = "Export poster",
+  variant = "chip",
+}: {
+  data: PosterData;
+  /** The trigger's words. The duel banner tunes them to how the race went. */
+  label?: string;
+  /**
+   * `chip` is a quiet header affordance; `primary` is the call to action that
+   * sits under the verdict, where you have just been told you beat the model
+   * and the poster is the thing you want next.
+   */
+  variant?: "chip" | "primary";
+}) {
   const [open, setOpen] = useState(false);
   const [withModel, setWithModel] = useState(data.modelTotal !== null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -191,10 +205,14 @@ export default function PosterExport({ data }: { data: PosterData }) {
       <button
         type="button"
         onClick={() => show(() => setOpen(true))}
-        className="pressable glass-chip flex items-center gap-2 rounded-control px-4 py-2 text-sm font-semibold transition-colors hover:border-line-hi"
+        className={`pressable flex items-center gap-2 rounded-control text-sm font-semibold transition-colors ${
+          variant === "primary"
+            ? "btn-race px-6 py-2.5"
+            : "glass-chip px-4 py-2 hover:border-line-hi"
+        }`}
       >
         <span aria-hidden>🏁</span>
-        Export poster
+        {label}
       </button>
 
       {open &&
