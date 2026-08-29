@@ -1671,6 +1671,15 @@ a faint grid, glass rows, the checkered finish line, emerald for exact and amber
 for near. Its palette is a literal copy of the tokens in §3.1 — **if a token
 changes, change `C` in `draw.ts` in the same commit.**
 
+It signs itself with **the site's lockup** — the drawn mark, then Archivo with
+"F1" in race red, at the same proportions `Wordmark.tsx` uses (§4.2): mark at
+1.7em, half an em of gap, a fifth of an em of tracking. The sheet used to carry
+a lockup of its own, "F1" reversed out of a red tile, which predates the mark
+existing at all. Its headline is set in the display voice as far as a canvas can
+reach it: `semi-expanded` (112.5%) rather than `.display`'s `wdth 118`, because
+a canvas can only name the nine font-stretch keywords and 112.5 is the nearest
+of them.
+
 Its footer signs the sheet with the brand on the left and **the site's host on
 the right, in mono**. That is a design rule, not a detail: the poster is the one
 piece of this site that travels without a browser around it — into a story, a
@@ -1678,7 +1687,15 @@ group chat, a camera roll — and a signature with no address is a dead end. The
 same reasoning gives the button that produces it a `primary` variant (`.btn-race`)
 under the duel verdict, where the sheet is wanted, rather than a chip in a header.
 
-### 14.3 Installed app
+### 14.3 Off-site assets (`brand/`)
+
+Two 1080 × 1920 story backgrounds — the same ground as the poster's, with the
+middle left empty — because a story background is picked from a camera roll and
+there is no browser in that moment to render one. `brand/README.md` says which
+is which and where the furniture sits relative to Instagram's own chrome. They
+are output: the drawing is still the code in `lib/poster/draw.ts`.
+
+### 14.4 Installed app
 
 `app/manifest.ts` and `viewport.themeColor = "#0a0b10"`, so the phone's browser
 chrome paints itself in the page colour and the address bar continues the page

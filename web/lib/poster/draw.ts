@@ -31,6 +31,39 @@ import { CANONICAL_HOST } from "@/lib/constants";
 /** The site's palette, read from the one module that holds it (lib/palette.ts). */
 const C = PALETTE;
 
+/**
+ * The logomark's own bounds inside `public/logo-mark.svg`, whose viewBox is a
+ * 1500-unit square with the drawing sitting off-centre in it. These are the
+ * numbers `components/Logomark.tsx` uses for the same reason: retargeting the
+ * viewBox to the ink means the mark can be placed by height with no stray
+ * padding on either side. **If the mark's artwork is recut, both change.**
+ */
+const MARK_BOX = { x: 509, y: 244, w: 764, h: 1012 };
+const MARK_RATIO = MARK_BOX.w / MARK_BOX.h;
+
+/**
+ * The display voice, as close as a canvas can get to it.
+ *
+ * The site's headlines are `.display` — Archivo opened to `wdth 118`
+ * (globals.css §`.display`). A canvas cannot ask for that number: `ctx.font`
+ * parses the CSS `font` shorthand, which admits only the nine `font-stretch`
+ * keywords, and `ctx.fontStretch` is a keyword enum as well. Both silently
+ * ignore `118%` — measured, not assumed: setting either leaves the previous
+ * value in place and the text comes out at the width it already had.
+ *
+ * The rungs Archivo actually offers through that ladder are 112.5%
+ * (`semi-expanded`) and 125% (`expanded`, which is the font's own ceiling).
+ * 112.5 is the nearer of the two and lands within about half a percent of the
+ * site's width across a headline; `expanded` is visibly wider than anything on
+ * the site. The alternative — scraping next/font's hashed `@font-face` src out
+ * of `document.styleSheets` to register a face pinned at `stretch: 118%` — buys
+ * that half percent for a dependency on an internal that is not ours.
+ */
+const DISPLAY = "semi-expanded";
+
+/** The lockup's proportions, from `components/Wordmark.tsx`, in ems. */
+const LOCKUP = { mark: 1.7, gap: 0.5, tracking: 0.2 };
+
 const VERDICT = {
   beat: { label: "You beat the model", tone: C.exact },
   drew: { label: "Dead heat with the model", tone: C.near },
@@ -51,7 +84,13 @@ function roundRect(
   ctx.roundRect(x, y, w, h, r);
 }
 
-/** Shrinks the size until the text fits `maxWidth` (never below `min`). */
+/**
+ * Shrinks the size until the text fits `maxWidth` (never below `min`).
+ *
+ * `stretch` has to travel with the size: the display voice is ~12% wider than
+ * the normal cut, so fitting at one width and drawing at the other is how a
+ * headline ends up over the edge of the sheet.
+ */
 function fitFont(
   ctx: CanvasRenderingContext2D,
   text: string,
@@ -60,14 +99,41 @@ function fitFont(
   min: number,
   family: string,
   maxWidth: number,
+  stretch = "",
 ) {
   let size = max;
   while (size > min) {
-    ctx.font = `${weight} ${size}px ${family}`;
+    ctx.font = `${stretch} ${weight} ${size}px ${family}`.trim();
     if (ctx.measureText(text).width <= maxWidth) break;
     size -= 1;
   }
   return size;
+}
+
+/**
+ * Letter-spaced text, drawn a glyph at a time, returning the advance it used.
+ *
+ * `ctx.letterSpacing` exists and would do this in one line, but it is the
+ * newest thing in this file by some years and the sheet's whole premise is that
+ * it comes out identical everywhere. Tracking is applied *between* glyphs and
+ * not after the last one, which is the optical choice and also what makes the
+ * returned width safe to lay something out against. Kerning is lost, which
+ * matters for lowercase text set solid and not at all for capitals opened up by
+ * a fifth of an em.
+ */
+function trackedText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  y: number,
+  tracking: number,
+): number {
+  let cursor = x;
+  for (let i = 0; i < text.length; i += 1) {
+    ctx.fillText(text[i], cursor, y);
+    cursor += ctx.measureText(text[i]).width + (i === text.length - 1 ? 0 : tracking);
+  }
+  return cursor - x;
 }
 
 /** Loads an image, resolving to null instead of rejecting when it 404s. */
@@ -93,12 +159,101 @@ function fontStack(variable: string, fallback: string): string {
   return v ? `${v}, ${fallback}` : fallback;
 }
 
+/** The mark's source text, fetched once per document however many sheets draw. */
+let markSource: Promise<string | null> | null = null;
+
+/**
+ * The site's logomark, recoloured for the canvas.
+ *
+ * `public/logo-mark.svg` paints itself in `currentColor` and knocks the car out
+ * of the letter with a mask. Both are right in the DOM, where the mark inherits
+ * the page's colour and the hole shows whatever surface is behind it. Neither
+ * survives an `<img src>`: an SVG loaded that way is an isolated document, so
+ * `currentColor` falls back to its own initial value — black, on a black sheet
+ * — with no cascade to inherit from.
+ *
+ * So the file is fetched as text, `currentColor` is substituted for the colour
+ * this sheet wants, and the result is loaded from a blob URL. The knockout is
+ * unaffected: it is a mask inside the file rather than a cascade trick, so the
+ * car still shows the poster's own aurora through it, exactly as it shows the
+ * page. Recolouring rather than drawing a second asset also keeps one file as
+ * the artwork's only home.
+ */
+async function loadLogomark(color: string): Promise<HTMLImageElement | null> {
+  markSource ??= fetch("/logo-mark.svg")
+    .then((r) => (r.ok ? r.text() : null))
+    .catch(() => null);
+  const src = await markSource;
+  if (!src) return null;
+
+  const { x, y, w, h } = MARK_BOX;
+  const svg = src
+    // Rewritten wholesale rather than patched: an attribute-by-attribute edit
+    // would silently no-op if the export tool ever reorders the opening tag,
+    // and the failure mode is a mark drawn tiny inside a mostly empty square.
+    .replace(
+      /<svg\b[^>]*>/,
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="${x} ${y} ${w} ${h}">`,
+    )
+    .replaceAll("currentColor", color);
+
+  const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
+  const img = await loadImage(url);
+  URL.revokeObjectURL(url);
+  return img;
+}
+
+/**
+ * The lockup — the mark, then the name with "F1" in race red — which is
+ * `components/Wordmark.tsx` in canvas terms, down to its proportions: the mark
+ * at 1.7em of the type size, half an em of gap, a fifth of an em of tracking,
+ * and the name in the display voice rather than the running one.
+ *
+ * The poster used to draw its own brand instead: "F1" reversed out of a red
+ * rounded tile, with "DUEL" set beside it. That lockup predates the site having
+ * a mark at all, and it was the only place left signing the project in a shape
+ * the project no longer uses.
+ *
+ * Returns the width drawn, so a caller can put a tagline after it.
+ */
+function drawLockup(
+  ctx: CanvasRenderingContext2D,
+  mark: HTMLImageElement | null,
+  x: number,
+  baseline: number,
+  size: number,
+  family: string,
+  nameColor: string,
+): number {
+  let cursor = x;
+  if (mark) {
+    const markH = size * LOCKUP.mark;
+    // Centred on the capitals rather than on the baseline: Archivo's cap height
+    // is close to 0.72em, so the middle of the lettering sits 0.36em above it.
+    ctx.drawImage(mark, cursor, baseline - size * 0.36 - markH / 2, markH * MARK_RATIO, markH);
+    cursor += markH * MARK_RATIO + size * LOCKUP.gap;
+  }
+
+  const tracking = size * LOCKUP.tracking;
+  ctx.font = `${DISPLAY} 800 ${size}px ${family}`;
+  ctx.fillStyle = C.race;
+  cursor += trackedText(ctx, "F1", cursor, baseline, tracking) + tracking;
+  cursor += ctx.measureText(" ").width;
+  ctx.fillStyle = nameColor;
+  cursor += trackedText(ctx, "DUEL", cursor, baseline, tracking);
+  return cursor - x;
+}
+
 async function preloadFonts(sans: string, mono: string) {
   if (!document.fonts?.load) return;
   // document.fonts.load takes one family, not a stack.
   const first = (stack: string) => stack.split(",")[0].trim();
   await Promise.all([
     document.fonts.load(`800 60px ${first(sans)}`),
+    // The display cut is a different width of the same variable file, and it
+    // is what the headline and the lockup are set in.
+    document.fonts.load(`${DISPLAY} 800 60px ${first(sans)}`),
+    document.fonts.load(`${DISPLAY} 800 24px ${first(sans)}`),
     document.fonts.load(`700 24px ${first(sans)}`),
     document.fonts.load(`600 18px ${first(sans)}`),
     document.fonts.load(`800 40px ${first(mono)}`),
@@ -340,6 +495,13 @@ export async function drawPoster(
       }),
   );
 
+  // Two cuts of the same drawing: the masthead's, in ink, and the footer's,
+  // one step down. The file behind them is fetched once (see `loadLogomark`).
+  const [headerMark, footerMark] = await Promise.all([
+    loadLogomark(C.ink),
+    loadLogomark(C.dim),
+  ]);
+
   const canvas = document.createElement("canvas");
   canvas.width = W * SCALE;
   canvas.height = H * SCALE;
@@ -350,18 +512,8 @@ export async function drawPoster(
 
   drawBackground(ctx);
 
-  // ── Header: brand left, round chip right ──────────────────────────────────
-  ctx.fillStyle = C.race;
-  roundRect(ctx, PAD, 62, 46, 34, 9);
-  ctx.fill();
-  ctx.fillStyle = "#fff";
-  ctx.font = `800 19px ${sans}`;
-  ctx.textAlign = "center";
-  ctx.fillText("F1", PAD + 23, 86);
-  ctx.textAlign = "left";
-  ctx.fillStyle = C.ink;
-  ctx.font = `700 21px ${sans}`;
-  ctx.fillText("DUEL", PAD + 58, 86);
+  // ── Header: the lockup left, round chip right ─────────────────────────────
+  drawLockup(ctx, headerMark, PAD, 86, 24, sans, C.ink);
 
   const chip = `ROUND ${data.round} · ${data.season}`;
   ctx.font = `700 13px ${mono}`;
@@ -385,8 +537,8 @@ export async function drawPoster(
 
   // ── Title: the Grand Prix ─────────────────────────────────────────────────
   const title = data.raceName.toUpperCase();
-  const tSize = fitFont(ctx, title, 800, 62, 32, sans, INNER);
-  ctx.font = `800 ${tSize}px ${sans}`;
+  const tSize = fitFont(ctx, title, 800, 62, 32, sans, INNER, DISPLAY);
+  ctx.font = `${DISPLAY} 800 ${tSize}px ${sans}`;
   ctx.fillStyle = C.ink;
   ctx.fillText(title, PAD, 200);
 
@@ -455,8 +607,8 @@ export async function drawPoster(
     // Nobody scored this one, so the winner is the headline.
     const winner = data.slots[0]?.official;
     const name = (winner ? (data.drivers[winner]?.name ?? "—") : "—").toUpperCase();
-    const size = fitFont(ctx, name, 800, 40, 22, sans, INNER * 0.52);
-    ctx.font = `800 ${size}px ${sans}`;
+    const size = fitFont(ctx, name, 800, 40, 22, sans, INNER * 0.52, DISPLAY);
+    ctx.font = `${DISPLAY} 800 ${size}px ${sans}`;
     ctx.fillText(name, PAD + 28, cardTop + 88);
   }
 
@@ -777,10 +929,7 @@ export async function drawPoster(
   // ── Finish line + footer ──────────────────────────────────────────────────
   drawFinishLine(ctx, checkerTop, 18);
 
-  ctx.font = `700 13px ${sans}`;
-  ctx.fillStyle = C.dim;
-  ctx.fillText("F1 DUEL", PAD, footerBaseline);
-  const brandW = ctx.measureText("F1 DUEL").width;
+  const brandW = drawLockup(ctx, footerMark, PAD, footerBaseline, 13, sans, C.dim);
   ctx.font = `600 13px ${sans}`;
   ctx.fillStyle = C.mute;
   ctx.fillText("· humans versus the machine", PAD + brandW + 8, footerBaseline);
