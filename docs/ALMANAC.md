@@ -2173,6 +2173,31 @@ column — see the third bullet.
 - Layout is **self-fitting**: the table's row height is derived from the space
   left between the verdict card and the stats band, so no arithmetic slip can
   push content off the sheet.
+- **It signs itself with the site's lockup**, not with a lockup of its own. The
+  header used to reverse "F1" out of a red rounded tile and set "DUEL" beside
+  it — a mark that predates the site having one, and the last place still
+  signing the project in a shape it no longer uses. `drawLockup()` is
+  `components/Wordmark.tsx` in canvas terms, down to its proportions (mark at
+  1.7em, 0.5em gap, 0.2em of tracking, "F1" in race red), and the footer
+  repeats it small the way every page's footer does.
+- **The mark is fetched and recoloured, not re-drawn.** `public/logo-mark.svg`
+  paints itself in `currentColor` and knocks the car out of the letter with a
+  mask; through an `<img src>` neither works, because an SVG loaded that way is
+  an isolated document with no cascade to inherit from — `currentColor` falls
+  back to black, on a black sheet. `loadLogomark()` fetches the file as text,
+  substitutes the colour, retargets the viewBox to the ink's own bounds (the
+  numbers `Logomark.tsx` uses) and loads the result from a blob URL. The
+  knockout survives, because it is a mask inside the file rather than a cascade
+  trick, so the car shows the poster's aurora exactly as it shows the page.
+- **The headline is set in the display voice** — or as near as a canvas reaches.
+  `.display` is Archivo at `wdth 118`; `ctx.font` parses the CSS `font`
+  shorthand, which admits only the nine `font-stretch` keywords, and
+  `ctx.fontStretch` is a keyword enum too. Both silently ignore `118%`, measured
+  rather than assumed. `semi-expanded` (112.5%) is the nearest rung and lands
+  within about half a percent across a headline; `expanded` is 125%, Archivo's
+  ceiling and visibly wider than the site. The width has to travel with
+  `fitFont` as well, or a headline fitted at one width and drawn at another
+  runs off the sheet.
 - **The footer prints the address.** A PNG in a group chat or an Instagram
   story carries no link of its own, so a poster without its domain on it is a
   dead end — the whole point of the sheet is that it travels. The right-hand
