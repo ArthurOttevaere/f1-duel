@@ -90,6 +90,9 @@ export default function PosterExport({
   const [preview, setPreview] = useState<string | null>(null);
   const [busy, setBusy] = useState<Busy>(null);
   const [error, setError] = useState<string | null>(null);
+  // A copy leaves no trace of its own: no file lands, no sheet opens. Without a
+  // word from the page, a successful copy and a silent failure look identical.
+  const [copied, setCopied] = useState(false);
   // Feature detection has to wait for the client, or the server would render a
   // different set of buttons than the browser does.
   const [shareable, setShareable] = useState(false);
@@ -135,6 +138,12 @@ export default function PosterExport({
   }, [open, withModel, data]);
 
   useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 2600);
+    return () => clearTimeout(t);
+  }, [copied]);
+
+  useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
@@ -152,6 +161,7 @@ export default function PosterExport({
   const show = useCallback((next: () => void) => {
     setPreview(null);
     setError(null);
+    setCopied(false);
     next();
   }, []);
 
@@ -164,15 +174,29 @@ export default function PosterExport({
       try {
         if (action === "pdf") {
           downloadBlob(posterToPdf(canvas), posterFileName(data, "pdf"));
+        } else if (action === "copy") {
+          // Nothing may be awaited before this line.
+          //
+          // `clipboard.write` needs the click's transient activation, and an
+          // `await` hands control back to the event loop, which spends it.
+          // Chrome is lenient enough that encoding a 1080×1350 bitmap first
+          // still lands inside its window; WebKit is not, and this is a site
+          // whose author browses it in Safari — so Copy was the one button that
+          // reported failure while PNG and PDF, which need no activation at
+          // all, worked beside it.
+          //
+          // `ClipboardItem` takes a **promise** of a blob for exactly this
+          // case: the write is issued synchronously inside the gesture and the
+          // encoding runs behind it.
+          await navigator.clipboard.write([
+            new ClipboardItem({ "image/png": canvasBlob(canvas) }),
+          ]);
+          setCopied(true);
         } else {
           const blob = await canvasBlob(canvas);
           const name = posterFileName(data, "png");
           if (action === "png") {
             downloadBlob(blob, name);
-          } else if (action === "copy") {
-            await navigator.clipboard.write([
-              new ClipboardItem({ "image/png": blob }),
-            ]);
           } else {
             const file = new File([blob], name, { type: "image/png" });
             if (navigator.canShare?.({ files: [file] })) {
@@ -188,7 +212,11 @@ export default function PosterExport({
       } catch (e) {
         // A share sheet the user dismissed is not an error worth shouting about.
         if (!(e instanceof DOMException && e.name === "AbortError")) {
-          setError("That didn't work. Try downloading the PNG instead.");
+          setError(
+            action === "copy"
+              ? "Your browser wouldn't take the image. Download the PNG instead."
+              : "That didn't work. Try downloading the PNG instead.",
+          );
         }
       } finally {
         setBusy(null);
@@ -328,8 +356,16 @@ export default function PosterExport({
                     </div>
                   </div>
 
+                  {/* The confirmation goes here rather than into the button:
+                      swapping "Copy" for "Copied ✓" resizes it and makes the
+                      whole row jump, which is the same reason the spinner joins
+                      the label instead of replacing it. */}
                   {error ? (
                     <p className="text-xs text-race">{error}</p>
+                  ) : copied ? (
+                    <p className="text-xs text-emerald-400">
+                      Copied — paste it straight into a message.
+                    </p>
                   ) : (
                     <p className="text-xs text-ink-mute">
                       1080 × 1350 — sized for a story or a post.
