@@ -863,7 +863,7 @@ editor.
 | `0010_profile_theme.sql` | `profiles.theme` (`driver` \| `team`, default `driver`) — which half of the championship call paints the profile | ✅ confirmed 2026-08-27 |
 | `0011_race_field_summary.sql` | `race_field_summary(season)` — per race: players, beat, drew; one aggregate over the public `scores` (security invoker) so the race lists never read every score of the season | ✅ applied 2026-09-06 (through the Supabase MCP, in the same session as the PR) |
 | `0012_player_form.sql` | `player_form(season, user_ids[], races=5)` — the last five duels of each listed player, `W`/`D`/`L` with the round and the Grand Prix, oldest first. A window function, because a hundred players by two dozen races is past the 1000-row cap | ✅ applied 2026-09-06 |
-| `0013_quali_order.sql` | `races.quali_order jsonb` — the qualifying order the prediction editor sorts its driver pool by | ⏳ pending |
+| `0013_quali_order.sql` | `races.quali_order jsonb` — the qualifying order the prediction editor sorts its driver pool by | ✅ applied 2026-09-25 (through the Supabase MCP, in the same session as the PR) |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
