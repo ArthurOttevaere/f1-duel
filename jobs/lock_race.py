@@ -65,6 +65,24 @@ def quali_order(season: int, rnd: int) -> list[str]:
     return [str(d) for d in ranked["DriverId"]]
 
 
+def store_quali_order(race: dict) -> None:
+    """Publish the qualifying order on the race row, for the prediction editor.
+
+    Re-read every run until lights out rather than once: a car excluded after
+    the session moves everyone behind it up, and the stored order should say
+    so. Never allowed to take the run down — the entry and the lock below are
+    what this job is for, and a missing column (migration 0013 not applied)
+    or a timing hiccup must not cost either.
+    """
+    try:
+        order = quali_order(race["season"], race["round"])
+        if order and order != race.get("quali_order"):
+            db.update("races", {"id": f"eq.{race['id']}"}, {"quali_order": order})
+            print(f"round {race['round']}: qualifying order stored ({len(order)} drivers)")
+    except Exception as e:
+        print(f"round {race['round']}: qualifying order not stored ({e})")
+
+
 def grid_fallback(race: dict) -> None:
     order = quali_order(race["season"], race["round"])
     if not order:
@@ -98,6 +116,7 @@ def main() -> None:
         if now < race_at:
             # Entry becomes worth refreshing once qualifying should be done.
             if quali_at is None or now > quali_at + timedelta(hours=1, minutes=30):
+                store_quali_order(race)
                 # The nudge goes out only if the entry actually landed. Sent
                 # from here rather than on a clock of its own precisely so it
                 # cannot claim "the model has played its hand" on a weekend

@@ -23,6 +23,12 @@ export interface Race {
   quali_at: string | null;
   race_at: string | null;
   status: RaceStatus;
+  /**
+   * Qualifying classification, pole first, as `lock_race.py` read it — null
+   * until then (and on a database without migration 0013). Not the grid:
+   * penalties are applied after it.
+   */
+  quali_order?: string[] | null;
 }
 
 export interface Driver {

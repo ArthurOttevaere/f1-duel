@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-09-06 (`feat/standings-timing-tower`, after PR #84 — the standings board redrawn as a timing tower with form and the championship colour, migration 0012; live on https://f1-duel.com).
+**Last reviewed:** 2026-09-25 (`feat/quali-order-in-picker`, after PR #86 — the qualifying order stored on `races` and shown in the driver pool, migration 0013; live on https://f1-duel.com).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -743,7 +743,7 @@ nowhere else.
 | `profiles` | `id` = `auth.users.id` | signup trigger + owner | `username` unique, regex `^[A-Za-z0-9_]{3,20}$`, plus a **case-insensitive** unique index. `username_set=false` means "auto-suggested, send them to /welcome". |
 | `player_details` | `id` → profiles | owner only | Real name, ISO-3166 country, birth **year**. The one table with **no public read policy**. |
 | `drivers` | `(season, driver_id)` | `sync_schedule` | Roster + team colour, powers the picker and profile theming. |
-| `races` | identity, unique `(season, round)` | `sync_schedule` (never `status`), `lock_race`/`score_race` (status only) | `status ∈ scheduled \| locked \| scored` — the whole fair-play model hangs off this column. |
+| `races` | identity, unique `(season, round)` | `sync_schedule` (never `status`), `lock_race`/`score_race` (status only; `lock_race` also `quali_order`) | `status ∈ scheduled \| locked \| scored` — the whole fair-play model hangs off this column. `quali_order` (0013): the qualifying classification as a JSON array of driver_ids, pole first, null until read — public like the rest of the row, and **not** the grid (no penalties applied). |
 | `model_entries` | `race_id` | `lock_race`, then `score_race` | `predicted_order` (full ordered list), `prob_matrix` `{driver: [p1..pN]}`, `pre_quali`, `sc_prob`, `sc_bet`, and after scoring `total` + `breakdown`. **Readable only once the race is no longer `scheduled`** (0009) — same lock as `predictions`; `model_entry_status` publishes `pre_quali`/`locked_at` for an open race and nothing else. `counts_in_standings` (0006) is the operator's switch for whether this race feeds the model's **season** total — the race page ignores it. The jobs never send that column, so a re-lock or re-score leaves the choice alone. |
 | `predictions` | identity, unique `(user_id, race_id)` | the player | `picks` validated by `valid_picks()`: a JSON array of **exactly 10 distinct** entries. Plus optional `dotd`, `sc_bet`. |
 | `results` | `race_id` | `score_race`, `set_dotd` | Official `classification`, `dotd`, `safety_car`, `scored_at`. |
@@ -863,6 +863,7 @@ editor.
 | `0010_profile_theme.sql` | `profiles.theme` (`driver` \| `team`, default `driver`) — which half of the championship call paints the profile | ✅ confirmed 2026-08-27 |
 | `0011_race_field_summary.sql` | `race_field_summary(season)` — per race: players, beat, drew; one aggregate over the public `scores` (security invoker) so the race lists never read every score of the season | ✅ applied 2026-09-06 (through the Supabase MCP, in the same session as the PR) |
 | `0012_player_form.sql` | `player_form(season, user_ids[], races=5)` — the last five duels of each listed player, `W`/`D`/`L` with the round and the Grand Prix, oldest first. A window function, because a hundred players by two dozen races is past the 1000-row cap | ✅ applied 2026-09-06 |
+| `0013_quali_order.sql` | `races.quali_order jsonb` — the qualifying order the prediction editor sorts its driver pool by | ✅ applied 2026-09-25 (through the Supabase MCP, in the same session as the PR) |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
@@ -990,7 +991,11 @@ For each `scheduled` race with a `race_at`, ordered ascending, stopping at
 anything more than 3 days out:
 
 - **Before the race**, and once `now > quali_at + 1h30` (or there is no
-  `quali_at`): re-run the model and upsert `model_entries`. Running repeatedly
+  `quali_at`): store the qualifying order on `races.quali_order`
+  (`store_quali_order`, re-read every run so a post-session exclusion shows
+  up, written only when it changed, and wrapped so a failure — migration 0013
+  missing, a timing hiccup — is a log line and never costs the entry or the
+  lock), then re-run the model and upsert `model_entries`. Running repeatedly
   is intentional — the entry on record is always the freshest pre-race one.
 - **At/after `race_at`**: if there's still no entry, try once more; failing
   that, use the grid-order fallback; then set `races.status = 'locked'`.

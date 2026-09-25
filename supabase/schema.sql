@@ -67,6 +67,7 @@ create table public.races (
   race_at  timestamptz,
   status   text not null default 'scheduled'
            check (status in ('scheduled', 'locked', 'scored')),
+  quali_order jsonb,                  -- qualifying order, pole first (0013)
   unique (season, round)
 );
 
