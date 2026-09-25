@@ -972,6 +972,7 @@ stop reading — which is the opposite of what a destructive control wants.
 - **Chip:** `glass-chip rounded-control px-3 py-1.5 text-xs` — a jump link, a filter, a status. Reads as a tab on an instrument rather than as a small pill.
 - **Tint fills** run `bg-race/5` (a selected row) → `/10` (a quiet badge) → `/15` (a loud one). Those three steps only.
 - **Toggle button:** `border-race bg-race text-white` when on, `border-line bg-glass text-ink-dim` when off, `aria-pressed` carrying the state. Used by the position picker in §12.2.
+- **Sort toggle:** two mono uppercase words in one `border-line` frame, the on one `bg-glass-strong text-ink`, the off one `text-ink-mute` — `Quali | Team` over the prediction editor's driver pool, desktop header and phone sheet alike. **Neutral, never red**, and that is the point: inside the editor red already means "in your top 10", and a red sort button read as one more pick. It only renders when there is a second order to choose.
 
 ### 7.4 Form fields
 
@@ -1085,6 +1086,18 @@ The repeated atom of the whole game. Left to right:
 `DriverAvatar` takes `AvatarDriver` — a `driver_id`, a `code`, and whatever is
 known about the colour — deliberately narrower than a full roster row so a
 component holding a matrix does not have to fake one.
+
+**The pool chip carries qualifying.** Once `races.quali_order` is known, each
+chip in the prediction editor's driver pool reads `Q4 · Red Bull` on its
+second line — the Q in mono `text-ink-dim`, the team after it in
+`text-ink-mute` — and the pool is ordered pole first. The number rides the
+team line rather than taking a badge because the chip's right edge already
+belongs to the red `P2` of your own pick, and two numbers side by side asked
+which one was yours; Q comes first so a long team name is what truncates. A
+driver who set no time sorts last and carries no Q. One line under the pool —
+"Q = qualifying position, before any grid penalty." — says what the letter
+means and what it is not. Before qualifying, the chip and the order are
+exactly what they were: no placeholder, no empty Q.
 
 ### 7.7 Waiting
 

@@ -30,6 +30,8 @@ import type { Driver, Race } from "@/lib/types";
 import { DriverAvatar } from "@/components/DriverChip";
 
 type SaveState = "idle" | "saving" | "saved" | "error";
+/** How the driver pool is ordered once qualifying is known. */
+type PoolOrder = "quali" | "team";
 /** A fixed 10-slot grid: `null` = still empty. */
 type Slots = (string | null)[];
 
@@ -306,12 +308,15 @@ function Slot({
 function DriverPool({
   roster,
   slots,
+  qualiPos,
   disabled,
   onPick,
   compact,
 }: {
   roster: Driver[];
   slots: Slots;
+  /** Qualifying position by driver_id; empty until the session is in. */
+  qualiPos: Map<string, number>;
   disabled: boolean;
   onPick: (driverId: string) => void;
   compact?: boolean;
@@ -346,7 +351,20 @@ function DriverPool({
               <span className="block truncate text-xs font-medium">
                 {shortName(d.driver_id)}
               </span>
+              {/* The qualifying position rides the team line rather than
+                  taking a badge of its own: the right edge already belongs to
+                  the P-badge of your pick, and two numbers side by side would
+                  have asked which one is yours. Q first, so a long team name
+                  is what truncates. */}
               <span className="block truncate text-[0.65rem] text-ink-mute">
+                {qualiPos.has(d.driver_id) && (
+                  <>
+                    <span className="font-mono text-ink-dim tabular-nums">
+                      Q{qualiPos.get(d.driver_id)}
+                    </span>
+                    {" · "}
+                  </>
+                )}
                 {d.team}
               </span>
             </span>
@@ -362,6 +380,63 @@ function DriverPool({
   );
 }
 
+/**
+ * Qualifying order or constructor order for the pool. Only rendered once
+ * qualifying is in — before that there is one order and nothing to choose.
+ *
+ * Neutral when on, not race red: in this editor red already means "in your
+ * top 10" (the pool's P-badge, the active slot), and a red sort button would
+ * read as one more pick.
+ */
+function SortToggle({
+  order,
+  onChange,
+}: {
+  order: PoolOrder;
+  onChange: (order: PoolOrder) => void;
+}) {
+  return (
+    <div
+      role="group"
+      aria-label="Order drivers by"
+      className="flex shrink-0 gap-0.5 rounded-control border border-line p-0.5"
+    >
+      {(
+        [
+          { val: "quali", label: "Quali" },
+          { val: "team", label: "Team" },
+        ] as const
+      ).map((o) => {
+        const on = order === o.val;
+        return (
+          <button
+            key={o.val}
+            type="button"
+            aria-pressed={on}
+            onClick={() => onChange(o.val)}
+            className={`pressable rounded-[calc(var(--radius-control)-2px)] px-2.5 py-1 font-mono text-[0.65rem] tracking-[0.12em] uppercase transition-colors ${
+              on
+                ? "bg-glass-strong text-ink"
+                : "text-ink-mute hover:text-ink-dim"
+            }`}
+          >
+            {o.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** What Q means, said once, under the pool — and what it is not. */
+function QualiNote() {
+  return (
+    <p className="mt-2 text-xs text-ink-mute">
+      Q = qualifying position, before any grid penalty.
+    </p>
+  );
+}
+
 // ─── Mobile bottom sheet ─────────────────────────────────────────────────────
 
 function PickerSheet({
@@ -369,6 +444,9 @@ function PickerSheet({
   slot,
   slots,
   roster,
+  qualiPos,
+  order,
+  onOrder,
   onPick,
   onClose,
 }: {
@@ -376,6 +454,9 @@ function PickerSheet({
   slot: number;
   slots: Slots;
   roster: Driver[];
+  qualiPos: Map<string, number>;
+  order: PoolOrder;
+  onOrder: (order: PoolOrder) => void;
   onPick: (driverId: string) => void;
   onClose: () => void;
 }) {
@@ -455,13 +536,23 @@ function PickerSheet({
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-4 pt-1 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+          {qualiPos.size > 0 && (
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <p className="font-mono text-[0.65rem] tracking-[0.18em] text-ink-mute uppercase">
+                Drivers
+              </p>
+              <SortToggle order={order} onChange={onOrder} />
+            </div>
+          )}
           <DriverPool
             roster={roster}
             slots={slots}
+            qualiPos={qualiPos}
             disabled={false}
             onPick={onPick}
             compact
           />
+          {qualiPos.size > 0 && <QualiNote />}
           <p className="mt-4 text-center text-xs text-ink-mute">
             Tapping a driver who is already in your top 10 swaps the two
             positions.
@@ -526,6 +617,29 @@ export default function PredictionEditor({
     [roster],
   );
   const activeRoster = useMemo(() => roster.filter((d) => d.active), [roster]);
+
+  // Qualifying, once `lock_race.py` has read it. The pool follows it by
+  // default — it is the order everybody builds a top 10 from — and keeps the
+  // constructor order a tap away. A driver who set no time sorts last, in
+  // team order (the sort is stable), and simply carries no Q.
+  const qualiPos = useMemo(() => {
+    const m = new Map<string, number>();
+    (race.quali_order ?? []).forEach((id, i) => m.set(id, i + 1));
+    return m;
+  }, [race.quali_order]);
+  const hasQuali = qualiPos.size > 0;
+  const [poolOrder, setPoolOrder] = useState<PoolOrder>("quali");
+  const poolRoster = useMemo(
+    () =>
+      hasQuali && poolOrder === "quali"
+        ? [...activeRoster].sort(
+            (a, b) =>
+              (qualiPos.get(a.driver_id) ?? Infinity) -
+              (qualiPos.get(b.driver_id) ?? Infinity),
+          )
+        : activeRoster,
+    [activeRoster, hasQuali, poolOrder, qualiPos],
+  );
   const filled = slots.filter(Boolean).length;
   const complete = filled === 10;
   const dirty = JSON.stringify([slots, dotd, scBet]) !== savedSnapshot;
@@ -724,18 +838,25 @@ export default function PredictionEditor({
         ) : (
         <section className="flex flex-col">
           <div className="hidden lg:block">
-            <h3 className="mb-3 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
-              Drivers{" "}
-              <span className="font-normal text-ink-mute">
-                · click to place in P{active + 1}
-              </span>
-            </h3>
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <h3 className="font-mono text-xs tracking-[0.2em] text-ink-dim uppercase">
+                Drivers{" "}
+                <span className="font-normal text-ink-mute">
+                  · click to place in P{active + 1}
+                </span>
+              </h3>
+              {hasQuali && (
+                <SortToggle order={poolOrder} onChange={setPoolOrder} />
+              )}
+            </div>
             <DriverPool
-              roster={activeRoster}
+              roster={poolRoster}
               slots={slots}
+              qualiPos={qualiPos}
               disabled={!canPlay}
               onPick={pick}
             />
+            {hasQuali && <QualiNote />}
           </div>
 
           <h3 className="mb-2 font-mono text-xs tracking-[0.2em] text-ink-dim uppercase lg:mt-6">
@@ -826,7 +947,10 @@ export default function PredictionEditor({
         open={sheetOpen && canPlay}
         slot={active}
         slots={slots}
-        roster={activeRoster}
+        roster={poolRoster}
+        qualiPos={qualiPos}
+        order={poolOrder}
+        onOrder={setPoolOrder}
         onPick={pick}
         onClose={() => setSheetOpen(false)}
       />
