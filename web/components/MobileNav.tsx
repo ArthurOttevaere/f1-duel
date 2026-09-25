@@ -6,13 +6,17 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { NAV_LINKS, activeHref } from "@/lib/nav";
+import PendingDot from "@/components/PendingDot";
 
 export default function MobileNav({
   signedIn,
   username,
+  pending = { race: false, seasonPick: false },
 }: {
   signedIn: boolean;
   username: string | null;
+  /** What is owed — dotted on the matching line, and on the closed ☰. */
+  pending?: { race: boolean; seasonPick: boolean };
 }) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -74,11 +78,18 @@ export default function MobileNav({
                     onClick={close}
                     aria-current={isActive ? "page" : undefined}
                     style={{ animationDelay: `${50 + i * 45}ms` }}
-                    className={`menu-item pressable display text-3xl font-extrabold tracking-tight transition-colors ${
+                    className={`menu-item pressable display relative text-3xl font-extrabold tracking-tight transition-colors ${
                       isActive ? "text-race" : "text-ink-dim active:text-race"
                     }`}
                   >
                     {l.label}
+                    {pending.race && l.href === "/game" && (
+                      <PendingDot
+                        label="— your top 10 is still to file"
+                        large
+                        className="absolute top-1 -right-3.5"
+                      />
+                    )}
                   </Link>
                 );
               })}
@@ -90,9 +101,15 @@ export default function MobileNav({
                   <Link
                     href={`/profile/${username ?? ""}`}
                     onClick={close}
-                    className="pressable text-sm text-ink-dim transition-colors active:text-race"
+                    className="pressable relative text-sm text-ink-dim transition-colors active:text-race"
                   >
                     {username ? `@${username}` : "Your profile"}
+                    {pending.seasonPick && (
+                      <PendingDot
+                        label="— your championship picks are still to make"
+                        className="absolute top-0 -right-2.5"
+                      />
+                    )}
                   </Link>
                   {/* No onClick here: closing the menu unmounts this form
                       (it lives in a portal) and cancels the POST. The submit
@@ -125,11 +142,21 @@ export default function MobileNav({
     <div className="md:hidden">
       <button
         type="button"
-        aria-label="Open menu"
+        aria-label={
+          pending.race || pending.seasonPick
+            ? "Open menu — something is waiting on you"
+            : "Open menu"
+        }
         aria-expanded={open}
         onClick={() => setOpen(true)}
-        className="pressable flex size-10 items-center justify-center rounded-full"
+        className="pressable relative flex size-10 items-center justify-center rounded-full"
       >
+        {(pending.race || pending.seasonPick) && (
+          <span
+            aria-hidden
+            className="absolute top-1.5 right-1 block size-2 rounded-full bg-race ring-2 ring-bg"
+          />
+        )}
         <span className="relative block h-3 w-5">
           <span className="absolute left-0 top-0 block h-0.5 w-5 rounded bg-ink" />
           <span className="absolute left-0 top-1.5 block h-0.5 w-5 rounded bg-ink" />

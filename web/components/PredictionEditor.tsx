@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Spinner from "@/components/Spinner";
 import { driverColor } from "@/lib/teams";
 import {
@@ -611,6 +612,7 @@ export default function PredictionEditor({
   // Whether the slot we are filling was empty when the sheet opened — an empty
   // slot means "keep going", a filled one means the player wanted that one row.
   const replacing = useRef(false);
+  const router = useRouter();
 
   const byId = useMemo(
     () => new Map(roster.map((d) => [d.driver_id, d])),
@@ -742,6 +744,9 @@ export default function PredictionEditor({
     } else {
       setSavedSnapshot(JSON.stringify([slots, dotd, scBet]));
       setSaveState("saved");
+      // The nav's "your move" dot is server-rendered: re-render the tree so
+      // it goes the moment the entry lands. Client state here survives it.
+      router.refresh();
     }
   }
 

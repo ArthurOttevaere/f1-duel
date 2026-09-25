@@ -920,6 +920,20 @@ and because it inherits, the chip reddens as one thing on hover:
 `hover:text-race hover:border-line-hi`. A name on its own read as a label; a
 name behind a figure reads as the way back to your own page.
 
+**The "your move" dot** (`components/PendingDot.tsx`). One `bg-race` dot, no
+number, wherever the player owes the game something: on *The game* while an
+open Grand Prix has no top 10 of theirs (6px, superscript at `-top-0.5
+-right-2`, off the text box so the bar never shifts), and on the profile chip
+while the season's championship call is not made (8px, `ring-2 ring-bg`
+punching it out of the chip's corner). On the phone the closed ☰ carries one
+dot for either, and the open menu puts it on the line it belongs to — a badge
+inside a closed menu is a badge nobody sees. Red because red already means
+"your move" here; no count because at most two things can be owed and a
+number turns a nudge into an inbox; no pulse, no modal, nothing signed out.
+It goes the moment the thing is done (`router.refresh()` after a save). The
+same total drives the home-screen icon badge for installed players
+(`AppBadge`, `navigator.setAppBadge`), a no-op everywhere else.
+
 ### 7.2 Buttons
 
 Three variants and one shared behaviour. Everything clickable gets

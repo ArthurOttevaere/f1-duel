@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-09-25 (`feat/quali-order-in-picker`, after PR #86 — the qualifying order stored on `races` and shown in the driver pool, migration 0013; live on https://f1-duel.com).
+**Last reviewed:** 2026-09-25 (`feat/pending-badges`, after PR #87 — the nav's "your move" dots for a missing race entry and championship call; live on https://f1-duel.com).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -1439,6 +1439,20 @@ every route resolving above the group — `/login` included — so putting
 `SiteNav` (which calls `getUser()`) in it turned `/login` from a static page
 into a dynamic one. It carries a wordmark-only bar instead. Check
 `npm run build` still prints `○ /login` after touching that file.
+
+**The nav knows what you owe** (`lib/pending.ts` → `getPending()`). Signed
+in, `SiteNav` reads two booleans alongside the profile, in parallel and
+request-cached: `race` — the next `scheduled` race with `race_at` in the
+future carries no prediction of yours (one PostgREST call, the prediction
+embedded under RLS, `races?select=id,predictions(race_id)&predictions.user_id=eq.<you>`)
+— and `seasonPick` — `lib/auth.owesSeasonPick()`, shared with
+`needsPicksPrompt` so a request that needs both reads `season_picks` once.
+They light the dots described in `DESIGN.md` §7.1 and the installed app's
+icon badge. **`seasonPick` ignores the `picks_later` cookie on purpose**:
+`/game`'s layout sends anyone with neither a pick nor that cookie to
+`/welcome`, so a dot that honoured the cookie would never be seen. Signed
+out, nothing is read. The editor and the picks form call `router.refresh()`
+after a save, which is what clears the dot without a reload.
 
 ### 9.3 Authentication
 

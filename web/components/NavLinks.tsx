@@ -3,9 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS, activeHref } from "@/lib/nav";
+import PendingDot from "@/components/PendingDot";
 
 // Desktop nav links with the current section highlighted.
-export default function NavLinks() {
+export default function NavLinks({
+  pendingHref = null,
+}: {
+  /** The one link carrying the "your move" dot, if any. */
+  pendingHref?: string | null;
+}) {
   const pathname = usePathname();
   const active = activeHref(pathname);
 
@@ -28,6 +34,14 @@ export default function NavLinks() {
             }`}
           >
             {l.label}
+            {/* Superscript, off the text box: the label keeps its width, so
+                the nav does not shift when the dot comes or goes. */}
+            {pendingHref === l.href && (
+              <PendingDot
+                label="— your top 10 is still to file"
+                className="absolute -top-0.5 -right-2"
+              />
+            )}
             {isActive && (
               <span
                 aria-hidden
