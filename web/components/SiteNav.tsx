@@ -1,14 +1,19 @@
 import Link from "next/link";
 import { getUser } from "@/lib/supabase/server";
 import { getOwnProfile } from "@/lib/auth";
+import { getPending } from "@/lib/pending";
+import AppBadge from "@/components/AppBadge";
 import MobileNav from "@/components/MobileNav";
+import PendingDot from "@/components/PendingDot";
 import NavLinks from "@/components/NavLinks";
 import Wordmark from "@/components/Wordmark";
 
 export default async function SiteNav() {
   const user = await getUser();
-  // Request-cached: the game layout guard reads the same row.
-  const username = (await getOwnProfile())?.username ?? null;
+  // Request-cached: the game layout guard reads the same row. The pending
+  // reads go out alongside it, so the badges add no round-trip of their own.
+  const [profile, pending] = await Promise.all([getOwnProfile(), getPending()]);
+  const username = profile?.username ?? null;
 
   return (
     <header className="fixed inset-x-0 top-0 z-[var(--z-nav)]">
@@ -20,7 +25,7 @@ export default async function SiteNav() {
           <Wordmark />
         </Link>
 
-        <NavLinks />
+        <NavLinks pendingHref={pending.race ? "/game" : null} />
 
         <div className="flex items-center gap-2">
           {user ? (
@@ -33,8 +38,15 @@ export default async function SiteNav() {
                   the way every other destination on the site does. */}
               <Link
                 href={`/profile/${username ?? ""}`}
-                className="pressable glass-chip hidden items-center gap-2 rounded-control px-3.5 py-1.5 text-sm font-medium transition-colors hover:border-line-hi hover:text-race md:flex"
+                className="pressable glass-chip relative hidden items-center gap-2 rounded-control px-3.5 py-1.5 text-sm font-medium transition-colors hover:border-line-hi hover:text-race md:flex"
               >
+                {pending.seasonPick && (
+                  <PendingDot
+                    ring
+                    label="— your championship picks are still to make"
+                    className="absolute -top-1 -right-1"
+                  />
+                )}
                 <svg
                   aria-hidden
                   viewBox="0 0 24 24"
@@ -68,7 +80,12 @@ export default async function SiteNav() {
               Sign in
             </Link>
           )}
-          <MobileNav signedIn={Boolean(user)} username={username} />
+          <MobileNav
+            signedIn={Boolean(user)}
+            username={username}
+            pending={pending}
+          />
+          <AppBadge count={Number(pending.race) + Number(pending.seasonPick)} />
         </div>
       </nav>
     </header>

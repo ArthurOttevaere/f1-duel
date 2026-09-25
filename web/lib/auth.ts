@@ -113,10 +113,21 @@ export const PICKS_LATER_COOKIE = "picks_later";
  * reminder in between, deduplicated per request like the rest.
  */
 export const needsPicksPrompt = cache(async (): Promise<boolean> => {
-  const user = await getUser();
-  if (!user) return false;
   const jar = await cookies();
   if (jar.get(PICKS_LATER_COOKIE)) return false;
+  return await owesSeasonPick();
+});
+
+/**
+ * The signed-in player has no championship call for this season — the badge
+ * on their profile chip (`lib/pending.ts`), and the half of
+ * `needsPicksPrompt` that is not the "later" cookie. One read per request
+ * between the two. A query error reads as "nothing owed": a badge is not
+ * worth a false alarm.
+ */
+export const owesSeasonPick = cache(async (): Promise<boolean> => {
+  const user = await getUser();
+  if (!user) return false;
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("season_picks")
