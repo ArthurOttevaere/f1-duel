@@ -978,7 +978,11 @@ python jobs/sync_schedule.py [season]     # defaults to the current year
 1. **Calendar** → upserts `races` on `(season, round)` with name, circuit,
    country, `quali_at`, `race_at` (both UTC ISO). **It deliberately never sends
    a `status` key**, so an upsert can't revert a `locked`/`scored` race to
-   `scheduled`.
+   `scheduled`. Circuit and country go through `jobs/venues.py` first, which
+   corrects the venues FastF1 gets wrong: the 2026 Bahrain Grand Prix (round
+   16) was moved to Sepang, keeps its name, and FastF1 files it as country
+   "Bahrain", location "Kuala Lumpur" — `races` stores `Sepang` / `Malaysia`.
+   The trace job goes through the same module, so the hero draws that venue.
 2. **Roster** → walks completed rounds newest-first until one yields results,
    upserts `drivers` (code, full name, team, `team_color` from FastF1).
 3. **Season picks** → for rows with `prorate is null`, looks up the pick's rank
@@ -1537,9 +1541,14 @@ circuit: the grid collapses to one column, `.page-glow` stands in for the
 trace's light, and the line falls back to `2026 season · one duel per Grand
 Prix`. Same when nobody has yet driven the venue — until first practice on the Friday,
 Madrid has no telemetry in existence, so `circuitTrace()` returns null and the
-hero carries no ornament rather than somebody else's circuit. Kuala Lumpur was
-in that list by accident — FastF1 files the Bahrain Grand Prix under that
-location — and `PREV_ALIAS` in the trace job now maps it back to Sakhir.
+hero carries no ornament rather than somebody else's circuit. Round 16 is the
+cautionary tale: FastF1 files the 2026 Bahrain Grand Prix under location "Kuala
+Lumpur", and an alias once "corrected" that back to Sakhir — but the race was
+moved to Sepang, and the hero drew Bahrain for a race run in Malaysia. The alias
+is gone; `jobs/venues.py` renames the venue to Sepang, and since Sepang has no
+FastF1 telemetry (its last Grand Prix was 2017) the trace is the public-domain
+Commons diagram in `jobs/schematic_traces.json` until FP1 on 2 October. Re-run
+`python jobs/build_circuit_traces.py` after that session to swap in the real lap.
 
 The glass chip that used to sit above the headline is gone. It was a box doing
 an eyebrow's job, and it pushed the headline a third of the way down the hero.

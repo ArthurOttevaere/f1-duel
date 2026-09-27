@@ -21,6 +21,7 @@ import db
 import model_bridge  # noqa: F401  (configures the FastF1 cache via src/predict)
 import fastf1
 import openf1  # src/openf1.py, on sys.path thanks to model_bridge
+from venues import venue
 
 
 def _utc(v):
@@ -43,12 +44,14 @@ def sync_calendar(season: int) -> None:
                 quali_at = _utc(when)
             elif name == "Race":
                 race_at = _utc(when)
+        circuit, country = venue(str(ev.get("Location") or ""),
+                                 str(ev.get("Country") or ""))
         rows.append({
             "season": season,
             "round": int(ev["RoundNumber"]),
             "name": str(ev["EventName"]),
-            "circuit": str(ev.get("Location") or ""),
-            "country": str(ev.get("Country") or ""),
+            "circuit": circuit,
+            "country": country,
             "quali_at": quali_at,
             "race_at": race_at,
             # no "status" key: upserts must never revert locked/scored races
