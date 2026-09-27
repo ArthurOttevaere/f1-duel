@@ -781,6 +781,15 @@ takes a lap from practice or qualifying when a circuit is brand new and has no
 race behind it, so the blank window is the days before first practice rather
 than the entire debut weekend.
 
+**The box is capped at 0.75 of its width.** The trace takes the column's full
+width and its height follows the circuit, which is right for the landscape
+majority (0.34–0.74) and wrong for a portrait one: Sepang (1.12) and the
+Hungaroring (1.06) came out twice as tall as their neighbours and pushed the
+clock under the fold of a laptop screen. Past `MAX_ASPECT` the box stops
+growing and the circuit is fitted and centred inside it (`xMidYMid meet`), so
+every venue occupies the same footprint and the card reads the same height
+every other Sunday.
+
 **Line weight does not scale.** Every stroke is `vector-effect:
 non-scaling-stroke` — 1.75px for the track, 2.5px for the start line, at any
 display size. This is a technical drawing, and a technical drawing's line

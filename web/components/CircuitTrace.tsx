@@ -8,6 +8,13 @@ import type { CircuitTrace as Trace } from "@/lib/circuits";
  *  one pass of arithmetic and no `getPointAtLength`. */
 const SAMPLES = 800;
 
+/** The tallest the drawing box gets, as height over width. Nearly every
+ *  circuit is landscape (0.34–0.74), so a full-width box is the right size for
+ *  it; a portrait one — Sepang at 1.12, the Hungaroring at 1.06 — would come out
+ *  twice as tall as its neighbours and push the clock under the fold. Past this
+ *  ratio the box stops growing and the circuit is fitted inside it, centred. */
+const MAX_ASPECT = 0.75;
+
 /**
  * A circuit, drawn as one closed hairline.
  *
@@ -108,6 +115,7 @@ export default function CircuitTrace({
   // drawing's line weight does not scale with the paper.
   const tick = Math.max(width, height) * 0.035;
   const r = Math.max(width, height) * 0.009;
+  const boxHeight = Math.min(height, width * MAX_ASPECT);
 
   return (
     <div className={`relative ${className}`}>
@@ -125,6 +133,9 @@ export default function CircuitTrace({
         ref={svgRef}
         viewBox={`0 0 ${width} ${height}`}
         className="w-full text-ink-dim"
+        // Overrides the viewBox's own ratio only for a portrait circuit; the
+        // default `xMidYMid meet` then fits and centres it in the capped box.
+        style={{ aspectRatio: `${width} / ${boxHeight}` }}
         role="img"
         aria-label={`Circuit layout: ${location}`}
         {...(interactive
