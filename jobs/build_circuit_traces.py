@@ -28,6 +28,8 @@ from pathlib import Path
 import fastf1
 import pandas as pd
 
+from venues import venue
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "web" / "lib" / "circuits.ts"
 
@@ -43,12 +45,12 @@ SCHEMATIC = ROOT / "jobs" / "schematic_traces.json"
 # FastF1 relabels a venue from time to time without the tarmac changing, so an
 # exact-location fallback to last season silently loses a circuit. One entry
 # per rename; the key is this season's label.
+#
+# Kuala Lumpur used to be here, mapped to Sakhir, on the belief that FastF1 had
+# mislabelled the Bahrain Grand Prix. It had not: the 2026 race was moved to
+# Sepang, and the alias drew Sakhir in the hero for a race run in Malaysia.
+# Venue corrections live in jobs/venues.py now, shared with the schedule sync.
 PREV_ALIAS = {
-    # Not a rename: FastF1's 2026 schedule files the Bahrain Grand Prix — round
-    # 16, country "Bahrain", run at Sakhir — under location "Kuala Lumpur".
-    # Without this line the round has no trace at all, and the hero goes blank
-    # for a circuit that has been on the calendar for twenty years.
-    "Kuala Lumpur": "Sakhir",
     "Yas Marina": "Yas Island",
     "Monte Carlo": "Monaco",
     "Montreal": "Montréal",
@@ -262,7 +264,8 @@ def main() -> None:
     now = pd.Timestamp.utcnow().tz_localize(None)
     out, missing = [], []
     for _, ev in schedule.iterrows():
-        loc = str(ev["Location"])
+        # The venue it is actually run at, so the key matches `races.circuit`.
+        loc, _ = venue(str(ev["Location"]), "")
         rnd = int(ev["RoundNumber"])
         # An event nobody has driven yet has no telemetry, and asking for it
         # means a network round-trip that times out. Twenty of those is the
