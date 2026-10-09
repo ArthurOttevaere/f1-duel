@@ -36,6 +36,27 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   applicationName: "F1 Duel",
+  // The tab's mark follows the system: the red tile in light, the dark one in
+  // dark. Both are declared here rather than as app/icon.png, because a
+  // file-based icon is dropped the moment `icons.icon` is set and carries no
+  // `media`. Only the tab can switch: the apple-touch-icon and the manifest
+  // icons are read once, at install, with no way to ask for a dark variant.
+  icons: {
+    icon: [
+      {
+        url: "/icon.png",
+        type: "image/png",
+        sizes: "256x256",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-dark.png",
+        type: "image/png",
+        sizes: "256x256",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+  },
   openGraph: {
     type: "website",
     siteName: "F1 Duel",

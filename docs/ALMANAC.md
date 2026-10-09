@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-09-25 (`feat/pending-badges`, after PR #87 — the nav's "your move" dots for a missing race entry and championship call; live on https://f1-duel.com).
+**Last reviewed:** 2026-10-09 (`feat/dark-favicon`, after PR #90 — the tab icon follows the system's light/dark; live on https://f1-duel.com).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -238,8 +238,7 @@ f1-duel/
 │   └── migrations/000N_*.sql Incremental changes for a live project
 ├── web/                     Next.js 16 App Router (the game)
 │   ├── app/                 Routes (see §9.2)
-│   │   ├── favicon.ico      Logomark on red, 16/32/48 (see §9.6)
-│   │   ├── apple-icon.png   180px, same mark
+│   │   ├── apple-icon.png   180px, logomark on red (see §9.6)
 │   │   └── manifest.ts      Install manifest (start_url = /game)
 │   ├── components/          33 components
 │   ├── lib/                 supabase clients, types, helpers
@@ -2321,12 +2320,24 @@ the **logomark** (DESIGN §2.1) on the site's own `#0a0b10`: `favicon.ico`
 `app/manifest.ts`. `viewport.themeColor` in the root layout paints the phone's
 address bar `#0a0b10`.
 
+**The tab icon follows the system (2026-10-09).** `icons.icon` in the root
+layout declares two links, `public/icon.png` for `prefers-color-scheme: light`
+and `public/icon-dark.png` (the mark on `#1c1f28`) for `dark`. `icon.png` and
+`favicon.ico` moved from `app/` to `public/` to make that work: a file-based
+icon is dropped as soon as `icons.icon` is set and carries no `media`, and an
+`app/favicon.ico` link with no `media` wins over both PNGs in Chrome. Verified
+in Chrome by emulating each scheme and reading the tab's `faviconUrl`. **Safari
+is unverified and probably ignores `media` on icon links** (WebKit bug 309949
+is the SVG-inside-favicon equivalent); the light link is declared first in case
+it takes the first match. The Dock / home-screen icon cannot switch at all —
+`apple-icon.png` and the manifest icons are read once, at install.
+
 They are the whole mark, chequer included, in `#f4f6fa` on a solid `#c8102e`
 tile (DESIGN §2.1) — `race-deep` because a tile is a surface, and because it is
 the higher-contrast pair. The three app icons are **square and full-bleed**,
 since iOS and Android round them themselves and a pre-rounded PNG comes out
-double-rounded with dark corners; only `favicon.ico`, which nothing masks,
-carries its own 22.4% radius. They are generated rather than drawn by hand, and
+double-rounded with dark corners; only the tab icons (`favicon.ico`, `icon.png`, `icon-dark.png`), which nothing
+masks, carry their own 22.4% radius. They are generated rather than drawn by hand, and
 **the `.ico` must be RGBA** — Next's image pipeline rejects an RGB one outright
 with *"The PNG is not in RGBA format"*, which fails the whole page, not just
 the icon.
