@@ -143,9 +143,9 @@ Four rules keep it honest.
   document with no access to the page's `color`, so the letter would render
   black on black and the knockout would show the img's own transparent backdrop
   rather than the surface. The standalone files the platform demands —
-  `favicon.ico`, `apple-icon.png`, `public/icon-{192,512}.png` — are baked
-  against the site's dark ground for that reason, and are the *only* raster
-  copies.
+  `favicon.ico`, `apple-icon.png`, `public/icon-{192,512}.png`, and the dark
+  tab icon — are baked against the site's dark ground for that reason, and are
+  the *only* raster copies.
 - **The mask is defined once per document,** by `LogoSprite` in the root
   layout, never inside each instance. See §9.7: this is a bug, not a taste.
 - **The mark is sized in `em`** (`h-[1.7em]`), so the lockup tracks the type
@@ -180,6 +180,18 @@ radius of 22.4% of the side, which is roughly the iOS squircle.
 
 The knockout does the rest of the work — on this tile the car and half the
 chequer come out red, with no second drawing and no recolouring.
+
+**The tab follows the system; nothing else can.** In a dark system the tab
+wears `public/icon-dark.png` instead: the same mark in `#f4f6fa` on a flat
+`#1c1f28` tile (the `--color-card` base, so no new colour), same radius, same
+60% height, and the knockout shows the tile — car and half the chequer come out
+dark. It is chosen by `media="(prefers-color-scheme: …)"` on two `<link
+rel="icon">` tags in `app/layout.tsx`, which is why `icon.png` and
+`favicon.ico` live in `public/` rather than `app/`: a file-based icon carries no
+`media`, and a `favicon.ico` link with none out-bids both PNGs in Chrome (it
+picked the 48px `.ico` in light and dark alike). The `apple-icon.png` and the
+manifest icons stay red — an installed icon is read once, at install, and the
+web has no way to ask for a dark one.
 
 Coordinates in the mark are rounded to one decimal — 22 kB of path data down to
 13 kB, and invisible, because the viewBox is 751 units wide and the mark is
