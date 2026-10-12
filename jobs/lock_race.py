@@ -129,7 +129,14 @@ def main() -> None:
             # Race has started: freeze whatever we have and lock.
             existing = db.select("model_entries", {"race_id": f"eq.{race['id']}"})
             if not existing and not refresh_entry(race):
-                grid_fallback(race)
+                # The lock below must happen whatever the fallback does: a
+                # fallback that raised here once left round 17 'scheduled'
+                # for hours after the flag. A locked race with no entry is
+                # picked up by the backfill pass at the end of this run.
+                try:
+                    grid_fallback(race)
+                except Exception as e:
+                    print(f"round {race['round']}: grid fallback failed ({e}) — locking anyway")
             db.update("races", {"id": f"eq.{race['id']}"}, {"status": "locked"})
             print(f"round {race['round']}: LOCKED")
 
@@ -143,7 +150,11 @@ def main() -> None:
             continue
         print(f"round {race['round']}: locked without a model entry — backfilling")
         if not refresh_entry(race):
-            grid_fallback(race)
+            try:
+                grid_fallback(race)
+            except Exception as e:
+                # One race's broken feed must not stop the others' backfill.
+                print(f"round {race['round']}: grid fallback failed ({e}) — will retry next run")
 
 
 if __name__ == "__main__":
