@@ -1002,7 +1002,10 @@ anything more than 3 days out:
   lock), then re-run the model and upsert `model_entries`. Running repeatedly
   is intentional — the entry on record is always the freshest pre-race one.
 - **At/after `race_at`**: if there's still no entry, try once more; failing
-  that, use the grid-order fallback; then set `races.status = 'locked'`.
+  that, use the grid-order fallback; then set `races.status = 'locked'`. The
+  fallback is wrapped: if it raises, the run says so and locks anyway, and
+  the backfill pass below retries the entry — the lock never waits on it
+  (§13.1.1, Singapore 2026).
 
 The 1h30 delay after qualifying is a pragmatic buffer for the session to be
 published (OpenF1 has it within the hour; FastF1's Ergast read can take
@@ -1080,6 +1083,12 @@ It is usually quick but it is not guaranteed, and the game cannot wait on it:
 OpenF1 mirrors the F1 timing feed over a plain REST API that GitHub Actions
 *can* reach (the timing host itself cannot be — §8.9), so the same evening's
 result is the norm rather than the exception.
+
+OpenF1's `session_result.position` is not always a number. A retired driver
+usually has none (null), but a driver who set no time in qualifying came back
+as the string `'RT'` (Singapore 2026) — so every read goes through
+`openf1._position()`, which turns anything non-numeric into "no position", and
+`openf1.qualifying` ranks those drivers last, as Ergast does.
 
 `openf1.classification` is Ergast-shaped on purpose: OpenF1 gives a retired
 driver no position, Ergast ranks retirements after the finishers by laps
@@ -2869,6 +2878,25 @@ page renders empty locally; the harness is not optional.
 | 6 | `model_entries` of rounds 1–13 of 2026 were locked `pre_quali` (§13.1.1 #3) and stay so | Those duels were played against an opponent without a grid; entries are frozen at lock and are not rewritten after the fact | None — by design. From round 14 the model has qualifying |
 
 ### 13.1.1 Fixed
+
+- **Singapore was never locked: a retired driver's `'RT'` took the job down**
+  (fixed 2026-10-12, `fix/quali-retired-position`). `openf1.qualifying` did
+  `int(position)` and OpenF1 reports a driver who set no time as the string
+  `'RT'` (Hadjar, 3 laps, round 17). Two layers of the job reacted badly:
+  - from the end of qualifying, `refresh_entry` caught the `ValueError` as
+    "model unavailable" and returned `False` — so the runs stayed **green**
+    while no entry was written, no qualifying order stored and no lock e-mail
+    sent, for a day and a half;
+  - at lights-out, `grid_fallback` hit the same line **uncaught**, the run
+    died before `races.status = 'locked'`, and round 17 sat `scheduled`
+    (0 model entries, nothing scorable) through the three failed runs of
+    Sunday 16:45, 20:38 and 23:57 UTC. Predictions had closed anyway — the RLS
+    insert/update policy tests `now() < race_at` as well as the status.
+  The read now tolerates any non-numeric position and ranks those drivers
+  last, the fallback can no longer stand between the race and its lock, and
+  the lock was replayed by hand. **Lesson:** a `try/except` that returns
+  "unavailable" turns a code bug into silence — the only signal here was the
+  `model unavailable (…)` line in a green log.
 
 - **The timing feed, from Actions** (fixed 2026-09-06, `feat/openf1-sources`).
   Three open issues with one cause — `livetiming.formula1.com` answers 403 to

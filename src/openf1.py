@@ -83,6 +83,23 @@ def _dt(v: str) -> datetime:
     return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
 
 
+def _position(v) -> int | None:
+    """A `session_result` position as an int, None when the driver has none.
+
+    OpenF1 usually leaves an unclassified driver's position null, but it also
+    writes a status code in its place — 'RT' for a driver who set no time in
+    qualifying (Singapore 2026, round 17). `int('RT')` took down every
+    lock-race run from qualifying onwards, so anything that is not a number is
+    read as "no position" and ranked by the caller.
+    """
+    if v is None or isinstance(v, bool):
+        return None
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return None
+
+
 # ─── Finding the session ─────────────────────────────────────────────────────
 
 def race_start(year: int, rnd: int) -> datetime | None:
@@ -155,16 +172,16 @@ def classification(session_key: int) -> dict[str, int]:
         return {}
     roster = drivers(session_key)
 
-    placed = sorted((r for r in rows if r.get("position") is not None),
-                    key=lambda r: int(r["position"]))
-    rest = sorted((r for r in rows if r.get("position") is None),
+    placed = sorted((r for r in rows if _position(r.get("position")) is not None),
+                    key=lambda r: _position(r["position"]))
+    rest = sorted((r for r in rows if _position(r.get("position")) is None),
                   key=lambda r: (bool(r.get("dns")), bool(r.get("dsq")),
                                  -int(r.get("number_of_laps") or 0)))
 
     out: dict[str, int] = {}
     next_pos = 1
     for r in placed:
-        pos = int(r["position"])
+        pos = _position(r["position"])
         code = roster.get(int(r["driver_number"]), {}).get("code")
         if code:
             out[code] = pos
@@ -200,16 +217,31 @@ def safety_car(session_key: int) -> bool | None:
 
 def qualifying(session_key: int) -> list[dict]:
     """[{number, position, q1, q2, q3}] — times in seconds, None when the
-    driver did not run that segment. [] until the session is published."""
+    driver did not run that segment. [] until the session is published.
+
+    Every driver gets a position: a driver OpenF1 leaves unclassified (no
+    time set, flagged 'RT' …) is ranked after the classified ones, most laps
+    first — the back of the grid, where a car with no time starts."""
+    rows = _get("session_result", session_key=session_key)
+    classified = sorted((r for r in rows if _position(r.get("position")) is not None),
+                        key=lambda r: _position(r["position"]))
+    unclassified = sorted((r for r in rows if _position(r.get("position")) is None),
+                          key=lambda r: -int(r.get("number_of_laps") or 0))
+    ranked = [(_position(r["position"]), r) for r in classified]
+    next_pos = max((p for p, _ in ranked), default=0) + 1
+    for r in unclassified:
+        ranked.append((next_pos, r))
+        next_pos += 1
+
     out = []
-    for r in _get("session_result", session_key=session_key):
+    for pos, r in ranked:
         times = r.get("duration")
         if not isinstance(times, list):
             times = [times, None, None]
         times = (list(times) + [None, None, None])[:3]
         out.append({
             "number": int(r["driver_number"]),
-            "position": int(r["position"]) if r.get("position") is not None else None,
+            "position": pos,
             "q1": times[0], "q2": times[1], "q3": times[2],
         })
     return out
