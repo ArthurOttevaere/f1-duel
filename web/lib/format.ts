@@ -7,14 +7,6 @@ export function formatRaceDate(iso: string | null): string {
   });
 }
 
-export function formatRaceTime(iso: string | null): string {
-  if (!iso) return "";
-  return new Date(iso).toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
 export function formatPoints(n: number): string {
   return Number.isInteger(n) ? String(n) : n.toFixed(1);
 }
