@@ -7,7 +7,7 @@
 
 **Status:** documents `main` as of 2026-08-26, including the F-series
 foundation pass (typeface, ground, red split, grain, shadows, weight
-hierarchy).
+hierarchy); §7.1, §7.18, §10.1 and §12.6 as of 2026-10-19 (the `/f1` section).
 **Scope:** the Next.js site in `web/`. The Flask model platform
 (`webapp/static/css/style.css`) is a separate, older surface that shares the
 palette and nothing else.
@@ -909,12 +909,20 @@ behind a `@media (min-width: 768px)`. It has not needed to.
 
 ### 7.1 Navigation
 
-**Desktop (`md:` and up).** A floating `.glass-chip` bar, `rounded-panel`,
+**Desktop (`lg:` and up).** A floating `.glass-chip` bar, `rounded-panel`,
 `mt-4`, in the default 64rem container, `position: fixed`. Active section is
 `font-medium text-ink` plus a 2px red underline pinned `-bottom-2`; inactive is
 `text-ink-dim` hovering to `text-ink`. `aria-current="page"` on the active link.
 
-**Phone (`< md`).** A hamburger opens a full-screen `bg-bg` overlay, portalled
+**Six links, and that is the ceiling.** *Home, The game, Standings, F1 2026,
+Rules, The model.* The bar came in at `md` while it held five; the sixth pushed
+a signed-in bar past its width at 768px — labels broke onto two lines up to
+about 880px — so the whole bar moved to `lg`, where six links, a 20-character
+username and *Sign out* fit. A tablet in portrait gets the menu. The next
+section that wants a tab has to take one away, or live inside an existing one
+the way `/f1`'s three views do (§7.18).
+
+**Phone and tablet (`< lg`).** A hamburger opens a full-screen `bg-bg` overlay, portalled
 to `<body>`, with links centred at `text-3xl font-semibold` and a per-item stagger
 (§8.3). Opening the menu prefetches every destination; body scroll is locked
 while it is open.
@@ -996,6 +1004,7 @@ stop reading — which is the opposite of what a destructive control wants.
 - **Tint fills** run `bg-race/5` (a selected row) → `/10` (a quiet badge) → `/15` (a loud one). Those three steps only.
 - **Toggle button:** `border-race bg-race text-white` when on, `border-line bg-glass text-ink-dim` when off, `aria-pressed` carrying the state. Used by the position picker in §12.2.
 - **Sort toggle:** two mono uppercase words in one `border-line` frame, the on one `bg-glass-strong text-ink`, the off one `text-ink-mute` — `Quali | Team` over the prediction editor's driver pool, desktop header and phone sheet alike. **Neutral, never red**, and that is the point: inside the editor red already means "in your top 10", and a red sort button read as one more pick. It only renders when there is a second order to choose.
+- **The same frame, three more jobs, all in `/f1`** (§7.18): the section's own index (`Schedule | Results | Championship`, links with `aria-current`), the clock (`Your time | Track time`, `aria-pressed`) and the session switch on a weekend page (`FP1 … Grand Prix`, `aria-pressed`, wrapping to a second row on a phone). It is the instrument register — a selector on a timing screen — and it is deliberately *not* the red-filled league pill of `/game/standings`, so the real season's controls never look like the game's.
 
 ### 7.4 Form fields
 
@@ -1397,6 +1406,56 @@ The last-duel card on `/game` is the same shape carrying a result — the two
 totals at `text-3xl` and the letter — and it exists because the one line it
 replaced gave the viewer's own verdict the weight of a footnote.
 
+### 7.18 The real season (`/f1`)
+
+`app/(site)/f1/*` and `components/f1/*`. Calendar, results and the two
+championships, **for reference: nothing on these pages comes from the game.**
+Every visual choice below serves one requirement — that it can never be read as
+F1 Duel's own board.
+
+- **One nav entry, an index inside.** `F1 2026` in the bar (the sport and the
+  year, never "Season" or "Championship", which the game already uses for its
+  board and its picks), and the three views as the instrument frame of §7.3
+  beside the red eyebrow. Under the eyebrow, one `text-xs text-ink-mute` line
+  says it outright: *The real season, for reference. Nothing here scores in F1
+  Duel.* The views are *Schedule*, *Results* and *Championship* — the word
+  *Standings* belongs to the game.
+- **The h1 is the answer, not the tab's name.** The schedule's title is the
+  coming Grand Prix, under a `Round 18 of 23 · Next up` label; a weekend
+  page's is its Grand Prix. *Results* and *Championship* keep their names,
+  because there the name is the subject.
+- **A timetable is set like a paddock's.** Day · start · session · state, one
+  hairline-ruled line each, the day printed once and blank under it. The
+  state column is the only thing that moves: the next session counts down in
+  ink, a session under way says so in **race red with a dot — the only red on
+  the list**, a finished one is muted or links to its result.
+- **Every time is the reader's, printed on the client.** Through `Intl`, in the
+  browser's zone or the circuit's (`Your time | Track time`, one choice for the
+  whole section). Before hydration the UTC string renders `invisible`, so a
+  row never changes width when the real value arrives — a placeholder of a
+  different length would have made every row jump.
+- **Two lists, one weight class apart** (§7.5). Under the timetable the
+  calendar; under the latest weekend's podiums the season archive — both a
+  line a row at two-thirds the height, `border-line/60`, a chevron. On
+  *Championship* the drivers' tower is the subject and the constructors' gives
+  up the weight beside it (`lg:` 3fr / 2fr).
+- **Classifications are towers** (§7.5.1): the position in the margin, the
+  constructor rule, the name, numbers in tabular mono; team and the extra
+  timing columns from `sm`; P1 in full ink, P2–P3 a step down. Non-numeric
+  positions print as a timing screen does (`DNF`, `DSQ`, `NC`); a lapped car
+  prints `+1 lap`, never a time gap. The fastest lap is a mono `FL`, not a
+  purple chip — the timing set is only ever used whole (§3.2).
+- **Portraits are spent once.** The title fight carries six faces; the tables
+  carry none. Twenty-two photos per classification is a yearbook.
+- **Where it touches the game.** The game links *in* (`/game`'s race header:
+  "Every session, in your time"); nothing in `/f1` links out to a score.
+
+**What lost.** Three tabs in the main nav for the three views (crowded the bar,
+and *Results* beside *Standings* is exactly the confusion the section must not
+create). A portrait on every classification row. Practice on the season
+archive (twenty rounds × three sessions is a page that cannot load on
+OpenF1's free tier — each weekend page has them instead).
+
 ---
 
 ## 8. Motion
@@ -1554,8 +1613,8 @@ Tailwind's defaults, used with intent:
 | Breakpoint | Width | What changes |
 | --- | --- | --- |
 | `sm:` | 640px | Data density. Tables replace their phone twins; a name replaces a code. |
-| `md:` | 768px | Navigation. Hamburger → inline links, profile and sign-out appear. |
-| `lg:` | 1024px | Interaction model. The prediction editor switches from a bottom sheet to a two-column drag-and-drop board. |
+| `md:` | 768px | No utility uses it since 2026-10, when navigation moved to `lg` (§7.1). The phone paint budget (§10.3) still cuts at 767px in CSS. |
+| `lg:` | 1024px | Navigation and interaction model. Hamburger → inline links, profile and sign-out appear; the prediction editor switches from a bottom sheet to a two-column drag-and-drop board. |
 
 `xl:` appears once, on a card grid, and carries no meaning of its own. Design
 mobile-up: the phone case is the one written first.
@@ -1739,6 +1798,25 @@ identical payouts is one nobody finishes reading.
 4. `<figure>` + `<figcaption>`; the caption carries the interpretation, not a restatement of the title.
 5. Say what the pale end means. On this site the pale end is where the points are, and that sentence appears under the chart.
 
+### 12.6 `TitleFight` — who can still win
+
+`components/f1/TitleFight.tsx`, at the top of `/f1/championship`. One row per
+driver still able to be champion: the **solid** bar is their points, the
+**faint** extension (`tint(color, 0.18)`) the most they can still add, and a
+1px ink line runs down every row at **the leader's total**. A bar that reaches
+the line is in the fight — which is the definition itself
+(`lib/f1/titleFight.ts`), so the picture is the rule (§1.1). The best-placed
+driver it has already shut out is drawn under them at 55% opacity, labelled
+*Out*, so the reader sees by how much.
+
+Bars start at **zero**: a scale opening at the fifth-placed driver's total
+would make a 139-point gap look like a rout. Every row prints its points and
+its maximum (§1.2); the gap to the leader is a signed mono figure with the true
+minus. The line is ink rather than red because it is a threshold, not a signal.
+Above the chart, one display line says how many can still win (or that the
+title is decided), and one sentence of prose says what the leader needs. The
+figcaption says what solid, faint and the line mean.
+
 ---
 
 ## 13. Voice and content
@@ -1778,7 +1856,8 @@ predictions close. "Duel" is one player against the model for one Grand Prix.
 
 The site is an unofficial fan project and says so on every page, in
 `text-xs text-ink-mute` above the fold of the footer, along with data
-attribution to FastF1 and Jolpica. Do not remove or shrink it.
+attribution to FastF1, Jolpica and OpenF1 (the last since `/f1` reads it
+directly). Do not remove or shrink it.
 
 ---
 
@@ -1857,7 +1936,7 @@ disagrees with it, so:
 1. **A change to any of these updates this file in the same PR:** the `@theme`
    block, `.glass-card`/`.glass-chip`, `.display`, `.hero-outline`,
    `.btn-race`, `.grain`, `CircuitTrace.tsx`, `PickBoardShot.tsx`,
-   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `RarityScale.tsx`, `RulesIndex.tsx`, `SeasonOver.tsx`, `SeasonRaces.tsx`, `StandingsPager.tsx`, `StartLights.tsx`, `Countdown.tsx`, `PickStub.tsx`, `ProfileView.tsx`, `lib/bands.ts`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
+   `ProbabilityShot.tsx`, `ModelPipeline.tsx`, `CalibrationRecord.tsx`, `RarityScale.tsx`, `RulesIndex.tsx`, `SeasonOver.tsx`, `SeasonRaces.tsx`, `StandingsPager.tsx`, `StartLights.tsx`, `Countdown.tsx`, `PickStub.tsx`, `ProfileView.tsx`, `components/f1/*`, `lib/nav.ts`, `lib/bands.ts`, `Arrow.tsx`, `Wordmark.tsx`, `Logomark.tsx`, `LogoSprite.tsx`, the focus ring, `.pressable`, the probability bands, the
    container widths, the breakpoint meanings, the button variants, the poster
    palette, or `lib/format.ts`'s number rules.
 2. **New patterns get a home here or they get deleted.** A one-off card style, a
@@ -1874,7 +1953,8 @@ disagrees with it, so:
    veil over the editor, "No upcoming race" as an empty state, the season as a
    grid of cards, `RACE BY RACE` typed in capitals, "← Previous / Next →", the
    profile's flag emoji, the five form capsules, the "?" disc, the circuit
-   bleeding behind the phone's headline.
+   bleeding behind the phone's headline, three `/f1` tabs in the main nav,
+   a portrait on every classification row, the desktop nav at `md`.
    Keep adding them; they are what stops a fix from being re-broken.
 4. Design decisions that are *game* decisions belong in
    [`GAME_DESIGN.md`](GAME_DESIGN.md); this file only says how they are drawn.
