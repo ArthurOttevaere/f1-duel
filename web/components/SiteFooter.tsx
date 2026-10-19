@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Wordmark from "@/components/Wordmark";
-import { AUTHOR, AUTHOR_URL, REPO_URL } from "@/lib/constants";
+import { AUTHOR, AUTHOR_URL, CURRENT_SEASON, REPO_URL } from "@/lib/constants";
 
 export default function SiteFooter() {
   return (
@@ -44,6 +44,11 @@ export default function SiteFooter() {
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-medium text-ink-dim">More</p>
+            {/* The real season sits under "More", not "Play": nothing on it
+                is part of the game. */}
+            <Link href="/f1" className="text-ink-mute transition-colors hover:text-ink">
+              F1 {CURRENT_SEASON} season
+            </Link>
             <Link href="/rules" className="text-ink-mute transition-colors hover:text-ink">
               Rules
             </Link>
@@ -69,7 +74,7 @@ export default function SiteFooter() {
       </div>
       <p className="mx-auto w-[min(64rem,calc(100%-2rem))] border-t border-line pb-8 pt-6 text-xs text-ink-mute">
         An unofficial fan project — not associated with Formula 1 or the FIA.
-        Data via FastF1 &amp; Jolpica. Found a bug or have an idea?{" "}
+        Data via FastF1, Jolpica &amp; OpenF1. Found a bug or have an idea?{" "}
         <Link href="/contact" className="underline transition-colors hover:text-ink-dim">
           Tell me
         </Link>

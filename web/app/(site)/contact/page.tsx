@@ -245,8 +245,8 @@ export default function ContactPage() {
               className="underline"
             >
               FastF1
-            </a>{" "}
-            and the{" "}
+            </a>
+            , the{" "}
             <a
               href="https://api.jolpi.ca/ergast/"
               target="_blank"
@@ -254,6 +254,15 @@ export default function ContactPage() {
               className="underline"
             >
               Jolpica-F1 API
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://openf1.org"
+              target="_blank"
+              rel="noreferrer"
+              className="underline"
+            >
+              OpenF1
             </a>
             , the community projects this game would not exist without. The
             model itself is gradient-boosted trees over historical race data;
