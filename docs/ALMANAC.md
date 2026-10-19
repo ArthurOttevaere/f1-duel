@@ -5,7 +5,7 @@
 > breaks. If you can only read one document, read this one.
 
 **Status:** live in production.
-**Last reviewed:** 2026-09-25 (`feat/pending-badges`, after PR #87 — the nav's "your move" dots for a missing race entry and championship call; live on https://f1-duel.com).
+**Last reviewed:** 2026-10-19 (`feat/f1-season`, after PR #92 — `/f1`, the real season's calendar, results and championship, outside the game; live on https://f1-duel.com).
 **Maintenance rule:** this file must be updated in the same change that alters
 behaviour it describes — schema, scoring, jobs, routes, env vars, deployment,
 workflows. See [§14 Keeping this document true](#14-keeping-this-document-true).
@@ -91,7 +91,8 @@ There is one long-lived branch (`main`).
    live only in `web/lib/nav.ts`. Game rules live only in `GAME_DESIGN.md`.
 5. **Batch, cache, and pre-warm.** FastF1 calls are slow (seconds to minutes).
    Every layer caches: FastF1's own SQLite HTTP cache, JSON disk caches, Flask
-   in-memory caches, Next.js `revalidate`.
+   in-memory caches, Next.js `revalidate`, and Next's data cache in front of
+   every Jolpica / OpenF1 call the `/f1` section makes (§9.4).
 
 ---
 
@@ -126,7 +127,10 @@ There is one long-lived branch (`main`).
 
 Key structural facts:
 
-- **The Next.js app never talks to Python.** It only reads/writes Supabase.
+- **The Next.js app never talks to Python.** It reads/writes Supabase — and,
+  for the `/f1` section only, reads Jolpica and OpenF1 directly: public,
+  read-only, cached, and never written anywhere (§9.4). That section holds no
+  game state, so it has no reason to go through the database.
 - **The Flask app never talks to Supabase.** It only reads local model
   artifacts + `data/`, and calls FastF1 / Open-Meteo.
 - **`jobs/` is the only bridge**: it imports `src/predict.py` in-process and
@@ -140,10 +144,10 @@ Key structural facts:
 | Service | Used by | Auth | What breaks without it |
 | --- | --- | --- | --- |
 | **FastF1** (→ F1 live timing API + Ergast mirrors) | `src/collect.py`, `src/predict.py`, `src/app.py`, `jobs/*` | none | Collection, the reference classification, the local model page. Its timing half is **unreachable from GitHub Actions** (§8.9) |
-| **OpenF1** (`api.openf1.org`, `src/openf1.py`) | `src/predict.py`, `jobs/model_bridge.py`, `jobs/sync_schedule.py` | none (free tier: 3 req/s, 30 req/min) | Same-evening scoring, the safety car, the model's grid and practice on Actions, team colours — everything the timing host would give if it answered |
+| **OpenF1** (`api.openf1.org`, `src/openf1.py`, `web/lib/f1/openf1.ts`) | `src/predict.py`, `jobs/model_bridge.py`, `jobs/sync_schedule.py`, the `/f1` pages | none (free tier: 3 req/s, 30 req/min; live timing is paid) | Same-evening scoring, the safety car, the model's grid and practice on Actions, team colours — everything the timing host would give if it answered. On the site: free-practice and sprint-qualifying classifications |
 | **formula1.com** (race hub pages, `jobs/dotd.py`) | `jobs/score_race.py` | none | The Driver of the Day; `set_dotd.py` by hand instead |
 | **Open-Meteo** (forecast + archive + geocoding) | `src/app.py` only | none (keyless) | Weather panel on the Flask page |
-| **Jolpica/Ergast** (`api.jolpi.ca`) | `jobs/sync_schedule.py`, `jobs/settle_season.py`, `src/openf1.py` (round → date, code → `driver_id`) | none | Championship-pick rank-at-lock, season settlement, the round-to-session bridge |
+| **Jolpica/Ergast** (`api.jolpi.ca`, `web/lib/f1/jolpica.ts`) | `jobs/sync_schedule.py`, `jobs/settle_season.py`, `src/openf1.py` (round → date, code → `driver_id`), the `/f1` pages | none (4 req/s burst, 500/h) | Championship-pick rank-at-lock, season settlement, the round-to-session bridge. On the site: the whole `/f1` section's calendar, qualifying, sprint, Grand Prix and standings |
 | **Supabase** | `web/`, `jobs/` | anon key / service-role key | The entire game |
 | **Vercel** | hosting `web/` | GitHub OAuth | The site |
 | **GitHub Actions** | running `jobs/` | repo secrets | Model entries and scoring stop |
@@ -241,9 +245,11 @@ f1-duel/
 │   │   ├── favicon.ico      Logomark on red, 16/32/48 (see §9.6)
 │   │   ├── apple-icon.png   180px, same mark
 │   │   └── manifest.ts      Install manifest (start_url = /game)
-│   ├── components/          33 components
+│   ├── components/          the site's components
+│   │   └── f1/              The real season's section (see §9.4, /f1)
 │   ├── lib/                 supabase clients, types, helpers
 │   │   └── circuits.ts      GENERATED circuit geometry (see §9.6)
+│   │   └── f1/              Jolpica + OpenF1 reads for /f1 (see §9.4)
 │   │   └── poster/          The shareable race poster (see §9.9)
 │   ├── public/drivers/*.webp  Driver portraits, by driver_id (see §9.6)
 │   └── proxy.ts             Session refresh (Next 16's "middleware")
@@ -1389,7 +1395,8 @@ app/
 ├── not-found.tsx              404 for a URL matching no route (see below)
 ├── manifest.ts                install manifest
 ├── robots.ts                  crawler rules + a pointer to the sitemap
-├── sitemap.ts                 the public pages + every raced Grand Prix
+├── sitemap.ts                 the public pages (incl. /f1's three) + every
+│                              raced Grand Prix
 ├── globals.css                design tokens + shared classes
 ├── (site)/                    ROUTE GROUP: everything with nav + footer
 │   ├── layout.tsx             renders SiteNav + SiteFooter ONCE
@@ -1403,6 +1410,12 @@ app/
 │   ├── profile/[username]/    Cover + avatar, stats, championship call,
 │   │                          form, season curve, duel history
 │   ├── join/[code]/           The far end of a league invite link
+│   ├── f1/                    THE REAL SEASON — no game data (§9.4)
+│   │   ├── layout.tsx         red eyebrow + Schedule·Results·Championship
+│   │   ├── page.tsx           Schedule: the coming weekend + the calendar
+│   │   ├── results/page.tsx   Latest weekend's podiums + season archive
+│   │   ├── championship/      Title fight + drivers' & constructors' tables
+│   │   └── [round]/page.tsx   One weekend: timetable + every classification
 │   └── game/
 │       ├── layout.tsx         onboarding gate + content width
 │       ├── loading.tsx        skeleton
@@ -2088,6 +2101,86 @@ database. The redesign programme's R series (2026-08-27) gave it three things:
   the payoff: eight sections, about ten minutes, and which one decides most
   weekends.
 
+**`/f1`, `/f1/results`, `/f1/championship`, `/f1/[round]`** — the real
+season, for reference: when every session runs (in the reader's time zone or
+the circuit's), how each one was classified, and the two championships with
+who can still win the drivers' title. **Nothing on these pages comes from the
+game** — no player, no score, no model — and the layout says so under its red
+eyebrow. It is one nav entry (`F1 <season>`, from `CURRENT_SEASON`) on
+purpose: three more tabs would crowd the bar and sit beside *Standings* asking
+to be confused with it, so the three views are a local index inside the
+section (`F1_TABS` in `lib/nav.ts`, `components/f1/SectionTabs.tsx`), and the
+pages are named *Schedule*, *Results* and *Championship* — never "Standings",
+which is the game's board. The section sits outside `game/`, so no onboarding
+gate and no session: it renders for anyone.
+
+- **Where the data comes from.** `lib/f1/jolpica.ts` (calendar with every
+  session's start, qualifying, sprint, Grand Prix, both standings) and
+  `lib/f1/openf1.ts` (free practice and sprint qualifying, which Ergast never
+  published — Jolpica answers 404 for sprint qualifying). `lib/f1/season.ts`
+  composes them, request-cached with `cache()`, and borrows one thing from
+  Supabase: the `drivers` roster, read with the cookie-free public client, for
+  team colours, portraits and the accented spelling OpenF1 drops. The two APIs
+  share no key, so an OpenF1 meeting is matched to a Jolpica round by its
+  Grand Prix starting within twelve hours of the calendar's.
+- **Caching.** Every call goes through `lib/f1/fetch.ts`: Next's data cache
+  (`next.revalidate`) — 5 min for anything that can still move this weekend,
+  1 h for the calendar and OpenF1's session list, 24 h for a weekend more than
+  three days old — an 8 s timeout, and two waits on a 429. Only a 200 is
+  cached, so a failure is retried on the next view; the page then shows
+  `components/f1/Unreachable.tsx` rather than a 500. OpenF1 calls run one
+  after another, never in parallel: its free tier is three a second, and a
+  cold weekend page needs up to six. The Results archive is three Jolpica
+  calls however far into the season (P1 of every round, filtered server-side:
+  `results/1`, `sprint/1`, `qualifying/1`), which is why it does not list
+  practice — twenty rounds of three OpenF1 sessions would not load.
+- **Time zones.** The server cannot know the reader's zone (Vercel renders in
+  UTC), so every time under `/f1` is printed on the client by
+  `components/f1/SessionTime.tsx` (`When`, `DateRange`, `Until`) through `Intl`.
+  "Your time | Track time" is one value for the whole section, in
+  `localStorage` (`f1-time-mode`) behind a `useSyncExternalStore` store, so it
+  flips every time on the page at once and survives navigation; storage
+  refused, it lasts the visit. Track time needs the circuit's IANA zone, which
+  neither API gives — `lib/f1/timezones.ts` maps Jolpica's `circuitId` to one,
+  and a circuit missing from it falls back to UTC, labelled. Before hydration
+  the UTC string renders `invisible`, so rows do not shift. A day prints once
+  per day (`after=`), decided in the reader's zone: Las Vegas is Saturday night
+  locally and Sunday morning in Europe.
+- **Session state.** Done / under way / next is computed on the server against
+  `renderNow()` (one request-cached clock, so the layout and the page agree).
+  Lengths are assumed, not read: 60 min for practice, qualifying and a sprint,
+  45 for sprint qualifying, 120 for the Grand Prix. "Under way" is not live
+  timing — OpenF1's live feed is paid — and the weekend page says when a
+  classification usually lands (~30 min after practice, a few hours after
+  qualifying and the race).
+- **A classification at a time** (`components/f1/SessionResults.tsx`). Toggles
+  (`aria-pressed`), the choice in the URL hash (`/f1/17#quali`), every table
+  already on the page so switching is instant. The timetable's "Result" links
+  are `SessionLink`, which selects with `history.replaceState` and scrolls —
+  **not** a plain `#anchor`: see §9.7 gotcha 4. Arriving with a hash scrolls
+  the table into view, since no element carries that id.
+- **Race rows.** Jolpica now files a lapped car as status `Lapped` with a time
+  gap measured against nobody (`+2.171` for a car a lap down), so
+  `jolpica.ts` keeps a time only for the lead lap and prints `+1 lap` for the
+  rest of the finishers; the position letters become `DNF` / `DSQ` / `DNS` /
+  `NC` / `EXC` / `DNQ`.
+- **The title fight** (`lib/f1/titleFight.ts`, `components/f1/TitleFight.tsx`).
+  A driver is in contention while points + everything still to award ≥ the
+  leader's points — 25 per Grand Prix left, 8 per sprint left (no fastest-lap
+  point since 2025). Drawing level keeps a driver in (countback is not worth
+  getting wrong in public). "Left" is counted against what the standings hold,
+  never against the clock: a round counts as done only once its result is
+  published **and** the table stands after it, so a weekend whose sprint is in
+  and Grand Prix is not still has its 25, and a lagging table never shuts
+  anybody out early. Six scenarios were checked by hand when it was written
+  (sprint-in-race-out, a one-point tie on the last weekend, a lagging table,
+  season over). Once only the leader is left the block says the title is
+  decided; with nothing left it names the champion.
+- **The game links in, never the other way.** `/game`'s race header carries
+  "Every session, in your time" to `/f1/<round>`, and prints the race start
+  through `LocalWhen` — it was the server's UTC before, an hour off for most
+  players. Nothing under `/f1` links into the game.
+
 ### 9.5 `PredictionEditor` — the most complex component (733 lines)
 
 - A fixed **10-slot list**, `null` = empty, so positions are stable while you
@@ -2276,9 +2369,13 @@ the model page read as one product — and redrawn by hand on canvas for the
 poster (§9.9), which is why `.checker-edge`'s finish line has a twin in
 `lib/poster/draw.ts`.
 
-The desktop nav and the account buttons appear at **`md`**, not `sm`: six nav
-entries plus the profile pill do not fit a 640px bar. Below that everything is
-the `MobileNav` overlay.
+The desktop nav and the account buttons appear at **`lg`** (1024px), not `md`.
+At `md` the bar held five links, and signed in it was already a few pixels
+from crushing at 768px; the sixth (`F1 <season>`, 2026-10) pushed it over —
+measured with an 11-character username, the labels broke onto two lines up to
+about 880px. From `lg` six links, the profile pill with a 20-character name and
+*Sign out* fit with room to spare. Below `lg` everything is the `MobileNav`
+overlay, tablets in portrait included.
 
 **A table wider than the phone is a table with hidden columns — house rule.**
 `overflow-x-auto` on a `min-w-[Nrem]` table is not a responsive layout; it is a
@@ -2374,9 +2471,11 @@ the loader, so the wait looked like nothing happening. It is 0 now. Three
 guards, each measured: a URL with a hash still lands on its section (1975, the
 same as clicking the anchor), the back button still restores where you were
 (unchanged from before the component existed), and the first paint is never
-touched.
+touched. A `popstate` only counts as "back" when it changes the path: a
+same-page hash change fires one too, and was skipping the reset on the next
+real navigation.
 
-### 9.7 Three gotchas that cost real debugging time
+### 9.7 The gotchas that cost real debugging time
 
 0. **An SVG resource inside `display: none` is dead in Chrome.** The logomark
    is a `currentColor` rect with a `<mask>` cutting the car out of it. The mask
@@ -2403,6 +2502,21 @@ touched.
 2. **Safari needs `-webkit-mask-image`.** The missing prefix on `.aurora`,
    `.hero-grid` and `.checker-edge` clipped the hero into a hard seam on
    Safari only.
+3. **The JSX compiler can eat the space after an expression.** `{sprints} of
+   them with a sprint. A run` wrapping onto the next line rendered as
+   `6of them`, and a template string followed by ` A` and a newline lost its
+   space the same way (`sprint.A run`) — the server HTML had no space
+   at all, so it is the compile, not CSS. It did not happen on every such
+   line, which is what makes it expensive. When an expression is followed by
+   prose that wraps, write the space as `{" "}` at the end of the expression's
+   line, or make the sentence one template string. After touching copy, grep
+   the rendered text for `\d+[a-z]{2,}` (that is how it was caught).
+4. **A plain `<a href="#x">` breaks the back button in the App Router.** The
+   browser pushes the fragment as a history entry with **no state**; Next's
+   `popstate` handler ignores a stateless entry, so "back" to it changes the
+   URL and leaves the previous page on screen. On-page selection by hash goes
+   through `history.replaceState(history.state, …)` (Next patches it and keeps
+   its router state) — `SessionLink` in `components/f1/SessionResults.tsx`.
 
 ### 9.8 Preview vs production (this has bitten twice)
 
@@ -2796,6 +2910,26 @@ network. Reinstall that single package.
 GitHub's 60-day rule (§8.8). Run `keepalive` manually, or push any commit, then
 re-enable the workflows in the Actions tab.
 
+**An `/f1` page says it "couldn't reach" the calendar, the results or the
+championship.**
+Jolpica (or, for a weekend's practice, OpenF1) did not answer 200 within 8 s,
+after two waits on a 429. Nothing is cached on failure, so the next view
+retries. → Check `https://api.jolpi.ca/ergast/f1/<season>.json` by hand; if it
+is down, wait. A weekend page degrades per session ("Couldn't reach the timing
+data for this session") rather than as a whole.
+
+**A finished session says "Not published yet" on its weekend page.**
+The source has nothing yet: OpenF1 processes a session ~30 minutes after it
+ends (and answers 404 until then), Jolpica publishes qualifying and race
+classifications within a few hours. The page caches each read for 5 minutes in
+the weekend itself, so it appears on its own. If it never does, OpenF1's
+meeting matching found no Grand Prix within twelve hours of Jolpica's
+(`lib/f1/openf1.ts`) — a calendar change that only one of the two carries.
+
+**"Track time" shows UTC.**
+The circuit is missing from `web/lib/f1/timezones.ts` (a new venue). Add its
+Jolpica `circuitId` with an IANA zone.
+
 **Supabase project paused.**
 7 days with no database request. Un-pause in the dashboard — no job can do this
 for you; that's why the keepalive ping fails loudly.
@@ -3006,6 +3140,14 @@ page renders empty locally; the harness is not optional.
 - **No automated test suite.** `backtest.py` is the closest thing, and it
   covers only the scoring rules. Front-end work in this repo is verified by
   driving headless Chrome against a throwaway harness route (see §12.3).
+- **`/f1` is not live timing.** OpenF1's live feed is paid, so a session in
+  progress says "Under way" and its classification lands afterwards. Session
+  lengths (for done / under way) are assumed per kind, not read.
+- **`formatRaceDate` still formats on the server**, in UTC, on `/model` and
+  `SeasonOver`. A date-only value, so it is wrong only for a reader far enough
+  west that the race starts on the previous day locally (Las Vegas from
+  Europe goes the other way and is fine). `LocalWhen` is the fix if it ever
+  matters.
 - **The model retrains manually.** There's no scheduled retraining job; the
   committed artifacts are whatever was last trained locally.
 
@@ -3033,6 +3175,7 @@ PR — a stale almanac is worse than no almanac.
 | `supabase/schema.sql` or a new migration | §7 (including the migration table) and `supabase/README.md` |
 | `jobs/*` or `.github/workflows/*` | §8 |
 | Routes, components, auth flow | §9 |
+| `web/lib/f1/*` — the real season's data (sources, caching, the title-fight arithmetic) | §2.2 and the `/f1` entry of §9.4 |
 | Anything visual — tokens, a component pattern, motion, a chart, the voice | `DESIGN.md` **first**, then §9 here if it also changed behaviour |
 | Env vars, hosting, secrets | §10 and `DEPLOYMENT.md` |
 | Git conventions | §11 |
@@ -3081,7 +3224,11 @@ Also refresh the **Last reviewed** line and commit hash at the top.
 | Who can read/write what | RLS policies in `supabase/schema.sql` |
 | Job scheduling | `.github/workflows/*.yml` |
 | A game page | `web/app/(site)/…` |
-| Nav links | `web/lib/nav.ts` |
+| Nav links | `web/lib/nav.ts` (`F1_TABS` for the `/f1` section's own three) |
+| The real season (`/f1`): data | `web/lib/f1/{jolpica,openf1,season,fetch}.ts` |
+| Who counts as "still in the title fight" | `web/lib/f1/titleFight.ts` |
+| A circuit's time zone for "track time" | `web/lib/f1/timezones.ts` |
+| How a session time is printed (your zone / track) | `web/components/f1/SessionTime.tsx` |
 | Circuit geometry | `web/lib/circuits.ts` — **generated**, rebuild with `jobs/build_circuit_traces.py` |
 | Colours, spacing, motion | `web/app/globals.css` — and record the rule in `docs/DESIGN.md` |
 | A design rule, pattern or convention | `docs/DESIGN.md` |

@@ -19,8 +19,8 @@ import { useEffect, useRef } from "react";
  * - **It never fights an anchor.** A hash in the URL (`/rules#scoring`,
  *   `#last-race`) is a position somebody asked for, so the reset stands down.
  * - **It never fights the back button.** Browser history restores the scroll
- *   you left, which is the whole point of going back; a `popstate` sets a flag
- *   that skips exactly one reset.
+ *   you left, which is the whole point of going back; a `popstate` that
+ *   changes the path sets a flag that skips exactly one reset.
  * - **It does nothing on first paint**, so a deep link lands where it was
  *   meant to.
  *
@@ -31,16 +31,21 @@ export default function ScrollReset() {
   const pathname = usePathname();
   const first = useRef(true);
   const restoring = useRef(false);
+  const shown = useRef(pathname);
 
   useEffect(() => {
+    // Only a pop that leaves the page counts. A same-page `#anchor` click
+    // fires popstate too (the session links on /f1/<round>), and treating it
+    // as "back" skipped the reset on the next real navigation.
     const onPop = () => {
-      restoring.current = true;
+      if (window.location.pathname !== shown.current) restoring.current = true;
     };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
   useEffect(() => {
+    shown.current = pathname;
     if (first.current) {
       first.current = false;
       return;

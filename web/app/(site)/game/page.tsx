@@ -3,7 +3,8 @@ import Arrow from "@/components/Arrow";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { getOwnProfile } from "@/lib/auth";
 import { CURRENT_SEASON } from "@/lib/constants";
-import { formatPoints, formatRaceDate, formatRaceTime } from "@/lib/format";
+import { formatPoints } from "@/lib/format";
+import { LocalWhen } from "@/components/f1/SessionTime";
 import type { Driver, LeaderboardRow, ModelEntry, Race, Score } from "@/lib/types";
 import Countdown from "@/components/Countdown";
 import PredictionEditor from "@/components/PredictionEditor";
@@ -250,10 +251,25 @@ export default async function GamePage() {
           <h1 className="display mt-1 text-2xl font-extrabold tracking-tight">
             {race.name}
           </h1>
+          {/* The start in the reader's zone: printed on the server it was
+              UTC, an hour or more off for most of the players. The link is
+              the way out to the weekend's full timetable — the real
+              season's section, which carries nothing of the game. */}
           <p className="mt-1 text-sm text-ink-dim">
-            {race.circuit} · {formatRaceDate(race.race_at)} ·{" "}
-            {formatRaceTime(race.race_at)}
+            {race.circuit} ·{" "}
+            {race.race_at ? (
+              <LocalWhen iso={race.race_at} show="dayTime" />
+            ) : (
+              "TBC"
+            )}
           </p>
+          <Link
+            href={`/f1/${race.round}`}
+            className="group mt-2 inline-flex items-center gap-2 text-xs font-semibold text-ink-dim transition-colors hover:text-ink"
+          >
+            <span className="group-hover:underline">Every session, in your time</span>
+            <Arrow />
+          </Link>
         </div>
         <div className="flex flex-col items-start gap-2 sm:items-end">
           {race.race_at && (

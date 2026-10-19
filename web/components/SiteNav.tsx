@@ -38,7 +38,7 @@ export default async function SiteNav() {
                   the way every other destination on the site does. */}
               <Link
                 href={`/profile/${username ?? ""}`}
-                className="pressable glass-chip relative hidden items-center gap-2 rounded-control px-3.5 py-1.5 text-sm font-medium transition-colors hover:border-line-hi hover:text-race md:flex"
+                className="pressable glass-chip relative hidden items-center gap-2 rounded-control px-3.5 py-1.5 text-sm font-medium transition-colors hover:border-line-hi hover:text-race lg:flex"
               >
                 {pending.seasonPick && (
                   <PendingDot
@@ -62,7 +62,7 @@ export default async function SiteNav() {
                 </svg>
                 {username ?? "Profile"}
               </Link>
-              <form action="/auth/signout" method="post" className="hidden md:block">
+              <form action="/auth/signout" method="post" className="hidden lg:block">
                 <button
                   type="submit"
                   aria-label="Sign out"
@@ -75,7 +75,7 @@ export default async function SiteNav() {
           ) : (
             <Link
               href="/login"
-              className="pressable hidden btn-race px-4 py-1.5 text-sm font-semibold md:inline-block"
+              className="pressable hidden btn-race px-4 py-1.5 text-sm font-semibold lg:inline-block"
             >
               Sign in
             </Link>
