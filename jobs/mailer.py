@@ -201,7 +201,8 @@ def recipients(race_id: int, kind: str, force: bool = False) -> list[dict]:
     """
     if force:
         db.delete("email_log", {"race_id": f"eq.{race_id}", "kind": f"eq.{kind}"})
-    return db.rpc("email_recipients", {"p_race_id": race_id, "p_kind": kind}) or []
+    return db.rpc("email_recipients", {"p_race_id": race_id, "p_kind": kind},
+                  retry=True) or []
 
 
 def mark_sent(race_id: int, user_id: str, kind: str) -> None:
