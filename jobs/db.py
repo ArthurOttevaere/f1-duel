@@ -10,6 +10,7 @@ writers of game state besides the players themselves. Requires:
 from __future__ import annotations
 
 import os
+import time
 
 import requests
 
@@ -41,6 +42,47 @@ def _check(resp: requests.Response) -> None:
                            f"-> {resp.status_code}: {resp.text[:500]}")
 
 
+# A gateway that gives up, or a request that hangs, is the road between
+# GitHub's runners (US) and Supabase (eu-west-1), not a verdict on the
+# request. Both have happened to the same 6 KB `model_entries` upsert that
+# Postgres runs in 20 ms: a 504 on 2026-09-12, a 30 s read timeout on
+# 2026-10-20 that never reached the edge logs. Each took the whole run down
+# and mailed a failure for a pass the next hour would have done identically.
+RETRY_STATUS = {502, 503, 504}
+ATTEMPTS = 4
+TIMEOUT = 30
+
+
+def _send(method: str, url: str, retry: bool = True, **kwargs) -> requests.Response:
+    """One PostgREST call, sent again on a timeout, a dropped connection or a
+    gateway error — 2, 4, 8 s apart, with a log line each time so a flaky
+    night shows in a green run.
+
+    Only for calls that are safe to send twice: reads, merge-duplicates
+    upserts, PATCH and DELETE to fixed values. A read timeout does not say
+    whether the server applied the request, so anything else passes
+    `retry=False`.
+    """
+    for attempt in range(1, ATTEMPTS + 1):
+        last = not retry or attempt == ATTEMPTS
+        try:
+            resp = requests.request(method, url, timeout=TIMEOUT, **kwargs)
+        except (requests.ConnectionError, requests.Timeout) as exc:
+            if last:
+                raise
+            why = type(exc).__name__
+        else:
+            if last or resp.status_code not in RETRY_STATUS:
+                _check(resp)
+                return resp
+            why = f"HTTP {resp.status_code}"
+        delay = 2 ** attempt
+        print(f"supabase: {method} {url.partition('/rest/v1')[2]}: {why} "
+              f"— attempt {attempt + 1}/{ATTEMPTS} in {delay}s")
+        time.sleep(delay)
+    raise AssertionError("unreachable")
+
+
 PAGE = 1000
 
 
@@ -63,16 +105,15 @@ def select(table: str, params: dict | None = None) -> list[dict]:
     rows: list[dict] = []
     offset = 0
     while True:
-        resp = requests.get(
-            f"{_base()}/{table}",
+        resp = _send(
+            "GET", f"{_base()}/{table}",
             headers=_headers({
                 "Range-Unit": "items",
                 "Range": f"{offset}-{offset + PAGE - 1}",
                 "Prefer": "count=exact",
             }),
-            params=params or {}, timeout=30,
+            params=params or {},
         )
-        _check(resp)
         page = resp.json()
         rows.extend(page)
 
@@ -90,13 +131,12 @@ def select(table: str, params: dict | None = None) -> list[dict]:
 
 def count(table: str, params: dict | None = None) -> int:
     """Server-side row count, used to verify a paged read is complete."""
-    resp = requests.get(
-        f"{_base()}/{table}",
+    resp = _send(
+        "GET", f"{_base()}/{table}",
         headers=_headers({"Range-Unit": "items", "Range": "0-0",
                           "Prefer": "count=exact"}),
-        params=params or {}, timeout=30,
+        params=params or {},
     )
-    _check(resp)
     total = _content_range_total(resp)
     if total is None:
         raise RuntimeError(f"count({table}): server returned no exact count")
@@ -109,33 +149,34 @@ def upsert(table: str, rows: list[dict] | dict, on_conflict: str | None = None) 
     if not rows:
         return
     params = {"on_conflict": on_conflict} if on_conflict else {}
-    resp = requests.post(
-        f"{_base()}/{table}",
+    _send(
+        "POST", f"{_base()}/{table}",
         headers=_headers({"Prefer": "resolution=merge-duplicates"}),
-        params=params, json=rows, timeout=30,
+        params=params, json=rows,
     )
-    _check(resp)
 
 
-def rpc(fn: str, payload: dict | None = None):
+def rpc(fn: str, payload: dict | None = None, retry: bool = False):
     """Call a Postgres function through PostgREST (`/rest/v1/rpc/<fn>`).
 
     The service key is a member of `service_role`, so this reaches the
     operator-only functions of migration 0006 that anon and authenticated are
     revoked from. Returns the decoded body: a scalar, a list of rows, or None
     for a function that returns nothing.
+
+    Not retried unless the caller says so: those operator functions write
+    (`admin_delete_player` deletes a user), and only the caller knows its
+    function is a read.
     """
-    resp = requests.post(f"{_base()}/rpc/{fn}", headers=_headers(),
-                         json=payload or {}, timeout=30)
-    _check(resp)
+    resp = _send("POST", f"{_base()}/rpc/{fn}", retry=retry,
+                 headers=_headers(), json=payload or {})
     return resp.json() if resp.content else None
 
 
 def update(table: str, match: dict, values: dict) -> None:
     """match uses PostgREST operators, e.g. {'id': 'eq.4'}."""
-    resp = requests.patch(f"{_base()}/{table}", headers=_headers(),
-                          params=match, json=values, timeout=30)
-    _check(resp)
+    _send("PATCH", f"{_base()}/{table}", headers=_headers(),
+          params=match, json=values)
 
 
 def delete(table: str, match: dict) -> None:
@@ -143,6 +184,4 @@ def delete(table: str, match: dict) -> None:
     which is the safety net we want — so does this."""
     if not match:
         raise ValueError("refusing to DELETE without a filter")
-    resp = requests.delete(f"{_base()}/{table}", headers=_headers(),
-                           params=match, timeout=30)
-    _check(resp)
+    _send("DELETE", f"{_base()}/{table}", headers=_headers(), params=match)

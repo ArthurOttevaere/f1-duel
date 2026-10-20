@@ -224,7 +224,7 @@ f1-duel/
 │   └── accuracy_cache/      Per-race accuracy (gitignored)
 ├── fastf1_cache/            FastF1 HTTP cache, SQLite (gitignored)
 ├── jobs/                    Game automation (Python, no Flask)
-│   ├── db.py                PostgREST client with paging    (138)
+│   ├── db.py                PostgREST client, paging, retry (187)
 │   ├── scoring.py           THE rules engine                (159)
 │   ├── grid_prior.py        P(finish | grid) kernel         (57)
 │   ├── safety_car.py        Model's SC bet (circuit priors) (104)
@@ -968,12 +968,26 @@ python jobs/<script>.py
 
 ### 8.1 `db.py` — the PostgREST client
 
-~120 lines of `requests` rather than `supabase-py`, because the jobs need only
-four verbs and precise control over paging. `select` (paged), `count`
+~190 lines of `requests` rather than `supabase-py`, because the jobs need only
+a handful of verbs and precise control over paging. `select` (paged), `count`
 (server-side exact), `upsert` (`Prefer: resolution=merge-duplicates` +
 `on_conflict`), `update` (PATCH with PostgREST operator filters like
-`{"id": "eq.4"}`). Uses the **service-role key**, which bypasses RLS — this
-key must never reach a browser.
+`{"id": "eq.4"}`), `delete` (same filters, refuses none), `rpc`. Uses the
+**service-role key**, which bypasses RLS — this key must never reach a browser.
+
+Every call goes through `_send`, which **sends it again** on a timeout, a
+dropped connection or a 502/503/504 — four attempts, 2, 4 and 8 s apart, 30 s
+each — and prints `supabase: POST /model_entries: ReadTimeout — attempt 2/4
+in 2s` when it does, so a flaky night shows in a green log. Any other status
+(a 400, a 409, a 500 from Postgres) fails at once: those are verdicts, not
+weather. The retry is only safe because every verb above is idempotent —
+reads, merge-duplicates upserts, PATCH and DELETE to fixed values. A read
+timeout does not say whether the server applied the request, so `rpc` is
+**not** retried unless the caller passes `retry=True`, which only
+`email_recipients` (a `stable` read) does; the operator functions of
+migration 0006 write, and `admin_delete_player` deletes a user. A new write
+that is not idempotent — a plain insert, a counter — must not go through the
+retrying path.
 
 ### 8.2 `sync_schedule.py` — weekly
 
@@ -2842,6 +2856,16 @@ matched or no article yet). → `python jobs/set_dotd.py <season> <round>
 <driver_id>`; the +5 lands immediately. Then look at `jobs/dotd.py::
 driver_from_slug` if the pattern will recur.
 
+**A failure e-mail from `score-race`/`lock-race`, the traceback ending in
+`ReadTimeout` or `-> 504: Gateway Timeout` on a Supabase URL.**
+The road between GitHub's runners (US) and Supabase (eu-west-1) failed four
+times in a row over ~2 minutes — `db.py` already resends a single blip
+(§8.1). Nothing is half-written in a way that matters: every write is an
+idempotent upsert, and the next scheduled pass redoes the whole race. → Check
+`status.supabase.com`; dispatch the workflow by hand if a race is waiting on
+it — the scheduled crons fire hours apart, not every 15 minutes. A `-> 500`
+or a 4xx is not this: read the message.
+
 **`results.safety_car` is null on a scored race.**
 Race control had published nothing when the race was scored (OpenF1 lag or
 outage). The ten-day re-score window asks again on every pass; older than
@@ -3012,6 +3036,17 @@ page renders empty locally; the harness is not optional.
 | 6 | `model_entries` of rounds 1–13 of 2026 were locked `pre_quali` (§13.1.1 #3) and stay so | Those duels were played against an opponent without a grid; entries are frozen at lock and are not rewritten after the fact | None — by design. From round 14 the model has qualifying |
 
 ### 13.1.1 Fixed
+
+- **One network blip failed the whole `score-race` run** (fixed 2026-10-20,
+  `fix/db-retry-transient`). Twice, on the same call — the `model_entries`
+  upsert of the re-score pass, 6 KB that Postgres runs in 20 ms: a **504
+  Gateway Timeout** on 2026-09-12, and a **30 s read timeout** at 05:15 UTC
+  on 2026-10-20 that never reached Supabase's edge logs (no Postgres line, no
+  5xx — the request was lost on the way). `db.py` sent every call once, so
+  either took the run down and mailed a failure, for a pass the next hour
+  would have done identically: round 17 had been scored at 01:50 and lost
+  nothing. Every PostgREST call now goes through `_send`, which resends on a
+  timeout, a dropped connection or a 502/503/504 (§8.1).
 
 - **Singapore was never locked: a retired driver's `'RT'` took the job down**
   (fixed 2026-10-12, `fix/quali-retired-position`). `openf1.qualifying` did
