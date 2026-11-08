@@ -10,7 +10,8 @@ export SUPABASE_SERVICE_KEY=<service_role secret>
 
 | Script | When | What |
 |---|---|---|
-| `sync_schedule.py` | weekly (Mon) | Calendar → `races`, roster → `drivers`, rank/prorate on new `season_picks` |
+| `sync_schedule.py` | weekly (Mon) | Calendar → `races`, roster → `drivers` (who is `active` from formula1.com, via `f1_lineup.py`), rank/prorate on new `season_picks` |
+| `f1_lineup.py` | manual, when a stand-in is announced | The formula1.com lineup: no argument = dry run, `roster` sets the pick pool, `photos` rewrites `web/public/drivers/` (commit them) |
 | `lock_race.py` | every 15 min Fri–Sun | Model duel entry (order + probability matrix, qualifying and practice from FastF1 or OpenF1); flips race to `locked` at start; backfills an entry for a race locked without one |
 | `score_race.py` | every 15 min Sun–Mon, hourly otherwise | Official classification (OpenF1 within the hour, Ergast when it publishes) + safety car (OpenF1 race control) + Driver of the Day (formula1.com, `dotd.py`) → scores everyone, settles each duel (W/D/L), flips to `scored`, mails each player their result. `--rounds 1-13` re-scores any race, `--dry-run` writes nothing |
 | `dotd.py` | — | Reads the Driver of the Day from the article formula1.com links on the race hub; `None` rather than a guess when it can't |
