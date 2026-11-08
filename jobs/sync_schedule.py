@@ -4,7 +4,10 @@ Run:  python jobs/sync_schedule.py [season]
 
 - Upserts the season calendar into `races` (never touches `status`).
 - Refreshes the `drivers` roster from the latest completed race (names, teams,
-  team colors for profile theming).
+  team colors for profile theming), then sets who is `active` — the pick
+  pool — from formula1.com/en/drivers (`f1_lineup.py`), which knows about a
+  stand-in before he has raced. If the page can't be read, the roster stays
+  as the results left it.
 - Fills rank-at-lock + prorate on fresh `season_picks` rows (docs §2.3), using
   the Jolpica/Ergast standings API.
 """
@@ -18,6 +21,7 @@ import pandas as pd
 import requests
 
 import db
+import f1_lineup
 import model_bridge  # noqa: F401  (configures the FastF1 cache via src/predict)
 import fastf1
 import openf1  # src/openf1.py, on sys.path thanks to model_bridge
@@ -171,4 +175,7 @@ if __name__ == "__main__":
     season = int(sys.argv[1]) if len(sys.argv) > 1 else datetime.now(timezone.utc).year
     sync_calendar(season)
     sync_roster(season)
+    # After the results, so the page has the last word on who is *active*:
+    # the results add whoever raced, the lineup takes out whoever won't.
+    f1_lineup.sync(season)
     fill_season_picks(season)

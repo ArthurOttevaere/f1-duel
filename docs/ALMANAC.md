@@ -145,7 +145,7 @@ Key structural facts:
 | --- | --- | --- | --- |
 | **FastF1** (→ F1 live timing API + Ergast mirrors) | `src/collect.py`, `src/predict.py`, `src/app.py`, `jobs/*` | none | Collection, the reference classification, the local model page. Its timing half is **unreachable from GitHub Actions** (§8.9) |
 | **OpenF1** (`api.openf1.org`, `src/openf1.py`, `web/lib/f1/openf1.ts`) | `src/predict.py`, `jobs/model_bridge.py`, `jobs/sync_schedule.py`, the `/f1` pages | none (free tier: 3 req/s, 30 req/min; live timing is paid) | Same-evening scoring, the safety car, the model's grid and practice on Actions, team colours — everything the timing host would give if it answered. On the site: free-practice and sprint-qualifying classifications |
-| **formula1.com** (race hub pages, `jobs/dotd.py`) | `jobs/score_race.py` | none | The Driver of the Day; `set_dotd.py` by hand instead |
+| **formula1.com** (race hub pages, `jobs/dotd.py`; the drivers page and its media library, `jobs/f1_lineup.py`) | `jobs/score_race.py`, `jobs/sync_schedule.py` | none | The Driver of the Day (`set_dotd.py` by hand instead); who is in the pick pool before a stand-in has raced (the roster then stays as the last race left it); new portraits |
 | **Open-Meteo** (forecast + archive + geocoding) | `src/app.py` only | none (keyless) | Weather panel on the Flask page |
 | **Jolpica/Ergast** (`api.jolpi.ca`, `web/lib/f1/jolpica.ts`) | `jobs/sync_schedule.py`, `jobs/settle_season.py`, `src/openf1.py` (round → date, code → `driver_id`), the `/f1` pages | none (4 req/s burst, 500/h) | Championship-pick rank-at-lock, season settlement, the round-to-session bridge. On the site: the whole `/f1` section's calendar, qualifying, sprint, Grand Prix and standings |
 | **Supabase** | `web/`, `jobs/` | anon key / service-role key | The entire game |
@@ -229,7 +229,8 @@ f1-duel/
 │   ├── grid_prior.py        P(finish | grid) kernel         (57)
 │   ├── safety_car.py        Model's SC bet (circuit priors) (104)
 │   ├── model_bridge.py      Model as a duel participant     (162)
-│   ├── sync_schedule.py     Weekly calendar/roster sync     (146)
+│   ├── sync_schedule.py     Weekly calendar/roster sync     (181)
+│   ├── f1_lineup.py         formula1.com lineup + portraits (323)
 │   ├── lock_race.py         Model entry + lock              (94)
 │   ├── score_race.py        Scoring pass                    (112)
 │   ├── set_dotd.py          Manual Driver of the Day        (46)
@@ -1005,6 +1006,16 @@ python jobs/sync_schedule.py [season]     # defaults to the current year
    The trace job goes through the same module, so the hero draws that venue.
 2. **Roster** → walks completed rounds newest-first until one yields results,
    upserts `drivers` (code, full name, team, `team_color` from FastF1).
+   **Then the lineup decides who is `active`** (`jobs/f1_lineup.py`): the
+   cards of formula1.com/en/drivers are matched to Jolpica `driver_id`s, a
+   driver on the page but not in the table is inserted (team name and colour
+   borrowed from his teammate's row), and everyone else is set
+   `active = false` — never deleted, so past race pages keep him. Results
+   alone could only ever *add* drivers: a stand-in stayed in the pick pool for
+   the rest of the season, and the driver replacing him only appeared after
+   his first race. If the page can't be trusted (unreachable, not 20–24
+   cards, another season, a name Jolpica doesn't know) it logs `lineup:
+   skipped (…)` and the roster stays as the results left it.
 3. **Season picks** → for rows with `prorate is null`, looks up the pick's rank
    in the Jolpica standings and computes `prorate`. If the standings API is
    down it logs and retries next week rather than writing wrong tiers.
@@ -2427,9 +2438,14 @@ pulling **4.6 MB**. Same pixels as WebP q82: ~24 kB each, 0.52 MB for the set.
 `driverPhoto()` in `lib/format.ts` is the single place the extension is
 written, `DriverAvatar` lazy-loads (the pool starts inside a closed sheet on a
 phone), and the canvas poster reads the same files — every browser that can run
-the export can decode WebP. Regenerate with `sharp(...).webp({ quality: 82,
-alphaQuality: 90 })`; do not resize below ~300px, the profile avatar draws at
-128px on a 2× screen.
+the export can decode WebP. **Regenerate with `python jobs/f1_lineup.py
+photos`** (the `venv`, for Pillow) and commit `web/public/drivers/`: it takes
+every portrait from the formula1.com drivers page — plus the season's former
+drivers, whose portrait is still in the F1 media library — cropped by
+Cloudinary around the face (`c_thumb,g_face,z_0.65`, 400 px), kept
+transparent, and encodes WebP q82 / alpha 90 (13–27 kB each). Do not go below
+~300px, the profile avatar draws at 128px on a 2× screen. Until it is run, a
+newcomer falls back to his code on a tinted disc — nothing breaks.
 
 **The tab has a mark.** `app/favicon.ico` was `create-next-app`'s file until
 2026-08-15 — every tab, bookmark and home-screen icon wore the Next.js logo.
@@ -3037,6 +3053,17 @@ page renders empty locally; the harness is not optional.
 
 ### 13.1.1 Fixed
 
+- **Hirakawa in the São Paulo pick pool, Câmara missing, 2025 portraits**
+  (fixed 2026-11-08, `fix/f1-lineup`). Hirakawa drove Ocon's Haas in Mexico
+  (round 19); the Monday sync added him from those results and, since it
+  never set anyone inactive, the pool for round 20 offered Hirakawa, Ocon
+  *and* Tsunoda (a stand-in from earlier in the season) — 24 drivers —
+  while Rafael Câmara, who drove the Haas in Brazil, was not in `drivers` at
+  all. The weekly sync now takes the active roster from formula1.com
+  (`jobs/f1_lineup.py`, §8.2). The portraits were the 2025 set (Hadjar in
+  Racing Bulls colours); all 25 drivers of 2026 now have their 2026
+  portrait, framed the same way.
+
 - **One network blip failed the whole `score-race` run** (fixed 2026-10-20,
   `fix/db-retry-transient`). Twice, on the same call — the `model_entries`
   upsert of the re-score pass, 6 KB that Postgres runs in 20 ms: a **504
@@ -3303,6 +3330,7 @@ python src/app.py                      # http://127.0.0.1:5050
 
 # ── Game jobs (need SUPABASE_URL + SUPABASE_SERVICE_KEY) ───────
 python jobs/sync_schedule.py [season]
+python jobs/f1_lineup.py [photos|roster]           # no argument = dry run
 python jobs/lock_race.py
 python jobs/score_race.py                            # the scheduled pass
 python jobs/score_race.py --rounds 1-13 [--dry-run]  # re-score any race; dry-run writes nothing

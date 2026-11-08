@@ -216,6 +216,33 @@ Runs weekly on its own (Monday, `sync-schedule` workflow). Run it by hand after
 a calendar change, when a new season opens, or when the roster is missing data.
 It never touches `races.status`, so it is safe at any point in a weekend.
 
+**Who is in the pick pool** is `drivers.active`, and it follows
+formula1.com/en/drivers. The weekly sync applies it; when a stand-in is
+announced mid-week, apply it by hand before the weekend:
+
+```bash
+python jobs/f1_lineup.py            # the lineup and what would change — writes nothing
+python jobs/f1_lineup.py roster     # newcomers inserted, the rest active = false
+python jobs/f1_lineup.py photos     # his portrait → web/public/drivers/, then commit
+```
+
+Nobody is ever deleted: a driver who leaves keeps his row with
+`active = false`, so the races he drove still show him. The same thing in
+SQL, for when the page can't be read (example: Câmara for Hirakawa, São
+Paulo 2026):
+
+```sql
+insert into public.drivers (season, driver_id, code, full_name, team, active)
+values (2026, 'rafael_camara', 'CAM', 'Rafael Câmara', 'Haas F1 Team', true)
+on conflict (season, driver_id) do update set active = true;
+
+update public.drivers set active = false
+ where season = 2026 and driver_id in ('ryo_hirakawa');
+```
+
+The `driver_id` must be Jolpica's (`api.jolpi.ca/ergast/f1/2026/drivers.json`)
+— it is the key the results and the model write under.
+
 **Check what it produced:**
 
 ```sql
@@ -441,6 +468,7 @@ both; run it by hand from the Actions tab if the crons have gone quiet).
 | `admin_model_reset` / `count_from` | ✅ `model-restore` puts every race back |
 | Re-running any job | ✅ they are all idempotent |
 | `sync_schedule.py` | ✅ upserts; never touches race status |
+| `f1_lineup.py roster` | ✅ only flips `active` and inserts newcomers; re-run, or set `active` back by hand |
 | `settle_season.py` | ✅ recomputes from scratch |
 | `set_dotd.py` | ✅ run it again with the right driver |
 | Setting a race back to `scheduled` / `locked` | ✅ the jobs redo the work |

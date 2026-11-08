@@ -1536,10 +1536,19 @@ already owns — and it costs one element, no asset and no `<svg>`. It marks the
 items of a titled list (§7.11) and nothing else; it is always the red one,
 because varying the compound would promise a meaning the list does not have.
 
-**Driver portraits** live at `web/public/drivers/{driver_id}.webp` — 22 files,
-~24 kB each. WebP is not optional: the same portraits as PNG-24 were ~210 kB
-each, and the pick screen renders all twenty-two, so it was pulling 4.6 MB.
+**Driver portraits** live at `web/public/drivers/{driver_id}.webp` — one per
+driver who has raced in the season (25 in 2026), 13–27 kB each. WebP is not
+optional: the same portraits as PNG-24 were ~210 kB each, and the pick screen
+renders all twenty-two, so it was pulling 4.6 MB.
 `lib/format.ts#driverPhoto` is the only place the path is built.
+
+They are the season's official F1 portraits, all framed the same way: a
+square around the face, head and shoulders, no chest sponsors — what still
+reads as a person at 26 px. They are **transparent**: the colour behind the
+driver is always the site's (`tint(driverColor, 0.2)` on a disc, the team
+gradient on the profile), never a background baked into the file, so a
+driver who changes team changes colour without a new photo.
+`jobs/f1_lineup.py photos` is how they are made (ALMANAC §9.6).
 
 Portraits are `loading="lazy" decoding="async"` and every use has an `onError`
 fallback to the driver's code on a tinted disc.
