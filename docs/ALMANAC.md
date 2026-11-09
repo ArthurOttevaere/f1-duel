@@ -254,7 +254,7 @@ f1-duel/
 │   │   └── poster/          The shareable race poster (see §9.9)
 │   ├── public/drivers/*.webp  Driver portraits, by driver_id (see §9.6)
 │   └── proxy.ts             Session refresh (Next 16's "middleware")
-├── .github/workflows/       4 workflows (see §8.6)
+├── .github/workflows/       6 workflows (see §8.6)
 ├── docs/                    GAME_DESIGN, DEPLOYMENT, DATABASE, ALMANAC
 ├── requirements.txt         Python deps (pinned)
 └── Launch F1 Predictor.command   macOS double-click launcher
@@ -1207,8 +1207,9 @@ its season line says).
 | `score-race.yml` | `*/15 * * * 0,1` + `45 * * * 2-6` (every 15 min Sun/Mon, hourly otherwise) | `score_race.py` — inputs `rounds`, `dry_run`, `verbose` |
 | `keepalive.yml` | `0 6 1 * *` (monthly) | commit + re-enable + DB ping |
 | `send-mail.yml` | none — manual only | `send_mail.py` (§8.8) |
+| `retry-platform-failures.yml` | on completion of a scheduled run | re-runs a run GitHub never started (below) |
 
-All five support `workflow_dispatch` (manual run from the Actions tab);
+All six support `workflow_dispatch` (manual run from the Actions tab);
 `send-mail` is *only* that, and takes inputs (kind, round, dry run, force, to).
 
 Shared patterns worth knowing:
@@ -1223,6 +1224,18 @@ Shared patterns worth knowing:
   `fastf1-${{ github.run_id }}` and restore-key `fastf1-`, so each run seeds
   from the previous one and saves a fresh entry.
 - Python 3.12, `pip install -r requirements.txt`, pip cached.
+- **GitHub-side failures retry themselves.** When Actions has an incident, a
+  queued run can end red with *"No jobs were run"*: no runner picked it up,
+  none of our code ran (score-race at 18:20 UTC on 2026-11-09, during the
+  18:12–18:59 incident). `retry-platform-failures.yml` watches every
+  *scheduled* run of `score-race`, `lock-race`, `sync-schedule` and
+  `keepalive`; if one fails with **zero steps run** across its jobs, it waits
+  10 min and re-runs it, then 20 min more if it fails again (3 attempts in
+  all). A failure with steps is our code and is never retried. The first
+  attempt's failure e-mail still arrives (GitHub sends it before anything can
+  react); the run then turns green in the Actions tab. To check a run by
+  hand: Actions → retry-platform-failures → Run workflow, with its run id and
+  *Dry run* ticked.
 
 ### 8.7 `keepalive.yml` — why it exists
 
@@ -2881,6 +2894,13 @@ idempotent upsert, and the next scheduled pass redoes the whole race. → Check
 `status.supabase.com`; dispatch the workflow by hand if a race is waiting on
 it — the scheduled crons fire hours apart, not every 15 minutes. A `-> 500`
 or a 4xx is not this: read the message.
+
+**A failure e-mail saying *"No jobs were run"*.**
+GitHub, not us: the run was queued during an Actions incident and no runner
+ever started it (check `githubstatus.com` at that time). Nothing ran, so
+nothing is half-done. `retry-platform-failures` re-runs it on its own within
+10–30 min (§8.6) — look for a green attempt 2 or 3 on the same run. If all
+three attempts failed, dispatch the workflow by hand when a race is waiting.
 
 **`results.safety_car` is null on a scored race.**
 Race control had published nothing when the race was scored (OpenF1 lag or
