@@ -1,0 +1,97 @@
+name: retry-platform-failures
+
+# Re-runs a scheduled game job that GitHub itself failed to start.
+#
+# On 2026-11-09 the 18:20 UTC score-race ended red with "No jobs were run":
+# it was queued during a GitHub Actions incident (18:12–18:59 UTC, see
+# githubstatus.com), and Actions marked it failed without ever starting
+# the job. None of our code ran. The next scheduled pass would have caught
+# up, but scheduled passes come hours apart (cron is a ceiling, not a
+# cadence), so the gap could have fallen on a lock or a result mail.
+#
+# This workflow watches the scheduled jobs and, when a run fails *before any
+# step ran*, waits for the platform to recover and re-runs it. A failure in
+# our own code always has steps (at least "Set up job"), so it is never
+# retried here: it still reaches you as a failure e-mail, as it should.
+
+on:
+  workflow_run:
+    workflows: [score-race, lock-race, sync-schedule, keepalive]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Run id to check and re-run if GitHub never started it"
+        type: string
+        required: true
+      dry_run:
+        description: "Only say what would be done"
+        type: boolean
+        default: false
+
+# One retry per watched run; never shares `game-jobs`, so its waiting can
+# never hold up (or cancel) a real lock or score pass.
+concurrency:
+  group: retry-${{ github.event.workflow_run.id || inputs.run_id }}
+  cancel-in-progress: false
+
+permissions:
+  actions: write   # re-run the failed run
+  contents: read
+
+jobs:
+  retry:
+    # Scheduled runs only: a manual run that failed is yours to look at, and
+    # this also stops a retry from chasing its own tail.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'failure' &&
+       github.event.workflow_run.event == 'schedule')
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Re-run if GitHub never started it
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+          # Attempts 2 and 3 come 10 and 20 minutes after the failure: the
+          # 2026-11-09 incident was mitigated within half an hour. Past that,
+          # the next scheduled pass is the fallback.
+          MAX_ATTEMPTS: "3"
+          WAIT_SECONDS: "600"
+        run: |
+          set -euo pipefail
+          run=$(gh api "repos/$GH_REPO/actions/runs/$RUN_ID")
+          name=$(jq -r .name <<<"$run")
+          attempt=$(jq -r .run_attempt <<<"$run")
+          conclusion=$(jq -r .conclusion <<<"$run")
+          echo "run $RUN_ID ($name), attempt $attempt, $conclusion"
+
+          if [ "$conclusion" != "failure" ]; then
+            echo "Not a failure — nothing to do."; exit 0
+          fi
+
+          # Steps that ran across every job of the latest attempt. Zero means
+          # no runner ever picked the work up: the failure is GitHub's.
+          steps=$(gh api "repos/$GH_REPO/actions/runs/$RUN_ID/attempts/$attempt/jobs" \
+                    --jq '[.jobs[].steps[]?] | length')
+          if [ "$steps" != "0" ]; then
+            echo "Our code ran ($steps step(s)) — a real failure, not retried."
+            exit 0
+          fi
+          if [ "$attempt" -ge "$MAX_ATTEMPTS" ]; then
+            echo "::warning::$name run $RUN_ID: GitHub failed to start it $attempt times. The next scheduled pass is the fallback; dispatch it by hand if a race is waiting."
+            exit 0
+          fi
+
+          wait=$(( WAIT_SECONDS * attempt ))
+          if [ -n "$DRY_RUN" ]; then
+            echo "Dry run: would wait ${wait}s, then re-run $RUN_ID (attempt $((attempt + 1)))."
+            exit 0
+          fi
+          echo "::notice::$name run $RUN_ID never started (GitHub-side failure). Re-running in ${wait}s."
+          sleep "$wait"
+          gh run rerun "$RUN_ID"
+          echo "Re-run requested — attempt $((attempt + 1))."
