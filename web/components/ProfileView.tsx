@@ -7,6 +7,7 @@ import PointsCurve, { type CurvePoint } from "@/components/PointsCurve";
 import ProfileAvatar from "@/components/ProfileAvatar";
 import ProfileEditPanel from "@/components/ProfileEditPanel";
 import ProfileRaces, { type ProfileRace } from "@/components/ProfileRaces";
+import { CURRENT_SEASON } from "@/lib/constants";
 import { formatPoints, shortName } from "@/lib/format";
 import { tint } from "@/lib/teams";
 import type { PickValue } from "@/lib/champions";
@@ -43,6 +44,8 @@ export interface ProfileViewProps {
   losses: number;
   stats: [label: string, value: string][];
   joinedOn: (iso: string) => string;
+  /** The season recap, once the season is settled and this player raced. */
+  recapHref?: string | null;
 }
 
 /**
@@ -72,6 +75,7 @@ export default function ProfileView({
   losses,
   stats,
   joinedOn,
+  recapHref = null,
 }: ProfileViewProps) {
   return (
     <main className="mx-auto w-[min(64rem,calc(100%-2rem))] flex-1 pt-24 pb-8 sm:pt-28">
@@ -208,6 +212,33 @@ export default function ProfileView({
             most useful thing it can say about them on a Friday is that their
             top 10 for Sunday is not in. Nothing for a visitor: somebody else's
             unentered race is not their business, and not a call to action. */}
+        {/* ── The season recap, once there is one ────────────────────────────
+            For everybody, not only the owner: the recap is public, and on a
+            finished season it is the best thing this page can point at. It
+            takes the slot the weekend nudge holds during the year — the two
+            never meet, since a settled season has no weekend left. */}
+        {recapHref && (
+          <Link
+            href={recapHref}
+            className="pressable glass-card group mt-6 flex flex-col gap-3 px-5 py-4 transition-colors hover:border-line-hi sm:flex-row sm:items-center sm:justify-between sm:px-6"
+          >
+            <div>
+              <p className="font-mono text-xs tracking-[0.2em] text-race uppercase">
+                Season {CURRENT_SEASON} · complete
+              </p>
+              <p className="display mt-1 text-lg font-extrabold tracking-tight">
+                {isOwner
+                  ? "Your season, replayed."
+                  : `${profile.username}'s season, replayed.`}
+              </p>
+            </div>
+            <span className="flex shrink-0 items-center gap-2 text-sm font-semibold text-ink-dim transition-colors group-hover:text-ink">
+              Watch the recap
+              <Arrow />
+            </span>
+          </Link>
+        )}
+
         {weekend && !weekend.entered && (
           <Link
             href="/game"

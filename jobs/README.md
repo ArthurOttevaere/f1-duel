@@ -18,7 +18,7 @@ export SUPABASE_SERVICE_KEY=<service_role secret>
 | `mailer.py` | — | The two race emails, sent from inside `lock_race` and `score_race` above (`docs/GAME_DESIGN.md` §2.7). No `RESEND_API_KEY` → every send is a logged no-op |
 | `send_mail.py` | manual, any time | **Sends a race email outside the schedule** — `python jobs/send_mail.py lock 12 --dry-run`. Same templates, same recipients, same log. `--force` re-sends to players who already got it; `--preview <email>` shows you the template when there are no players yet. Also runnable from Actions → **send-mail** |
 | `set_dotd.py` | manual, when `dotd.py` can't | Record the official Driver of the Day by hand, re-scores instantly |
-| `settle_season.py` | once, December | Awards championship-pick bonuses |
+| `settle_season.py` | by `score_race.py`, once the season is over | Awards championship-pick bonuses; opens the season recap |
 | `backtest.py` | local only | Replays the scoring rules over past races (no DB needed) |
 | `admin.py` | manual, operator | The model's season score (status / reset / count-from / restore) and the player list (`players`, `delete-player`) |
 
