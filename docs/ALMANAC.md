@@ -3073,6 +3073,22 @@ page renders empty locally; the harness is not optional.
 
 ### 13.1.1 Fixed
 
+- **November audit, the small ones** (2026-11-10, `fix/audit-nov`). Found
+  walking production signed out, desktop and phone. `/login` and every
+  `/game/races/<n>` carried the home page's tab title (`app/login/layout.tsx`
+  exists only to hold `metadata`, the page being a client component; the race
+  page has a `generateMetadata`). Signed out on a phone, `/game` put the
+  sign-in button under the model's ten rows, two screens down — the pitch is
+  `order-first` below `lg` now. "Tap any position" on the race breakdown
+  became Click/Tap by pointer, the same split the pick board makes. The
+  three colour emojis left on the site are gone: 🏁 twice (poster button,
+  "race locked") → `CheckerGlyph`, 🏆 on the championship-picks banner →
+  nothing. The profile header said "in the paddock since" twice and counted
+  the duels twice; the spec sheet's third row is the player's average a race
+  instead. The hero's eyebrow no longer wraps between "in" and its clock.
+  `/game/leagues` redirecting to the standings is **not** a bug — leagues
+  live beside the board (see the route's own comment).
+
 - **Hirakawa in the São Paulo pick pool, Câmara missing, 2025 portraits**
   (fixed 2026-11-08, `fix/f1-lineup`). Hirakawa drove Ocon's Haas in Mexico
   (round 19); the Monday sync added him from those results and, since it

@@ -470,7 +470,11 @@ export default function RaceBreakdown({
         </section>
       ) : (
         <p className="text-xs text-ink-mute">
-          Tap any position to see why it scored what it scored.
+          {/* What you are holding, not how wide the window is — the same
+              split the pick board makes. */}
+          <span className="pointer-coarse:hidden">Click</span>
+          <span className="hidden pointer-coarse:inline">Tap</span> any
+          position to see why it scored what it scored.
         </p>
       )}
 

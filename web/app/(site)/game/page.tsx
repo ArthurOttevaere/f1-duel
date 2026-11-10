@@ -233,7 +233,7 @@ export default async function GamePage() {
           className="pressable glass-chip group flex items-center justify-between gap-4 rounded-panel border-race/30 px-5 py-3 text-sm transition-colors hover:border-race/60"
         >
           <span>
-            🏆 Call your {CURRENT_SEASON} world champions — one shot, big
+            Call your {CURRENT_SEASON} world champions — one shot, big
             season-end bonus
           </span>
           <span className="flex shrink-0 items-center gap-2 font-semibold text-race">

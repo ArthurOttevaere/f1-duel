@@ -1,3 +1,4 @@
+import CheckerGlyph from "@/components/CheckerGlyph";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getOwnProfile } from "@/lib/auth";
@@ -57,6 +58,28 @@ function entryFor(
 
 const slotsTotal = (slots: SlotScore[] | undefined) =>
   (slots ?? []).reduce((sum, s) => sum + s.points, 0);
+
+/**
+ * The tab used to say "F1 Duel — Beat the model" on every race: twenty rounds
+ * open side by side were twenty identical tabs, and a shared link carried the
+ * home page's title.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ round: string }>;
+}) {
+  const { round } = await params;
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("races")
+    .select("name")
+    .eq("season", CURRENT_SEASON)
+    .eq("round", Number(round))
+    .maybeSingle();
+  const name = (data as { name: string } | null)?.name;
+  return { title: name ?? `Round ${round}` };
+}
 
 export default async function RaceReviewPage({
   params,
@@ -341,8 +364,9 @@ export default async function RaceReviewPage({
       )}
 
       {race.status === "locked" && (
-        <p className="glass-chip rounded-panel px-5 py-3 text-sm text-ink-dim">
-          🏁 Race locked — scoring lands once the official classification is in.
+        <p className="glass-chip flex items-center gap-3 rounded-panel px-5 py-3 text-sm text-ink-dim">
+          <CheckerGlyph />
+          Race locked — scoring lands once the official classification is in.
         </p>
       )}
 

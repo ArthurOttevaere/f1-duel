@@ -101,7 +101,9 @@ function LockGlyph() {
  */
 function SignInPanel({ raceName }: { raceName: string | null }) {
   return (
-    <section className="flex flex-col justify-center">
+    // First on a phone: stacked under the board, the button sat two screens
+    // down, below ten rows nobody had been told the point of.
+    <section className="order-first flex flex-col justify-center lg:order-none">
       <p className="font-mono text-[0.65rem] tracking-[0.18em] text-race uppercase">
         The duel
       </p>
@@ -767,7 +769,11 @@ export default function PredictionEditor({
             {/* The counter is yours; over the model's entry it would read as a
                 score — so that slot carries the race it was played at. */}
             <span className="font-mono text-xs text-ink-mute">
-              {preview ? previewEntry?.raceName : `${filled}/10`}
+              {preview
+                ? // "São Paulo", not "São Paulo Grand Prix": at 375 the long
+                  // form wrapped the label and the heading beside it both.
+                  previewEntry?.raceName.replace(/ Grand Prix$/, "")
+                : `${filled}/10`}
             </span>
           </div>
 

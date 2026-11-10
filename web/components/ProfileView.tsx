@@ -148,7 +148,6 @@ export default function ProfileView({
 
             <p className="mt-2 text-sm text-ink-mute">
               In the paddock since {joinedOn(profile.created_at)}
-              {chrono.length > 0 && ` · ${chrono.length} duels raced`}
             </p>
           </div>
 
