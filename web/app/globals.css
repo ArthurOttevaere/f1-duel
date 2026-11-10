@@ -774,3 +774,33 @@ figcaption {
     to { opacity: 1; }
   }
 }
+
+/* ─── The season recap's stage (components/SeasonStory.tsx, DESIGN §7.19) ───
+   The one paged surface on the site. Its height is the screen's, less the nav
+   above and the two buttons below, capped so a desktop does not get a
+   poster-sized card. `dvh`, not `vh`: on a phone the address bar comes and
+   goes, and `vh` would put the last row of every chapter under it. */
+.story-stage {
+  height: min(calc(100dvh - 13.5rem), 44rem);
+  min-height: 31rem;
+  /* A double tap to go forward twice must not zoom the page in Safari. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* A chapter arriving. Short, and only opacity plus a few pixels: it has to
+   read as "the next one" without being something to wait for. */
+.story-in {
+  animation: storyIn 260ms var(--ease-out-strong);
+}
+@keyframes storyIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-in {
+    animation: none;
+  }
+}

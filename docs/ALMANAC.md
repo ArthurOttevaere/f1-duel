@@ -951,8 +951,7 @@ results carrying a bonus that came from no race read as a bug once points
 stopped ranking anything. `settle_season.py` still writes
 `season_picks.awarded_points`; its destination is the **season recap**, a
 year-in-review surface replaying each player's spring predictions against what
-actually happened (GAME_DESIGN §2.3). Designed, not built — it is a season-end
-page and the season is at round 12.
+actually happened (GAME_DESIGN §2.3) — `/profile/<username>/season`, §9.4.
 
 ---
 
@@ -1148,6 +1147,14 @@ replaced — still exists for a laptop that wants it, but no job calls it.
 python jobs/set_dotd.py 2026 13 max_verstappen   # ~2 minutes, Monday
 python jobs/settle_season.py 2026                # once, in December
 ```
+
+**`settle_season.py` is also what opens the season recap.** The recap's gate
+(`web/lib/recap.ts#seasonState`) is "every race of the season is `scored`
+*and* no `season_picks` row of the season has `awarded_points` null". So
+after Abu Dhabi is scored: run it once, and `/profile/<name>/season`, the
+card on every profile and the button on `/game` all appear together. Until
+then the site looks exactly as it did the week before. It is idempotent — a
+re-run after a late re-score just rewrites the same numbers.
 
 `set_dotd` validates the `driver_id` against the season roster, writes
 `results.dotd`, and immediately re-scores the race so the +5 lands right away.
@@ -1713,7 +1720,9 @@ this page:**
   `scores` rows for their record, and the next `scheduled` race **in any
   season** for the clock. With nothing scored it says the calendar has not been
   synced — never "the season is over" on missing data. It is deliberately not
-  the season recap of `GAME_DESIGN` §2.3, which is still unbuilt.
+  the season recap of `GAME_DESIGN` §2.3 — but once the season is settled
+  (`seasonState().open`) its red button is "Your season, replayed" and the
+  standings step down to the outlined one.
 - **The countdown speaks the sport's language under the last hour** (D-3).
   `StartLights` takes a `lit` count (0–5) and holds it; `Countdown` lights one
   bulb every twelve minutes and the lock is the blackout. The digits stay
@@ -1899,6 +1908,35 @@ join".
 
 **`/game/picks`** — if a `season_picks` row exists it renders read-only, because
 the pick is immutable at the database level.
+
+**`/profile/[username]/season`** (`revalidate = 300`) — the season recap
+(GAME_DESIGN §2.3), added 2026-11. Three files and no table:
+
+- `lib/recap.ts` — `seasonState()` (the gate, above in §8.5) and
+  `loadRecap()`, which is arithmetic on rows the site already publishes: the
+  player's `scores` with their breakdowns, the season's `races`, the roster,
+  `standings_page` for the final position, the `season_picks` row, and
+  `getStandings()` (Jolpica) for the *names* of the champions. If Jolpica is
+  down the page still pays the right amount (`awarded_points` is the
+  database's) and only stops ticking which half of the call came in. Nothing
+  is stored: a re-score in January changes the recap the next time it is
+  opened.
+- `components/SeasonStory.tsx` — the story (DESIGN §7.19). Chapters are built
+  from the `Recap` and **drop out when they have nothing to say**: no
+  "boldest call" without an exact hit, no "side bets" for somebody who never
+  placed one, no "the call" without a pick; a player the model never beat
+  gets "Unbeaten" where the others get "The one that got away".
+- `page.tsx` — closed gate → `redirect` to the profile; unknown player → 404;
+  a player with no duel → their profile. `opengraph-image.tsx` beside it
+  holds the same gate.
+
+  `?preview=1` narrates the season so far, eyebrow marked "preview, season
+  running". **Development only** (`NODE_ENV !== "production"`): on production
+  the parameter is ignored. That is how the page is looked at before
+  December — `npm run dev`, then `/profile/<name>/season?preview=1`.
+
+The profile and `/game`'s season-over screen each take a `recapHref` and show
+their link only when the gate is open *and* the player raced.
 
 **`/profile/[username]`** (`revalidate = 120`) — rebuilt in PR #29. It was a
 grey card with a headline and four numbers, and it never showed the one thing
@@ -2675,6 +2713,7 @@ differ:
 | --- | --- |
 | `app/opengraph-image.tsx` | The default, inherited by every page without its own — headline, strapline, the three scoring numbers |
 | `app/(site)/join/[code]/opengraph-image.tsx` | League name, who is inviting, how many players |
+| `app/(site)/profile/[username]/season/opengraph-image.tsx` | The recap's card: W-D-L, final position, season total — or, before the season is settled, the name and one line saying when it opens |
 | `app/(site)/profile/[username]/opengraph-image.tsx` | Username, W-D-L against the model, races, points |
 
 The two dynamic ones are served at a **hashed path** — `/join/<code>/opengraph-image-bp3zyz`
@@ -2840,7 +2879,7 @@ index; that file is the manual.
 | Add a new season | `python jobs/sync_schedule.py <year>`, then set `NEXT_PUBLIC_SEASON` on Vercel |
 | Move to a custom domain | `DEPLOYMENT.md` §4b — and **add `https://<domain>/auth/callback` to the Supabase redirect list**, or every magic link and Google sign-in bounces on the new domain the moment it goes live |
 | Enter Driver of the Day | `python jobs/set_dotd.py <season> <round> <driver_id>` (Monday) |
-| Settle the season | `python jobs/settle_season.py <season>` (December, once) |
+| Settle the season **and open the recaps** | `python jobs/settle_season.py <season>` (December, once, after the last race is scored — §8.5) |
 | Force a lock / score now | Actions tab → workflow → **Run workflow** |
 | Re-score a race | It re-scores automatically for 10 days; otherwise set `races.status='locked'` in SQL and run `score-race` |
 | Refresh the model after new races | `python src/collect.py <year> --force` (+ `--practice`), `python src/features.py`, then optionally `python src/train.py` |
@@ -3320,6 +3359,7 @@ Also refresh the **Last reviewed** line and commit hash at the top.
 | The shareable poster | `web/lib/poster/{draw,data,pdf,types}.ts`, `web/components/PosterExport.tsx` |
 | League invites and the join flow | `web/app/(site)/join/[code]/page.tsx`, `web/components/{LeagueCardActions,JoinLeagueButton}.tsx` |
 | Account deletion | `web/components/DeleteAccount.tsx` + `delete_account()` |
+| The season recap | `web/lib/recap.ts` (gate + numbers) + `web/components/SeasonStory.tsx` (chapters) + `web/app/(site)/profile/[username]/season/` |
 | The profile page | `web/app/(site)/profile/[username]/page.tsx` + `web/components/{ProfileAvatar,ProfileEditPanel,TeamWordmark,FormStrip,PointsCurve}.tsx` |
 | What a championship pick is worth on screen | `web/lib/champions.ts` (**mirror of the §2.3 tiers — keep in step with `jobs/settle_season.py`**) |
 | Row types shared by the frontend | `web/lib/types.ts` |

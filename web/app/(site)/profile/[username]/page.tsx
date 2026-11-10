@@ -1,3 +1,4 @@
+import { seasonState } from "@/lib/recap";
 import { notFound } from "next/navigation";
 import { createClient, getUser } from "@/lib/supabase/server";
 import { CURRENT_SEASON } from "@/lib/constants";
@@ -64,6 +65,7 @@ export default async function ProfilePage({
     { data: raceRows },
     { data: rosterRows },
     { data: nextRaces },
+    recapState,
   ] = await Promise.all([
     supabase
       .from("season_picks")
@@ -86,6 +88,7 @@ export default async function ProfilePage({
           .order("race_at", { ascending: true })
           .limit(1)
       : Promise.resolve({ data: null }),
+    seasonState(supabase, CURRENT_SEASON),
   ]);
 
   const pick = pickRow as SeasonPick | null;
@@ -242,6 +245,11 @@ export default async function ProfilePage({
       losses={losses}
       stats={stats}
       joinedOn={joinedOn}
+      recapHref={
+        recapState.open && chrono.length > 0
+          ? `/profile/${profile.username}/season`
+          : null
+      }
     />
   );
 }

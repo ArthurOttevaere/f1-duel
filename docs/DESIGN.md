@@ -1458,6 +1458,47 @@ OpenF1's free tier — each weekend page has them instead).
 
 ---
 
+### 7.19 The story — the one paged surface
+
+`components/SeasonStory.tsx`, the season recap. Everything else on the site
+scrolls; this is turned, a chapter a screen, because what it holds is eight or
+nine facts of equal standing that each want the whole screen for a moment and
+none of which is reference material. A page would have ranked them by how far
+down they were.
+
+**The stage** is a `glass-card` in the player's colour — the profile's cover
+gradient and its 4px top bar, so the recap is recognisably the same person —
+`max-w-[27rem]`, as tall as the screen allows (`.story-stage`:
+`min(100dvh − 13.5rem, 44rem)`, `dvh` because of Safari's address bar).
+
+**A chapter is four things, top to bottom:** a red mono eyebrow naming it; one
+**figure** at car-number size (§5.5 — `text-7xl`/`text-8xl` mono, in the W/D/L
+tones when it is a record or a margin); a display headline that is a sentence;
+and a **spec sheet** (§7.11) of two or three rows pinned to the bottom with
+`mt-auto`. One figure per chapter: a second big number is a row.
+
+**What it deliberately is not:**
+
+- **It does not play itself.** No timer. A slide that leaves while it is being
+  read is the format's worst habit, and the one a reduced-motion setting could
+  not switch off.
+- **It does not hide the count.** The rail on top is the pick board's progress
+  rail — square-ended ticks, red once passed — and `03 / 09` is printed
+  between the two buttons.
+- **It is not a carousel.** No swipe physics. A tap on the right two thirds
+  goes on, the left third goes back; `←`/`→` do the same; and two outlined
+  buttons, "← Previous" / "Next →", sit under the stage — pagination, where
+  the arrow is the direction (§9). A tap that lands on a link or a button
+  inside the chapter does that instead.
+
+**Motion** is one keyframe, `storyIn`: 260 ms, opacity and 8px. It is the only
+entrance on the site that runs more than once, and it is allowed to because it
+answers a press (§8.3 is about first views). Off entirely under
+`prefers-reduced-motion`.
+
+The chapter container is `aria-live="polite"` and the stage is a
+`role="group"` labelled "‹chapter› — 3 of 9".
+
 ## 8. Motion
 
 ### 8.1 Easing and duration

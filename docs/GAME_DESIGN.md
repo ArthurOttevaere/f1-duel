@@ -130,9 +130,15 @@ still computes and stores `season_picks.awarded_points` at season end; its
 destination is the **season recap** — a year-in-review page in the spirit of a
 music-service "wrapped", which replays what each player called back in the
 spring against what actually happened, and pays the championship bonus there.
-The recap is designed, not built: the season is at round 12 of 24 and it is a
-season-end surface. Until it exists the pick is visible on the profile with
-what it is on course for, exactly as today.
+**Built 2026-11** as `/profile/<username>/season`: public like the profile,
+told as a story — one screen a chapter, turned by hand (the record and final
+position, the best Sunday, the heaviest defeat or the lack of one, the boldest
+exact call, the driver who paid most, the side bets, the championship call and
+its payout, the season total). It **does not exist until the season is
+settled**: every Grand Prix scored *and* `settle_season.py` run, so that no
+call reads "pending" on the page whose job is to pay it. Before that the
+address returns to the profile and nothing links to it; the pick stays visible
+on the profile with what it is on course for, exactly as during the year.
 
 The champion picks also define the player's **profile theme** (team colors,
 driver imagery) — see §4. The theme follows the pick, never the site red: the
@@ -307,6 +313,7 @@ timing — GitHub Actions cron + Supabase is deterministic and free.
 | `/game/standings` | Global leaderboard + duel records, and **the leagues page too**: the filter switches Global ↔ one of your leagues, and picking a league also brings up its code, invite link (Web Share / copy) and leave-or-delete. Create / join a league by code or invite link happens from the same row. Below the board, one card per scored Grand Prix with your score and the duel verdict. |
 | `/game/leagues` | Redirect to `/game/standings` — kept alive for links players already sent each other. |
 | `/join/<code>` | The far end of an invite link: shows the league, its owner and its size, then joins — signing in first if needed. |
+| `/profile/[username]/season` | The **season recap** (§2.3) — exists only once the season is settled. A story of eight or nine chapters in the player's colour, with a share button and its own share card. |
 | `/profile/[username]` | The player's page, themed end to end by their championship pick: a team-coloured cover, the picked driver's portrait as the avatar, the name large, then season points / duel record / races / best race. Below: the **championship call** (driver portrait + constructor wordmark + what the bonus is on course for), **recent form** (last five duels as W/D/L pills), the **season curve** (your running total against the model's), and the full duel history. Owner only: one **Edit profile** panel (username + private details), sign out, and delete the account (`delete_account()`, cascades to everything including leagues you own). |
 | `/model` | The opponent, explained **and shown**: the pipeline, the 39 features, why the fight is fair — and the model's actual position-probability matrix for the last Grand Prix it played, drawn as a heat map whose colour bands are the rarity-multiplier tiers of §2.2. Links out to the Flask platform only when `NEXT_PUBLIC_MODEL_URL` is set. |
 | `/contact` | Contact & FAQ: how to report a bug or suggest a feature (issue tracker + optional mailbox), the questions players actually ask, and the credits. |

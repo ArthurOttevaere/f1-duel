@@ -10,6 +10,7 @@ import Countdown from "@/components/Countdown";
 import PredictionEditor from "@/components/PredictionEditor";
 import SeasonOver from "@/components/SeasonOver";
 import { modelEntries, modelSeason } from "@/lib/model";
+import { seasonState } from "@/lib/recap";
 import { fieldLine, fieldSummary, type FieldSummary } from "@/lib/duels";
 
 export const metadata = { title: "This weekend" };
@@ -35,7 +36,7 @@ export default async function GamePage() {
   // Everything below is read only on this branch, so the weekly page pays
   // nothing for it.
   if (!race) {
-    const [{ data: seasonRaces }, entries, { data: board }] = await Promise.all([
+    const [{ data: seasonRaces }, entries, { data: board }, state] = await Promise.all([
       supabase
         .from("races")
         .select("id, status")
@@ -46,6 +47,7 @@ export default async function GamePage() {
         p_limit: 3,
         p_offset: 0,
       }),
+      seasonState(supabase, CURRENT_SEASON),
     ]);
 
     const seasonRows = (seasonRaces as Pick<Race, "id" | "status">[]) ?? [];
@@ -101,6 +103,11 @@ export default async function GamePage() {
             : null
         }
         nextRace={next}
+        recapHref={
+          state.open && mine.length > 0 && profile?.username
+            ? `/profile/${profile.username}/season`
+            : null
+        }
       />
     );
   }

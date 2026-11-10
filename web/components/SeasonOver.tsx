@@ -28,6 +28,11 @@ export interface SeasonOverProps {
   } | null;
   /** The next Grand Prix on the calendar, whatever season it belongs to. */
   nextRace: { name: string; race_at: string | null; season: number } | null;
+  /**
+   * The viewer's season recap, once the season is settled (`lib/recap.ts`).
+   * Null before that, and for somebody who did not race.
+   */
+  recapHref?: string | null;
 }
 
 function Line({
@@ -85,6 +90,7 @@ export default function SeasonOver({
   podium,
   mine,
   nextRace,
+  recapHref = null,
 }: SeasonOverProps) {
   const champion = podium[0] ?? null;
   const over = racesScored > 0;
@@ -177,9 +183,24 @@ export default function SeasonOver({
       )}
 
       <div className="mt-10 flex flex-wrap items-center gap-3">
+        {/* Once the season is settled the recap takes the red button: it is
+            the one thing here the viewer has not already seen. The standings
+            step down to the outlined one rather than leave. */}
+        {recapHref && (
+          <Link
+            href={recapHref}
+            className="pressable btn-race px-7 py-3 text-sm font-semibold"
+          >
+            Your season, replayed
+          </Link>
+        )}
         <Link
           href="/game/standings"
-          className="pressable btn-race px-7 py-3 text-sm font-semibold"
+          className={
+            recapHref
+              ? "pressable rounded-control border border-line-hi px-6 py-3 text-sm font-semibold transition-colors hover:bg-glass-strong"
+              : "pressable btn-race px-7 py-3 text-sm font-semibold"
+          }
         >
           {over ? "Final standings" : "Standings"}
         </Link>
