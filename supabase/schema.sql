@@ -367,7 +367,7 @@ begin
 end;
 $$;
 
-revoke all on function public.delete_account() from public;
+revoke all on function public.delete_account() from public, anon;
 grant execute on function public.delete_account() to authenticated;
 
 -- ─── Row Level Security ─────────────────────────────────────────────────────
@@ -756,16 +756,17 @@ $$;
 grant execute on function public.model_season_points(int) to anon, authenticated, service_role;
 grant execute on function public.model_season_races(int)  to anon, authenticated, service_role;
 
--- The rest is operator-only. Revoking from public is what actually closes them
--- (postgres grants execute to public by default); service_role is then granted
--- back so `jobs/admin.py` can reach them with the service key, and the SQL
+-- The rest is operator-only. Revoking from public is NOT enough on Supabase:
+-- its default privileges grant EXECUTE to `anon` and `authenticated` by name,
+-- and until migration 0015 every function below answered the public key.
+-- Revoke from all three; service_role is then granted back so `jobs/admin.py` can reach them with the service key, and the SQL
 -- editor can always call them as the owner.
-revoke all on function public.admin_model_status(int)        from public;
-revoke all on function public.admin_model_reset(int)         from public;
-revoke all on function public.admin_model_count_from(int, int) from public;
-revoke all on function public.admin_model_restore(int)       from public;
-revoke all on function public.admin_players()                from public;
-revoke all on function public.admin_delete_player(text)      from public;
+revoke all on function public.admin_model_status(int)        from public, anon, authenticated;
+revoke all on function public.admin_model_reset(int)         from public, anon, authenticated;
+revoke all on function public.admin_model_count_from(int, int) from public, anon, authenticated;
+revoke all on function public.admin_model_restore(int)       from public, anon, authenticated;
+revoke all on function public.admin_players()                from public, anon, authenticated;
+revoke all on function public.admin_delete_player(text)      from public, anon, authenticated;
 
 grant execute on function public.admin_model_status(int)        to service_role;
 grant execute on function public.admin_model_reset(int)         to service_role;
@@ -780,7 +781,7 @@ grant execute on function public.admin_delete_player(text)      to service_role;
 create table public.email_log (
   race_id bigint not null references public.races (id) on delete cascade,
   user_id uuid   not null references public.profiles (id) on delete cascade,
-  kind    text   not null check (kind in ('lock', 'result')),
+  kind    text   not null check (kind in ('lock', 'result', 'recap')),  -- 'recap': migration 0014
   sent_at timestamptz not null default now(),
   primary key (race_id, user_id, kind)
 );
@@ -830,7 +831,7 @@ as $$
          );
 $$;
 
-revoke all on function public.email_recipients(bigint, text) from public;
+revoke all on function public.email_recipients(bigint, text) from public, anon, authenticated;
 grant execute on function public.email_recipients(bigint, text) to service_role;
 
 -- ─── 4. The unsubscribe page ────────────────────────────────────────────────

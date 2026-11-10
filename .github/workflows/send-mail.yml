@@ -14,11 +14,11 @@ on:
         description: "Which email"
         required: true
         type: choice
-        options: [lock, result]
+        options: [lock, result, recap]
         default: lock
       round:
-        description: "Round number of the Grand Prix"
-        required: true
+        description: "Round number of the Grand Prix (leave empty for recap)"
+        required: false
         type: string
       dry_run:
         description: "Dry run — list recipients, send nothing"
@@ -73,7 +73,7 @@ jobs:
         name: Send
         run: |
           python -u jobs/send_mail.py \
-            "${{ inputs.kind }}" "${{ inputs.round }}" \
+            "${{ inputs.kind }}" ${{ inputs.kind != 'recap' && inputs.round || '' }} \
             ${{ inputs.dry_run && '--dry-run' || '' }} \
             ${{ inputs.force && '--force' || '' }} \
             ${{ inputs.to != '' && format('--to {0}', inputs.to) || '' }} \

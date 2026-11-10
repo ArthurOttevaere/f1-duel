@@ -224,14 +224,19 @@ GitHub Actions, which is how every race of 2026 went unsettled until 2026-09.
 If it can't be determined at scoring time, no one is awarded the bonus (neither
 player nor model) and the next pass asks again.
 
-### 2.7 The two emails (added 2026-08)
+### 2.7 The two emails (added 2026-08) — and the season's one
 
 The game's rhythm is weekly, and until now the product had **no outbound voice
 at all**: a player who forgot a Sunday took a zero, was never told, and did not
 come back. That is the classic failure mode of a prediction game, and no amount
 of on-site polish fixes it.
 
-Exactly two emails per Grand Prix, and never any others:
+Exactly two emails per Grand Prix, and never any others — with one exception
+a year, added 2026-11: when the season is settled and the recap opens (§2.3),
+everyone who raced gets a single mail saying so, with their record and what
+their championship call paid. Same opt-out, same log, sent once.
+
+The two per Grand Prix:
 
 | When | Trigger | Content |
 | --- | --- | --- |

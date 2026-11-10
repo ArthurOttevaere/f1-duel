@@ -871,6 +871,8 @@ editor.
 | `0011_race_field_summary.sql` | `race_field_summary(season)` — per race: players, beat, drew; one aggregate over the public `scores` (security invoker) so the race lists never read every score of the season | ✅ applied 2026-09-06 (through the Supabase MCP, in the same session as the PR) |
 | `0012_player_form.sql` | `player_form(season, user_ids[], races=5)` — the last five duels of each listed player, `W`/`D`/`L` with the round and the Grand Prix, oldest first. A window function, because a hundred players by two dozen races is past the 1000-row cap | ✅ applied 2026-09-06 |
 | `0013_quali_order.sql` | `races.quali_order jsonb` — the qualifying order the prediction editor sorts its driver pool by | ✅ applied 2026-09-25 (through the Supabase MCP, in the same session as the PR) |
+| `0014_recap_email.sql` | `email_log.kind` also accepts `'recap'` — the season's one mail, logged against the season's last race. **Applied 2026-11-10.** |
+| `0015_close_operator_functions.sql` | Revokes EXECUTE on `admin_*`, `email_recipients` (and `delete_account` for `anon`) from `anon`/`authenticated`. They had answered the public key since 0006/0008 — see §9.7. **Applied 2026-11-10.** |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
@@ -1159,6 +1161,19 @@ first pass that finds both writes `season_picks.awarded_points` for every
 pick; later passes (the ten-day re-score window) recompute and write only
 what changed. A failure is caught and retried on the next pass — it never
 fails the scoring run.
+
+**Then it mails the players** (`settle_season.announce` →
+`mailer.send_recap_emails`): one mail, "Your 2026 season, replayed", to
+everyone with at least one duel in the season who has not opted out — the
+record, the race points, what the championship call paid, and a button to
+`/profile/<name>/season`. Logged in `email_log` as kind `recap` against the
+season's **last race** (migration 0014), so the ten days of re-score passes
+that follow send it to nobody twice. Unlike the race mails it is **logged
+before the send and unlogged if the send fails**: were the log ever to refuse
+the row, send-then-log would mail everybody every hour, and this order mails
+nobody and says why. By hand: `python jobs/send_mail.py recap --dry-run`,
+`--preview <address>` to see it, `--force` to send it again; the `send-mail`
+workflow has the same three under kind `recap` (leave the round empty).
 
 The recap's gate (`web/lib/recap.ts#seasonState`) is "every race `scored`
 *and* no `season_picks` row with `awarded_points` null", so that same pass
@@ -2574,6 +2589,20 @@ real navigation.
 
 ### 9.7 The gotchas that cost real debugging time
 
+- **`revoke … from public` does not close a function on Supabase.** The
+  platform's default privileges grant EXECUTE on every new function in
+  `public` to `anon` and `authenticated` *by name*, and a revoke from the
+  pseudo-role PUBLIC leaves those grants standing. From migration 0006
+  (August) to 0015 (2026-11-10) the whole operator set — `admin_players`,
+  `admin_delete_player`, `admin_model_*`, `email_recipients` — answered a
+  request signed with the anon key that every browser holds: every player's
+  email, and the deletion of any account by username. All `security
+  definer`, so RLS was no help. Found by accident, when a dry run with the
+  anon key listed nine addresses. **Any function not meant for the browser:
+  `revoke all … from public, anon, authenticated;`** — and check it with
+  `select has_function_privilege('anon', 'f(args)', 'execute')`, not by
+  reading the migration.
+
 0. **An SVG resource inside `display: none` is dead in Chrome.** The logomark
    is a `currentColor` rect with a `<mask>` cutting the car out of it. The mask
    first lived inside every `Logomark`, under one shared id, on the reasoning
@@ -3127,6 +3156,14 @@ page renders empty locally; the harness is not optional.
 | 6 | `model_entries` of rounds 1–13 of 2026 were locked `pre_quali` (§13.1.1 #3) and stay so | Those duels were played against an opponent without a grid; entries are frozen at lock and are not rewritten after the fact | None — by design. From round 14 the model has qualifying |
 
 ### 13.1.1 Fixed
+
+- **The operator functions were public** (fixed 2026-11-10, migration 0015,
+  applied to production the same hour). §9.7 has the mechanism. Checked
+  after: the anon key gets 401 on `email_recipients`, `admin_players`,
+  `admin_model_status`; `standings_page`, `model_season_points` and
+  `username_available` still answer 200; nine players before, nine after.
+  Whether anybody used it in three months is not something the database can
+  say.
 
 - **November audit, the small ones** (2026-11-10, `fix/audit-nov`). Found
   walking production signed out, desktop and phone. `/login` and every

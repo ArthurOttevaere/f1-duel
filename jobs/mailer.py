@@ -1,4 +1,5 @@
-"""The game's outbound voice: two emails per Grand Prix, sent through Resend.
+"""The game's outbound voice: two emails per Grand Prix and one per season,
+sent through Resend.
 
 Run by the jobs, never by the web app — the address lives in `auth.users` and
 only the service key can reach it (migration 0008).
@@ -157,6 +158,40 @@ def result_email(race: dict, score: dict, model_total: float,
                            f"/game/races/{race['round']}", token)
 
 
+def recap_email(season: int, username: str, won: int, drawn: int, lost: int,
+                points: float, awarded: float | None,
+                token: str) -> tuple[str, str]:
+    """Once a season: the recap is open, and the championship call is paid.
+
+    It says the record and what the call paid, and nothing else — the best
+    Sunday, the boldest call and the rest are what the page is for, and a mail
+    that told them would leave nothing to open.
+    """
+    duels = won + drawn + lost
+    gp = "Grand Prix" if duels == 1 else "Grands Prix"
+    title = f"Your {season} season, replayed"
+    lede = (f"{duels} {gp} against the model, and the table is closed. Every "
+            f"call you made this year is on one page, against what actually "
+            f"happened.")
+    tone = "#34d399" if won > lost else RACE if lost > won else "#fbbf24"
+    rows = [
+        _row("Against the model", f"{won}–{drawn}–{lost}", tone),
+        _row("Race points", f"{points:g}"),
+    ]
+    if awarded is not None:
+        rows.append(_row("Championship call",
+                         f"+{awarded:g}" if awarded > 0 else "0",
+                         "#34d399" if awarded > 0 else DIM))
+    body = f"""
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+               style="margin-top:22px;border-top:1px solid rgba(255,255,255,0.09);">
+          {"".join(rows)}
+        </table>"""
+    subject = f"Your {season} season against the model, replayed"
+    return subject, _shell(title, lede, body, "Watch your season",
+                           f"/profile/{username}/season", token)
+
+
 def send(to: str, subject: str, html: str) -> bool:
     """One email. False (with a printed reason) rather than an exception: one
     bad address must not take down a scoring run."""
@@ -253,4 +288,58 @@ def send_result_emails(race: dict, scores_by_user: dict[str, dict],
         rows.append((r, subject, html))
     sent = _deliver(race, "result", rows, dry_run)
     print(f"round {race['round']}: {len(rows)} result recipient(s), {sent} sent")
+    return sent
+
+
+def send_recap_emails(season: int, last_race: dict,
+                      seasons: dict[str, dict], force: bool = False,
+                      dry_run: bool = False, only_to: str | None = None) -> int:
+    """The season's one mail: the recap is open. To everyone who raced.
+
+    `seasons` maps user_id to {won, drawn, lost, points, awarded}; a player
+    with no duel this season is not in it and gets nothing — they have no
+    recap to open.
+
+    Logged against the season's last race (migration 0014), and — unlike the
+    race mails — **logged before the send, and unlogged if it fails**. The
+    scoring job calls this every pass for ten days after the finale. If the
+    log could not be written (the migration has not been run), a
+    send-then-log order would mail every player every hour; this order sends
+    to nobody and says why.
+    """
+    rows = []
+    for r in recipients(last_race["id"], "recap", force and not dry_run):
+        if only_to and r["email"] != only_to:
+            continue
+        mine = seasons.get(r["user_id"])
+        if not mine:
+            continue
+        subject, html = recap_email(season, r["username"], mine["won"],
+                                    mine["drawn"], mine["lost"], mine["points"],
+                                    mine["awarded"], r["token"])
+        rows.append((r, subject, html))
+
+    sent = 0
+    for r, subject, html in rows:
+        if dry_run:
+            print(f"  [dry run] {r['email']:34} {subject}")
+            continue
+        if not _enabled():
+            send(r["email"], subject, html)  # prints the "[mail off]" line
+            continue
+        try:
+            mark_sent(last_race["id"], r["user_id"], "recap")
+        except Exception as exc:  # noqa: BLE001
+            print(f"season {season}: recap mail NOT sent — the send log "
+                  f"refused the row ({exc}). Run migration "
+                  f"0014_recap_email.sql; the next pass sends it.")
+            return sent
+        if send(r["email"], subject, html):
+            sent += 1
+        else:
+            db.delete("email_log", {"race_id": f"eq.{last_race['id']}",
+                                    "user_id": f"eq.{r['user_id']}",
+                                    "kind": "eq.recap"})
+    if rows or dry_run:
+        print(f"season {season}: {len(rows)} recap recipient(s), {sent} sent")
     return sent
