@@ -14,8 +14,10 @@ import { createClient } from "@/lib/supabase/server";
  * dashboard — a recap that opens in round 21 with three races missing is a
  * worse profile page.
  *
- * `?preview=1` narrates the season so far. Development only: on production
- * the parameter is ignored, so the gate cannot be argued with from a URL.
+ * `?preview=1` narrates the season so far — in development and on Vercel's
+ * preview deployments (a pull request's own URL), so it can be looked at on a
+ * real phone before it ships. On production the parameter is ignored: the
+ * gate cannot be argued with from a URL.
  */
 export const revalidate = 300;
 
@@ -42,7 +44,9 @@ export default async function SeasonRecapPage({
   const supabase = await createClient();
 
   const previewing =
-    preview === "1" && process.env.NODE_ENV !== "production";
+    preview === "1" &&
+    (process.env.NODE_ENV !== "production" ||
+      process.env.VERCEL_ENV === "preview");
 
   const state = await seasonState(supabase, CURRENT_SEASON);
   if (!state.open && !previewing) redirect(`/profile/${username}`);

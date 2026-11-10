@@ -189,7 +189,7 @@ later passes    score-race       re-scores races scored in the last 10 days:
    ↓
 (manual)        set_dotd.py      only if dotd.py never finds the article
    ↓
-December        settle_season.py championship-pick bonuses awarded
+December        settle_season.py championship-pick bonuses awarded (by score-race, unattended)
 ```
 
 ---
@@ -1145,16 +1145,31 @@ replaced — still exists for a laptop that wants it, but no job calls it.
 
 ```bash
 python jobs/set_dotd.py 2026 13 max_verstappen   # ~2 minutes, Monday
-python jobs/settle_season.py 2026                # once, in December
+python jobs/settle_season.py 2026                # not needed: score_race.py does it
 ```
 
-**`settle_season.py` is also what opens the season recap.** The recap's gate
-(`web/lib/recap.ts#seasonState`) is "every race of the season is `scored`
-*and* no `season_picks` row of the season has `awarded_points` null". So
-after Abu Dhabi is scored: run it once, and `/profile/<name>/season`, the
-card on every profile and the button on `/game` all appear together. Until
-then the site looks exactly as it did the week before. It is idempotent — a
-re-run after a late re-score just rewrites the same numbers.
+**`settle_season.py` runs itself, and it is what opens the season recap.**
+`score_race.py` calls `settle_season.settle()` at the end of every scheduled
+pass. It is silent and does nothing until (1) every race of the season is
+`scored` and (2) Jolpica's driver **and** constructor standings both stand
+after the last round — they arrive hours after the flag, and settling on the
+previous round's table would pay the wrong champion in a year decided at the
+finale. Between the two it logs "waiting for the final one" each pass. The
+first pass that finds both writes `season_picks.awarded_points` for every
+pick; later passes (the ten-day re-score window) recompute and write only
+what changed. A failure is caught and retried on the next pass — it never
+fails the scoring run.
+
+The recap's gate (`web/lib/recap.ts#seasonState`) is "every race `scored`
+*and* no `season_picks` row with `awarded_points` null", so that same pass
+makes `/profile/<name>/season`, the card on every profile and the button on
+`/game` appear together, with nobody at a keyboard. Until then the site looks
+exactly as it did the week before.
+
+By hand it still exists: `python jobs/settle_season.py 2026` (same guards),
+`--dry-run` (print, write nothing), and `--dry-run --force` to see what would
+be paid if the season ended today. `--force` without `--dry-run` is refused —
+it would open the recap early.
 
 `set_dotd` validates the `driver_id` against the season roster, writes
 `results.dotd`, and immediately re-scores the race so the +5 lands right away.
@@ -1931,9 +1946,10 @@ the pick is immutable at the database level.
   holds the same gate.
 
   `?preview=1` narrates the season so far, eyebrow marked "preview, season
-  running". **Development only** (`NODE_ENV !== "production"`): on production
-  the parameter is ignored. That is how the page is looked at before
-  December — `npm run dev`, then `/profile/<name>/season?preview=1`.
+  running". It works in development and on **Vercel preview deployments**
+  (`VERCEL_ENV === "preview"`); on production the parameter is ignored. That
+  is how the page is looked at before December — a pull request's preview
+  URL, or `npm run dev`, then `/profile/<name>/season?preview=1`.
 
 The profile and `/game`'s season-over screen each take a `recapHref` and show
 their link only when the gate is open *and* the player raced.
@@ -2879,7 +2895,7 @@ index; that file is the manual.
 | Add a new season | `python jobs/sync_schedule.py <year>`, then set `NEXT_PUBLIC_SEASON` on Vercel |
 | Move to a custom domain | `DEPLOYMENT.md` §4b — and **add `https://<domain>/auth/callback` to the Supabase redirect list**, or every magic link and Google sign-in bounces on the new domain the moment it goes live |
 | Enter Driver of the Day | `python jobs/set_dotd.py <season> <round> <driver_id>` (Monday) |
-| Settle the season **and open the recaps** | `python jobs/settle_season.py <season>` (December, once, after the last race is scored — §8.5) |
+| Settle the season **and open the recaps** | Nothing to do — `score-race` does it once the last race is scored and the final standings are out (§8.5). To check beforehand: `python jobs/settle_season.py <season> --dry-run --force` |
 | Force a lock / score now | Actions tab → workflow → **Run workflow** |
 | Re-score a race | It re-scores automatically for 10 days; otherwise set `races.status='locked'` in SQL and run `score-race` |
 | Refresh the model after new races | `python src/collect.py <year> --force` (+ `--practice`), `python src/features.py`, then optionally `python src/train.py` |

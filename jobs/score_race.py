@@ -27,6 +27,7 @@ import dotd
 import mailer
 import model_bridge
 import scoring
+import settle_season
 
 RESCORE_DAYS = 10
 
@@ -189,6 +190,16 @@ def main() -> None:
                                  "race_at": f"gte.{rescore_window}"})
     for race in locked + recent:
         score_race(race, dry_run=args.dry_run)
+
+    # The season's last act. A no-op until every race is scored *and* the
+    # final championship table is out (see settle_season.py); the first pass
+    # that finds both pays the championship picks, which is what opens the
+    # season recap. Wrapped: a standings API having a bad hour must not turn
+    # a scoring pass that did its job into a failed run.
+    try:
+        settle_season.settle(args.season, dry_run=args.dry_run)
+    except Exception as exc:  # noqa: BLE001 — retried on the next pass
+        print(f"settle {args.season}: failed, will retry on the next pass — {exc}")
 
 
 if __name__ == "__main__":

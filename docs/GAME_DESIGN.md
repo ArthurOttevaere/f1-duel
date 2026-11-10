@@ -135,7 +135,8 @@ told as a story — one screen a chapter, turned by hand (the record and final
 position, the best Sunday, the heaviest defeat or the lack of one, the boldest
 exact call, the driver who paid most, the side bets, the championship call and
 its payout, the season total). It **does not exist until the season is
-settled**: every Grand Prix scored *and* `settle_season.py` run, so that no
+settled**: every Grand Prix scored *and* the picks paid — which the scoring
+job does by itself once the final championship table is published — so that no
 call reads "pending" on the page whose job is to pay it. Before that the
 address returns to the profile and nothing links to it; the pick stays visible
 on the profile with what it is on course for, exactly as during the year.
