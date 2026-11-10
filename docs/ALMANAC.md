@@ -871,8 +871,8 @@ editor.
 | `0011_race_field_summary.sql` | `race_field_summary(season)` — per race: players, beat, drew; one aggregate over the public `scores` (security invoker) so the race lists never read every score of the season | ✅ applied 2026-09-06 (through the Supabase MCP, in the same session as the PR) |
 | `0012_player_form.sql` | `player_form(season, user_ids[], races=5)` — the last five duels of each listed player, `W`/`D`/`L` with the round and the Grand Prix, oldest first. A window function, because a hundred players by two dozen races is past the 1000-row cap | ✅ applied 2026-09-06 |
 | `0013_quali_order.sql` | `races.quali_order jsonb` — the qualifying order the prediction editor sorts its driver pool by | ✅ applied 2026-09-25 (through the Supabase MCP, in the same session as the PR) |
-| `0014_recap_email.sql` | `email_log.kind` also accepts `'recap'` — the season's one mail, logged against the season's last race. **Applied 2026-11-10.** |
-| `0015_close_operator_functions.sql` | Revokes EXECUTE on `admin_*`, `email_recipients` (and `delete_account` for `anon`) from `anon`/`authenticated`. They had answered the public key since 0006/0008 — see §9.7. **Applied 2026-11-10.** |
+| `0014_recap_email.sql` | `email_log.kind` also accepts `'recap'` — the season's one mail, logged against the season's last race | ✅ applied 2026-11-10 (Supabase MCP) |
+| `0015_close_operator_functions.sql` | Revokes EXECUTE on `admin_*`, `email_recipients` (and `delete_account` for `anon`) from `anon`/`authenticated`. They had answered the public key since 0006/0008 — see §9.7 | ✅ applied 2026-11-10 (Supabase MCP) |
 
 The app is written to survive a missing migration rather than crash: profile
 reads use `select("*")` instead of naming new columns, and `lib/auth.ts`
