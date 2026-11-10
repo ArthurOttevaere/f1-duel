@@ -16,6 +16,11 @@ same templates, the same recipients, the same log — sent when you say so.
     # see the template, with no players and no data — goes to one address
     python jobs/send_mail.py result 11 --preview hello@f1-duel.com
 
+    # the season's one mail, "your recap is open" — no round; it goes out by
+    # itself when the season is settled (settle_season.py), this is the override
+    python jobs/send_mail.py recap --dry-run
+    python jobs/send_mail.py recap --preview hello@f1-duel.com
+
 `--force` clears `email_log` for that race and kind, so everyone is owed the
 mail again. Without it, anyone already emailed is skipped — which is what makes
 re-running safe, and what you are deliberately overriding.
@@ -39,6 +44,7 @@ import sys
 
 import db
 import mailer
+import settle_season
 
 SEASON = int(os.environ.get("SEASON") or os.environ.get("NEXT_PUBLIC_SEASON") or 2026)
 
@@ -90,6 +96,36 @@ def send_result(race: dict, args) -> int:
 PREVIEW_TOKEN = "00000000-0000-0000-0000-000000000000"
 
 
+def send_recap(args) -> int:
+    """The recap mail by hand. Refuses while the page it points at is closed."""
+    races = db.select("races", {"season": f"eq.{SEASON}"})
+    unpaid = [p for p in db.select("season_picks", {"season": f"eq.{SEASON}"})
+              if p["awarded_points"] is None]
+    if not args.dry_run and (
+            not races or any(r["status"] != "scored" for r in races) or unpaid):
+        sys.exit(f"Nothing sent. Season {SEASON} is not settled, so the recap "
+                 f"this mail links to is still closed. It goes out by itself "
+                 f"the moment it opens.")
+    return settle_season.announce(SEASON, dry_run=args.dry_run,
+                                  force=args.force, only_to=args.to)
+
+
+def preview_recap(address: str) -> int:
+    """One copy to one address: a real player's season if there is one."""
+    _, seasons = settle_season.season_summaries(SEASON)
+    mine = max(seasons.values(), key=lambda s: s["points"]) if seasons else {
+        "won": 7, "drawn": 0, "lost": 1, "points": 527.0, "awarded": None}
+    awarded = mine["awarded"] if mine["awarded"] is not None else 41.8
+    subject, html = mailer.recap_email(SEASON, "you", mine["won"], mine["drawn"],
+                                       mine["lost"], mine["points"], awarded,
+                                       PREVIEW_TOKEN)
+    print(f"  preview -> {address}: {subject}")
+    if not mailer.send(address, subject, html):
+        sys.exit("The send was refused. Check RESEND_API_KEY and MAIL_FROM.")
+    print("Sent. This was a preview: nothing was logged, no player was mailed.")
+    return 1
+
+
 def preview(race: dict, kind: str, address: str) -> int:
     """One copy of the template to one address, whatever the database holds.
 
@@ -124,9 +160,11 @@ def main() -> None:
         description="Send a race email outside the schedule.",
         epilog="Season comes from SEASON (default 2026).",
     )
-    p.add_argument("kind", choices=["lock", "result"],
-                   help="lock = Saturday's nudge, result = Monday's verdict")
-    p.add_argument("round", type=int, help="round number of the Grand Prix")
+    p.add_argument("kind", choices=["lock", "result", "recap"],
+                   help="lock = Saturday's nudge, result = Monday's verdict, "
+                        "recap = the season's one mail (takes no round)")
+    p.add_argument("round", type=int, nargs="?",
+                   help="round number of the Grand Prix (not for recap)")
     p.add_argument("--force", action="store_true",
                    help="clear the send log first, so players already emailed "
                         "get it again")
@@ -141,6 +179,24 @@ def main() -> None:
                         "sample data where the database has none. Never "
                         "logged, never sent to players")
     args = p.parse_args()
+
+    if args.kind == "recap":
+        print(f"Season {SEASON} — recap email"
+              f"{' [PREVIEW]' if args.preview else ''}"
+              f"{' [DRY RUN]' if args.dry_run else ''}"
+              f"{' [FORCED]' if args.force else ''}", flush=True)
+        if args.preview:
+            preview_recap(args.preview)
+            return
+        sent = send_recap(args)
+        if args.dry_run:
+            print("Nothing was sent.")
+        elif sent == 0:
+            print("Nothing sent. Everyone owed this mail has already had it — "
+                  "add --force to send it again.")
+        return
+    if args.round is None:
+        p.error("a round number is required for lock and result")
 
     race = race_for(args.round)
     print(f"{race['name']} (round {race['round']}, {race['status']}) — "

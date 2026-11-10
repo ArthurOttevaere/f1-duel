@@ -34,6 +34,7 @@ import argparse
 import requests
 
 import db
+import mailer
 
 DRIVER_TIERS = {1: 50.0, 2: 75.0, 3: 75.0}    # rank at lock -> bonus; P4+ below
 DRIVER_OUTSIDER = 150.0
@@ -107,7 +108,49 @@ def settle(season: int, dry_run: bool = False, force: bool = False) -> bool:
         if dry_run or not unchanged:
             print(f"  {tag}{pick['user_id'][:8]}…  {pick['champion_driver']} / "
                   f"{pick['champion_team']}  ->  +{awarded:.1f}")
+
+    # The picks are paid, so the recap is open on the site: tell the players.
+    # Not on a forced run — that is a what-if on a season still running, and
+    # the page it would point at does not exist.
+    if not force:
+        try:
+            announce(season, dry_run=dry_run)
+        except Exception as exc:  # noqa: BLE001 — retried on the next pass
+            print(f"settle {season}: recap mail failed, will retry — {exc}")
     return True
+
+
+def season_summaries(season: int) -> tuple[dict | None, dict[str, dict]]:
+    """The season's last race, and each player's year in five numbers."""
+    races = db.select("races", {"season": f"eq.{season}"})
+    if not races:
+        return None, {}
+    last_race = max(races, key=lambda r: r["round"])
+    ids = ",".join(str(r["id"]) for r in races)
+    awarded = {p["user_id"]: p["awarded_points"]
+               for p in db.select("season_picks", {"season": f"eq.{season}"})}
+    out: dict[str, dict] = {}
+    for s in db.select("scores", {"race_id": f"in.({ids})",
+                                  "select": "user_id,total,beat_model,drew_model"}):
+        mine = out.setdefault(s["user_id"], {"won": 0, "drawn": 0, "lost": 0,
+                                             "points": 0.0, "awarded": None})
+        key = "won" if s["beat_model"] else "drawn" if s["drew_model"] else "lost"
+        mine[key] += 1
+        mine["points"] = round(mine["points"] + float(s["total"]), 1)
+    for user_id, mine in out.items():
+        paid = awarded.get(user_id)
+        mine["awarded"] = None if paid is None else float(paid)
+    return last_race, out
+
+
+def announce(season: int, dry_run: bool = False, force: bool = False,
+             only_to: str | None = None) -> int:
+    """Mail everyone who raced that their recap is open. Once each (email_log)."""
+    last_race, seasons = season_summaries(season)
+    if not last_race or not seasons:
+        return 0
+    return mailer.send_recap_emails(season, last_race, seasons, force=force,
+                                    dry_run=dry_run, only_to=only_to)
 
 
 def main() -> None:
