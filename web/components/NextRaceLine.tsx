@@ -37,8 +37,13 @@ export default function NextRaceLine({
 
   return (
     <p className={`${base} ${hasTrace ? "lg:hidden" : ""} ${className}`}>
-      Round {race.round} · {race.name} · Lights out in{" "}
-      <NextRaceCountdown to={race.race_at} variant="inline" />
+      Round {race.round} · {race.name} ·{" "}
+      {/* One unbreakable piece: on a phone the line used to wrap after "in"
+          and leave the clock alone on a second line, cut off from its verb. */}
+      <span className="whitespace-nowrap">
+        Lights out in{" "}
+        <NextRaceCountdown to={race.race_at} variant="inline" />
+      </span>
     </p>
   );
 }

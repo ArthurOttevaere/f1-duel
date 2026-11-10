@@ -1,5 +1,6 @@
 "use client";
 
+import CheckerGlyph from "@/components/CheckerGlyph";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { drawPoster, posterFileName } from "@/lib/poster/draw";
@@ -239,7 +240,7 @@ export default function PosterExport({
             : "glass-chip px-4 py-2 hover:border-line-hi"
         }`}
       >
-        <span aria-hidden>🏁</span>
+        <CheckerGlyph />
         {label}
       </button>
 

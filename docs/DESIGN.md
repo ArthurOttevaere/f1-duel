@@ -1553,6 +1553,17 @@ driver who changes team changes colour without a new photo.
 Portraits are `loading="lazy" decoding="async"` and every use has an `onError`
 fallback to the driver's code on a tinted disc.
 
+**The chequered flag** (`components/CheckerGlyph.tsx`) is the footer's finish
+line at glyph size — two rows of four squares, `currentColor`, the off squares
+at 18% rather than empty so the mark keeps its rectangle on any surface. It
+stands where a 🏁 used to: the poster button and the "race locked" line. Two
+rows for the same reason as `.checker-rule`: one row is a dashed line.
+
+**No emoji, anywhere.** The flag above, a trophy on the championship banner
+and the profile's country flag were the only three; each was drawn by the
+reader's operating system, so none of them was the same mark twice, and none
+took the text colour.
+
 **And no flags.** The profile carried the owner's country as an emoji flag
 beside their username, visible to nobody else. An ornament only its owner can
 see is a setting that escaped into the layout, and a colour emoji was the one

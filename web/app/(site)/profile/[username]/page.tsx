@@ -215,10 +215,22 @@ export default async function ProfilePage({
   const themeChoice = profile.theme === "team" ? "team" : "driver";
   const paint = themeChoice === "team" ? teamPaint : driverPaint;
 
+  // Race points only: the championship call settles at season end and is not
+  // a race. One decimal, because 65.9 and 66 are different seasons.
+  const average =
+    chrono.length > 0
+      ? Math.round(
+          (chrono.reduce((sum, s) => sum + Number(s.total), 0) / chrono.length) *
+            10,
+        ) / 10
+      : null;
+
   const stats: [label: string, value: string][] = [
     ["Season points", formatPoints(total)],
     ["Best race", best ? formatPoints(Number(best.total)) : "—"],
-    ["In the paddock since", joinedOn(profile.created_at)],
+    // Not "in the paddock since": the line under the name already says it,
+    // and a spec sheet that repeats its own header has two rows, not three.
+    ["Average a race", average === null ? "—" : formatPoints(average)],
   ];
 
   return (
